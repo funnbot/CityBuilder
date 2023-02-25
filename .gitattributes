@@ -34,6 +34,7 @@
 *.mixer unityyaml
 *.shadervariants unityyaml
 *.preset unityyaml
+*.shadergraph unityyaml
 *.asmdef -text diff
 
 # Unity Binary Assets
