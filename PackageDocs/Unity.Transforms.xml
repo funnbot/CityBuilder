@@ -1,0 +1,1280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Transforms</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Transforms.ParentTransform">
+            <summary>
+            For entities with the <see cref="T:Unity.Transforms.Parent"/> component, this component contains a copy of the parent entity's
+            <see cref="T:Unity.Transforms.WorldTransform"/>.
+            </summary>
+            <remarks>
+            This component is automatically added, removed, and updated by the <see cref="T:Unity.Transforms.LocalToWorldSystem"/>.
+            You can use it to transform into and out of parent space. It is used to accelerate certain computations
+            within the <see cref="T:Unity.Transforms.TransformAspect"/>.
+            </remarks>
+        </member>
+        <member name="F:Unity.Transforms.ParentTransform.Position">
+            <summary>
+            The position of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.ParentTransform.Scale">
+            <summary>
+            The uniform scale of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.ParentTransform.Rotation">
+            <summary>
+            The rotation of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.ParentTransform.Identity">
+            <summary>
+            The identity transform.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromMatrix(Unity.Mathematics.float4x4)">
+            <summary>
+            Returns the Transform equivalent of a float4x4 matrix.
+            </summary>
+            <param name="matrix">The orthogonal matrix to convert.</param>
+            <remarks>
+            If the input matrix contains non-uniform scale, the largest value will be used.
+            </remarks>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromPositionRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given position and rotation. Scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromPositionRotationScale(Unity.Mathematics.float3,Unity.Mathematics.quaternion,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position, rotation and scale.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromPosition(Unity.Mathematics.float3)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromPosition(System.Single,System.Single,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="x">The x coordinate of the position.</param>
+            <param name="y">The y coordinate of the position.</param>
+            <param name="z">The z coordinate of the position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromRotation(Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given rotation. Position will be 0,0,0, and scale will be 1.
+            </summary>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.FromScale(System.Single)">
+            <summary>
+            Returns a Transform initialized with the given scale. Position will be 0,0,0, and rotation will be identity.
+            </summary>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.op_Explicit(Unity.Transforms.WorldTransform)~Unity.Transforms.ParentTransform">
+            <summary>
+            Explicitly convert a WorldTransform to a ParentTransform.
+            </summary>
+            <param name="world">WorldTransform to convert.</param>
+            <returns>Converted ParentTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.op_Explicit(Unity.Transforms.LocalTransform)~Unity.Transforms.ParentTransform">
+            <summary>
+            Explicitly convert a LocalTransform to a ParentTransform.
+            </summary>
+            <param name="local">LocalTransform to convert.</param>
+            <returns>Converted ParentTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.ParentTransform.ToString">
+            <summary>
+            Convert transformation data to a human-readable string
+            </summary>
+            <returns>The transform value as a human-readable string</returns>
+        </member>
+        <member name="P:Unity.Transforms.ParentTransform._Position">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Position.
+            The Position field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.ParentTransform._Scale">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Scale.
+            The Scale field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.ParentTransform._Rotation">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Rotation.
+            The Rotation field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.WorldTransform">
+             <summary>
+             Cached position, rotation and scale of an entity in world space.
+             </summary>
+             <remarks>
+             For entities with a <see cref="T:Unity.Transforms.LocalTransform"/> component), WorldTransform will be updated by the
+             <see cref="T:Unity.Transforms.LocalToWorldSystem"/>. If an entity also has a <see cref="T:Unity.Transforms.Parent"/>, then the updated
+             WorldTransform will differ from the LocalTransform by taking the parent's WorldTransform into account.
+             If an entity does not have a parent, WorldTransform will updated to be the same as LocalTransform.
+            
+             This component is a derived quantity, and should not be written to directly by application code. It may also lag
+             behind an object's true transform by up to a full frame. <see cref="T:Unity.Transforms.LocalTransform"/> stores the authoritative,
+             up-to-date copy of an entity's transform.
+            
+             This component will be automatically added to any entity with a <see cref="T:Unity.Transforms.LocalTransform"/>.
+            
+             If this component is present, <see cref="T:Unity.Transforms.LocalToWorldSystem"/> will use its value to compute the entity's
+             <see cref="T:Unity.Transforms.LocalToWorld"/> matrix.
+             </remarks>
+             <seealso cref="T:Unity.Transforms.TransformAspect"/>
+        </member>
+        <member name="F:Unity.Transforms.WorldTransform.Position">
+            <summary>
+            The position of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.WorldTransform.Scale">
+            <summary>
+            The uniform scale of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.WorldTransform.Rotation">
+            <summary>
+            The rotation of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.WorldTransform.Identity">
+            <summary>
+            The identity transform.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromMatrix(Unity.Mathematics.float4x4)">
+            <summary>
+            Returns the Transform equivalent of a float4x4 matrix.
+            </summary>
+            <param name="matrix">The orthogonal matrix to convert.</param>
+            <remarks>
+            If the input matrix contains non-uniform scale, the largest value will be used.
+            </remarks>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromPositionRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given position and rotation. Scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromPositionRotationScale(Unity.Mathematics.float3,Unity.Mathematics.quaternion,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position, rotation and scale.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromPosition(Unity.Mathematics.float3)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromPosition(System.Single,System.Single,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="x">The x coordinate of the position.</param>
+            <param name="y">The y coordinate of the position.</param>
+            <param name="z">The z coordinate of the position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromRotation(Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given rotation. Position will be 0,0,0, and scale will be 1.
+            </summary>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.FromScale(System.Single)">
+            <summary>
+            Returns a Transform initialized with the given scale. Position will be 0,0,0, and rotation will be identity.
+            </summary>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.op_Explicit(Unity.Transforms.LocalTransform)~Unity.Transforms.WorldTransform">
+            <summary>
+            Explicitly convert a LocalTransform to a WorldTransform.
+            </summary>
+            <param name="local">LocalTransform to convert.</param>
+            <returns>Converted WorldTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.op_Explicit(Unity.Transforms.ParentTransform)~Unity.Transforms.WorldTransform">
+            <summary>
+            Explicitly convert a ParentTransform to a WorldTransform.
+            </summary>
+            <param name="parent">ParentTransform to convert.</param>
+            <returns>Converted WorldTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.WorldTransform.ToString">
+            <summary>
+            Convert transformation data to a human-readable string
+            </summary>
+            <returns>The transform value as a human-readable string</returns>
+        </member>
+        <member name="P:Unity.Transforms.WorldTransform._Position">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Position.
+            The Position field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.WorldTransform._Scale">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Scale.
+            The Scale field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.WorldTransform._Rotation">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Rotation.
+            The Rotation field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.Parent">
+             <summary>
+             This component specifies the parent entity in a transform hierarchy.
+             </summary>
+             <remarks>
+             If present, this entity's transform is implicitly specified relative to the parent's transform rather than in world-space.
+            
+             Add or remove this attribute to your code in order to add, change, or remove a parent/child
+             relationship. The corresponding <see cref="T:Unity.Transforms.Child"/> component is automatically added by the <see cref="T:Unity.Transforms.ParentSystem"/>.
+            
+             When adding or modifying this component, add and update the corresponding <see cref="T:Unity.Transforms.LocalTransform"/> component.
+             </remarks>
+             <seealso cref="T:Unity.Transforms.Child"/>
+        </member>
+        <member name="F:Unity.Transforms.Parent.Value">
+            <summary>
+            The parent entity.
+            </summary>
+            <remarks>This field must refer to a valid entity. Root level entities should not use <see cref="P:Unity.Entities.Entity.Null"/>;
+            rather, they should not have the <see cref="T:Unity.Transforms.Parent"/> component at all.</remarks>
+        </member>
+        <member name="T:Unity.Transforms.PreviousParent">
+            <summary>
+            Utility component used by the <see cref="T:Unity.Transforms.ParentSystem"/> to detect changes to an entity's <see cref="T:Unity.Transforms.Parent"/>.
+            </summary>
+            <remarks>
+            The <see cref="T:Unity.Transforms.ParentSystem"/> automatically adds and manages this component.  You shouldn't
+            add, remove, or modify it in your code.
+            </remarks>
+        </member>
+        <member name="F:Unity.Transforms.PreviousParent.Value">
+            <summary>
+            The previous parent entity
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.Child">
+             <summary>
+             Contains a buffer of all elements which have assigned this entity as their <see cref="T:Unity.Transforms.Parent"/>.
+             </summary>
+             <remarks>
+             The <see cref="T:Unity.Transforms.ParentSystem"/> automatically adds and manages this component and its contents. You can read this
+             list, but you shouldn't add or remove buffer elements.
+            
+             When an entity with this component is destroyed, the <see cref="T:Unity.Transforms.ParentSystem"/> will automatically remove the
+             <see cref="T:Unity.Transforms.Parent"/> components from each child entity.
+             </remarks>
+        </member>
+        <member name="F:Unity.Transforms.Child.Value">
+            <summary>
+            A child entity
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.ParentSystem">
+            <summary>
+            This system maintains parent/child relationships between entities within a transform hierarchy.
+            </summary>
+            <remarks>
+            The system guarantees the following invariants after each update:
+            * If an entity has the <see cref="T:Unity.Transforms.Parent"/> component, it refers to a valid entity.
+            * If an entity has the <see cref="T:Unity.Transforms.Parent"/> component, the specified parent entity must have a <see cref="T:Unity.Transforms.Child"/> buffer component,
+               and this entity must be an element of that buffer.
+            * If an entity has the <see cref="T:Unity.Transforms.Parent"/> component, it also has the <see cref="T:Unity.Transforms.PreviousParent"/> component which refers to the same valid entity.
+            * If an entity does not have the <see cref="T:Unity.Transforms.Parent"/> component, it is not a member of any entity's <see cref="T:Unity.Transforms.Child"/> buffer.
+            * If an entity does not have the <see cref="T:Unity.Transforms.Parent"/> component, it does not have the <see cref="T:Unity.Transforms.PreviousParent"/> component.
+            </remarks>
+        </member>
+        <member name="M:Unity.Transforms.ParentSystem.OnCreate(Unity.Entities.SystemState@)">
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnCreate(Unity.Entities.SystemState@)"/>
+        </member>
+        <member name="M:Unity.Transforms.ParentSystem.UpdateNewParents(Unity.Entities.SystemState@)">
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnDestroy(Unity.Entities.SystemState@)"/>
+        </member>
+        <member name="M:Unity.Transforms.ParentSystem.OnUpdate(Unity.Entities.SystemState@)">
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnUpdate(Unity.Entities.SystemState@)"/>
+        </member>
+        <member name="T:Unity.Transforms.PropagateLocalToWorld">
+             <summary>
+             Entities with this tag will propagate their <see cref="T:Unity.Transforms.LocalToWorld"/> matrix to their descendants in a transform hierarchy,
+             instead of their <see cref="T:Unity.Transforms.WorldTransform"/>.
+             </summary>
+             <remarks>
+             Propagating the full <see cref="T:Unity.Transforms.LocalToWorld"/> is less efficient, but is necessary in certain cases where an entity has transform
+             data that is not reflected in <see cref="T:Unity.Transforms.WorldTransform"/>. For example:
+             - Entities with the <see cref="T:Unity.Transforms.PostTransformScale"/> component, since this matrix generally contains transform data which can not
+               be represented by <see cref="T:Unity.Transforms.WorldTransform"/> (such as non-uniform scale)
+             - Entity whose <see cref="T:Unity.Transforms.LocalToWorld"/> is written outside of the transform system, generally using <see cref="T:Unity.Entities.WriteGroupAttribute"/>.
+               A common example is entities which use the interpolation or extrapolation features provided by Unity.Physics or Unity.Netcode.
+             The presence of this component opts back into a slower transform path which ensures that an entity's descendants will use the correct
+             data to compute their own <see cref="T:Unity.Transforms.LocalToWorld"/> matrices.
+            
+             This component can be safely omitted on entities that are not parents.
+            
+             This component does not stop the transform system from writing to the <see cref="T:Unity.Transforms.LocalToWorld"/> component. If these are the desired
+             semantics, the <see cref="T:Unity.Entities.WriteGroupAttribute"/> must be used in tandem with this component.
+             </remarks>
+        </member>
+        <member name="T:Unity.Transforms.LocalToWorldSystem">
+             <summary>
+             This system computes a <see cref="T:Unity.Transforms.LocalToWorld"/> matrix for each entity
+             </summary>
+             <remarks>
+             Entity transformation hierarchies are created using the <see cref="T:Unity.Transforms.Parent"/> and <see cref="T:Unity.Transforms.LocalTransform"/>
+             components, and maintained by the <see cref="T:Unity.Transforms.ParentSystem"/>.
+            
+             For root-level / world-space entities with no <see cref="T:Unity.Transforms.Parent"/>, the <see cref="T:Unity.Transforms.LocalToWorld"/> can be
+             computed directly from the entity's <see cref="T:Unity.Transforms.LocalTransform"/>. <see cref="T:Unity.Transforms.WorldTransform"/> is written as a
+             side effect.
+            
+             For child entities, each unique hierarchy is traversed recursively, computing each child's <see cref="T:Unity.Transforms.LocalToWorld"/>
+             by composing its <see cref="T:Unity.Transforms.LocalTransform"/> with its parent's world-space transform. <see cref="T:Unity.Transforms.WorldTransform"/>
+             and <see cref="T:Unity.Transforms.ParentTransform"/> are written as a side effect.
+             </remarks>
+        </member>
+        <member name="M:Unity.Transforms.LocalToWorldSystem.OnCreate(Unity.Entities.SystemState@)">
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnCreate(Unity.Entities.SystemState@)"/>
+        </member>
+        <member name="M:Unity.Transforms.LocalToWorldSystem.OnUpdate(Unity.Entities.SystemState@)">
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnDestroy(Unity.Entities.SystemState@)"/>
+            <inheritdoc cref="M:Unity.Entities.ISystem.OnUpdate(Unity.Entities.SystemState@)"/>
+        </member>
+        <member name="T:Unity.Transforms.LocalToWorld">
+             <summary>
+             The local-to-world transformation matrix for an entity
+             </summary>
+             <remarks>
+             This matrix is primarily intended for consumption by the rendering systems.
+            
+             The matrix value is generally updated automatically by <see cref="T:Unity.Transforms.LocalToWorldSystem"/> based on the entity's
+             <see cref="T:Unity.Transforms.WorldTransform"/>.
+             These components are the preferred interface for application code to read
+             and write an entity's transformation data.
+            
+             If a system writes to this component directly outside of the Entities transform systems using a <see cref="T:Unity.Entities.WriteGroupAttribute"/>,
+             <see cref="T:Unity.Transforms.LocalToWorldSystem"/> will not overwrite this entity's matrix. In this case:
+             1. The writing system is also responsible for applying the entity's <see cref="T:Unity.Transforms.PostTransformScale"/> component (if present).
+             2. The <see cref="T:Unity.Transforms.PropagateLocalToWorld"/> attribute should be added to the entity, in order to ensure that any descendants
+                inherit the custom local-to-world matrix correctly.
+             </remarks>
+        </member>
+        <member name="F:Unity.Transforms.LocalToWorld.Value">
+            <summary>
+            The transformation matrix
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalToWorld.Right">
+            <summary>
+            The "right" vector, in the entity's world-space.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalToWorld.Up">
+            <summary>
+            The "up" vector, in the entity's world-space.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalToWorld.Forward">
+            <summary>
+            The "forward" vector, in the entity's world-space.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalToWorld.Position">
+            <summary>
+            The "entity's" position in world-space.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalToWorld.Rotation">
+            <summary>
+            The "entity's" orientation in world-space.
+            </summary>
+            <remarks>It is generally more efficient to read this value from <see cref="T:Unity.Transforms.WorldTransform"/>, rather
+            than extracting it from the local-to-world matrix.</remarks>
+        </member>
+        <member name="T:Unity.Transforms.TransformSystemGroup">
+            <summary>
+            A system group containing systems that process entity transformation data.
+            </summary>
+            <remarks>
+            This group includes systems that update any entity transformation hierarchies, compute up-to-date <see cref="T:Unity.Transforms.WorldTransform"/> values
+            for all entities and compute <see cref="T:Unity.Transforms.LocalToWorld"/> matrices.
+            </remarks>
+        </member>
+        <member name="T:Unity.Transforms.PostTransformScale">
+             <summary>
+             An optional transformation matrix used to implement non-affine
+             transformation effects such as non-uniform scale.
+             </summary>
+             <remarks>
+             If this component is present, it is applied to the entity's <see cref="T:Unity.Transforms.LocalToWorld"/> matrix
+             by the <see cref="T:Unity.Transforms.LocalToWorldSystem"/>.
+            
+             If a system writes to an entity's <see cref="T:Unity.Transforms.LocalToWorld"/> using a <see cref="T:Unity.Entities.WriteGroupAttribute"/>,
+             it is also responsible for applying this matrix if it is present.
+            
+             An entity with this component must also have the <see cref="T:Unity.Transforms.PropagateLocalToWorld"/> component if it wants
+             its descendants to inherit the effects of this matrix.
+             </remarks>
+        </member>
+        <member name="F:Unity.Transforms.PostTransformScale.Value">
+            <summary>
+            The post-transform scale matrix
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.LocalTransform">
+            <summary>
+            Position, rotation and scale of this entity, relative to the parent, or on world space, if no parent exists.
+            </summary>
+            <remarks>
+            If the entity has a <see cref="T:Unity.Transforms.Parent"/> component, LocalTransform is relative to that parent.
+            Otherwise, it is in world space.
+            </remarks>
+            <seealso cref="T:Unity.Transforms.TransformAspect"/>
+        </member>
+        <member name="F:Unity.Transforms.LocalTransform.Position">
+            <summary>
+            The position of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.LocalTransform.Scale">
+            <summary>
+            The uniform scale of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.LocalTransform.Rotation">
+            <summary>
+            The rotation of this transform.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.LocalTransform.Identity">
+            <summary>
+            The identity transform.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromMatrix(Unity.Mathematics.float4x4)">
+            <summary>
+            Returns the Transform equivalent of a float4x4 matrix.
+            </summary>
+            <param name="matrix">The orthogonal matrix to convert.</param>
+            <remarks>
+            If the input matrix contains non-uniform scale, the largest value will be used.
+            </remarks>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromPositionRotation(Unity.Mathematics.float3,Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given position and rotation. Scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromPositionRotationScale(Unity.Mathematics.float3,Unity.Mathematics.quaternion,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position, rotation and scale.
+            </summary>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromPosition(Unity.Mathematics.float3)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="position">The position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromPosition(System.Single,System.Single,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <param name="x">The x coordinate of the position.</param>
+            <param name="y">The y coordinate of the position.</param>
+            <param name="z">The z coordinate of the position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromRotation(Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given rotation. Position will be 0,0,0, and scale will be 1.
+            </summary>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.FromScale(System.Single)">
+            <summary>
+            Returns a Transform initialized with the given scale. Position will be 0,0,0, and rotation will be identity.
+            </summary>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.op_Explicit(Unity.Transforms.WorldTransform)~Unity.Transforms.LocalTransform">
+            <summary>
+            Explicitly convert a WorldTransform to a LocalTransform.
+            </summary>
+            <param name="world">WorldTransform to convert.</param>
+            <returns>Converted LocalTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.op_Explicit(Unity.Transforms.ParentTransform)~Unity.Transforms.LocalTransform">
+            <summary>
+            Explicitly convert a ParentTransform to a LocalTransform.
+            </summary>
+            <param name="parent">ParentTransform to convert.</param>
+            <returns>Converted LocalTransform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.LocalTransform.ToString">
+            <summary>
+            Convert transformation data to a human-readable string
+            </summary>
+            <returns>The transform value as a human-readable string</returns>
+        </member>
+        <member name="P:Unity.Transforms.LocalTransform._Position">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Position.
+            The Position field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalTransform._Scale">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Scale.
+            The Scale field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.LocalTransform._Rotation">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Rotation.
+            The Rotation field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.ITransformData">
+            <summary>
+            Interface for extension methods for LocalTransform, ParentTransform and WorldTransform components.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.ITransformData._Position">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Position.
+            The Position field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.ITransformData._Scale">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Scale.
+            The Scale field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.ITransformData._Rotation">
+            <summary>
+            Property so that TransformDataHelpers extension methods can access transform Rotation.
+            The Rotation field should likely be explicitly in most cases.
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.TransformDataHelpers">
+            <summary>
+            Provides extension methods for transform components.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Right``1(``0)">
+            <summary>
+            Gets the right vector of unit length.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The right vector.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Up``1(``0)">
+            <summary>
+            Gets the up vector of unit length.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The up vector.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Forward``1(``0)">
+            <summary>
+            Gets the forward vector of unit length.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The forward vector.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.TransformPoint``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Transforms a point by this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="point">The point to be transformed.</param>
+            <returns>The point after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.InverseTransformPoint``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Transforms a point by the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="point">The point to be transformed.</param>
+            <returns>The point after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.TransformDirection``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Transforms a direction by this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="direction">The direction to be transformed.</param>
+            <returns>The direction after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.InverseTransformDirection``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Transforms a direction by the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="direction">The direction to be transformed.</param>
+            <returns>The direction after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.TransformRotation``1(``0,Unity.Mathematics.quaternion)">
+            <summary>
+            Transforms a rotation by this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="rotation">The rotation to be transformed.</param>
+            <returns>The rotation after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.InverseTransformRotation``1(``0,Unity.Mathematics.quaternion)">
+            <summary>
+            Transforms a rotation by the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="rotation">The rotation to be transformed.</param>
+            <returns>The rotation after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.TransformScale``1(``0,System.Single)">
+            <summary>
+            Transforms a scale by this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="scale">The scale to be transformed.</param>
+            <returns>The scale after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.InverseTransformScale``1(``0,System.Single)">
+            <summary>
+            Transforms a scale by the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="scale">The scale to be transformed.</param>
+            <returns>The scale after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.TransformTransform``2(``0,``1)">
+            <summary>
+            Transforms a Transform by this transform.
+            </summary>
+            <typeparam name="T1">The first ITransformData type</typeparam>
+            <typeparam name="T2">The second ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="transformData">The Transform to be transformed.</param>
+            <returns>The Transform after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.InverseTransformTransform``2(``0,``1)">
+            <summary>
+            Transforms a Transform by the inverse of this transform.
+            </summary>
+            <typeparam name="T1">The first ITransformData type</typeparam>
+            <typeparam name="T2">The second ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="transformData">The Transform to be transformed.</param>
+            <returns>The Transform after transformation.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Inverse``1(``0)">
+            <summary>
+            Gets the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The inverse of the transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.ToMatrix``1(``0)">
+            <summary>
+            Gets the float4x4 equivalent of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The float4x4 matrix.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.ToInverseMatrix``1(``0)">
+            <summary>
+            Gets the float4x4 equivalent of the inverse of this transform.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <returns>The inverse float4x4 matrix.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromMatrix``1(Unity.Mathematics.float4x4)">
+            <summary>
+            Returns the Transform equivalent of a float4x4 matrix.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="matrix">The orthogonal matrix to convert.</param>
+            <remarks>
+            If the input matrix contains non-uniform scale, the largest value will be used.
+            </remarks>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromPositionRotation``1(Unity.Mathematics.float3,Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given position and rotation. Scale will be 1.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromPositionRotationScale``1(Unity.Mathematics.float3,Unity.Mathematics.quaternion,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position, rotation and scale.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="position">The position.</param>
+            <param name="rotation">The rotation.</param>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromPosition``1(Unity.Mathematics.float3)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="position">The position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromPosition``1(System.Single,System.Single,System.Single)">
+            <summary>
+            Returns a Transform initialized with the given position. Rotation will be identity, and scale will be 1.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="x">The x coordinate of the position.</param>
+            <param name="y">The y coordinate of the position.</param>
+            <param name="z">The z coordinate of the position.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromRotation``1(Unity.Mathematics.quaternion)">
+            <summary>
+            Returns a Transform initialized with the given rotation. Position will be 0,0,0, and scale will be 1.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="rotation">The rotation.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.FromScale``1(System.Single)">
+            <summary>
+            Returns a Transform initialized with the given scale. Position will be 0,0,0, and rotation will be identity.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="scale">The scale.</param>
+            <returns>The Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.WithPosition``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Gets an identical transform with a new position value.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="position">The position.</param>
+            <returns>The transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.WithPosition``1(``0,System.Single,System.Single,System.Single)">
+            <summary>
+            Creates a transform that is identical but with a new position value.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="x">The x coordinate of the new position.</param>
+            <param name="y">The y coordinate of the new position.</param>
+            <param name="z">The z coordinate of the new position.</param>
+            <returns>The new transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.WithRotation``1(``0,Unity.Mathematics.quaternion)">
+            <summary>
+            Gets an identical transform with a new rotation value.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="rotation">The rotation.</param>
+            <returns>The transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.WithScale``1(``0,System.Single)">
+            <summary>
+            Gets an identical transform with a new scale value.
+            </summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="scale">The scale.</param>
+            <returns>The T.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Translate``1(``0,Unity.Mathematics.float3)">
+            <summary>
+            Translates this transform by the specified vector.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="translation">The translation vector.</param>
+            <returns>A new, translated Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.ApplyScale``1(``0,System.Single)">
+            <summary>
+            Scales this transform by the specified factor.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="scale">The scaling factor.</param>
+            <returns>A new, scaled Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Rotate``1(``0,Unity.Mathematics.quaternion)">
+            <summary>
+            Rotates this Transform by the specified quaternion.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="rotation">The rotation quaternion of unit length.</param>
+            <returns>A new, rotated Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.RotateX``1(``0,System.Single)">
+            <summary>
+            Rotates this Transform around the X axis.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="angle">The X rotation.</param>
+            <returns>A new, rotated Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.RotateY``1(``0,System.Single)">
+            <summary>
+            Rotates this Transform around the Y axis.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="angle">The Y rotation.</param>
+            <returns>A new, rotated Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.RotateZ``1(``0,System.Single)">
+            <summary>
+            Rotates this Transform around the Z axis.
+            </summary>
+            <remarks>
+            Note that this doesn't modify the original transform. Rather it returns a new one.
+            </remarks>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="angle">The Z rotation.</param>
+            <returns>A new, rotated Transform.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformDataHelpers.Equals``1(``0,``0@)">
+            <summary>Checks if a transform has equal position, rotation, and scale to another.</summary>
+            <typeparam name="T">The ITransformData type</typeparam>
+            <param name="data">The target transform object for this extension method.</param>
+            <param name="other">The TransformData to compare.</param>
+            <returns>Returns true if the position, rotation, and scale are equal.</returns>
+        </member>
+        <member name="T:Unity.Transforms.TransformAspect">
+            <summary>
+            The TransformAspect allows access to the entity's transforms.
+            If the entity has a parent, the TransformAspect will automatically keep LocalTransform and
+            WorldTransform in sync with each other.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.WorldTransform">
+            <summary>
+            The local to world transform, or how the entity is positioned, rotated and scaled in world space.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.LocalTransform">
+            <summary>
+            The local to parent transform, or how the entity is positioned, rotated and scaled relative to its parent.
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.WorldPosition">
+            <summary>The world space position of the entity.</summary>
+            <remarks>This value may be stale by up to one frame. <see cref="P:Unity.Transforms.TransformAspect.LocalPosition"/> is always up to date.</remarks>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Position">
+            <summary>Obsolete. Use <see cref="P:Unity.Transforms.TransformAspect.WorldPosition"/> instead.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.WorldScale">
+            <summary>The world space scale of the entity.</summary>
+            <remarks>This value may be stale by up to one frame. <see cref="P:Unity.Transforms.TransformAspect.LocalScale"/> is always up to date.</remarks>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Scale">
+            <summary>Obsolete. Use <see cref="P:Unity.Transforms.TransformAspect.WorldScale"/> instead.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.WorldRotation">
+            <summary>The world space rotation of the entity.</summary>
+            <remarks>This value may be stale by up to one frame. <see cref="P:Unity.Transforms.TransformAspect.LocalRotation"/> is always up to date.</remarks>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Rotation">
+            <summary>Obsolete. Use <see cref="P:Unity.Transforms.TransformAspect.WorldRotation"/> instead.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.LocalPosition">
+            <summary>The position of this entity relative to its parent.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.LocalRotation">
+            <summary>The rotation of this entity relative to its parent.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.LocalScale">
+            <summary>The scale of this entity relative to its parent.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.ParentTransform">
+            <summary>This is a copy of the parent's LocalToWorld transform</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Forward">
+            <summary>The forward direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Back">
+            <summary>The back direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Up">
+            <summary>The up direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Down">
+            <summary>The down direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Right">
+            <summary>The right direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Left">
+            <summary>The left direction in world space.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.WorldMatrix">
+            <summary>Convert the LocalToWorld transform into a matrix.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.InverseWorldMatrix">
+            <summary>Convert the inverse of the LocalToWorld transform into a matrix.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.ParentMatrix">
+            <summary>Convert the ParentToWorld transform into a matrix.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.InverseParentMatrix">
+            <summary>Convert the inverse of the ParentToWorld transform into a matrix.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.LocalMatrix">
+            <summary>Convert the LocalToParent transform into a matrix.</summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.InverseLocalMatrix">
+            <summary>Convert the inverse of the LocalToParent transform into a matrix.</summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TranslateWorld(Unity.Mathematics.float3)">
+            <summary>Translate the entity in world space.</summary>
+            <param name="translation">The relative translation.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.RotateWorld(Unity.Mathematics.quaternion)">
+            <summary>Rotate the entity in world space.</summary>
+            <param name="rotation">The relative rotation.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TranslateLocal(Unity.Mathematics.float3)">
+            <summary>Translate the entity relative to its parent.</summary>
+            <param name="translation">The relative translation.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.RotateLocal(Unity.Mathematics.quaternion)">
+            <summary>Rotate the entity relative to its parent.</summary>
+            <param name="rotation">The relative rotation.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformPointParentToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a point from parent space into world space.</summary>
+            <param name="point">The point to transform</param>
+            <returns>The transformed point</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformPointWorldToParent(Unity.Mathematics.float3)">
+            <summary>Transform a point from world space into parent space.</summary>
+            <param name="point">The point to transform</param>
+            <returns>The transformed point</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformPointLocalToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a point from local space into world space.</summary>
+            <param name="point">The point to transform</param>
+            <returns>The transformed point</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformPointWorldToLocal(Unity.Mathematics.float3)">
+            <summary>Transform a point from world space into local space.</summary>
+            <param name="point">The point to transform</param>
+            <returns>The transformed point</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformDirectionParentToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a direction vector from parent space into world space.</summary>
+            <param name="direction">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformDirectionWorldToParent(Unity.Mathematics.float3)">
+            <summary>Transform a direction vector from world space into parent space.</summary>
+            <param name="direction">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformDirectionLocalToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a direction vector from local space into world space.</summary>
+            <param name="direction">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformDirectionWorldToLocal(Unity.Mathematics.float3)">
+            <summary>Transform a direction vector from world space into local space.</summary>
+            <param name="direction">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformRotationParentToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a rotation quaternion from parent space into world space.</summary>
+            <param name="rotation">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformRotationWorldToParent(Unity.Mathematics.float3)">
+            <summary>Transform a rotation quaternion from world space into parent space.</summary>
+            <param name="rotation">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformRotationLocalToWorld(Unity.Mathematics.float3)">
+            <summary>Transform a rotation quaternion from local space into world space.</summary>
+            <param name="rotation">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TransformRotationWorldToLocal(Unity.Mathematics.float3)">
+            <summary>Transform a rotation quaternion from world space into local space.</summary>
+            <param name="rotation">The direction to transform</param>
+            <returns>The transformed direction</returns>>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.LookAt(Unity.Mathematics.float3)">
+             <summary>
+             Compute the rotation so that the forward vector points to the target.
+             The up vector is assumed to be world up.
+            </summary>
+             <param name="targetPosition">The world space point to look at</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.LookAt(Unity.Mathematics.float3,Unity.Mathematics.float3)">
+             <summary>
+             Compute the rotation so that the forward vector points to the target.
+             This version takes an up vector.
+            </summary>
+             <param name="targetPosition">The world space point to look at</param>
+             <param name="up">The up vector</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.#ctor(Unity.Entities.RefRW{Unity.Transforms.LocalTransform},Unity.Entities.RefRW{Unity.Transforms.ParentTransform},Unity.Entities.RefRW{Unity.Transforms.WorldTransform})">
+            <summary>
+            Construct an instance of the enclosing aspect from all required data references.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.CreateAspect(Unity.Entities.Entity,Unity.Entities.SystemState@,System.Boolean)">
+            <summary>
+            Create an instance of the enclosing aspect struct pointing at a specific entity's components data.
+            </summary>
+            <param name="entity">The entity to create the aspect struct from.</param>
+            <param name="systemState">The system state from which data is extracted.</param>
+            <param name="isReadOnly">Set to true to force all reference to data to be read-only.</param>
+            <returns>Instance of the aspect struct pointing at a specific entity's components data.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.AddComponentRequirementsTo(Unity.Collections.LowLevel.Unsafe.UnsafeList{Unity.Entities.ComponentType}@,Unity.Collections.LowLevel.Unsafe.UnsafeList{Unity.Entities.ComponentType}@,Unity.Collections.LowLevel.Unsafe.UnsafeList{Unity.Entities.ComponentType}@,Unity.Collections.LowLevel.Unsafe.UnsafeList{Unity.Entities.ComponentType}@,Unity.Collections.LowLevel.Unsafe.UnsafeList{Unity.Entities.ComponentType}@,System.Boolean)">
+            <summary>
+            Add component requirements from this aspect into all / any / none archetype lists.
+            </summary>
+            <param name="all">Archetype "all" component requirements.</param>
+            <param name="any">Archetype "any" component requirements.</param>
+            <param name="none">Archetype "none" component requirements.</param>
+            <param name="disabled">Archetype "disabled" component requirements.</param>
+            <param name="absent">Archetype "absent" component requirements.</param>
+            <param name="isReadOnly">set to true to force all components to be read-only.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:Unity.Transforms.TransformAspect.Lookup" -->
+        <member name="M:Unity.Transforms.TransformAspect.Lookup.#ctor(Unity.Entities.SystemState@,System.Boolean)">
+            <summary>
+            Create the aspect lookup from an system state.
+            </summary>
+            <param name="state">The system state to create the aspect lookup from.</param>
+            <param name="isReadOnly">Set to true to force all reference in the aspect to be read-only.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.Lookup.Update(Unity.Entities.SystemState@)">
+            <summary>
+            Update the lookup container.
+            Must be called every frames before using the lookup.
+            </summary>
+            <param name="state">The system state the aspect lookup was created from.</param>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Lookup.Item(Unity.Entities.Entity)">
+            <summary>
+            Get an aspect instance pointing at a specific entity's components data.
+            </summary>
+            <param name="entity">The entity to create the aspect struct from.</param>
+            <returns>Instance of the aspect struct pointing at a specific entity's components data.</returns>
+        </member>
+        <member name="T:Unity.Transforms.TransformAspect.ResolvedChunk">
+            <summary>
+            Chunk of the enclosing aspect instances.
+            the aspect struct itself is instantiated from multiple component data chunks.
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.TransformAspect.ResolvedChunk.TransformAspect_m_LocalTransformNaC">
+            <summary>
+            Chunk data for aspect field 'TransformAspect.m_LocalTransform'
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.TransformAspect.ResolvedChunk.TransformAspect_m_ParentTransformNaC">
+            <summary>
+            Chunk data for aspect field 'TransformAspect.m_ParentTransform'
+            </summary>
+        </member>
+        <member name="F:Unity.Transforms.TransformAspect.ResolvedChunk.TransformAspect_m_WorldTransformNaC">
+            <summary>
+            Chunk data for aspect field 'TransformAspect.m_WorldTransform'
+            </summary>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.ResolvedChunk.Item(System.Int32)">
+            <summary>
+            Get an aspect instance pointing at a specific entity's component data in the chunk index.
+            </summary>
+            <param name="index"></param>
+            <returns>Aspect for the entity in the chunk at the given index.</returns>
+        </member>
+        <member name="F:Unity.Transforms.TransformAspect.ResolvedChunk.Length">
+            <summary>
+            Number of entities in this chunk.
+            </summary>
+        </member>
+        <member name="T:Unity.Transforms.TransformAspect.TypeHandle">
+            <summary>
+            A handle to the enclosing aspect type, used to access a <see cref="T:Unity.Transforms.TransformAspect.ResolvedChunk"/>'s components data in a job.
+            Equivalent to <see cref="T:Unity.Entities.ComponentTypeHandle`1"/> but for aspect types.
+            Constructed from an system state via its constructor.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TypeHandle.#ctor(Unity.Entities.SystemState@,System.Boolean)">
+            <summary>
+            Create the aspect type handle from an system state.
+            </summary>
+            <param name="state">System state to create the type handle from.</param>
+            <param name="isReadOnly">Set to true to force all reference in the aspect to be read-only.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TypeHandle.Update(Unity.Entities.SystemState@)">
+            <summary>
+            Update the type handle container.
+            Must be called every frames before using the type handle.
+            </summary>
+            <param name="state">The system state the aspect type handle was created from.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.TypeHandle.Resolve(Unity.Entities.ArchetypeChunk)">
+            <summary>
+            Get the enclosing aspect's <see cref="T:Unity.Transforms.TransformAspect.ResolvedChunk"/> from an <see cref="T:Unity.Entities.ArchetypeChunk"/>.
+            </summary>
+            <param name="chunk">The ArchetypeChunk to extract the aspect's ResolvedChunk from.</param>
+            <returns>A ResolvedChunk representing all instances of the aspect in the chunk.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.Query(Unity.Entities.EntityQuery,Unity.Transforms.TransformAspect.TypeHandle)">
+            <summary>
+            Enumerate the enclosing aspect from all entities in a query.
+            </summary>
+            <param name="query">The entity query to enumerate.</param>
+            <param name="typeHandle">The aspect's enclosing type handle.</param>
+            <returns>An enumerator of all the entities instance of the enclosing aspect.</returns>
+        </member>
+        <member name="T:Unity.Transforms.TransformAspect.Enumerator">
+            <summary>
+            Enumerable and Enumerator of the enclosing aspect.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.Enumerator.Dispose">
+            <summary>
+            Dispose of this enumerator.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.Enumerator.MoveNext">
+            <summary>
+            Move to next entity.
+            </summary>
+            <returns>if this enumerator has not reach the end of the enumeration yet. Current is valid.</returns>
+        </member>
+        <member name="P:Unity.Transforms.TransformAspect.Enumerator.Current">
+            <summary>
+            Get current entity aspect.
+            </summary>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.Enumerator.GetEnumerator">
+            <summary>
+            Get the Enumerator from itself as a Enumerable.
+            </summary>
+            <returns>An Enumerator of the enclosing aspect.</returns>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.CompleteDependencyBeforeRO(Unity.Entities.SystemState@)">
+            <summary>
+            Completes the dependency chain required for this aspect to have read access.
+            So it completes all write dependencies of the components, buffers, etc. to allow for reading.
+            </summary>
+            <param name="state">The <see cref="T:Unity.Entities.SystemState"/> containing an <see cref="T:Unity.Entities.EntityManager"/> storing all dependencies.</param>
+        </member>
+        <member name="M:Unity.Transforms.TransformAspect.CompleteDependencyBeforeRW(Unity.Entities.SystemState@)">
+            <summary>
+            Completes the dependency chain required for this component to have read and write access.
+            So it completes all write dependencies of the components, buffers, etc. to allow for reading,
+            and it completes all read dependencies, so we can write to it.
+            </summary>
+            <param name="state">The <see cref="T:Unity.Entities.SystemState"/> containing an <see cref="T:Unity.Entities.EntityManager"/> storing all dependencies.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2756 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Addressables</name>
+    </assembly>
+    <members>
+        <member name="M:UnityEngine.AddressableAssets.Utility.ResourceManagerDiagnostics.#ctor(UnityEngine.ResourceManagement.ResourceManager)">
+            <summary>
+            This class is responsible for passing events from the resource manager to the event collector,
+            </summary>
+            <param name="resourceManager"></param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Utility.SerializationUtilities.ReadObjectFromByteArray(System.Byte[],System.Int32)">
+            <summary>
+            Deserializes an object from an array at a specified index.  Supported types are ASCIIString, UnicodeString, UInt16, UInt32, Int32, Hash128, JsonObject
+            </summary>
+            <param name="keyData">The array of bytes for the object. The first byte is the ObjectType. The rest depends on the type.</param>
+            <param name="dataIndex">The index of the first byte of the data.</param>
+            <returns>The deserialized object.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Utility.SerializationUtilities.WriteObjectToByteList(System.Object,System.Collections.Generic.List{System.Byte})">
+            <summary>
+            Write an object to a byte array
+            </summary>
+            <param name="obj">The object to write.</param>
+            <param name="buffer">The list of bytes to write to.</param>
+            <returns>The number of bytes written.</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties">
+            <summary>
+            Supports the evaluation of embedded runtime variables in addressables locations
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.SetPropertyValue(System.String,System.String)">
+            <summary>
+            Predefine a runtime property.
+            </summary>
+            <param name="name">The property name.</param>
+            <param name="val">The property value.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.ClearCachedPropertyValues">
+            <summary>
+            This will clear all PropertyValues that have been cached.  This includes all values set by
+            <see cref="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.SetPropertyValue(System.String,System.String)"/> as well as any reflection-evaluated properties.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.EvaluateProperty(System.String)">
+            <summary>
+            Evaluates a named property using cached values and static public fields and properties.  Be aware that a field or property may be stripped if not referenced anywhere else.
+            </summary>
+            <param name="name">The property name.</param>
+            <returns>The value of the property.  If not found, the name is returned.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.EvaluateString(System.String)">
+            <summary>
+            Evaluates all tokens deliminated by '{' and '}' in a string and evaluates them with the EvaluateProperty method.
+            </summary>
+            <param name="input">The input string.</param>
+            <returns>The evaluated string after resolving all tokens.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.AddressablesRuntimeProperties.EvaluateString(System.String,System.Char,System.Char,System.Func{System.String,System.String})">
+            <summary>
+            Evaluates all tokens deliminated by the specified delimiters in a string and evaluates them with the supplied method.
+            </summary>
+            <param name="inputString">The string to evaluate.</param>
+            <param name="startDelimiter">The start token delimiter.</param>
+            <param name="endDelimiter">The end token delimiter.</param>
+            <param name="varFunc">Func that has a single string parameter and returns a string.</param>
+            <returns>The evaluated string.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.InitializationOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Initialization.CacheInitialization">
+            <summary>
+            IInitializableObject that sets up the Caching system.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.CacheInitialization.Initialize(System.String,System.String)">
+            <summary>
+            Sets properties of the Caching system.
+            </summary>
+            <param name="id">The id of thei object.</param>
+            <param name="dataStr">The JSON serialized CacheInitializationData object.</param>
+            <returns>True if the initialization succeeded.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.CacheInitialization.InitializeAsync(UnityEngine.ResourceManagement.ResourceManager,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitialization.RootPath">
+            <summary>
+            The root path of the cache.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Initialization.CacheInitialization.CacheInitOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Initialization.CacheInitializationData">
+            <summary>
+            Contains settings for the Caching system.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitializationData.CompressionEnabled">
+            <summary>
+            Enable recompression of asset bundles into LZ4 format as they are saved to the cache.  This sets the Caching.compressionEnabled value.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitializationData.CacheDirectoryOverride">
+            <summary>
+            If not null or empty a new cache is created using Caching.AddCache and it is set active by assigning it to Caching.currentCacheForWriting.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitializationData.ExpirationDelay">
+            <summary>
+            Controls how long bundles are kept in the cache. This value is applied to Caching.currentCacheForWriting.expirationDelay.  The value is in seconds and has a limit of 12960000 (150 days).
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitializationData.LimitCacheSize">
+            <summary>
+            If true, the maximum cache size will be set to MaximumCacheSize.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.CacheInitializationData.MaximumCacheSize">
+            <summary>
+            The maximum size of the cache in bytes.  This value is applied to Caching.currentCacheForWriting.maximumAvailableStorageSpace.  This will only be set if LimitCacheSize is true.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData">
+            <summary>
+            Runtime data that is used to initialize the Addressables system.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.kCatalogAddress">
+            <summary>
+            Address of the contained catalogs.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.BuildTarget">
+            <summary>
+            The name of the build target that this data was prepared for.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.SettingsHash">
+            <summary>
+            The hash of the settings that generated this runtime data.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.CatalogLocations">
+            <summary>
+            List of catalog locations to download in order (try remote first, then local)
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.ProfileEvents">
+            <summary>
+            Flag to control whether the ResourceManager sends profiler events.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.LogResourceManagerExceptions">
+            <summary>
+            When enabled, the Addressables.ResourceManager.ExceptionHandler is set to (op, ex) => Debug.LogException(ex);
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.InitializationObjects">
+            <summary>
+            The list of initialization data.  These objects will get deserialized and initialized during the Addressables initialization process.  This happens after resource providers have been set up but before any catalogs are loaded.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.DisableCatalogUpdateOnStartup">
+            <summary>
+            Determine if we should check for Remote Catalogs on during initialization.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.IsLocalCatalogInBundle">
+            <summary>
+            Whether the local catalog has been serialized in an asset bundle or as json
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.CertificateHandlerType">
+            <summary>
+            The type of CertificateHandler to use for this provider.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.AddressablesVersion">
+            <summary>
+            The current active version of the Addressables package.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.MaxConcurrentWebRequests">
+            <summary>
+            The maximum number of concurrent web requests.  This value will be clamped from 1 to 1024.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData.CatalogRequestsTimeout">
+            <summary>
+            The time until a catalog hash or json UnityWebRequest download will timeout in seconds. 0 for Default timeout.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.UpdateCatalogsOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.UpdateCatalogsOperation.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.CheckCatalogsOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.CheckCatalogsOperation.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry">
+            <summary>
+            Contains serializable data for an IResourceLocation
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.InternalId">
+            <summary>
+            Internl id.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.Provider">
+            <summary>
+            IResourceProvider identifier.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.Keys">
+            <summary>
+            Keys for this location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.Dependencies">
+            <summary>
+            Dependency keys.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.Data">
+            <summary>
+            Serializable data for the provider.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.ResourceType">
+            <summary>
+            The type of the resource for th location.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry.#ctor(System.Type,System.String,System.String,System.Collections.Generic.IEnumerable{System.Object},System.Collections.Generic.IEnumerable{System.Object},System.Object)">
+            <summary>
+            Creates a new ContentCatalogEntry object.
+            </summary>
+            <param name="type">The entry type.</param>
+            <param name="internalId">The internal id.</param>
+            <param name="provider">The provider id.</param>
+            <param name="keys">The collection of keys that can be used to retrieve this entry.</param>
+            <param name="dependencies">Optional collection of keys for dependencies.</param>
+            <param name="extraData">Optional additional data to be passed to the provider.  For example, AssetBundleProviders use this for cache and crc data.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData">
+            <summary>
+            Container for ContentCatalogEntries.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.ProviderId">
+            <summary>
+            Stores the id of the data provider.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.InstanceProviderData">
+            <summary>
+            Data for the Addressables.ResourceManager.InstanceProvider initialization;
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.SceneProviderData">
+            <summary>
+            Data for the Addressables.ResourceManager.InstanceProvider initialization;
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.ResourceProviderData">
+            <summary>
+            The list of resource provider data.  Each entry will add an IResourceProvider to the Addressables.ResourceManager.ResourceProviders list.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.#ctor(System.String)">
+            <summary>
+            Creates a new ContentCatalogData object with the specified locator id.
+            </summary>
+            <param name="id">The id of the locator.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.#ctor">
+            <summary>
+            Create a new ContentCatalogData object without any data.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.#ctor(System.Collections.Generic.IList{UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry},System.String)">
+            <summary>
+            Creates a new ContentCatalogData object with the specified locator id.
+            </summary>
+            <param name="id">The id of the locator.</param>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.ProviderIds">
+            <summary>
+            The IDs for the Resource Providers.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.InternalIds">
+            <summary>
+            Internal Content Catalog Entry IDs for Addressable Assets.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.CreateLocator(System.String)">
+            <summary>
+            Create IResourceLocator object
+            </summary>
+            <param name="providerSuffix">If specified, this value will be appeneded to all provider ids.  This is used when loading additional catalogs that need to have unique providers.</param>
+            <returns>ResourceLocationMap, which implements the IResourceLocator interface.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.SetData(System.Collections.Generic.IList{UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry},System.Boolean)">
+            <summary>
+            Sets the catalog data before serialization.
+            </summary>
+            <param name="data">The list of catalog entries.</param>
+            <param name="optimizeSize">Whether to optimize the catalog size by extracting common internal id prefixes.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogData.SetData(System.Collections.Generic.IList{UnityEngine.AddressableAssets.ResourceLocators.ContentCatalogDataEntry})">
+            <summary>
+            Sets the catalog data before serialization.
+            </summary>
+            <param name="data">The list of catalog entries.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData">
+            <summary>
+            Serializable location data.  This is used for the locations of the content catalogs.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.Keys">
+            <summary>
+            The collection of keys for this location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.InternalId">
+            <summary>
+            The internal id.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.Provider">
+            <summary>
+            The provider id.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.Dependencies">
+            <summary>
+            The collection of dependencies for this location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.ResourceType">
+            <summary>
+            The type of the resource for the location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.Data">
+            <summary>
+            The optional arbitrary data stored along with location
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData.#ctor(System.String[],System.String,System.Type,System.Type,System.String[])">
+            <summary>
+            Construct a new ResourceLocationData object.
+            </summary>
+            <param name="keys">Array of keys for the location.  This must contain at least one item.</param>
+            <param name="id">The internal id.</param>
+            <param name="provider">The provider id.</param>
+            <param name="t">The resource object type.</param>
+            <param name="dependencies">Optional array of dependencies.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.LegacyResourcesLocator">
+            <summary>
+            Simple locator that acts as a passthrough for assets loaded from resources directories.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.LegacyResourcesLocator.Locate(System.Object,System.Type,System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation}@)">
+            <summary>
+            The key is converted to a string and used as the internal id of the location added to the locations parameter.
+            </summary>
+            <param name="key">The key of the location.  This should be a string with the resources path of the asset.</param>
+            <param name="type">The resource type.</param>
+            <param name="locations">The list of locations.  This will have at most one item.</param>
+            <returns>True if the key is a string object and a location was created, false otherwise.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.LegacyResourcesLocator.Keys">
+            <summary>
+            The keys available in this locator.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.LegacyResourcesLocator.LocatorId">
+            <summary>
+            Id of locator.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator">
+            <summary>
+            Interface used by the Addressables system to find the locations of a given key.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator.LocatorId">
+            <summary>
+            The id for this locator.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator.Keys">
+            <summary>
+            The keys defined by this locator.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator.Locate(System.Object,System.Type,System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation}@)">
+            <summary>
+            Retrieve the locations from a specified key.
+            </summary>
+            <param name="key">The key to use.</param>
+            <param name="type">The resource type.</param>
+            <param name="locations">The resulting set of locations for the key.</param>
+            <returns>True if any locations were found with the specified key.</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap">
+            <summary>
+            Simple implementation of an IResourceLocator
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.#ctor(System.String,System.Int32)">
+            <summary>
+            Construct a new ResourceLocationMap object.
+            </summary>
+            <param name="id">The locator id.</param>
+            <param name="capacity">The expected number of items.</param>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.LocatorId">
+            <summary>
+            Stores the resource locator id.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.#ctor(System.String,System.Collections.Generic.IList{UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationData})">
+            <summary>
+            Construct a new ResourceLocationMap object with a list of locations.
+            </summary>
+            <param name="id">The locator id.</param>
+            <param name="locations">The list of locations to initialize with.</param>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.locations">
+            <summary>
+            The mapping of key to location lists.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.Locations">
+            <summary>
+            Map of all locations for this locator.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.Keys">
+            <summary>
+            The keys available in this locator.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.Locate(System.Object,System.Type,System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation}@)">
+            <summary>
+            Locate all of the locations that match the given key.
+            </summary>
+            <param name="key">The key used to locate the locations.</param>
+            <param name="type">The resource type.</param>
+            <param name="locations">The list of found locations.  This list is shared so it should not be modified.</param>
+            <returns>Returns true if a location was found. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.Add(System.Object,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Add a new location.
+            </summary>
+            <param name="key">The key to reference the location.</param>
+            <param name="location">The location to add.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocators.ResourceLocationMap.Add(System.Object,System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation})">
+            <summary>
+            Add a list of locations.
+            </summary>
+            <param name="key">The key to reference the locations with.</param>
+            <param name="locations">The list of locations to store at the given key.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider">
+            <summary>
+            Provider for content catalogs.  This provider makes use of a hash file to determine if a newer version of the catalog needs to be downloaded.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.DependencyHashIndex">
+            <summary>
+            Options for specifying which entry in the catalog dependencies should hold each hash item.
+             The Remote should point to the hash on the server.  The Cache should point to the
+             local cache copy of the remote data.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.DependencyHashIndex.Remote">
+            <summary>
+            Use to represent the index of the remote entry in the dependencies list.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.DependencyHashIndex.Cache">
+            <summary>
+            Use to represent the index of the cache entry in the dependencies list.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.DependencyHashIndex.Count">
+            <summary>
+            Use to represent the number of entries in the dependencies list.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.DisableCatalogUpdateOnStart">
+            <summary>
+            Use to indicate if the updating the catalog on startup should be disabled.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.IsLocalCatalogInBundle">
+            <summary>
+            Use to indicate if the local catalog is in a bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.#ctor(UnityEngine.ResourceManagement.ResourceManager)">
+            <summary>
+            Constructor for this provider.
+            </summary>
+            <param name="resourceManagerInstance">The resource manager to use.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.InternalOp.Release">
+            <summary>
+            Clear all content catalog data.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceProviders.ContentCatalogProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.CleanBundleCacheOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceT`1">
+            <summary>
+            Generic version of AssetReference class.  This should not be used directly as CustomPropertyDrawers do not support generic types.  Instead use the concrete derived classes such as AssetReferenceGameObject.
+            </summary>
+            <typeparam name="TObject"></typeparam>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceT`1.#ctor(System.String)">
+            <summary>
+            Construct a new AssetReference object.
+            </summary>
+            <param name="guid">The guid of the asset.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceT`1.LoadAsset">
+             <summary>
+             Load the referenced asset as type TObject.
+             This cannot be used a second time until the first load is released. If you wish to call load multiple times
+             on an AssetReference, use <see cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)"/> and pass your AssetReference in as the key.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+             </summary>
+             <returns>The load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceT`1.LoadAssetAsync">
+             <summary>
+             Load the referenced asset as type TObject.
+             This cannot be used a second time until the first load is released. If you wish to call load multiple times
+             on an AssetReference, use <see cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)"/> and pass your AssetReference in as the key.
+             on an AssetReference, use Addressables.LoadAssetAsync&lt;&gt;() and pass your AssetReference in as the key.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+             </summary>
+             <returns>The load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceT`1.ValidateAsset(UnityEngine.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceT`1.ValidateAsset(System.String)">
+            <summary>
+            Validates that the asset located at a path is allowable for this asset reference. An asset is allowable if
+            it is of the correct type or if one of its sub-asset is.
+            </summary>
+            <param name="mainAssetPath">The path to the asset in question.</param>
+            <returns>Whether the referenced asset is valid.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReferenceT`1.editorAsset">
+            <summary>
+            Type-specific override of parent editorAsset.  Used by the editor to represent the main asset referenced.
+            </summary>
+            <returns>Editor Asset as type TObject, else null</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceGameObject">
+            <summary>
+            GameObject only asset reference.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceGameObject.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a GameObject.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceTexture">
+            <summary>
+            Texture only asset reference.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceTexture.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a Texture.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceTexture2D">
+            <summary>
+            Texture2D only asset reference.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceTexture2D.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a Texture2D.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceTexture3D">
+            <summary>
+            Texture3D only asset reference
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceTexture3D.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a Texture3D.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceSprite">
+            <summary>
+            Sprite only asset reference.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceSprite.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a AssetReferenceSprite.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceSprite.ValidateAsset(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReferenceSprite.editorAsset">
+            <summary>
+            Typeless override of parent editorAsset. Used by the editor to represent the main asset referenced.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReferenceAtlasedSprite">
+            <summary>
+            Assetreference that only allows atlassed sprites.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceAtlasedSprite.#ctor(System.String)">
+            <summary>
+            Constructs a new reference to a AssetReferenceAtlasedSprite.
+            </summary>
+            <param name="guid">The object guid.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceAtlasedSprite.ValidateAsset(UnityEngine.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReferenceAtlasedSprite.ValidateAsset(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReferenceAtlasedSprite.editorAsset">
+            <summary>
+            SpriteAtlas Type-specific override of parent editorAsset. Used by the editor to represent the main asset referenced.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetReference">
+            <summary>
+            Reference to an addressable asset.  This can be used in script to provide fields that can be easily set in the editor and loaded dynamically at runtime.
+            To determine if the reference is set, use RuntimeKeyIsValid().
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.OperationHandle">
+            <summary>
+            The AsyncOperationHandle currently being used by the AssetReference.
+            For example, if you call AssetReference.LoadAssetAsync, this property will return a handle to that operation.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.RuntimeKey">
+            <summary>
+            The actual key used to request the asset at runtime. RuntimeKeyIsValid() can be used to determine if this reference was set.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.AssetGUID">
+            <summary>
+            Stores the guid of the asset.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.SubObjectName">
+            <summary>
+            Stores the name of the sub object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.IsValid">
+            <summary>
+            Returns the state of the internal operation.
+            </summary>
+            <returns>True if the operation is valid.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.IsDone">
+            <summary>
+            Get the loading status of the internal operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.#ctor">
+            <summary>
+            Construct a new AssetReference object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.#ctor(System.String)">
+            <summary>
+            Construct a new AssetReference object.
+            </summary>
+            <param name="guid">The guid of the asset.</param>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.Asset">
+            <summary>
+            The loaded asset.  This value is only set after the AsyncOperationHandle returned from LoadAssetAsync completes.
+            It will not be set if only InstantiateAsync is called.  It will be set to null if release is called.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.CachedAsset">
+            <summary>
+            Cached Editor Asset.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.ToString">
+            <summary>
+            String representation of asset reference.
+            </summary>
+            <returns>The asset guid as a string.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.LoadAsset``1">
+             <summary>
+             Load the referenced asset as type TObject.
+             This cannot be used a second time until the first load is released. If you wish to call load multiple times
+             on an AssetReference, use <see cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)"/> and pass your AssetReference in as the key.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+             </summary>
+             <typeparam name="TObject">The object type.</typeparam>
+             <returns>The load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.LoadScene">
+            <summary>
+            Loads the reference as a scene.
+            This cannot be used a second time until the first load is released. If you wish to call load multiple times
+            on an AssetReference, use Addressables.LoadSceneAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <returns>The operation handle for the scene load.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.Instantiate(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)">
+            <summary>
+            InstantiateAsync the referenced asset as type TObject.
+            This cannot be used a second time until the first load is released. If you wish to call load multiple times
+            on an AssetReference, use Addressables.InstantiateAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <param name="position">Position of the instantiated object.</param>
+            <param name="rotation">Rotation of the instantiated object.</param>
+            <param name="parent">The parent of the instantiated object.</param>
+            <returns>Returns the instantiation operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.Instantiate(UnityEngine.Transform,System.Boolean)">
+            <summary>
+            InstantiateAsync the referenced asset as type TObject.
+            This cannot be used a second time until the first load is released. If you wish to call load multiple times
+            on an AssetReference, use Addressables.InstantiateAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <param name="parent">The parent of the instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <returns>Returns the instantiation operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.LoadAssetAsync``1">
+             <summary>
+             Load the referenced asset as type TObject.
+             This cannot be used a second time until the first load is released. If you wish to call load multiple times
+             on an AssetReference, use <see cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)"/> and pass your AssetReference in as the key.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+             </summary>
+             <typeparam name="TObject">The object type.</typeparam>
+             <returns>The load operation if there is not a valid cached operation, otherwise return default operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.LoadSceneAsync(UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Loads the reference as a scene.
+            This cannot be used a second time until the first load is unloaded. If you wish to call load multiple times
+            on an AssetReference, use Addressables.LoadSceneAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <param name="loadMode">Scene load mode.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request if there is not a valid cached operation, otherwise return default operation</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.UnLoadScene">
+            <summary>
+            Unloads the reference as a scene.
+            </summary>
+            <returns>The operation handle for the scene load.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.InstantiateAsync(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)">
+            <summary>
+            InstantiateAsync the referenced asset as type TObject.
+            This cannot be used a second time until the first load is released. If you wish to call load multiple times
+            on an AssetReference, use Addressables.InstantiateAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <param name="position">Position of the instantiated object.</param>
+            <param name="rotation">Rotation of the instantiated object.</param>
+            <param name="parent">The parent of the instantiated object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.InstantiateAsync(UnityEngine.Transform,System.Boolean)">
+            <summary>
+            InstantiateAsync the referenced asset as type TObject.
+            This cannot be used a second time until the first load is released. If you wish to call load multiple times
+            on an AssetReference, use Addressables.InstantiateAsync() and pass your AssetReference in as the key.
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <param name="parent">The parent of the instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.RuntimeKeyIsValid">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.ReleaseAsset">
+            <summary>
+            Release the internal operation handle.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.ReleaseInstance(UnityEngine.GameObject)">
+            <summary>
+            Release an instantiated object.
+            </summary>
+            <param name="obj">The object to release.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.ValidateAsset(UnityEngine.Object)">
+            <summary>
+            Validates that the referenced asset allowable for this asset reference.
+            </summary>
+            <param name="obj">The Object to validate.</param>
+            <returns>Whether the referenced asset is valid.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.ValidateAsset(System.String)">
+            <summary>
+            Validates that the referenced asset allowable for this asset reference.
+            </summary>
+            <param name="path">The path to the asset in question.</param>
+            <returns>Whether the referenced asset is valid.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetReference.editorAsset">
+            <summary>
+            Used by the editor to represent the main asset referenced.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.GetEditorAssetInternal">
+            <summary>
+            Helper function that can be used to override the base class editorAsset accessor.
+            </summary>
+            <returns>Returns the main asset referenced used in the editor.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.SetEditorAsset(UnityEngine.Object)">
+            <summary>
+            Sets the main asset on the AssetReference.  Only valid in the editor, this sets both the editorAsset attribute,
+              and the internal asset GUID, which drives the RuntimeKey attribute. If the reference uses a sub object,
+              then it will load the editor asset during edit mode and load the sub object during runtime. For example, if
+              the AssetReference is set to a sprite within a sprite atlas, the editorAsset is the atlas (loaded during edit mode)
+              and the sub object is the sprite (loaded during runtime). If called by AssetReferenceT, will set the editorAsset
+              to the requested object if the object is of type T, and null otherwise.
+            <param name="value">Object to reference</param>
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetReference.SetEditorSubObject(UnityEngine.Object)">
+            <summary>
+            Sets the sub object for this asset reference.
+            </summary>
+            <param name="value">The sub object.</param>
+            <returns>True if set correctly.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AddressablesImpl.LoadResourceLocationKeyOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AddressablesImpl.LoadResourceLocationKeysOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AddressablesPlatform">
+            <summary>
+            Options for the Addressables build platform.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.Unknown">
+            <summary>
+            Use to indicate that the build platform is unknown.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.Windows">
+            <summary>
+            Use to indicate that the build platform is Windows.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.OSX">
+            <summary>
+            Use to indicate that the build platform is OSX.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.Linux">
+            <summary>
+            Use to indicate that the build platform is Linux.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.PS4">
+            <summary>
+            Use to indicate that the build platform is PS4.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.Switch">
+            <summary>
+            Use to indicate that the build platform is PS4.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.XboxOne">
+            <summary>
+            Use to indicate that the build platform is XboxOne.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.WebGL">
+            <summary>
+            Use to indicate that the build platform is WebGL.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.iOS">
+            <summary>
+            Use to indicate that the build platform is iOS.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.Android">
+            <summary>
+            Use to indicate that the build platform is Android.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.AddressablesPlatform.WindowsUniversal">
+            <summary>
+            Use to indicate that the build platform is WindowsUniversal.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.PlatformMappingService">
+            <summary>
+            Determines the Addressables build platform that should be used based on the target player build platform.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.PlatformMappingService.GetPlatform">
+            <summary>
+            Retrieves the Addressables build platform that is being used.
+            </summary>
+            <returns>Returns the Addressables build platform that is being used.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.PlatformMappingService.GetPlatformPathSubFolder">
+            <summary>
+            Retrieves the Addressables platform subfolder of the build platform that is being used.
+            </summary>
+            <returns>Returns the Addressables platform subfolder of the build platform that is being used.</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.ResourceLocatorInfo">
+            <summary>
+            A container for data pertaining to a specific Resource Locator.  Used mainly to determine if a content catalog
+            needs to be updated.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocatorInfo.Locator">
+            <summary>
+            The Resource Locator that has been loaded into the Addressables system.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocatorInfo.LocalHash">
+            <summary>
+            The local hash for this Resource Locator.  If a remote content catalog is updated and the remote hash changes,
+            this locator info is used to determine if a new content catalog needs to be updated.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocatorInfo.CatalogLocation">
+            <summary>
+            The Content Catalog location this Resource Locator was loaded from.  Catalog locations typically contain
+            exactly two dependencies.  The first dependency is the remote location of the content catalog hash file, the 
+            second is the local path of the hash file.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.ResourceLocatorInfo.#ctor(UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator,System.String,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Contstruct a ResourceLocatorInfo for a given Resource Locator.
+            </summary>
+            <param name="loc">The IResourceLocator to track.</param>
+            <param name="localHash">The local hash of the content catalog.</param>
+            <param name="remoteCatalogLocation">The location for the remote catalog.  Typically this location contains exactly two dependeices, 
+            the first one pointing to the remote hash file.  The second dependency pointing to the local hash file.</param>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocatorInfo.HashLocation">
+            <summary>
+            The remote hash location of the content catalog used by the resource locator
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.ResourceLocatorInfo.CanUpdateContent">
+            <summary>
+            Checks to see if the provided CatalogLocation contains the expected amount of dependencies to check for catalog updates
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.InvalidKeyException">
+            <summary>
+            Exception to encapsulate invalid key errors.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.InvalidKeyException.Key">
+            <summary>
+            The key used to generate the exception.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.InvalidKeyException.Type">
+            <summary>
+            The type of the key used to generate the exception.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.InvalidKeyException.MergeMode">
+            <summary>
+            MergeMode if used, else null.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.Object)">
+            <summary>
+            Construct a new InvalidKeyException.
+            </summary>
+            <param name="key">The key that caused the exception.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.Object,System.Type)">
+            <summary>
+            Construct a new InvalidKeyException.
+            </summary>
+            <param name="key">The key that caused the exception.</param>
+            <param name="type">The type of the key that caused the exception.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.Object,System.Type,UnityEngine.AddressableAssets.Addressables.MergeMode)">
+            <summary>
+            Construct a new InvalidKeyException.
+            </summary>
+            <param name="key">The key that caused the exception.</param>
+            <param name="type">The type of the key that caused the exception.</param>
+            <param name="mergeMode">The mergeMode of the input that caused the exception.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor">
+            <inheritdoc cref="T:UnityEngine.AddressableAssets.InvalidKeyException"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.String,System.Exception)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.InvalidKeyException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.InvalidKeyException.Message">
+            <summary>
+            Stores information about the exception.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Addressables">
+            <summary>
+            Entry point for Addressable API, this provides a simpler interface than using ResourceManager directly as it assumes string address type.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.ResourceManager">
+            <summary>
+            Stores the ResourceManager associated with this Addressables instance.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.InstanceProvider">
+            <summary>
+            The Instance Provider used by the Addressables System.
+            </summary>
+            <remarks>
+            Retrieves the interface used by the Addressables Asset System to create instances of Addressable GameObjects.
+            </remarks>
+            <returns>The [IInstanceProvider](xref:UnityEngine.ResourceManagement.ResourceProviders.IInstanceProvider) object used to create instances of GameObjects.</returns>
+            <example>
+            The example below instantiates a GameObject using ProvideInstance.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingInstanceProvider.cs" region="SAMPLE"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ResolveInternalId(System.String)">
+            <summary>
+            Used to resolve a string using addressables config values
+            </summary>
+            <param name="id">The internal id to resolve.</param>
+            <returns>Returns the string that the internal id represents.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.InternalIdTransformFunc">
+            <inheritdoc cref="P:UnityEngine.ResourceManagement.ResourceManager.InternalIdTransformFunc"/>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.WebRequestOverride">
+            <inheritdoc cref="P:UnityEngine.ResourceManagement.ResourceManager.WebRequestOverride"/>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.Addressables.MergeMode">
+            <summary>
+            Options for merging the results of requests.
+            If keys (A, B) mapped to results ([1,2,4],[3,4,5])...
+             - UseFirst (or None) takes the results from the first key
+             -- [1,2,4]
+             - Union takes results of each key and collects items that matched any key.
+             -- [1,2,3,4,5]
+             - Intersection takes results of each key, and collects items that matched every key.
+             -- [4]
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.MergeMode.None">
+            <summary>
+            Use to indicate that no merge should occur. The first set of results will be used.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.MergeMode.UseFirst">
+            <summary>
+            Use to indicate that the merge should take the first set of results.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.MergeMode.Union">
+            <summary>
+            Use to indicate that the merge should take the union of the results.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.MergeMode.Intersection">
+            <summary>
+            Use to indicate that the merge should take the intersection of the results.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.kAddressablesRuntimeDataPath">
+            <summary>
+            The name of the PlayerPrefs value used to set the path to load the addressables runtime data file.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.kAddressablesRuntimeBuildLogPath">
+            <summary>
+            The name of the PlayerPrefs value used to set the path to check for build logs that need to be shown in the runtime.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.StreamingAssetsSubFolder">
+            <summary>
+            The subfolder used by the Addressables system for its built data.
+            </summary>
+            <remarks>
+            The Addressables system currently builds inside the library in a folder named 'aa'. Each platform that is built
+            will be built inside a subfolder matching the platform name. This subfolder is also the base for loading
+            streaming data at runtime. The Editor build location is <see cref="P:UnityEngine.AddressableAssets.Addressables.BuildPath"/> and player is <see cref="P:UnityEngine.AddressableAssets.Addressables.PlayerBuildDataPath"/>.
+            </remarks>
+            <example>
+            The example demonstrates a utility function that looks inside the Streaming Assets subfolder and gets a list of
+            all the subfolders. This is returned as a list of all platforms that have been built on the current machine.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingStreamingAssetsSubFolder.cs" region="SAMPLE"/>
+            </example>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.LibraryPath">
+            <summary>
+            The path to the Addressables Library subfolder
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AddressableAssets.Addressables.BuildReportPath">
+            <summary>
+            The path to the Addressables Build Reports subfolder
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.BuildPath">
+            <summary>
+            The build path used by the Addressables system for its initialization data.
+            </summary>
+            <remarks>
+            Addressables.BuildPath returns the path used by the Addressables system for its built initialization data.
+            This path is to the Addressables folder in the Project Library folder for the active platform.This folder
+            contains the settings, local catalog and addressables managed local asset bundles.
+            </remarks>
+            <example>
+            Gets the runtime settings from the buildPath and returns the Addressables package version that the content was built using.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingBuildPath.cs" region="GET_SETTINGS_FROM_BUILDPATH"/>
+            </example>
+            <example>
+            In this example we add a build pre-process hook. When building a player this throws an exception if the content has not been built.
+            This could be useful when 'Build Addressables on Player Build' is not set in Addressables Settings. 
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/ContentBuiltcheck.cs" region="CONTENT_BUILT_CHECK"/>
+            </example>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.PlayerBuildDataPath">
+            <summary>
+            The path that addressables player data gets copied to during a player build.
+            </summary>
+            <remarks>
+            This resolves to Assets/StreamingAssets/aa by default. Files in this folder are included
+            in the player build process. Remote bundles should be built outside this folder to prevent
+            them from being included in the default player build.
+            </remarks>
+            <example>
+            This example is a custom build script that extends the default packed build script. Files are built
+            in a custom build folder, and then copied into PlayerBuildDataPath so they are included with
+            the player build.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingPlayerBuildDataPath.cs" region="SAMPLE"/>
+            </example>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.RuntimePath">
+            <summary>
+            The path used by the Addressables system to load initialization data.
+            </summary>
+            /// <remarks>
+            When running in the Editor Addressables.RuntimePath returns the path to the locally built data in the <see cref="F:UnityEngine.AddressableAssets.Addressables.LibraryPath"/>.
+            When running in a player this returns the path to the same content found in <see cref="P:UnityEngine.Application.streamingAssetsPath"/>. 
+            This folder contains the settings, local catalog and Addressables managed local asset bundles.
+            </remarks>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.ResourceLocators">
+            <summary>
+            Gets the collection of configured <see cref="T:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator"/> objects. Resource Locators are used to find <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/> objects from user-defined typed keys.
+            </summary>
+            <value>The resource locators collection.</value>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Log(System.String)">
+            <summary>
+            Log can be used to write a Debug level log message.
+            </summary>
+            <remarks>
+            Log works the same as <see cref="M:UnityEngine.Debug.Log(System.Object)">Debug.Log</see>. Addressables only logs warnings and errors so by default this function does not log anything.
+            </remarks>
+            <param name="msg">The msg to log</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLog.cs" region="SAMPLE" />
+            </example>
+            <seealso href="xref:addressables-asset-settings#enable-all-logging">Enable all logging</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogFormat(System.String,System.Object[])">
+            <summary>
+            LogFormat can be used to write a formatted log message.
+            </summary>
+            <remarks>
+            LogFormat supports Composite Formatting and works the same way as [Debug.LogFormat](xref:UnityEngine.Debug.LogFormat(System.String,System.Object[])). Addressables logs warnings and errors so by default this function will **not** log.
+            </remarks>
+            <seealso href="xref:addressables-asset-settings#enable-all-logging">Enable all logging</seealso>
+            <param name="format">The string with format tags.</param>
+            <param name="args">The args used to fill in the format tags.</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogFormat.cs" region="SAMPLE" />
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogWarning(System.String)">
+            <summary>
+            LogWarning can be used to write a log message.
+            </summary>
+            <remarks>
+            LogWarning works the same way as [Debug.LogWarning](xref:UnityEngine.Debug.LogWarning(System.Object)). Addressables logs warnings and errors so by default this function will log.
+            </remarks>
+            <param name="msg">The msg to log</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogWarning.cs" region="SAMPLE" />
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogWarningFormat(System.String,System.Object[])">
+            <summary>
+            LogFormat can be used to write a formatted log message.
+            </summary>
+            <remarks>
+            LogWarningFormat supports Composite Formatting and works the same way as [Debug.LogWarningFormat](xref:UnityEngine.Debug.LogWarningFormat(System.String,System.Object[])). Addressables logs warnings and errors so by default this function will log.
+            </remarks>
+            <param name="format">The string with format tags.</param>
+            <param name="args">The args used to fill in the format tags.</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogWarningFormat.cs" region="SAMPLE" />
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogError(System.String)">
+            <summary>
+            Write an error level log message.
+            </summary>
+            <remarks>
+            LogError can be used to write an Error message. LogError works the same way as <see cref="M:UnityEngine.Debug.LogError(System.Object)" />. Addressables logs warnings and errors so by default this function will log.
+            </remarks>
+            <param name="msg">The msg to log</param>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogError.cs" region="SAMPLE"/>
+            <seealso href="xref:addressables-asset-settings#enable-all-logging">Enable all logging</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogException(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Exception)">
+            <summary>
+            Write an exception as a log message. 
+            </summary>
+            <remarks>
+            LogException can be used to convert an exception to a log message. The exception is stringified. If the operation is in a failed state, the exception is logged at an Error logging level. If not the exception is logged at a Debug logging level.
+            Addressables logs warnings and errors so if the operation is not in a failed state by default this function will not log.
+            </remarks>
+            <param name="op">The operation handle.</param>
+            <param name="ex">The exception.</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogException.cs" region="SAMPLE_ASYNC_OP"/>
+            </example>
+            <seealso href="xref:addressables-asset-settings#enable-all-logging">Enable all logging</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogException(System.Exception)">
+            <summary>
+            Write an exception as a debug log message.
+            </summary>
+            <remarks>
+            LogException can be used to convert an exception to a log message. The exception is stringified and logged at a Debug logging level. Addressables logs warnings and errors so by default this function will not log.
+            </remarks>
+            <param name="ex">The exception.</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogException.cs" region="SAMPLE"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LogErrorFormat(System.String,System.Object[])">
+            <summary>
+            Write an error level formatted log message.
+            </summary>
+            <remarks>
+            LogErrorFormat can be used to write a formatted Error level log message. LogErrorFormat supports Composite Formatting and works the same way as <see cref="M:UnityEngine.Debug.LogErrorFormat(System.String,System.Object[])" />. Addressables logs warnings and errors so by default this function will log.
+            </remarks>
+            <param name="format">The string with format tags.</param>
+            <param name="args">The args used to fill in the format tags.</param>
+            <example>
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLogErrorFormat.cs" region="SAMPLE"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Initialize">
+            <summary>
+            Initialize Addressables system.  Addressables will be initialized on the first API call if this is not called explicitly.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InitializeAsync"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InitializeAsync">
+             <summary>
+             Initialize the Addressables system, if needed.
+             </summary>
+             <remarks>
+             The Addressables system initializes itself at runtime the first time you call an Addressables API function.
+             You can call this function explicitly to initialize Addressables earlier. This function does nothing if
+             initialization has already occurred.
+             
+             Other Addressables API functions such as <see cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">LoadAssetAsync</see> also automatically initializes the
+             system if not already initialized. However in some cases you may wish to explicitly initalize Addressables,
+             for example to check if the initialization process completed successfully before proceeding to load Addressables
+             assets. Initializing explicitly shortens the execution time of the subsequent Addressables API function call
+             because the initialization process is already completed. 
+            
+             The initialization process loads configuration data and the local content catalog. Custom initialization
+             tasks can also be included in this process, for example loading additional remote catalogs.
+             See [Customizing Addressables Initialization](xref:addressables-api-initialize-async) for more information.
+            
+             The initialization process:
+             * Sets up the <see cref="P:UnityEngine.AddressableAssets.Addressables.ResourceManager"/> and <see cref="P:UnityEngine.AddressableAssets.Addressables.ResourceLocators"/>
+             * Loads the <see cref="T:UnityEngine.AddressableAssets.Initialization.ResourceManagerRuntimeData"/> object, which is created by the Addressables build
+             * Executes <see cref="T:UnityEngine.ResourceManagement.Util.IInitializableObject"/> operations
+             * Optionally, checks for an updated content catalog (`true` by default)
+             * Loads the content catalog
+            
+             The `Result` object contained in the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> returned by this function
+             contains a list of Addressable keys and a method that can be used to gather the <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/>
+             instances for a given key and asset type. You must access the `Result` object in a <see cref="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Completed"/>
+             event handler. To access the handle in a coroutine or Task-based function, pass `false` to the
+             <see cref="M:UnityEngine.AddressableAssets.Addressables.InitializeAsync(System.Boolean)"/> overload of this function. Otherwise, the Addressables system
+             releases the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> object before control returns to your code.
+             </remarks>
+             <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is an [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator)  object.</returns>
+             <example>
+             The following script loads all Addressable assets referenced in the catalog.
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingInitializeAsync.cs" region="SAMPLE_LOADALL"/>
+             </example>
+             <seealso href="xref:addressables-api-load-content-catalog-async">Managing catalogs at runtime</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InitializeAsync(System.Boolean)">
+            <summary>
+            Initialize the Addressables system, if needed.
+            </summary>
+            <param name="autoReleaseHandle">Determines if the handle should be released on completion, or manually released.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is an [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator)  object.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadContentCatalog(System.String,System.String)">
+            <summary>
+            Additively load catalogs from runtime data.  The settings are not used.
+            </summary>
+            <param name="catalogPath">The path to the runtime data.</param>
+            <param name="providerSuffix">This value, if not null or empty, will be appended to all provider ids loaded from this data.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadContentCatalogAsync(System.String,System.String)">
+             <summary>
+             Additively load catalogs from runtime data.
+             </summary>
+             <remarks>
+             You can cache content catalog by providing the hash file created for the catalog by the Addressables content build
+             at the same URL as the catalog JSON file. The Addressables system uses this hash file to determine if the cached catalog
+             needs to be updated. If the value in the hash file has not changed since the last time you loaded the same catalog,
+             this function loads the cached version instead of downloading the catalog. If the hash value has changed or if no
+             hash file is provided, Addressables downloads the catalog from the specified path before loading it into memory.
+            
+             See also: [Managing catalogs at runtime](xref:addressables-api-load-content-catalog-async)
+             </remarks>
+             <param name="catalogPath">The path to the runtime data.</param>
+             <param name="providerSuffix">This value, if not null or empty, will be appended to all provider ids loaded from this data.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadContentCatalogAsync(System.String,System.Boolean,System.String)">
+             <summary>
+             Additively load catalogs from runtime data.
+             </summary>
+             <remarks>
+             You can cache content catalog by providing the hash file created for the catalog by the Addressables content build
+             at the same URL as the catalog JSON file. The Addressables system uses this hash file to determine if the cached catalog
+             needs to be updated. If the value in the hash file has not changed since the last time you loaded the same catalog,
+             this function loads the cached version instead of downloading the catalog. If the hash value has changed or if no
+             hash file is provided, Addressables downloads the catalog from the specified path before loading it into memory.
+            
+             See also: [Managing catalogs at runtime](xref:addressables-api-load-content-catalog-async)
+             </remarks>
+             <param name="catalogPath">The path to the runtime data.</param>
+             <param name="autoReleaseHandle">If true, the async operation handle will be automatically released on completion. Typically,
+             there is no reason to hold on to the handle for this operation.</param>
+             <param name="providerSuffix">This value, if not null or empty, will be appended to all provider ids loaded from this data.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.Addressables.InitializationOperation">
+            <summary>
+            Initialization operation.  You can register a callback with this if you need to run code after Addressables is ready.  Any requests made before this operaton completes will automatically cahin to its result.
+            </summary>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InitializeAsync"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAsset``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Load a single asset
+            </summary>
+            <typeparam name="TObject">The type of the asset.</typeparam>
+            <param name="location">The location of the asset.</param>
+            <returns>Returns the load operation.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAsset``1(System.Object)">
+            <summary>
+            Load a single asset
+            </summary>
+            <typeparam name="TObject">The type of the asset.</typeparam>
+            <param name="key">The key of the location of the asset.</param>
+            <returns>Returns the load operation.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Loads a single Addressable asset identified by an <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/>.
+            </summary>
+            <remarks>
+            Loads an Addressable asset. If a `key` references multiple assets (i.e. a label that is assigned to multiple assets), only the first asset found will be loaded.
+            
+            When you load an Addressable asset, the system:
+            * Gathers the asset's dependencies
+            * Downloads any remote AssetBundles needed to load the asset or its dependencies
+            * Loads the AssetBundles into memory
+            * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function.
+            </remarks>
+            <typeparam name="TObject">The type of the asset.</typeparam>
+            <param name="location">The location of the asset.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is the loaded asset of the type `TObject`.</returns>
+            <seealso href="xref:addressables-api-load-asset-async">Loading Addressable Assets</seealso>
+            <seealso href="xref:addressables-async-operation-handling">Operations</seealso>
+            <example>
+            The example below loads a material using an <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/>. The loaded material is assigned to a GameObject.
+            A reference to the operation handle is stored and can be released via <see cref="M:UnityEngine.AddressableAssets.Addressables.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)"/>.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLoadAssetAsync.cs" region="SAMPLE_LOCATION"/>
+            </example>
+            <example>
+            The example below loads a material using a `key`, specifically an <see cref="T:UnityEngine.AddressableAssets.AssetReference"/>. The loaded material is assigned to a GameObject. A reference to the
+            operation handle is stored and can be released via <see cref="M:UnityEngine.AddressableAssets.Addressables.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)"/>.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingLoadAssetAsync.cs" region="SAMPLE_KEY"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetAsync``1(System.Object)">
+            <summary>
+            Loads a single Addressable asset identified by an <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/>.
+            </summary>
+            <typeparam name="TObject">The type of the asset.</typeparam>
+            <param name="key">The key of the location of the asset.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is the loaded asset of the type `TObject`.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadResourceLocations(System.Collections.Generic.IList{System.Object},UnityEngine.AddressableAssets.Addressables.MergeMode,System.Type)">
+            <summary>
+            Loads the resource locations specified by the keys.
+            The method will always return success, with a valid IList of results. If nothing matches keys, IList will be empty
+            </summary>
+            <param name="keys">The set of keys to use.</param>
+            <param name="mode">The mode for merging the results of the found locations.</param>
+            <param name="type">A type restriction for the lookup.  Only locations of the provided type (or derived type) will be returned.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadResourceLocationsAsync(System.Collections.Generic.IList{System.Object},UnityEngine.AddressableAssets.Addressables.MergeMode,System.Type)">
+             <summary>
+             Loads the resource locations specified by a list of keys.
+             </summary>
+             <remarks>
+             The operation always completes successfully and the operation handle's `Result` object always contains a valid IList instance.
+             If no assets matched the specified keys, the list in `Result` is empty.
+            
+             See [Loading assets by location](xref:addressables-api-load-asset-async#loading-assets-by-location) for more information.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <param name="keys">The set of keys to use.</param>
+             <param name="mode">The mode for merging the results of the found locations.</param>
+             <param name="type">A type restriction for the lookup.  Only locations of the provided type (or derived type) will be returned.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadResourceLocationsAsync(System.Collections.IEnumerable,UnityEngine.AddressableAssets.Addressables.MergeMode,System.Type)">
+             <summary>
+             Loads the resource locations specified by a set of keys.
+             </summary>
+             <remarks>
+             The operation always completes successfully and the operation handle's `Result` object always contains a valid IList instance.
+             If no assets matched the specified keys, the list in `Result` is empty.
+            
+             See [Loading assets by location](xref:addressables-api-load-asset-async#loading-assets-by-location) for more information.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <param name="keys">The set of keys to use.</param>
+             <param name="mode">The mode for merging the results of the found locations.</param>
+             <param name="type">A type restriction for the lookup.  Only locations of the provided type (or derived type) will be returned.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadResourceLocations(System.Object,System.Type)">
+            <summary>
+            Request the locations for a given key.
+            The method will always return success, with a valid IList of results. If nothing matches key, IList will be empty
+            </summary>
+            <param name="key">The key for the locations.</param>
+            <param name="type">A type restriction for the lookup. Only locations of the provided type (or derived type) will be returned.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadResourceLocationsAsync(System.Object,System.Type)">
+             <summary>
+             Loads the resource locations specified by a key.
+             </summary>
+             <remarks>
+             The operation always completes successfully and the operation handle's `Result` object always contains a valid IList instance.
+             If no assets matched the specified key, the list in `Result` is empty.
+            
+             See [Loading assets by location](xref:addressables-api-load-asset-async#loading-assets-by-location) for more information.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <param name="key">The key for the locations.</param>
+             <param name="type">A type restriction for the lookup.  Only locations of the provided type (or derived type) will be returned.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssets``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Action{``0})">
+            <summary>
+            Load multiple assets
+            </summary>
+            <typeparam name="TObject">The type of the assets.</typeparam>
+            <param name="locations">The locations of the assets.</param>
+            <param name="callback">Callback Action that is called per load operation.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Action{``0})">
+             <summary>
+             Loads multiple assets, based on the list of locations provided.
+             </summary>
+             <remarks>
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the asset
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="locations">The locations of the assets.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Action{``0},System.Boolean)">
+             <summary>
+             Loads multiple assets, based on the list of locations provided.
+             </summary>
+             <remarks>
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="locations">The locations of the assets.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <param name="releaseDependenciesOnFailure">
+             If all matching locations succeed, this parameter is ignored.
+             When true, if any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             When false, if any matching location fails, the `Result` instance in the returned operation handle contains an IList of size equal to the number of
+             locations that the operation attempted to load. The entry in the result list corresponding to a location that failed to load is null.
+             The entries for locations that successfully loaded are set to a valid TObject. The `Status` of the operation handle is still <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/>
+             if any single asset failed to load.
+            
+             When <paramref name="releaseDependenciesOnFailure"/> is true, you do not need to release the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> instance on failure.
+             When false, you must always release it.
+             </param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssets``1(System.Collections.Generic.IList{System.Object},System.Action{``0},UnityEngine.AddressableAssets.Addressables.MergeMode)">
+            <summary>
+            Load multiple assets
+            </summary>
+            <typeparam name="TObject">The type of the assets.</typeparam>
+            <param name="keys">List of keys for the locations.</param>
+            <param name="callback">Callback Action that is called per load operation.</param>
+            <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.Generic.IList{System.Object},System.Action{``0},UnityEngine.AddressableAssets.Addressables.MergeMode)">
+             <summary>
+             Loads multiple assets identified by a list of keys.
+             </summary>
+             <remarks>
+             The keys in <paramref name="keys"/> are translated into lists of locations, which are merged into a single list based on
+             the value in <paramref name="mode"/>.
+            
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="keys">List of keys for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.IEnumerable,System.Action{``0},UnityEngine.AddressableAssets.Addressables.MergeMode)">
+             <summary>
+             Loads multiple assets identified by a list of keys.
+             </summary>
+             <remarks>
+             The keys in <paramref name="keys"/> are translated into lists of locations, which are merged into a single list based on
+             the value in <paramref name="mode"/>.
+            
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="keys">List of keys for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.Generic.IList{System.Object},System.Action{``0},UnityEngine.AddressableAssets.Addressables.MergeMode,System.Boolean)">
+             <summary>
+             Load multiple assets.
+             Each key in the provided list will be translated into a list of locations.  Those many lists will be combined
+             down to one based on the provided MergeMode.
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+             </summary>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="keys">IEnumerable set of keys for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+             <param name="releaseDependenciesOnFailure">
+             If all matching locations succeed, this parameter is ignored.
+            
+             When true, if any matching location fails, all loads and dependencies will be released.  The returned .Result will be null, and .Status will be Failed.
+            
+             When false, if any matching location fails, the returned .Result will be an IList of size equal to the number of locations attempted.  Any failed location will
+             correlate to a null in the IList, while successful loads will correlate to a TObject in the list. The .Status will still be Failed.
+            
+             When true, op does not need to be released if anything fails, when false, it must always be released.
+             </param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Collections.IEnumerable,System.Action{``0},UnityEngine.AddressableAssets.Addressables.MergeMode,System.Boolean)">
+             <summary>
+             Loads multiple assets, identified by a set of keys.
+             </summary>
+             <remarks>
+             The keys in <paramref name="keys"/> are translated into lists of locations, which are merged into a single list based on
+             the value in <paramref name="mode"/>.
+            
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="keys">IEnumerable set of keys for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+             <param name="releaseDependenciesOnFailure">
+             If all matching locations succeed, this parameter is ignored.
+            
+             When true, if any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             When false, if any matching location fails, the `Result` instance in the returned operation handle contains an IList of size equal to the number of
+             locations that the operation attempted to load. The entry in the result list corresponding to a location that failed to load is null.
+             The entries for locations that successfully loaded are set to a valid TObject. The `Status` of the operation handle is still <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/>
+             if any single asset failed to load.
+            
+             When <paramref name="releaseDependenciesOnFailure"/> is true, you do not need to release the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> instance on failure.
+             When false, you must always release it.
+             </param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssets``1(System.Object,System.Action{``0})">
+            <summary>
+            Load mutliple assets
+            See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            </summary>
+            <typeparam name="TObject">The type of the assets.</typeparam>
+            <param name="key">Key for the locations.</param>
+            <param name="callback">Callback Action that is called per load operation.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Object,System.Action{``0})">
+             <summary>
+             Loads multiple assets identified by a single key.
+             </summary>
+             <remarks>
+             The key in <paramref name="key"/> is translated into a list of locations that are then loaded.
+            
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             If any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="key">Key for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadAssetsAsync``1(System.Object,System.Action{``0},System.Boolean)">
+             <summary>
+             Loads multiple assets identified by a single key.
+             </summary>
+             <remarks>
+             The key in <paramref name="key"/> is translated into a list of locations that are then loaded.
+            
+             When you load Addressable assets, the system:
+             * Gathers the dependencies of the assets
+             * Downloads any remote AssetBundles needed to load the assets or their dependencies
+             * Loads the AssetBundles into memory
+             * Populates the `Result` object of the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1"/> instance returned by this function
+            
+             Use the `Result` object to access the loaded assets.
+            
+             See the [Loading Addressable Assets](xref:addressables-api-load-asset-async) documentation for more details.
+            
+             See [Operations](xref:addressables-async-operation-handling) for information on handling the asynchronous operations used
+             to load Addressable assets.
+             </remarks>
+             <typeparam name="TObject">The type of the assets.</typeparam>
+             <param name="key">Key for the locations.</param>
+             <param name="callback">Callback Action that is called per load operation (per loaded asset).</param>
+             <param name="releaseDependenciesOnFailure">
+             If all matching locations succeed, this parameter is ignored.
+            
+             When true, if any assets cannot be loaded, the entire operation fails. The operation releases any assets and dependencies it had already loaded.
+             The `Status` of the operation handle is set to <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/> and the `Result` is set to null.
+            
+             When false, if any matching location fails, the `Result` instance in the returned operation handle contains an IList of size equal to the number of
+             locations that the operation attempted to load. The entry in the result list corresponding to a location that failed to load is null.
+             The entries for locations that successfully loaded are set to a valid TObject. The `Status` of the operation handle is still <see cref="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed"/>
+             if any single asset failed to load.
+            
+             When <paramref name="releaseDependenciesOnFailure"/> is true, you do not need to release the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> instance on failure.
+             When false, you must always release it.
+             </param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Release``1(``0)">
+            <summary>
+            Release asset.
+            </summary>
+            <typeparam name="TObject">The type of the object being released</typeparam>
+            <param name="obj">The asset to release.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Release``1(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``0})">
+            <summary>
+            Release the operation and its associated resources.
+            </summary>
+            <typeparam name="TObject">The type of the AsyncOperationHandle being released</typeparam>
+            <param name="handle">The operation handle to release.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Release the operation and its associated resources.
+            </summary>
+            <param name="handle">The operation handle to release.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ReleaseInstance(UnityEngine.GameObject)">
+            <summary>
+            Releases and destroys an object that was created via Addressables.InstantiateAsync.
+            </summary>
+            <param name="instance">The GameObject instance to be released and destroyed.</param>
+            <returns>Returns true if the instance was successfully released.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ReleaseInstance(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Releases and destroys an object that was created via Addressables.InstantiateAsync.
+            </summary>
+            <param name="handle">The handle to the game object to destroy, that was returned by InstantiateAsync.</param>
+            <returns>Returns true if the instance was successfully released.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ReleaseInstance(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.GameObject})">
+            <summary>
+            Releases and destroys an object that was created via Addressables.InstantiateAsync.
+            </summary>
+            <param name="handle">The handle to the game object to destroy, that was returned by InstantiateAsync.</param>
+            <returns>Returns true if the instance was successfully released.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSize(System.Object)">
+            <summary>
+            Determines the required download size, dependencies included, for the specified <paramref name="key"/>.
+            Cached assets require no download and thus their download size will be 0.  The Result of the operation
+            is the download size in bytes.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <param name="key">The key of the asset(s) to get the download size of.</param>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSizeAsync(System.Object)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSizeAsync(System.Object)">
+            <summary>
+            Determines the required download size, dependencies included, for the specified <paramref name="key"/>.
+            Cached assets require no download and thus their download size will be 0.  The Result of the operation
+            is the download size in bytes.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <param name="key">The key of the asset(s) to get the download size of.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSizeAsync(System.String)">
+            <summary>
+            Determines the required download size, dependencies included, for the specified <paramref name="key"/>.
+            Cached assets require no download and thus their download size will be 0.  The Result of the operation
+            is the download size in bytes.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <param name="key">The key of the asset(s) to get the download size of.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSizeAsync(System.Collections.Generic.IList{System.Object})">
+            <summary>
+            Determines the required download size, dependencies included, for the specified <paramref name="keys"/>.
+            Cached assets require no download and thus their download size will be 0.  The Result of the operation
+            is the download size in bytes.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <param name="keys">The keys of the asset(s) to get the download size of.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetDownloadSizeAsync(System.Collections.IEnumerable)">
+            <summary>
+            Determines the required download size, dependencies included, for the specified <paramref name="keys"/>.
+            Cached assets require no download and thus their download size will be 0.  The Result of the operation
+            is the download size in bytes.
+            </summary>
+            <returns>The operation handle for the request.</returns>
+            <param name="keys">The keys of the asset(s) to get the download size of.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.DownloadDependencies(System.Object)">
+            <summary>
+            Downloads dependencies of assets marked with the specified label or address.
+            </summary>
+            <param name="key">The key of the asset(s) to load dependencies for.</param>
+            <returns>The AsyncOperationHandle for the dependency load.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.DownloadDependenciesAsync(System.Object,System.Boolean)">
+             <summary>
+             Downloads dependencies of assets identified with the specified label or address.
+             </summary>
+             <remarks>
+             Call this function to make sure that the dependencies of assets you plan to load in
+             performance-critical sections of code are downloaded and available beforehand.
+            
+             You can use the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> returned by this function to monitor and
+             provide feedback on the download progress.
+            
+             See [Preloading dependencies](xref:addressables-api-download-dependencies-async) for more details.
+             </remarks>
+             <param name="key">The key of the assets to load dependencies for.</param>
+             <param name="autoReleaseHandle">If true, the Addressables system automatically releases the handle on completion.</param>
+             <returns>The AsyncOperationHandle for the dependency load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.DownloadDependenciesAsync(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Boolean)">
+             <summary>
+             Downloads dependencies of assets at the specified locations.
+             </summary>
+             <remarks>
+             Call this function to make sure that the dependencies of assets you plan to load in
+             performance-critical sections of code are downloaded and available beforehand.
+            
+             You can use the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> returned by this function to monitor and
+             provide feedback on the download progress.
+            
+             See [Preloading dependencies](xref:addressables-api-download-dependencies-async) for more details.
+             </remarks>
+             <param name="locations">The locations of the assets.</param>
+             <param name="autoReleaseHandle">If true, the Addressables system automatically releases the handle on completion.</param>
+             <returns>The AsyncOperationHandle for the dependency load.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.DownloadDependenciesAsync(System.Collections.Generic.IList{System.Object},UnityEngine.AddressableAssets.Addressables.MergeMode,System.Boolean)">
+            <summary>
+            Downloads dependencies of assets marked with the specified labels or addresses.
+            See the [DownloadDependenciesAsync](xref:addressables-api-download-dependencies-async) documentation for more details.
+            </summary>
+            <param name="keys">List of keys for the locations.</param>
+            <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+            <param name="autoReleaseHandle">Automatically releases the handle on completion</param>
+            <returns>The AsyncOperationHandle for the dependency load.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.DownloadDependenciesAsync(System.Collections.IEnumerable,UnityEngine.AddressableAssets.Addressables.MergeMode,System.Boolean)">
+             <summary>
+             Downloads dependencies of assets identified by a list of keys.
+             </summary>
+             <remarks>
+             The keys in <paramref name="keys"/> are translated into lists of locations, which are merged into a single list based on
+             the value in <paramref name="mode"/>.
+            
+             Call this function to make sure that the dependencies of assets you plan to load in
+             performance-critical sections of code are downloaded and available beforehand.
+            
+             You can use the <see cref="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle"/> returned by this function to monitor and
+             provide feedback on the download progress.
+            
+             See [Preloading dependencies](xref:addressables-api-download-dependencies-async) for more details.
+             </remarks>
+             <param name="keys">List of keys for the locations.</param>
+             <param name="mode">Method for merging the results of key matches.  See <see cref="T:UnityEngine.AddressableAssets.Addressables.MergeMode"/> for specifics</param>
+             <param name="autoReleaseHandle">If true, the Addressables system automatically releases the handle on completion.</param>
+             <returns>The AsyncOperationHandle for the dependency load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Object)">
+            <summary>
+            Clear the cached AssetBundles for a given key.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="key">The key to clear the cache for.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation})">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable locations.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="locations">The locations to clear the cache for.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.Generic.IList{System.Object})">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="keys">The keys to clear the cache for.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.IEnumerable)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="keys">The keys to clear the cache for.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.String)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="key">The key to clear the cache for.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Object,System.Boolean)">
+            <summary>
+            Clear the cached AssetBundles for a given key.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="key">The key to clear the cache for.</param>
+            <param name="autoReleaseHandle">If true, the returned AsyncOperationHandle will be released on completion.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Boolean)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable locations.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="locations">The locations to clear the cache for.</param>
+            <param name="autoReleaseHandle">If true, the returned AsyncOperationHandle will be released on completion.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.Generic.IList{System.Object},System.Boolean)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="keys">The keys to clear the cache for.</param>
+            <param name="autoReleaseHandle">If true, the returned AsyncOperationHandle will be released on completion.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.Collections.IEnumerable,System.Boolean)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="keys">The keys to clear the cache for.</param>
+            <param name="autoReleaseHandle">If true, the returned AsyncOperationHandle will be released on completion.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearDependencyCacheAsync(System.String,System.Boolean)">
+            <summary>
+            Clear the cached AssetBundles for a list of Addressable keys.  Operation may be performed async if Addressables
+            is initializing or updating.
+            </summary>
+            <remarks>
+            Clear all cached AssetBundles
+            WARNING: This will cause all asset bundles represented by the passed-in
+            parameters to be cleared and require re-downloading.
+            </remarks>
+            <param name="key">The keys to clear the cache for.</param>
+            <param name="autoReleaseHandle">If true, the returned AsyncOperationHandle will be released on completion.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetLocatorInfo(System.String)">
+            <summary>
+            Given the Id of an IResourceLocator, get the relevant content catalog data associated with it.
+            </summary>
+            <remarks>
+            Retrieves the content catalog data associated with the specified [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator) id. The catalog data is stored as a [ResourceLocatorInfo](xref:UnityEngine.AddressableAssets.ResourceLocatorInfo) object.
+            </remarks>
+            <param name="locatorId">The identifier of an [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator) used to retrieve content catalog data.</param>
+            <returns>Container for content catalog data pertaining to the [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator) object.</returns>
+            <example>
+            The example below uses the identifiers of the resource locators loaded during Addressables initialization process to retrieve catalog data.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingGetLocatorInfo.cs" region="SAMPLE_1"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.GetLocatorInfo(UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator)">
+            <summary>
+            Given an [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator), get the relevant content catalog data associated with it.
+            </summary>
+            <param name="locator">The resource locator you want to get content catalog data for.</param>
+            <returns>Container for content catalog data pertaining to the [IResourceLocator](xref:UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator) object.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Transform,System.Boolean,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Transform,System.Boolean,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="position">The position of the instantiated object.</param>
+            <param name="rotation">The rotation of the instantiated object.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(System.Object,UnityEngine.Transform,System.Boolean,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.Transform,System.Boolean,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(System.Object,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="position">The position of the instantiated object.</param>
+            <param name="rotation">The rotation of the instantiated object.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(System.Object,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="instantiateParameters">Parameters for instantiation.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.Instantiate(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)">
+            <summary>
+            Instantiate a single object. Note that the dependency loading is done asynchronously, but generally the actual instantiate is synchronous.
+            </summary>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="instantiateParameters">Parameters for instantiation.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Transform,System.Boolean,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <remarks>
+            Loads a Prefab and instantiates a copy of the prefab into the active scene or parent GameObject. The Prefab and any resources associated with it
+            are loaded asynchronously, whereas the instantiation is executed synchronously. In the situation where the Prefab and resources are already loaded,
+            the entire operation is completed synchronously.
+            
+            Most versions of the function shares the same parameters(position, rotation, etc.) as [Object.Instantiate](xref:UnityEngine.Object.Instantiate*).
+            You can create an [InstantiationParameters](xref:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters) struct to store these
+            parameters, pass it into the function instead.
+            </remarks>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+            <example>
+            The example below instantiates a GameObject using by a `key`, specifically an <see cref="T:UnityEngine.AddressableAssets.AssetReference"/>. By default `trackHandle` is set to `true`.
+            Since the instance is tracked, a reference from the instance to the handle is stored and released via <see cref="M:UnityEngine.AddressableAssets.Addressables.ReleaseInstance(UnityEngine.GameObject)"/>.
+            Alternatively a reference to the operation handle can be stored and released via <see cref="M:UnityEngine.AddressableAssets.Addressables.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)"/>, similar to the second example below.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingInstantiateAsync.cs" region="SAMPLE_OBJECT_TRACKED"/>
+            </example>
+            <example>
+            The example below shows how to release a GameObject when `trackHandle` is set to `false`. The instance is not tracked and cannot be used to
+            release the object, instead a reference to the operation handle is stored and released via <see cref="M:UnityEngine.AddressableAssets.Addressables.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)"/>.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingInstantiateAsync.cs" region="SAMPLE_OBJECT_UNTRACKED"/>
+            </example>
+            <example>
+            The example below instantiates a GameObject using an <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/>.
+            <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingInstantiateAsync.cs" region="SAMPLE_LOCATION"/>
+            </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="position">The position of the instantiated object.</param>
+            <param name="rotation">The rotation of the instantiated object.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.Transform,System.Boolean,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="instantiateInWorldSpace">Option to retain world space when instantiated with a parent.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="position">The position of the instantiated object.</param>
+            <param name="rotation">The rotation of the instantiated object.</param>
+            <param name="parent">Parent transform for instantiated object.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(System.Object,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <param name="key">The key of the location of the Object to instantiate.</param>
+            <param name="instantiateParameters">Parameters for instantiation.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.InstantiateAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters,System.Boolean)">
+            <summary>
+            Instantiate a single object.
+            </summary>
+            <param name="location">The location of the Object to instantiate.</param>
+            <param name="instantiateParameters">Parameters for instantiation.</param>
+            <param name="trackHandle">If true, Addressables will track this request to allow it to be released via the result object.</param>
+            <returns>AsyncOperationHandle that is used to check when the operation has completed. The result of the operation is a GameObject.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadScene(System.Object,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Load scene.
+            </summary>
+            <param name="key">The key of the location of the scene to load.</param>
+            <param name="loadMode">Scene load mode.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(System.Object,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadScene(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Load scene.
+            </summary>
+            <param name="location">The location of the scene to load.</param>
+            <param name="loadMode">Scene load mode.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)"/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(System.Object,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+             <summary>
+             Loads an Addressable Scene asset.
+             </summary>
+             <remarks>
+             The <paramref name="loadMode"/>, <paramref name="activateOnLoad"/>, and <paramref name="priority"/> parameters correspond to
+             the parameters used in the Unity [SceneManager.LoadSceneAsync](https://docs.unity3d.com/ScriptReference/SceneManagement.SceneManager.LoadSceneAsync.html)
+             method.
+            
+             See [Loading Scenes](xref:addressables-api-load-asset-async#loading-scenes) for more details.
+             </remarks>
+             <param name="key">The key of the location of the scene to load.</param>
+             <param name="loadMode">Scene load mode.</param>
+             <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+             <param name="priority">Async operation priority for scene loading.</param>
+             <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(System.Object,UnityEngine.SceneManagement.LoadSceneParameters,System.Boolean,System.Int32)">
+            <summary>
+            Loads an Addressable Scene asset.
+            </summary>
+            <param name="key">The key of the location of the scene to load.</param>
+            <param name="loadSceneParameters">Scene load mode.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Loads an Addressable Scene asset.
+            </summary>
+            <param name="location">The location of the scene to load.</param>
+            <param name="loadMode">Scene load mode.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.LoadSceneAsync(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneParameters,System.Boolean,System.Int32)">
+            <summary>
+            Loads an Addressable Scene asset.
+            </summary>
+            <param name="location">The location of the scene to load.</param>
+            <param name="loadSceneParameters">Scene load parameters.</param>
+            <param name="activateOnLoad">If false, the scene will load but not activate (for background loading).  The SceneInstance returned has an Activate() method that can be called to do this at a later point.</param>
+            <param name="priority">Async operation priority for scene loading.</param>
+            <returns>The operation handle for the request.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadScene(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="scene">The SceneInstance to release.</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance,System.Boolean)"/>
+            <seealso href="xref:synchronous-addressables">Synchronous Addressables</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadScene(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Boolean)"/>
+            <seealso href="xref:synchronous-addressables">Synchronous Addressables</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadScene(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},System.Boolean)"/>
+            <seealso href="xref:synchronous-addressables">Synchronous Addressables</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadScene(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},UnityEngine.SceneManagement.UnloadSceneOptions,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="unloadOptions">Specify behavior for unloading embedded scene objecs</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the request.</returns>
+            <seealso cref="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance,UnityEngine.SceneManagement.UnloadSceneOptions,System.Boolean)"/>
+            <seealso href="xref:synchronous-addressables">Synchronous Addressables</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance,UnityEngine.SceneManagement.UnloadSceneOptions,System.Boolean)">
+             <summary>
+             Release scene
+             </summary>
+             <remarks>
+             UnloadSceneAsync releases a previously loaded scene. The scene must have been activated to be unloaded.
+            
+             Passing UnloadSceneOptions.UnloadAllEmbeddedSceneObjects will unload assets embedded in the scene. The default is UploadSceneOptions.None
+             which will only unload the scene's GameObjects.
+             </remarks>
+             <param name="scene">The SceneInstance to release.</param>
+             <param name="unloadOptions">Specify behavior for unloading embedded scene objecs</param>
+             <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+             <returns>The operation handle for the scene unload.</returns>
+             <example>
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingUnloadSceneAsync.cs" region="SAMPLE"/>
+             </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.SceneManagement.UnloadSceneOptions,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="unloadOptions">Specify behavior for unloading embedded scene objecs</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the scene unload.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.ResourceProviders.SceneInstance,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="scene">The SceneInstance to release.</param>
+            <param name="unloadOptions">Specify behavior for unloading embedded scene objecs</param>
+            <returns>The operation handle for the scene unload.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the scene unload.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UnloadSceneAsync(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},System.Boolean)">
+            <summary>
+            Release scene
+            </summary>
+            <param name="handle">The handle returned by LoadSceneAsync for the scene to release.</param>
+            <param name="autoReleaseHandle">If true, the handle will be released automatically when complete.</param>
+            <returns>The operation handle for the scene unload.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.CheckForCatalogUpdates(System.Boolean)">
+            <summary>
+            Checks all updatable content catalogs for a new version.
+            </summary>
+            <param name="autoReleaseHandle">If true, the handle will automatically be released when the operation completes.</param>
+            <returns>The operation containing the list of catalog ids that have an available update.  This can be used to filter which catalogs to update with the UpdateContent.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UpdateCatalogs(System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+             <summary>
+             Update the specified catalogs.
+             </summary>
+             <remarks>
+             When you call the UpdateCatalog function, all other Addressable requests are blocked until the operation is finished.
+             You can release the operation handle returned by UpdateCatalogs immediately after the operation finishes (or set the
+             autoRelease parameter to true).
+            
+             If you call UpdateCatalog without providing a list of catalogs, the Addressables system checks all of the currently
+             loaded catalogs for updates.
+            
+             If you update a catalog when you have already loaded content from the related AssetBundles, you can encounter conflicts
+             between the loaded AssetBundles and the updated versions. To avoid conflicts, update the catalog before loading assets or unload
+             the AssetBundles before the updating the catalog. You can enable the
+             [Unique Bundle Ids](xref:addressables-content-update-builds#unique-bundle-ids-setting)
+             option in your Addressable settings to avoid conflicts, but that can increase memory consumption since you will still
+             have the original AssetBundles in memory after loading the updated ones. Enabling this option can also make the download size of content
+             updates larger because typically more AssetBundles must be rebuilt.
+            
+             You can call <see cref="M:UnityEngine.AddressableAssets.Addressables.UpdateCatalogs(System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.Boolean)"/> with the first value set to true to automtically remove any
+             nonreferenced bundles from the cache after updating the catalogs.
+            
+             </remarks>
+             <param name="catalogs">The set of catalogs to update.  If null, all catalogs that have an available update will be updated.</param>
+             <param name="autoReleaseHandle">If true, the handle will automatically be released when the operation completes.</param>
+             <returns>The operation with the list of updated content catalog data.</returns>
+             <example>
+             In this example all catalogs are checked for updates:
+             <code source="../Tests/Editor/DocExampleCode/MiscellaneousTopics.cs" region="doc_CheckCatalog"/>
+             </example>
+            
+             <example>
+             Alternatively you can directly get a list of catalogs and perform the updates:
+             <code source="../Tests/Editor/DocExampleCode/MiscellaneousTopics.cs" region="doc_CheckCatalog"/>
+             </example>
+             <seealso href="xref:addressables-api-load-content-catalog-async#updating-catalogs">Updating catalogs</seealso>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.UpdateCatalogs(System.Boolean,System.Collections.Generic.IEnumerable{System.String},System.Boolean)">
+            <summary>
+            Update the specified catalogs.
+            </summary>
+            <param name="autoCleanBundleCache">If true, removes any nonreferenced bundles in the cache.</param>
+            <param name="catalogs">The set of catalogs to update.  If null, all catalogs that have an available update will be updated.</param>
+            <param name="autoReleaseHandle">If true, the handle will automatically be released when the operation completes.</param>
+            <returns>The operation with the list of updated content catalog data.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.AddResourceLocator(UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator,System.String,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+             <summary>
+             Adds a ResourceLocator to the Addressables runtime.
+             </summary>
+             <remarks>
+             Adds a ResourceLocator to the Addressables runtime.
+            
+             After adding the resource locator to Addressables it can then be used to locate Locations via Addressables loading APIs.
+            
+             Adding new resource locators can be used to add locations and manage asset files outside of the Addressables build system.
+            
+             In the following example we have a folder in the root folder called "dataFiles" containing some json files.
+             
+             These json files are then loaded using TextDataProvider, which is a ResourceProvider used to load text files.
+             </remarks>
+             <param name="locator">The locator object.</param>
+             <param name="localCatalogHash">The hash of the local catalog. This can be null if the catalog cannot be updated.</param>
+             <param name="remoteCatalogLocation">The location of the remote catalog. This can be null if the catalog cannot be updated.</param>
+             <example>
+             This example code creates ResourceLocationBase and adds it to the locator for each file.
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingAddResourceLocator.cs" region="SAMPLE_ADDLOCATOR"/>
+             </example>
+             <example>
+             Using Addressables API to load "dataFiles/settings.json" after adding the locator:
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingAddResourceLocator.cs" region="SAMPLE_LOADING"/>
+             </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.RemoveResourceLocator(UnityEngine.AddressableAssets.ResourceLocators.IResourceLocator)">
+            <summary>
+            Remove a locator;
+            </summary>
+            <param name="locator">The locator to remove.</param>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.ClearResourceLocators">
+            <summary>
+            Remove all locators.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.CleanBundleCache(System.Collections.Generic.IEnumerable{System.String})">
+             <summary>
+             Removes any AssetBundles that are no longer referenced in the bundle cache. This can occur when a new, updated catalog excludes entries present in an older catalog.
+             </summary>
+             <remarks>
+             This is used to reduce the disk usage of the app by removing AssetBundles that are not needed.
+             
+             Note, that only AssetBundles loaded through UnityWebRequest are cached. If you want to purge the entire cache, use [Caching.ClearCache](xref:UnityEngine.Cache.ClearCache) instead.
+             
+             In the Editor, calling CleanBundleCache when not using the "Use Existing Build (requires built groups)" will clear all bundles. No bundles are used by "Use Asset Database (fastest)" or "Simulate Groups (advanced)" catalogs.
+            
+             See [AssetBundle caching](xref:addressables-remote-content-distribution#assetbundle-caching) for more details.
+             </remarks>
+             <param name="catalogsIds">The ids of catalogs whose bundle cache entries we want to preserve. If null, entries for all currently loaded catalogs will be preserved.</param>
+             <returns>The operation handle for the request. Note, that it is user's responsibility to release the returned operation; this can be done before or after the operation completes.</returns>
+             <example>
+             Using CleanBundleCache to remove unused bundles from cache:
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingCleanBundleCache.cs" region="SAMPLE_ALL" />
+             </example>
+             <example>
+             The catalogIds parameter is used to set which cached bundles are preserved.Any bundles that are used in other catalogs or old bundles from the specified catalogs are removed.If null, all currently loaded catalogs will be preserved.
+             Note, Catalogs other than the main catalog must be loaded to be used for preserving bundles, see[LoadContentCatalogAsync] for more information.
+             Using CleanBundleCache to remove all unused bundles from cache that are not used in the current main catalog:
+             <code source="../Tests/Editor/DocExampleCode/ScriptReference/UsingCleanBundleCache.cs" region="SAMPLE_SPECIFY" />
+             </example>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.CreateCatalogLocationWithHashDependencies``1(System.String)">
+            <summary>
+            Given a location path that points to a remote content catalog, create a location with the assumed dependencies
+            that point to remote, and local, hash files respectively.  The first dependency, remote, assumes that the .hash file
+            is located beside the provided location of the .json catalog file.  The second dependency, local, points to a location
+            inside the Addressables local cache data folder.  The Addressables local cache data folder is meant for content catalogs
+            and is not the same cache location for AssetBundles.
+            </summary>
+            <typeparam name="T">The type of provider you want to load your given catalog.  By default, Addressables uses the ContentCatalogProvider.</typeparam>
+            <param name="remoteCatalogPath">The path of the remote content catalog.</param>
+            <returns>A resource location with exactly 2 dependencies.  The first points to the assumed remote hash file location.  The second points to the local hash file location.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.CreateCatalogLocationWithHashDependencies``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Given a location path that points to a remote content catalog, create a location with the assumed dependencies
+            that point to remote, and local, hash files respectively.  The first dependency, remote, assumes that the .hash file
+            is located beside the provided location of the .json catalog file.  The second dependency, local, points to a location
+            inside the Addressables local cache data folder.  The Addressables local cache data folder is meant for content catalogs
+            and is not the same cache location for AssetBundles.
+            </summary>
+            <typeparam name="T">The type of provider you want to load your given catalog.  By default, Addressables uses the ContentCatalogProvider.</typeparam>
+            <param name="remoteCatalogLocation">A resource location that points to the remote content catalog file.</param>
+            <returns>A resource location with exactly 2 dependencies.  The first points to the assumed remote hash file location.  The second points to the local hash file location.</returns>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.Addressables.CreateCatalogLocationWithHashDependencies``1(System.String,System.String)">
+            <summary>
+            Given a location path that points to a remote content catalog and its corresponding remote hash file, create a location with the dependencies
+            that point to remote, and local, hash files respectively.  The first dependency, remote, uses the provided remote hash location.  
+            The second dependency, local, points to a location inside the Addressables local cache data folder.  The Addressables local cache data folder is meant for content catalogs
+            and is not the same cache location for AssetBundles. 
+            </summary>
+            <typeparam name="T">The type of provider you want to load your given catalog.  By default, Addressables uses the ContentCatalogProvider.</typeparam>
+            <param name="remoteCatalogPath">The path of the remote content catalog.</param>
+            <param name="remoteHashPath">The path of the remote catalog .hash file.</param>
+            <returns>A resource location with exactly 2 dependencies.  The first points to the assumed remote hash file location.  The second points to the local hash file location.</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.AssetLabelReference">
+            <summary>
+            Reference to an asset label.  This class can be used in scripts as a field and will use a CustomPropertyDrawer to provide a DropDown UI of available labels.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetLabelReference.labelString">
+            <summary>
+            The label string.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.AssetLabelReference.RuntimeKey">
+            <summary>
+            The runtime key used for indexing values in the Addressables system.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetLabelReference.RuntimeKeyIsValid">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.AssetLabelReference.GetHashCode">
+            <summary>
+            Get the hash code of this object.
+            </summary>
+            <returns>The hash code of the label string.</returns>
+        </member>
+        <member name="T:UnityEngine.AddressableAssets.IKeyEvaluator">
+            <summary>
+            Interface for providing a key.  This allows for objects passed into the Addressables system to provied a key instead of being used directly.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.AddressableAssets.IKeyEvaluator.RuntimeKey">
+            <summary>
+            The runtime key to use.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AddressableAssets.IKeyEvaluator.RuntimeKeyIsValid">
+            <summary>
+            Checks if the current RuntimeKey is valid.
+            </summary>
+            <returns>Whether the RuntimeKey is valid or not.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.InitalizationObjectsOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.AssetReferenceUIRestriction">
+            <summary>
+            Used to restrict an AssetReference field or property to only allow items wil specific labels.  This is only enforced through the UI.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUIRestriction.ValidateAsset(UnityEngine.Object)">
+            <summary>
+            Validates that the referenced asset allowable for this asset reference.
+            </summary>
+            <param name="obj">The Object to validate.</param>
+            <returns>Whether the referenced asset is valid.</returns>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUIRestriction.ValidateAsset(System.String)">
+            <summary>
+            Validates that the referenced asset allowable for this asset reference.
+            </summary>
+            <param name="path">The path to the asset in question.</param>
+            <returns>Whether the referenced asset is valid.</returns>
+        </member>
+        <member name="T:UnityEngine.AssetReferenceUILabelRestriction">
+            <summary>
+            Used to restrict an AssetReference field or property to only allow items wil specific labels.  This is only enforced through the UI.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AssetReferenceUILabelRestriction.m_AllowedLabels">
+            <summary>
+            Stores the labels allowed for the AssetReference.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.AssetReferenceUILabelRestriction.m_CachedToString">
+            <summary>
+            Stores the allowed labels formatted as a string.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUILabelRestriction.#ctor(System.String[])">
+            <summary>
+            Creates a new AssetReferenceUILabelRestriction object.
+            </summary>
+            <param name="allowedLabels">The labels allowed for the AssetReference.</param>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUILabelRestriction.ValidateAsset(UnityEngine.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUILabelRestriction.ValidateAsset(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.AssetReferenceUILabelRestriction.ToString">
+            <summary>
+            Converts the information about the allowed labels to a formatted string.
+            </summary>
+            <returns>Returns information about the allowed labels as a string.</returns>
+        </member>
+        <member name="T:PackedPlayModeBuildLogs">
+            <summary>
+            Creates build logs that need to be seen at runtime.
+            </summary>
+        </member>
+        <member name="T:PackedPlayModeBuildLogs.RuntimeBuildLog">
+            <summary>
+            A container for build logs that need to be seen at runtime.
+            </summary>
+        </member>
+        <member name="F:PackedPlayModeBuildLogs.RuntimeBuildLog.Type">
+            <summary>
+            The type of log being stored.  This will determine how the message is portrayed at runtime.
+            </summary>
+        </member>
+        <member name="F:PackedPlayModeBuildLogs.RuntimeBuildLog.Message">
+            <summary>
+            The contents of the build log.
+            </summary>
+        </member>
+        <member name="M:PackedPlayModeBuildLogs.RuntimeBuildLog.#ctor(UnityEngine.LogType,System.String)">
+            <summary>
+            Create a container for build logs that need to be seen at runtime.
+            </summary>
+            <param name="type">The type of log.</param>
+            <param name="message">The message to be logged.</param>
+        </member>
+        <member name="P:PackedPlayModeBuildLogs.RuntimeBuildLogs">
+            <summary>
+            List of logs that need to appear in the runtime that was generated by the build.
+            </summary>
+        </member>
+    </members>
+</doc>

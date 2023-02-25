@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Burst.CodeGen</name>
+    </assembly>
+    <members>
+        <member name="T:zzzUnity.Burst.CodeGen.CecilExtensions">
+            <summary>
+            Provides some Cecil Extensions.
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.BurstILPostProcessor">
+            <summary>
+            Postprocessor used to replace calls from C# to [BurstCompile] functions to direct calls to
+            Burst native code functions without having to go through a C# delegate.
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.AssemblyResolver">
+            <summary>
+            Provides an assembly resolver with deferred loading and a custom metadata resolver.
+            </summary>
+            <remarks>
+            This class is not thread safe. It needs to be protected outside.
+            </remarks>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.AssemblyResolver.CustomSymbolReaderProvider">
+            <summary>
+            Custom implementation of <see cref="T:Mono.Cecil.Cil.ISymbolReaderProvider"/> to:
+            - to load pdb/mdb through a MemoryStream to avoid locking the file on the disk
+            - catch any exceptions while loading the symbols and report them back
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.AssemblyResolver.CustomSymbolReaderProvider.SafeDebugReaderProvider">
+            <summary>
+            This class is a wrapper around <see cref="T:Mono.Cecil.Cil.ISymbolReader"/> to protect
+            against failure while trying to read debug information in Mono.Cecil
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.FunctionPointerInvokeTransform">
+            <summary>
+            Transforms a direct invoke on a burst function pointer into an calli, avoiding the need to marshal the delegate back.
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.ILPostProcessing">
+            <summary>
+            Main class for post processing assemblies. The post processing is currently performing:
+            - Replace C# call from C# to Burst functions with attributes [BurstCompile] to a call to the compiled Burst function
+              In both editor and standalone scenarios. For DOTS Runtime, this is done differently at BclApp level by patching
+              DllImport.
+            - Replace calls to `SharedStatic.GetOrCreate` with `SharedStatic.GetOrCreateUnsafe`, and calculate the hashes during ILPP time
+              rather than in static constructors at runtime.
+            </summary>
+        </member>
+        <member name="T:zzzUnity.Burst.CodeGen.ILPostProcessingLegacy">
+            <summary>
+            Main class for post processing assemblies. The post processing is currently performing:
+            - Replace C# call from C# to Burst functions with attributes [BurstCompile] to a call to the compiled Burst function
+              In both editor and standalone scenarios. For DOTS Runtime, this is done differently at BclApp level by patching
+              DllImport.
+            - Replace calls to `SharedStatic.GetOrCreate` with `SharedStatic.GetOrCreateUnsafe`, and calculate the hashes during ILPP time
+              rather than in static constructors at runtime.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,454 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.TextMeshPro.Editor</name>
+    </assembly>
+    <members>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.OnEnable">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.OnGUI">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.OnDisable">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.DrawEditorPanel">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.PopulateSpriteTables(TMPro.SpriteAssetUtilities.TexturePacker_JsonArray.SpriteDataObject,System.Collections.Generic.List{TMPro.TMP_SpriteCharacter},System.Collections.Generic.List{TMPro.TMP_SpriteGlyph})">
+             <summary>
+            
+             </summary>
+             <param name="spriteDataObject"></param>
+             <param name="spriteCharacterTable"></param>
+             <param name="spriteGlyphTable"></param>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.SaveSpriteAsset(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="filePath"></param>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.AddDefaultMaterial(TMPro.TMP_SpriteAsset)">
+            <summary>
+            Create and add new default material to sprite asset.
+            </summary>
+            <param name="spriteAsset"></param>
+        </member>
+        <member name="M:TMPro.TMP_SpriteAssetImporter.SetEditorWindowSize">
+            <summary>
+            Limits the minimum size of the editor window.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_CreateObjectMenu.CreateTextMeshProObjectPerform(UnityEditor.MenuCommand)">
+            <summary>
+            Create a TextMeshPro object that works with the Mesh Renderer
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_CreateObjectMenu.CreateTextMeshProGuiObjectPerform(UnityEditor.MenuCommand)">
+            <summary>
+            Create a TextMeshPro object that works with the CanvasRenderer
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_ResourcesLoader.LoadTextMeshProResources">
+            <summary>
+            Function to pre-load the TMP Resources
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.ParseNumberSequence(System.String)">
+            <summary>
+            Method which returns the character corresponding to a decimal value.
+            </summary>
+            <param name="sequence"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.ParseHexNumberSequence(System.String)">
+            <summary>
+            Method which returns the character (decimal value) from a hex sequence.
+            </summary>
+            <param name="sequence"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.ClearGeneratedData">
+            <summary>
+            Clear the previously generated data.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.UpdateRenderFeedbackWindow">
+            <summary>
+            Function to update the feedback window showing the results of the latest generation.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.SaveNewFontAsset(UnityEngine.Object)">
+            <summary>
+            Open Save Dialog to provide the option save the font asset using the name of the source font file. This also appends SDF to the name if using any of the SDF Font Asset creation modes.
+            </summary>
+            <param name="sourceObject"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.SaveNewFontAssetWithSameName(UnityEngine.Object)">
+            <summary>
+            Open Save Dialog to provide the option to save the font asset under the same name.
+            </summary>
+            <param name="sourceObject"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.SaveFontCreationSettings">
+            <summary>
+            Internal method to save the Font Asset Creation Settings
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.LoadFontCreationSettings(TMPro.FontAssetCreationSettings)">
+            <summary>
+            Internal method to load the Font Asset Creation Settings
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMPro_FontAssetCreatorWindow.SaveCreationSettingsToEditorPrefs(TMPro.FontAssetCreationSettings)">
+            <summary>
+            Save the latest font asset creation settings to EditorPrefs.
+            </summary>
+            <param name="settings"></param>
+        </member>
+        <member name="T:TMPro.EditorUtilities.TMP_EditorCoroutine">
+            <summary>
+            Simple implementation of coroutine working in the Unity Editor.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorCoroutine.#ctor(System.Collections.IEnumerator)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="routine"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorCoroutine.StartCoroutine(System.Collections.IEnumerator)">
+            <summary>
+            Starts a new EditorCoroutine.
+            </summary>
+            <param name="newCoroutine">Coroutine</param>
+            <returns>new EditorCoroutine</returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorCoroutine.Start">
+            <summary>
+            Register callback for editor updates
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorCoroutine.Stop">
+            <summary>
+            Unregister callback for editor updates.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorCoroutine.EditorUpdate">
+            <summary>
+            Delegate function called on editor updates.
+            </summary>
+        </member>
+        <member name="P:TMPro.EditorUtilities.TMP_EditorUtility.packageRelativePath">
+            <summary>
+            Returns the relative path of the package.
+            </summary>
+        </member>
+        <member name="P:TMPro.EditorUtilities.TMP_EditorUtility.packageFullPath">
+            <summary>
+            Returns the fully qualified path of the package.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.CreateAsset``1(System.String)">
+            <summary>
+            Create and return a new asset in a smart location based on the current selection and then select it.
+            </summary>
+            <param name="name">
+            Name of the new asset. Do not include the .asset extension.
+            </param>
+            <returns>
+            The new asset.
+            </returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.ValidateLocation(System.String[],System.String)">
+            <summary>
+            Method to validate the location of the asset folder by making sure the GUISkins folder exists.
+            </summary>
+            <param name="paths"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.GetDecimalCharacterSequence(System.Int32[])">
+            <summary>
+            Function which returns a string containing a sequence of Decimal character ranges.
+            </summary>
+            <param name="characterSet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.GetUnicodeCharacterSequence(System.Int32[])">
+            <summary>
+            Function which returns a string containing a sequence of Unicode (Hex) character ranges.
+            </summary>
+            <param name="characterSet"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.DrawBox(UnityEngine.Rect,System.Single,UnityEngine.Color)">
+            <summary>
+            
+            </summary>
+            <param name="rect"></param>
+            <param name="thickness"></param>
+            <param name="color"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.GetHorizontalAlignmentGridValue(System.Int32)">
+            <summary>
+            Function to return the horizontal alignment grid value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_EditorUtility.GetVerticalAlignmentGridValue(System.Int32)">
+            <summary>
+            Function to return the vertical alignment grid value.
+            </summary>
+            <param name="value"></param>
+            <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.DisplayPageNavigation(System.Int32@,System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="arraySize"></param>
+             <param name="itemsPerPage"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.UpdateGlobalProperty(System.String,System.Single)">
+            <summary>
+            Method to update the properties of all sprites
+            </summary>
+            <param name="property"></param>
+            <param name="value"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.SwapCharacterElements(System.Int32,System.Int32)">
+            <summary>
+            Swap the sprite item at the currently selected array index to another index.
+            </summary>
+            <param name="selectedIndex">Selected index.</param>
+            <param name="newIndex">New index.</param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.MoveCharacterToIndex(System.Int32,System.Int32)">
+            <summary>
+            Move Sprite Element at selected index to another index and reorder sprite list.
+            </summary>
+            <param name="selectedIndex"></param>
+            <param name="newIndex"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.SwapGlyphElements(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="selectedIndex"></param>
+             <param name="newIndex"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.MoveGlyphToIndex(System.Int32,System.Int32)">
+            <summary>
+            Move Sprite Element at selected index to another index and reorder sprite list.
+            </summary>
+            <param name="selectedIndex"></param>
+            <param name="newIndex"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.CopyCharacterSerializedProperty(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty@)">
+             <summary>
+            
+             </summary>
+             <param name="source"></param>
+             <param name="target"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetEditor.SearchCharacterTable(System.String,System.Collections.Generic.List{System.Int32}@)">
+             <summary>
+            
+             </summary>
+             <param name="searchPattern"></param>
+             <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.EditorShaderUtilities.CopyMaterialProperties(UnityEngine.Material,UnityEngine.Material)">
+            <summary>
+            Copy Shader properties from source to destination material.
+            </summary>
+            <param name="source"></param>
+            <returns></returns>
+        </member>
+        <member name="T:TMPro.EditorUtilities.TMP_BaseShaderGUI">
+            <summary>Base class for TextMesh Pro shader GUIs.</summary>
+        </member>
+        <member name="T:TMPro.EditorUtilities.TMP_BaseShaderGUI.ShaderFeature">
+            <summary>Representation of a #pragma shader_feature.</summary>
+            <description>It is assumed that the first feature option is for no keyword (underscores).</description>
+        </member>
+        <member name="F:TMPro.EditorUtilities.TMP_BaseShaderGUI.ShaderFeature.keywordLabels">
+            <summary>The keyword labels, for display. Include the no-keyword as the first option.</summary>
+        </member>
+        <member name="F:TMPro.EditorUtilities.TMP_BaseShaderGUI.ShaderFeature.keywords">
+            <summary>The shader keywords. Exclude the no-keyword option.</summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_BaseShaderGUI.DoGUI">
+            <summary>Override this method to create the specific shader GUI.</summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_ContextMenus.RegenerateFontAsset(UnityEditor.MenuCommand)">
+             <summary>
+            
+             </summary>
+             <param name="command"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_ContextMenus.ClearFontAssetDataValidate(UnityEditor.MenuCommand)">
+            <summary>
+            Clear Dynamic Font Asset data such as glyph, character and font features.
+            </summary>
+            <param name="command"></param>
+        </member>
+        <member name="P:TMPro.EditorUtilities.TMP_FontAssetEditor.internalSDFMaterial">
+            <summary>
+            Material used to display SDF glyphs in the Character and Glyph tables.
+            </summary>
+        </member>
+        <member name="P:TMPro.EditorUtilities.TMP_FontAssetEditor.internalBitmapMaterial">
+            <summary>
+            Material used to display Bitmap glyphs in the Character and Glyph tables.
+            </summary>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_FontAssetEditor.AddNewGlyph(System.Int32,System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="srcGlyphID"></param>
+             <param name="dstGlyphID"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_FontAssetEditor.RemoveGlyphFromList(System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="glyphID"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_FontAssetEditor.CopyGlyphSerializedProperty(UnityEditor.SerializedProperty,UnityEditor.SerializedProperty@)">
+             <summary>
+            
+             </summary>
+             <param name="srcGlyph"></param>
+             <param name="dstGlyph"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_FontAssetEditor.SearchGlyphTable(System.String,System.Collections.Generic.List{System.Int32}@)">
+             <summary>
+            
+             </summary>
+             <param name="searchPattern"></param>
+             <returns></returns>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_SpriteAssetMenu.AddDefaultMaterial(TMPro.TMP_SpriteAsset)">
+            <summary>
+            Create and add new default material to sprite asset.
+            </summary>
+            <param name="spriteAsset"></param>
+        </member>
+        <member name="M:TMPro.EditorUtilities.TMP_BaseEditorPanel.GetMaterialPresets">
+            <summary>
+            Method to retrieve the material presets that match the currently selected font asset.
+            </summary>
+        </member>
+        <member name="T:TMPro.EditorUtilities.TMPro_TexturePostProcessor">
+            <summary>
+            Asset post processor used to handle text assets changes.
+            This includes tracking of changes to textures used by sprite assets as well as font assets potentially getting updated outside of the Unity editor.
+            </summary>
+        </member>
+        <member name="T:TMPro.AssetConversionRecord">
+            <summary>
+            Data structure containing the target and replacement fileIDs and GUIDs which will require remapping from previous version of TextMesh Pro to the new TextMesh Pro UPM package.
+            </summary>
+        </member>
+        <member name="T:TMPro.AssetConversionData">
+            <summary>
+            Data structure containing a list of target and replacement fileID and GUID requiring remapping from previous versions of TextMesh Pro to the new TextMesh Pro UPM package.
+            This data structure is populated with the data contained in the PackageConversionData.json file included in the package.
+            </summary>
+        </member>
+        <member name="T:TMPro.TMP_ProjectTextSpacingConversionTool.AssetModificationRecord">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectTextSpacingConversionTool.SetEditorWindowSize">
+            <summary>
+            Limits the minimum size of the editor window.
+            </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectTextSpacingConversionTool.ResetScanProcess">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectTextSpacingConversionTool.UpdateProjectFiles">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectTextSpacingConversionTool.CheckProjectSerializationAndSourceControlModes">
+            <summary>
+            Check project Asset Serialization and Source Control modes
+            </summary>
+        </member>
+        <member name="T:TMPro.TMP_ProjectConversionUtility.AssetModificationRecord">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectConversionUtility.SetEditorWindowSize">
+            <summary>
+            Limits the minimum size of the editor window.
+            </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectConversionUtility.ShouldIgnoreFile(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="filePath"></param>
+             <returns></returns>
+        </member>
+        <member name="M:TMPro.TMP_ProjectConversionUtility.ResetScanProcess">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectConversionUtility.UpdateProjectFiles">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_ProjectConversionUtility.CheckProjectSerializationAndSourceControlModes">
+            <summary>
+            Check project Asset Serialization and Source Control modes
+            </summary>
+        </member>
+        <member name="M:TMPro.TMP_PackageUtilities.ImportProjectResourcesMenu">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_PackageUtilities.ImportExamplesContentMenu">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_PackageUtilities.ImportExamplesAndExtras">
+             <summary>
+            
+             </summary>
+        </member>
+        <member name="M:TMPro.TMP_PackageUtilities.ImportEssentialResources">
+             <summary>
+            
+             </summary>
+        </member>
+    </members>
+</doc>

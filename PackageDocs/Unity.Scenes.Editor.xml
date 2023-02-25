@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Scenes.Editor</name>
+    </assembly>
+    <members>
+        <member name="M:Unity.Scenes.Editor.SubSceneInspectorUtility.RepaintSubSceneInspector">
+            <summary>
+            Forces a Repaint event on the <see cref="T:Unity.Scenes.Editor.SubSceneInspector"/> editor which are currently active.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.Editor.SubSceneUtility">
+            <summary>
+            Utility methods for handling subscene behavior
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.SubSceneUtility.EditScene(Unity.Scenes.SubScene[])">
+            <summary>
+            Marks a set of subscenes as editable if possible
+            </summary>
+            <param name="scenes">The list of subscenes to mark as editable</param>
+        </member>
+        <member name="T:Unity.Scenes.Editor.EditorEntityScenes">
+            <summary>
+            Provides utility methods for dealing with entity sub scenes in the editor.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EditorEntityScenes.IsEntitySubScene(UnityEngine.SceneManagement.Scene)">
+            <summary> Obsolete. Use <see cref="P:UnityEngine.SceneManagement.Scene.isSubScene"/> instead.</summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EditorEntityScenes.Write(Unity.Entities.EntityManager,System.String,System.String)">
+            <summary>
+            Write the Entity Scene to binary files
+            </summary>
+            <param name="scene">The EntityManager of the scene to write to binary files</param>
+            <param name="binaryPath">The path for writing the entities</param>
+            <param name="objectReferencesPath">The path for writing the objects</param>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EditorEntityScenes.Read(Unity.Entities.EntityManager,System.String,System.String)">
+            <summary>
+            Read an Entity Scene from binary files
+            </summary>
+            <param name="scene">The EntityManager of the scene to read from binary files</param>
+            <param name="binaryPath">The path for reading the entities</param>
+            <param name="objectReferencesPath">The path for reading the objects</param>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EditorEntityScenes.AddEntityBinaryFileDependencies(UnityEditor.AssetImporters.AssetImportContext,Unity.Entities.Hash128)">
+            <summary>
+            Takes dependencies on the format version of the Entity Binary File, on the Entity Scene Dependency file and the BuildConfiguration
+            </summary>
+            <param name="ctx">The AssetImportContext to use for taking the dependency</param>
+            <param name="buildConfigurationGUID">The GUID of the build configuration</param>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EditorEntityScenes.GetSubScenes(UnityEditor.GUID)">
+            <summary>
+            Gets all the sub scenes embedded in a scene.
+            </summary>
+            <param name="guid">The GUID of the scene</param>
+            <returns>A list of all sub scenes embedded in the given scene</returns>
+        </member>
+        <member name="T:Unity.Scenes.Editor.TimeBasedCallbackInvoker">
+            <summary>
+            Invokes registered callbacks during static editor update with a fixed timestep.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.TimeBasedCallbackInvoker.SetCallback(UnityEditor.EditorApplication.CallbackFunction)">
+            <summary>
+            Register a callback for repeated invocation.
+            The registration will have no effect if the callback has already been registered.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.TimeBasedCallbackInvoker.ClearCallback(UnityEditor.EditorApplication.CallbackFunction)">
+            <summary>
+            Stop repeated invocation of a callback.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.Editor.SceneImporterData">
+            <summary>
+            Contains scene data that is stored in the userData field of the importer.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.SceneImporterData.GetAtPath(System.String)">
+            <summary>
+            Get the importer data for a scene given its path.
+            </summary>
+            <param name="path">The scene path.</param>
+            <returns>The data for the scene.</returns>
+        </member>
+        <member name="M:Unity.Scenes.Editor.SceneImporterData.SetAtPath(System.String,Unity.Scenes.Editor.SceneImporterData)">
+            <summary>
+            Set the scene data for the scene at the given path.
+            </summary>
+            <param name="path">The scene path.</param>
+            <param name="data">The scene data.</param>
+        </member>
+        <member name="T:Unity.Scenes.Editor.LiveConversionEditorSettings">
+            <summary>
+            Settings controlling the live conversion.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.Editor.LiveConversionEditorSettings.LiveConversionMode">
+            <summary>
+            The current live conversion mode.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.Editor.LiveConversionEditorSettings.LiveConversionEnabled">
+            <summary>
+            Whether or not the live conversion is enabled in the editor preferences.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.Editor.LiveConversionEditorSettings.LiveConversionSceneViewShowRuntime">
+            <summary>
+            If true, the scene view displays the conversion result. Otherwise, the scene view displays the authoring state.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.EntitySceneBuildUtility.CreateAssetLayoutData(System.Collections.Generic.Dictionary{Unity.Entities.SceneSection,Unity.Scenes.Editor.EntitySceneBuildUtility.SectionDependencyInfo},System.Collections.Generic.Dictionary{Unity.Entities.Hash128,System.Collections.Generic.Dictionary{Unity.Entities.SceneSection,System.Collections.Generic.List{Unity.Entities.Hash128}}},System.Collections.Generic.Dictionary{Unity.Entities.Hash128,System.Collections.Generic.List{UnityEditor.Build.Content.ObjectIdentifier}})">
+            <summary>
+            Create bundle layout and depedendency data for subscene bundles
+            </summary>
+            <param name="dependencyInputData">Mapping of SceneSection to dependency info for that section.</param>
+            <param name="dependencyResult">Mapping of subscene id to mapping of section to bundle ids</param>
+            <param name="bundleLayoutResult">Mapping of bundle ids to included objects</param>
+        </member>
+        <member name="T:Unity.Scenes.Editor.ClearEntitiesCacheWindow">
+            <summary>
+            Provides a message window to confirm that the user wants to delete all the cached subscenes.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.Editor.ClearEntitiesCacheWindow.OpenWindow">
+            <summary>
+            Method to open the message window
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Content.ContentArchivesBuildUtility">
+            <summary>
+            Utility functions for building archives.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Content.ContentArchivesBuildUtility.BuildContentArchives(UnityEditor.BuildTarget,System.Collections.Generic.HashSet{Unity.Entities.Serialization.UntypedWeakReferenceId},System.Collections.Generic.HashSet{Unity.Entities.Serialization.UntypedWeakReferenceId},System.Collections.Generic.IEnumerable{UnityEditor.Build.Pipeline.Interfaces.CustomContent},System.String,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults@,System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Interfaces.IBuildTask},UnityEditor.Build.Pipeline.Interfaces.IContextObject[])">
+            <summary>
+             Build the set of Content Archives from a set of WeakObjectReferenceIds.
+            </summary>
+            <param name="buildTarget">The target platform for the built data.</param>
+            <param name="objReferences">Set of object references to build.</param>
+            <param name="sceneReferences">Set of scene references to build.</param>
+            <param name="outputPath">The output path to build archives into.</param>
+            <param name="results">The results data from the build.  This is returned in order to create the catalog data.</param>
+            <param name="customContent">Custom content to include in the build.</param>
+            <param name="taskList">The task list to use when building the content archives.</param>
+            <param name="contextObjects">Additional content objects to pass into the build pipeline.</param>
+            <returns>The result of the archive build process.</returns>
+        </member>
+        <member name="T:Unity.Entities.Content.ContentCatalogBuildUtility">
+            <summary>
+            Utility functions for building content catalog data.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Content.ContentCatalogBuildUtility.Print(Unity.Entities.Content.IRuntimeCatalogDataSource,System.Action{System.String},System.Func{Unity.Entities.Serialization.UntypedWeakReferenceId,Unity.Entities.Serialization.UntypedWeakReferenceId})">
+            <summary>
+            Print the data provided by an ICatalogDataSource.
+            </summary>
+            <param name="src">The data source.</param>
+            <param name="printFunc">The method to print each line.</param>
+            <param name="idRemapFunc">Functor that remaps runtime ids.</param>
+        </member>
+        <member name="M:Unity.Entities.Content.ContentCatalogBuildUtility.BuildCatalogDataVerbose(Unity.Entities.Content.IRuntimeCatalogDataSource,System.String,System.Func{Unity.Entities.Serialization.UntypedWeakReferenceId,Unity.Entities.Serialization.UntypedWeakReferenceId})">
+            <summary>
+            Builds a text version of the catalog that is human readable for debug purposes.
+            </summary>
+            <param name="src">The catalog data source.</param>
+            <param name="outputPath">The output path to save the data.</param>
+            <param name="idRemapFunc">Functor that remaps runtime ids.</param>
+        </member>
+        <member name="M:Unity.Entities.Content.ContentCatalogBuildUtility.BuildCatalogDataRuntime(Unity.Entities.Content.IRuntimeCatalogDataSource,System.String,System.Func{Unity.Entities.Serialization.UntypedWeakReferenceId,Unity.Entities.Serialization.UntypedWeakReferenceId})">
+            <summary>
+            Builds a binary version of the catalog that is consumable by the player.  
+            </summary>
+            <param name="results">The build results.</param>
+            <param name="src">The catalog data source.</param>
+            <param name="outputPath">The output path to save the data.</param>
+            <param name="idRemapFunc">Functor that remaps runtime ids.</param>
+        </member>
+        <member name="T:Unity.Entities.Content.RemoteContentCatalogBuildUtility">
+            <summary>
+            Utility class for creating remote content data.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Content.RemoteContentCatalogBuildUtility.BuildContent(System.Collections.Generic.HashSet{Unity.Entities.Hash128},Unity.Entities.Hash128,UnityEditor.BuildTarget,System.String)">
+            <summary>
+            Builds content for the player.  This can be used in conjunction with PublishContent to prepare a content update.
+            </summary>
+            <param name="subScenes">The subscenes to include in the build.</param>
+            <param name="playerGUID">The player guid.  This can be provided from <seealso cref="T:Unity.Entities.Build.DotsGlobalSettings"/> by calling GetClientGUID() or GetServerGUID().</param>
+            <param name="target">The build target. <seealso cref="P:UnityEditor.EditorUserBuildSettings.activeBuildTarget"/> can be used.</param>
+            <param name="buildFolder">The folder to build the content into.</param>
+        </member>
+        <member name="M:Unity.Entities.Content.RemoteContentCatalogBuildUtility.PublishContent(System.String,System.String,System.Func{System.String,System.Collections.Generic.IEnumerable{System.String}},System.Boolean)">
+            <summary>
+            Publish a folder of files.  This will copy or move files from the build folder to the target folder and rename them to the content hash.  Remote catalogs will also be created.
+            </summary>
+            <param name="sourceFolder">The folder with the source data.  Files will not be removed during the publish process.  If desired, the entire source folder can be deleted after this process is complete.</param>
+            <param name="targetFolder">The target folder for the published data.  The structure is the same as the local cache, so this data can be directly installed on device to preload the cache.</param>
+            <param name="contentSetFunc">This will be called for each file as it is published.  The returned strings will define the content sets that the file will be a part of.  If null is returned, the content will stay in the source folder and will not be published.</param>
+            <param name="deleteSrcContent">If true, the src content files will be deleted from the build folder.  Ensure that a build is properly backed up before enabling this.</param>
+            <returns>True if the publish process succeeds.</returns>
+        </member>
+        <member name="M:Unity.Entities.Content.RemoteContentCatalogBuildUtility.CreateRemoteContentCatalogData(System.String,System.String,System.Int32,System.Func{System.Int32,System.ValueTuple{Unity.Entities.Content.RemoteContentId,Unity.Entities.Content.RemoteContentLocation,System.Collections.Generic.IEnumerable{System.String}}})">
+            <summary>
+            The full catalog will be created and saved as a cache entry with its content hash.  Another catalog that contains the location for the full catalog will be created
+            at the specified locations path.  This file should be loaded without caching to check for updated versions of the full catalog and any content.
+            </summary>
+            <param name="targetFolder">The target folder to build the catalog data to.</param>
+            <param name="catalogLocationsPath">The path of the catalog locations file.  This is NOT the full catalog, but a catalog of the full catalog.</param>
+            <param name="count">The number of catalog entries.</param>
+            <param name="indexer">The indexer to retrieve the catalog entry at the specified index.</param>
+            <returns>True if the catalog data was created.</returns>
+        </member>
+        <member name="T:Unity.Entities.Content.BuildResultsCatalogDataSource">
+            <summary>
+            Class to convert build output into a format that can be used to build the content catalog data.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,384 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Profiling.Core</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Profiling.ProfilerMarker`3">
+             <summary>
+             Use ProfilerMarker&lt;TP1&gt; to mark up script code blocks for the Unity Profiler.
+            
+             You can pass three integral or floating point parameters alongside the Begin event.
+             The following types are supported as parameters:
+             * int
+             * uint
+             * long
+             * ulong
+             * float
+             * double
+             </summary>
+             <typeparam name="TP1">Type of the first parameter.</typeparam>
+             <typeparam name="TP2">Type of the second parameter.</typeparam>
+             <typeparam name="TP3">Type of the third parameter.</typeparam>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.#ctor(System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructs a ProfilerMarker that belongs to the generic ProfilerCategory.Scripts category.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter.</param>
+            <param name="param2Name">Name of the second parameter.</param>
+            <param name="param3Name">Name of the third parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.#ctor(Unity.Profiling.ProfilerCategory,System.String,System.String,System.String,System.String)">
+            <summary>
+            Constructs a ProfilerMarker.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter.</param>
+            <param name="param2Name">Name of the second parameter.</param>
+            <param name="param3Name">Name of the third parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.Begin(`0,`1,`2)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="p1">The first context parameter.</param>
+            <param name="p2">The second context parameter.</param>
+            <param name="p3">The third context parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.End">
+            <summary>
+            End profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarker`3.AutoScope">
+            <summary>
+            A helper struct that automatically calls End on Dispose and is used with ''using'' statement.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.AutoScope.Dispose">
+            <summary>
+            Calls ProfilerMarker.End.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`3.Auto(`0,`1,`2)">
+            <summary>
+            Use to profile a piece of code enclosed within *using* statement.
+            </summary>
+            <remarks>Returns *null* in Release Players.</remarks>
+            <param name="p1">The first context parameter.</param>
+            <param name="p2">The second context parameter.</param>
+            <param name="p3">The third context parameter.</param>
+            <returns>IDisposable struct which calls End on Dispose.</returns>
+            <example>
+            <code>
+            using (profilerMarker.Auto(enemies.Count, blastRadius, blastPos.x))
+            {
+                var blastRadius2 = blastRadius * blastRadius;
+                for (int i = 0; i &lt; enemies.Count; ++i)
+                {
+                    var r2 = (enemies[i].Pos - blastPos).sqrMagnitude;
+                    if (r2 &lt; blastRadius2)
+                        enemies[i].Dispose();
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerCounterValue`1">
+            <summary>
+            Reports a value of an integral or floating point type to the Unity Profiler.
+            </summary>
+            <typeparam name="T">int, uint, long, ulong, float or double type.</typeparam>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.#ctor(System.String)">
+            <summary>
+            Constructs a **ProfilerCounter** that belongs to the generic ProfilerCategory.Scripts category. It is reported at the end of CPU frame to the Unity Profiler.
+            </summary>
+            <param name="name">Name of ProfilerCounter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.#ctor(System.String,Unity.Profiling.ProfilerMarkerDataUnit)">
+            <summary>
+            Constructs a **ProfilerCounter** that belongs to the generic ProfilerCategory.Scripts category. It is reported at the end of CPU frame to the Unity Profiler.
+            </summary>
+            <param name="name">Name of ProfilerCounter.</param>
+            <param name="dataUnit">Value unit type.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.#ctor(System.String,Unity.Profiling.ProfilerMarkerDataUnit,Unity.Profiling.ProfilerCounterOptions)">
+            <summary>
+            Constructs a **ProfilerCounter** that belongs to generic ProfilerCategory.Scripts category.
+            </summary>
+            <param name="name">Name of ProfilerCounter.</param>
+            <param name="dataUnit">Value unit type.</param>
+            <param name="counterOptions">ProfilerCounter options.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.#ctor(Unity.Profiling.ProfilerCategory,System.String,Unity.Profiling.ProfilerMarkerDataUnit)">
+            <summary>
+            Constructs a **ProfilerCounter** that is reported at the end of CPU frame to the Unity Profiler.
+            </summary>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of ProfilerCounter.</param>
+            <param name="dataUnit">Value unit type.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.#ctor(Unity.Profiling.ProfilerCategory,System.String,Unity.Profiling.ProfilerMarkerDataUnit,Unity.Profiling.ProfilerCounterOptions)">
+            <summary>
+            Constructs a **ProfilerCounter**.
+            </summary>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of ProfilerCounter.</param>
+            <param name="dataUnit">Value unit type.</param>
+            <param name="counterOptions">ProfilerCounter options.</param>
+        </member>
+        <member name="P:Unity.Profiling.ProfilerCounterValue`1.Value">
+            <summary>
+            Gets or sets value of the ProfilerCounter.
+            </summary>
+            <remarks>Returns 0 and is not implemented in Release Players.</remarks>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounterValue`1.Sample">
+            <summary>
+            Sends the value to Unity Profiler immediately.
+            </summary>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarker`2">
+             <summary>
+             Use ProfilerMarker&lt;TP1, TP2&gt; to mark up script code blocks for the Unity Profiler.
+            
+             You can pass two integral or floating point parameters alongside the Begin event.
+             The following types are supported as parameters:
+             * int
+             * uint
+             * long
+             * ulong
+             * float
+             * double
+             </summary>
+             <typeparam name="TP1">Type of the first parameter.</typeparam>
+             <typeparam name="TP2">Type of the second parameter.</typeparam>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Constructs the ProfilerMarker that belongs to the generic ProfilerCategory.Scripts category.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter.</param>
+            <param name="param2Name">Name of the second parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.#ctor(Unity.Profiling.ProfilerCategory,System.String,System.String,System.String)">
+            <summary>
+            Constructs a ProfilerMarker.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter.</param>
+            <param name="param2Name">Name of the second parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.Begin(`0,`1)">
+            <summary>
+            Begins profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="p1">The first context parameter.</param>
+            <param name="p2">The second context parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.End">
+            <summary>
+            Ends profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarker`2.AutoScope">
+            <summary>
+            A helper struct that automatically calls End on Dispose. Used with the *using* statement.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.AutoScope.Dispose">
+            <summary>
+            Calls ProfilerMarker.End.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`2.Auto(`0,`1)">
+            <summary>
+            Profiles a piece of code enclosed within a *using* statement.
+            </summary>
+            <remarks>Returns *null* in Release Players.</remarks>
+            <param name="p1">The first context parameter.</param>
+            <param name="p2">The second context parameter.</param>
+            <returns>IDisposable struct which calls End on Dispose.</returns>
+            <example>
+            <code>
+            using (profilerMarker.Auto(enemies.Count, blastRadius))
+            {
+                var blastRadius2 = blastRadius * blastRadius;
+                for (int i = 0; i &lt; enemies.Count; ++i)
+                {
+                    var r2 = (enemies[i].Pos - blastPos).sqrMagnitude;
+                    if (r2 &lt; blastRadius2)
+                        enemies[i].Dispose();
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarkerExtension">
+            <summary>
+            Provides an extension to the ProfilerMarker API to accommodate a single additional parameter to the Begin method.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.Int32)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''int'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.UInt32)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''uint'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.Int64)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''long'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.UInt64)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''ulong'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.Single)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''float'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.Double)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''double'' parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarkerExtension.Begin(Unity.Profiling.ProfilerMarker,System.String)">
+            <summary>
+            Begin profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="marker">ProfilerMarker instance.</param>
+            <param name="metadata">''string'' parameter.</param>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarker`1">
+             <summary>
+             Use ProfilerMarker&lt;TP1&gt; to mark up script code blocks for the Unity Profiler.
+            
+             You can pass a single integral or floating point parameter alongside the Begin event.
+             </summary>
+             <typeparam name="TP1">int, uint, long, ulong, float or double type.</typeparam>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.#ctor(System.String,System.String)">
+            <summary>
+            Constructs the ProfilerMarker that belongs to the generic ProfilerCategory.Scripts category.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter passed to the Begin method.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.#ctor(Unity.Profiling.ProfilerCategory,System.String,System.String)">
+            <summary>
+            Constructs the ProfilerMarker.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of a marker.</param>
+            <param name="param1Name">Name of the first parameter passed to the Begin method.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.Begin(`0)">
+            <summary>
+            Begins profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="p1">Additional context parameter.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.End">
+            <summary>
+            Ends profiling a piece of code marked with the ProfilerMarker instance.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerMarker`1.AutoScope">
+            <summary>
+            A helper struct that automatically calls End on Dispose. Used with the *using* statement.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.AutoScope.Dispose">
+            <summary>
+            Calls ProfilerMarker.End.
+            </summary>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerMarker`1.Auto(`0)">
+            <summary>
+            Profiles a piece of code enclosed within the *using* statement.
+            </summary>
+            <remarks>Returns *null* in Release Players.</remarks>
+            <param name="p1">Additional context parameter.</param>
+            <returns>IDisposable struct which calls End on Dispose.</returns>
+            <example>
+            <code>
+            using (profilerMarker.Auto(enemies.Count))
+            {
+                var blastRadius2 = blastRadius * blastRadius;
+                for (int i = 0; i &lt; enemies.Count; ++i)
+                {
+                    var r2 = (enemies[i].Pos - blastPos).sqrMagnitude;
+                    if (r2 &lt; blastRadius2)
+                        enemies[i].Dispose();
+                }
+            }
+            </code>
+            </example>
+        </member>
+        <member name="T:Unity.Profiling.ProfilerCounter`1">
+            <summary>
+            Reports a value of an integer or floating point type to the Unity Profiler.
+            </summary>
+            <typeparam name="T">int, uint, long, ulong, float or double type.</typeparam>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounter`1.#ctor(Unity.Profiling.ProfilerCategory,System.String,Unity.Profiling.ProfilerMarkerDataUnit)">
+            <summary>
+            Constructs a **ProfilerCounter** that is reported to the Unity Profiler whenever you call Sample().
+            </summary>
+            <param name="category">Profiler category.</param>
+            <param name="name">Name of ProfilerCounter.</param>
+            <param name="dataUnit">Value unit type.</param>
+        </member>
+        <member name="M:Unity.Profiling.ProfilerCounter`1.Sample(`0)">
+            <summary>
+            Sends the value to Unity Profiler immediately.
+            </summary>
+            <remarks>Does nothing in Release Players.</remarks>
+            <param name="value">The value to send to the profiler.</param>
+        </member>
+    </members>
+</doc>

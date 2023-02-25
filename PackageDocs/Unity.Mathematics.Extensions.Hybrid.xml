@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Mathematics.Extensions.Hybrid</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Mathematics.AABBExtensions">
+            <summary>
+            Extensions to Unity.Mathematics to deal with converting Bounds to and from AABB
+            </summary>
+        </member>
+        <member name="M:Unity.Mathematics.AABBExtensions.ToAABB(UnityEngine.Bounds)">
+            <summary>
+            Convert a Bounds struct to an AABB struct
+            </summary>
+            <param name="bounds">the Bounds struct to convert to an AABB struct</param>
+            <returns>An AABB struct that is the same as the bounds struct</returns>
+        </member>
+        <member name="M:Unity.Mathematics.AABBExtensions.ToBounds(Unity.Mathematics.AABB)">
+            <summary>
+            Convert an AABB struct to a Bounds struct
+            </summary>
+            <param name="aabb">the AABB struct to convert to a Bounds struct</param>
+            <returns>A Bounds struct that is the same as the AABB struct</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2915 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.ScriptableBuildPipeline.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.PostPackingCallback">
+            <summary>
+            Processes all callbacks after the bundle packing task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.PostPackingCallback.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.PostPackingCallback.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.CalculateAssetDependencyData">
+            <summary>
+            Calculates the dependency data for all assets.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CalculateAssetDependencyData.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateAssetDependencyData.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.ArchiveAndCompressBundles">
+            <summary>
+            Archives and compresses all asset bundles.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.ArchiveAndCompressBundles.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.ArchiveAndCompressBundles.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.RebuildSpriteAtlasCache">
+            <summary>
+            Builds the cache data for all sprite atlases.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.RebuildSpriteAtlasCache.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.RebuildSpriteAtlasCache.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.PostDependencyCallback">
+            <summary>
+            Processes all callbacks after the dependency calculation task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.PostDependencyCallback.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.PostDependencyCallback.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData">
+            <summary>
+            Build Task that calculates teh included objects and references objects for custom assets not tracked by the AssetDatabase.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildTask"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData.Run">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData.GetObjectIdentifiersAndTypesForSerializedFile(System.String,UnityEditor.Build.Content.ObjectIdentifier[]@,System.Type[]@)">
+            <summary>
+            Returns the Object Identifiers and Types in a raw Unity Serialized File. The resulting arrays will be empty if a non-serialized file path was used.
+            </summary>
+            <param name="path">Path to the Unity Serialized File</param>
+            <param name="objectIdentifiers">Object Identifiers for all the objects in the serialized file</param>
+            <param name="types">Types for all the objects in the serialized file</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData.GetObjectIdentifiersAndTypesForSerializedFile(System.String,UnityEditor.Build.Content.ObjectIdentifier[]@,System.Type[]@,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <summary>
+            Returns the Object Identifiers and Types in a raw Unity Serialized File. The resulting arrays will be empty if a non-serialized file path was used.
+            </summary>
+            <param name="path">Path to the Unity Serialized File</param>
+            <param name="objectIdentifiers">Object Identifiers for all the objects in the serialized file</param>
+            <param name="types">Types for all the objects in the serialized file</param>
+            <param name="additionalGlobalUsage">Additional global lighting usage information to include with this custom asset</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateCustomDependencyData.CreateAssetEntryForObjectIdentifiers(UnityEditor.Build.Content.ObjectIdentifier[],System.String,System.String,System.String,System.Type)">
+            <summary>
+            Adds mapping and bundle information for a custom asset that contains a set of unity objects.
+            </summary>
+            <param name="includedObjects">Object Identifiers that belong to this custom asset</param>
+            <param name="path">Path on disk for this custom asset</param>
+            <param name="bundleName">Asset Bundle name where to add this custom asset</param>
+            <param name="address">Load address to used to load this asset from the Asset Bundle</param>
+            <param name="mainAssetType">Type of the main object for this custom asset</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles">
+            <summary>
+            Serializes all cache data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Run">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.UnityEditor#Build#Pipeline#Utilities#TaskCachingUtility#IRunCachedCallbacks{UnityEditor#Build#Pipeline#Tasks#WriteSerializedFiles#Item}#CreateCacheEntry(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Item})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.UnityEditor#Build#Pipeline#Utilities#TaskCachingUtility#IRunCachedCallbacks{UnityEditor#Build#Pipeline#Tasks#WriteSerializedFiles#Item}#ProcessUncached(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Item})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.UnityEditor#Build#Pipeline#Utilities#TaskCachingUtility#IRunCachedCallbacks{UnityEditor#Build#Pipeline#Tasks#WriteSerializedFiles#Item}#ProcessCached(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Item},UnityEditor.Build.Pipeline.Utilities.CachedInfo)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.UnityEditor#Build#Pipeline#Utilities#TaskCachingUtility#IRunCachedCallbacks{UnityEditor#Build#Pipeline#Tasks#WriteSerializedFiles#Item}#PostProcess(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Item})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.UnityEditor#Build#Pipeline#Utilities#TaskCachingUtility#IRunCachedCallbacks{UnityEditor#Build#Pipeline#Tasks#WriteSerializedFiles#Item}#CreateCachedInfo(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{UnityEditor.Build.Pipeline.Tasks.WriteSerializedFiles.Item})">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.CreateMonoScriptBundle">
+            <summary>
+            Optional build task that extracts all referenced MonoScripts and assigns them to the specified bundle
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CreateMonoScriptBundle.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CreateMonoScriptBundle.MonoScriptBundleName">
+            <summary>
+            Stores the name for the MonoScript bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CreateMonoScriptBundle.#ctor(System.String)">
+            <summary>
+            Create the MonoScript bundle.
+            </summary>
+            <param name="bundleName">The name of the bundle.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CreateMonoScriptBundle.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.GenerateBundleCommands">
+            <summary>
+            Creates bundle commands for assets and scenes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.GenerateBundleCommands.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.GenerateBundleCommands.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.GenerateLinkXml">
+            <summary>
+            Creates a link.xml file in the output folder to use with Unity managed code stripping.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.GenerateLinkXml.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.GenerateLinkXml.Run">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.CalculateSceneDependencyData">
+            <summary>
+            Calculates the dependency data for all scenes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CalculateSceneDependencyData.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CalculateSceneDependencyData.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.GenerateSubAssetPathMaps">
+            <summary>
+            Creates sub asset load information.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.GenerateSubAssetPathMaps.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.GenerateSubAssetPathMaps.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.CreateBuiltInShadersBundle">
+            <summary>
+            Optional build task that extracts Unity's built in shaders and assigns them to the specified bundle
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CreateBuiltInShadersBundle.Version">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.CreateBuiltInShadersBundle.ShaderBundleName">
+            <summary>
+            Stores the name for the built-in shaders bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CreateBuiltInShadersBundle.#ctor(System.String)">
+            <summary>
+            Create the built-in shaders bundle.
+            </summary>
+            <param name="bundleName">The name of the bundle.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.CreateBuiltInShadersBundle.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.StripUnusedSpriteSources">
+            <summary>
+            Removes all unusued sprite source data from asset references and scene references.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.StripUnusedSpriteSources.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.StripUnusedSpriteSources.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.GenerateBundleMaps">
+            <summary>
+            Generates reference maps and usage sets for asset bundles.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.GenerateBundleMaps.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.GenerateBundleMaps.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.PostScriptsCallback">
+            <summary>
+            Processes all callbacks after the script building task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.PostScriptsCallback.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.PostScriptsCallback.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.AppendBundleHash">
+            <summary>
+            Append a hash to each bundle name.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.AppendBundleHash.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.AppendBundleHash.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.SwitchToBuildPlatform">
+            <summary>
+            Sets the target build platform based on the build parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.SwitchToBuildPlatform.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.SwitchToBuildPlatform.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.PreviewSceneDependencyData">
+            <summary>
+            Validates scene dependency data and stores it in the cache.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.PreviewSceneDependencyData.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.PreviewSceneDependencyData.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.GenerateBundlePacking">
+            <summary>
+            Packs each asset bundle and calculates the asset load file dependency list.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.GenerateBundlePacking.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.GenerateBundlePacking.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.BuildPlayerScripts">
+            <summary>
+            Compiles all player scripts.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.BuildPlayerScripts.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.BuildPlayerScripts.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.UpdateBundleObjectLayout">
+            <summary>
+            Updates the layout for bundle objects.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.UpdateBundleObjectLayout.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.UpdateBundleObjectLayout.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.ClusterBuildLayout">
+            <summary>
+            Build task for creating content archives based asset co-location.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.ClusterBuildLayout.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.ClusterBuildLayout.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Tasks.PostWritingCallback">
+            <summary>
+            Processes all callbacks after the writing task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Tasks.PostWritingCallback.Version">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Tasks.PostWritingCallback.Run">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.BuildLog">
+            <summary>
+            Basic implementation of IBuildLogger. Stores events in memory and can dump them to the trace event format.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.#ctor">
+            <summary>
+            Creates a new build log object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.BeginBuildStep(UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String,System.Boolean)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.EndBuildStep">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.AddEntry(UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.UnityEditor#Build#Pipeline#Interfaces#IDeferredBuildLogger#HandleDeferredEventStream(System.Collections.Generic.IEnumerable{UnityEditor.Build.Pipeline.Interfaces.DeferredEvent})">
+            <summary>
+            Internal use only.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger"/>
+            </summary>
+            <param name="events">Event collection to handle</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.AddMetaData(System.String,System.String)">
+            <summary>
+            Adds a key value pair to the MetaData list. This can be used to store things like package version numbers.
+            </summary>
+            <param name="key">The key for the MetaData.</param>
+            <param name="value">The value of the MetaData.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLog.FormatForTraceEventProfiler">
+            <summary>
+            Converts the captured build log events into the text Trace Event Profiler format
+            </summary>
+            <returns>Profile data.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.RawHash">
+            <summary>
+            Stores hash information as an array of bytes.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.ToBytes">
+            <summary>
+            Converts the hash to bytes.
+            </summary>
+            <returns>Returns the converted hash as an array of bytes.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.ToHash128">
+            <summary>
+            Converts the hash to <see cref="T:UnityEngine.Hash128"/> format.
+            </summary>
+            <returns>Returns the converted hash.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.ToGUID">
+            <summary>
+            Converts the hash to a guid.
+            </summary>
+            <returns>Returns the converted hash as a guid.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.ToString">
+            <summary>
+            Converts the hash to a formatted string.
+            </summary>
+            <returns>Returns the hash as a string.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.Equals(UnityEditor.Build.Pipeline.Utilities.RawHash)">
+            <summary>
+            Determines if the current hash instance is equivalent to the specified hash.
+            </summary>
+            <param name="other">The hash to compare to.</param>
+            <returns>Returns true if the hashes are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.Equals(System.Object)">
+            <summary>
+            Determines if the current hash instance is equivalent to the specified hash.
+            </summary>
+            <param name="obj">The hash to compare to.</param>
+            <returns>Returns true if the hashes are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.GetHashCode">
+            <summary>
+            Creates the hash code for the cache entry.
+            </summary>
+            <returns>Returns the hash code for the cache entry.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.op_Equality(UnityEditor.Build.Pipeline.Utilities.RawHash,UnityEditor.Build.Pipeline.Utilities.RawHash)">
+            <summary>
+            Determines if the left hash instance is equivalent to the right hash.
+            </summary>
+            <param name="left">The hash to compare against.</param>
+            <param name="right">The hash to compare to.</param>
+            <returns>Returns true if the hashes are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.RawHash.op_Inequality(UnityEditor.Build.Pipeline.Utilities.RawHash,UnityEditor.Build.Pipeline.Utilities.RawHash)">
+            <summary>
+            Determines if the left hash instance is not equivalent to the right hash.
+            </summary>
+            <param name="left">The hash to compare against.</param>
+            <param name="right">The hash to compare to.</param>
+            <returns>Returns true if the hashes are not equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.HashingMethods">
+            <summary>
+            Creates the <see cref="T:UnityEditor.Build.Pipeline.Utilities.RawHash"/> for an object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.CalculateStream(System.IO.Stream)">
+            <summary>
+            Creates the hash for a stream of data.
+            </summary>
+            <param name="stream">The stream of data.</param>
+            <returns>Returns the hash of the stream.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.CalculateStream``1(System.IO.Stream)">
+            <summary>
+            Creates the hash for a stream of data.
+            </summary>
+            <typeparam name="T">The hash algorithm type.</typeparam>
+            <param name="stream">The stream of data.</param>
+            <returns>Returns the hash of the stream.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.Calculate(System.Object)">
+            <summary>
+            Creates the hash for an object.
+            </summary>
+            <param name="obj">The object.</param>
+            <returns>Returns the hash of the object.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.Calculate(System.Object[])">
+            <summary>
+            Creates the hash for a set of objects.
+            </summary>
+            <param name="objects">The objects.</param>
+            <returns>Returns the hash of the set of objects.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.Calculate(UnityEngine.Hash128,UnityEngine.Hash128)">
+            <summary>
+            Creates the hash for a pair of Hash128 objects.  Optimized specialization of the generic Calculate() methods that has been shown to be ~3x faster
+            The generic function uses reflection to obtain the four 32bit fields in the Hash128 which is slow, this function uses more direct byte access
+            </summary>
+            <param name="hash1">The first hash to combine</param>
+            <param name="hash2">The second hash to combine</param>
+            <returns>Returns the combined hash of the two hashes.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.PassBytesToStreamInBlocks(System.IO.Stream,System.Byte[],System.Int32)">
+            <summary>
+            Send bytes from an array to a stream as a sequence of blocks
+            Not all hash algorithms behave the same passing data as one large block instead of multiple smaller ones so produce different hashes if
+            we pass a GUID or Hash128 as a single 16 byte block for example instead of the 4x4 byte blocks the generic hashing code produces for these types 
+            This function passes bytes from a buffer in chunks of a specified size to ensure we get the same hash from the same data in such cases
+            Our SpookyHash implementation suffers from this for example (see SpookyHash::Short()) while MD5 does not
+            </summary>
+            <param name="stream">Stream to write bytes to</param>
+            <param name="byteBlock">Array of bytes to pass to the stream, must be multiple of blockSizeBytes in size or an InvalidOperationException will be thrown</param>
+            <param name="blockSizeBytes">Number of bytes to write to the stream each time</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.Calculate``1(System.Object)">
+            <summary>
+            Creates the hash for an object.
+            </summary>
+            <typeparam name="T">The hash algorithm type.</typeparam>
+            <param name="obj">The object.</param>
+            <returns>Returns the hash of the object.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.Calculate``1(System.Object[])">
+            <summary>
+            Creates the hash for a set of objects.
+            </summary>
+            <typeparam name="T">The hash algorithm type.</typeparam>
+            <param name="objects">The objects.</param>
+            <returns>Returns the hash of the set of objects.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.CalculateFile(System.String)">
+            <summary>
+            Creates the hash for a file.
+            </summary>
+            <param name="filePath">The file path.</param>
+            <returns>Returns the hash of the file.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.HashingMethods.CalculateFile``1(System.String)">
+            <summary>
+            Creates the hash for a file.
+            </summary>
+            <typeparam name="T">The hash algorithm type.</typeparam>
+            <param name="filePath">The file path.</param>
+            <returns>Returns the hash of the file.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.USerialize.Serializer.StringTable.Clear">
+            <summary>
+            Clear the data in this stringtable to make it empty
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.USerialize.Serializer.StringTable.Write(System.IO.BinaryWriter)">
+            <summary>
+            Write the strings from this stringtable to a binary writer one after another
+            </summary>
+            <param name="writer">Writer to write the strings to</param>
+            <returns>the byte position in the stream being written to where the strings start, this is the current position in the stream when the function was called</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.USerialize.Serializer.StringTable.GetStringIndex(System.String)">
+            <summary>
+            Return the index of a string in the stringtable if it exists, if it does not exist add it then return it's index
+            </summary>
+            <param name="stringToAddOrFind"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.USerialize.Serializer.ClearPerObjectCachedData">
+            <summary>
+            Clear data that we cache about types and object contents that can change between objects.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.ContentFileIdentifiers">
+            <summary>
+            Generates a deterministic identifier using a MD5 hash algorithm and does not require object ordering to be deterministic.
+            This algorithm ensures objects coming from the same asset are packed closer together and can improve loading performance under certain situations.
+            Sorts MonoScript types to the top of the file and is required when building ContentFiles.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ContentFileIdentifiers.SerializationIndexFromObjectIdentifier(UnityEditor.Build.Content.ObjectIdentifier)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.FileCompressor">
+            <summary>
+            Since C# only has GZipStream until .NET 4.0, we are forced to implement our own packing system
+            for artifact files. We compact all artifacts into a single GZip Stream with the header before
+            the file name and contents. The header contains the file name length and file length (in bytes).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.FileCompressor.Compress(System.String,System.String)">
+            <summary>
+            Compresses all artifacts located at a specified directory.
+            </summary>
+            <param name="directoryPath">The directory containing the artifacts.</param>
+            <param name="archiveFilePath">The file path at which the archive will be created.</param>
+            <returns>Returns true if the directory was found and compressed. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.FileCompressor.Decompress(System.String,System.String)">
+            <summary>
+            Extracts all artifacts compressed in an archive.
+            </summary>
+            <param name="archiveFilePath">The archive to decompress.</param>
+            <param name="directoryPath">The path where the extracted artifacts will be stored.</param>
+            <returns>Returns true if the archive was found and decompressed. Returns false otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.MD4">
+            <summary>
+            Implementation of the MD4 hashing algorithm.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.MD4.Create">
+            <summary>
+            Creates a new MD4 hashing algorithm object.
+            </summary>
+            <returns>Returns the new MD4 hashing algorithm instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.MD4.Initialize">
+            <summary>
+            Resets the hash algorithm to its initial state.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.MD4.HashCore(System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            When overridden in a derived class, routes data written to the object into the hash algorithm for computing the hash.
+            </summary>
+            <param name="array">The input to compute the hash code for.</param>
+            <param name="ibStart">The offset into the byte array from which to begin using data.</param>
+            <param name="cbSize">The number of bytes in the byte array to use as data.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.MD4.HashFinal">
+            <summary>
+            When overridden in a derived class, finalizes the hash computation after the last data is processed by the cryptographic hash algorithm.
+            </summary>
+            <returns>Returns the computed hash.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.BuildCache">
+            <summary>
+            Default implementation of the Build Cache
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.#ctor">
+            <summary>
+            Creates a new build cache object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.#ctor(System.String,System.Int32)">
+            <summary>
+            Creates a new remote build cache object.
+            </summary>
+            <param name="host">The server host.</param>
+            <param name="port">The server port.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.Dispose">
+            <summary>
+            Disposes the build cache instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCacheEntry(UnityEditor.GUID,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCacheEntry(System.String,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCacheEntry(UnityEditor.Build.Content.ObjectIdentifier,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCacheEntry(System.Type,System.Int32)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.HasAssetOrDependencyChanged(UnityEditor.Build.Pipeline.Utilities.CachedInfo)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCachedInfoFile(UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.GetCachedArtifactsDirectory(UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.SaveCachedData(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Utilities.CachedInfo})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.PurgeCache(System.Boolean)">
+            <summary>
+            Deletes the build cache directory.
+            </summary>
+            <param name="prompt">The message to display in the popup window.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.PruneCache">
+            <summary>
+            Prunes the build cache so that its size is within the maximum cache size.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildCache.PruneCache_Background(System.Int64)">
+            <summary>
+            Prunes the build cache without showing UI prompts.
+            </summary>
+            <param name="maximumCacheSize">The maximum cache size.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.IEditorBuildCallbacks">
+            <summary>
+            Internal interface so switch platform build task can initialize editor build callbacks
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.IEditorBuildCallbacks.InitializeCallbacks">
+            <summary>
+            Callbacks need to be Initialized after platform switch
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper">
+            <summary>
+            Manages initialization and cleanup of Unity Editor IPreprocessShaders, IProcessScene, &amp; IProcessSceneWithReport build callbacks.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper.Dispose">
+            <summary>
+            Public dispose function when instance is not in a using statement and manual dispose is required
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper.Dispose(System.Boolean)">
+            <summary>
+            Disposes the build interfaces wrapper instance.
+            </summary>
+            <param name="disposing">Obsolete parameter.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper.InitializeCallbacks">
+            <summary>
+            Initializes Unity Editor IPreprocessShaders, IPreprocessComputeShaders, IProcessScene, &amp; IProcessSceneWithReport build callbacks.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildInterfacesWrapper.CleanupCallbacks">
+            <summary>
+            Cleanup Unity Editor IPreprocessShaders, IProcessScene, &amp; IProcessSceneWithReport build callbacks.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline">
+            <summary>
+            Static class containing per project build settings.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.UseBuildCacheServer">
+            <summary>
+            Flag to determine if the Build Cache Server is to be used.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.CacheServerHost">
+            <summary>
+            The host of the Build Cache Server.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.CacheServerPort">
+            <summary>
+            The port number for the Build Cache Server.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.threadedArchiving">
+            <summary>
+            Thread the archiving and compress build stage.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.logCacheMiss">
+            <summary>
+            Log a warning on build cache misses. Warning will contain which asset and dependency caused the miss.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.slimWriteResults">
+            <summary>
+            Reduces the caching of WriteResults data down to the bare minimum for improved cache performance.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.maximumCacheSize">
+            <summary>
+            The size of the Build Cache folder will be kept below this maximum value when possible.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.useDetailedBuildLog">
+            <summary>
+            Set this to true to write more detailed event information in the build log. Set to false to only write basic event information.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ScriptableBuildPipeline.useV2Hasher">
+            <summary>
+            Set this to true to use the same hasher as Asset Database V2. This hasher improves build cache performance, but invalidates the existing build cache.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.ProgressLoggingTracker">
+            <summary>
+            Logs information about the progress tracker.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressLoggingTracker.#ctor">
+            <summary>
+            Creates a new progress tracking object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressLoggingTracker.UpdateTask(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressLoggingTracker.UpdateInfo(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressLoggingTracker.Dispose(System.Boolean)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.VersionedCallbackAttribute">
+            <summary>
+            Attribute provides the version details for IProcessScene, IProcessSceneWithReport, IPreprocessShaders, and IPreprocessComputeShaders callbacks.
+            Increment the version number when the callback changes and the build result needs to change.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.VersionedCallbackAttribute.#ctor(System.Single)">
+            <summary>
+            Attribute provides the version details for IProcessScene, IProcessSceneWithReport, IPreprocessShaders, and IPreprocessComputeShaders callbacks.
+            Increment the version number when the callback changes and the build result needs to change.
+            </summary>
+            <param name="version">The version of this callback.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.CachedInfo">
+            <summary>
+            Stores asset information for the cache.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CachedInfo.Asset">
+            <summary>
+            Stores the asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CachedInfo.Dependencies">
+            <summary>
+            Stores the asset dependencies.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CachedInfo.Data">
+            <summary>
+            Stores extra data related to the asset.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.CacheEntry">
+            <summary>
+            Creates a container to store data in build cache.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.CacheEntry.EntryType">
+            <summary>
+            Options for the cache entry type.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Utilities.CacheEntry.EntryType.Asset">
+            <summary>
+            Indicates that the entry is an asset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Utilities.CacheEntry.EntryType.File">
+            <summary>
+            Indicates that the entry is a file.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Utilities.CacheEntry.EntryType.Data">
+            <summary>
+            Indicates that the entry holds general data.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Utilities.CacheEntry.EntryType.ScriptType">
+            <summary>
+            Indicates that the entry is a type.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Hash">
+            <summary>
+            Stores the entry hash.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Guid">
+            <summary>
+            Stores the entry guid.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Version">
+            <summary>
+            Stores the entry version.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Type">
+            <summary>
+            Stores the entry type.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.File">
+            <summary>
+            Stores the entry file name.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.CacheEntry.ScriptType">
+            <summary>
+            Stores the entry scripting type.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.IsValid">
+            <summary>
+            Determines if the entry is valid.
+            </summary>
+            <returns>Returns true if the entry is valid. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Equals(System.Object)">
+            <summary>
+            Determines if the current entry instance is equal to the specified entry.
+            </summary>
+            <param name="obj">The entry to compare.</param>
+            <returns>Returns true if the entries are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.op_Equality(UnityEditor.Build.Pipeline.Utilities.CacheEntry,UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.op_Inequality(UnityEditor.Build.Pipeline.Utilities.CacheEntry,UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.GetHashCode">
+            <summary>
+            Creates the hash code for the cache entry.
+            </summary>
+            <returns>Returns the hash code for the cache entry.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.ToString">
+            <summary>
+            Converts the information about the cache entry to a formatted string.
+            </summary>
+            <returns>Returns information about the cache entry.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.CacheEntry.Equals(UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <summary>
+            Determines if the current entry instance is equal to the specified entry.
+            </summary>
+            <param name="other">The entry to compare.</param>
+            <returns>Returns true if the entries are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.ProgressTracker">
+            <summary>
+            Keeps track of the SBP build progress.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.TaskCount">
+            <summary>
+            Stores the number of tasks
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.Progress">
+            <summary>
+            Stores the amount of progress done as a decimal.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.UpdatesPerSecond">
+            <summary>
+            Stores the amount of updates per second.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.CurrentTask">
+            <summary>
+            Stores the id of currently running task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.CurrentTaskTitle">
+            <summary>
+            Stores the name of the currently running task.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.TimeStamp">
+            <summary>
+            Stores current the time stamp.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.UpdateFrequency">
+            <summary>
+            Stores the task update frequency.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.#ctor">
+            <summary>
+            Stores information about the current task.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.UpdateTask(System.String)">
+            <summary>
+            Updates the progress bar to reflect the new running task.
+            </summary>
+            <param name="taskTitle">The name of the new task.</param>
+            <returns>Returns true if the progress bar is running. Returns false if the user cancels the progress bar.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.UpdateInfo(System.String)">
+            <summary>
+            Updates the information displayed for currently running task.
+            </summary>
+            <param name="taskInfo">The task information.</param>
+            <returns>Returns true if the progress bar is running. Returns false if the user cancels the progress bar.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.Dispose">
+            <summary>
+            Disposes of the progress tracker instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.ProgressTracker.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the progress tracker instance and clears the popup progress bar.
+            </summary>
+            <param name="disposing">Set to true to clear the popup progress bar. Set to false to leave the progress bar as is.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator">
+            <summary>
+            This can be used to create a LinkXml for your build.  This will ensure that the desired runtime types are packed into the build.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.serializedClassesPerAssembly">
+            <summary>
+            Obsolete, no longer does anything.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.CreateDefault">
+            <summary>
+            Constructs and returns a LinkXmlGenerator object that contains default UnityEditor to UnityEngine type conversions.
+            </summary>
+            <returns>LinkXmlGenerator object with the default UnityEngine type conversions.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.GetEditorTypeConversions">
+            <summary>
+            Returns the set of UnityEditor types that have valid runtime direct mappings.
+            </summary>
+            <returns>Array of KeyValuePairs containing the editor type and it's equivalent runtime type.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.AddAssemblies(System.Reflection.Assembly[])">
+            <summary>
+            Add runtime assembly to the LinkXml Generator.
+            </summary>
+            <param name="assemblies">The desired runtime assemblies.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.AddAssemblies(System.Collections.Generic.IEnumerable{System.Reflection.Assembly})">
+            <summary>
+            Add runtime assembly to the LinkXml Generator.
+            </summary>
+            <param name="assemblies">The desired runtime assemblies.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.AddTypes(System.Type[])">
+            <summary>
+            Add runtime type to the LinkXml Generator.
+            </summary>
+            <param name="types">The desired runtime types.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.AddTypes(System.Collections.Generic.IEnumerable{System.Type})">
+            <summary>
+            Add runtime type to the LinkXml Generator.
+            </summary>
+            <param name="types">The desired runtime types.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.AddSerializedClass(System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Add SerializedReference class type from fully qualified name to the Generator, those will end up in PreservedTypes.xml
+            </summary>
+            <param name="serializedRefTypes">The SerializeReference instance fully qualified name we want to preserve.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.SetTypeConversion(System.Type,System.Type)">
+            <summary>
+            Setup runtime type conversion
+            </summary>
+            <param name="a">Convert from type.</param>
+            <param name="b">Convert to type.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.LinkXmlGenerator.Save(System.String)">
+            <summary>
+            Save the LinkXml to the specified path.
+            </summary>
+            <param name="path">The path to save the linker xml file.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.IRunCachedCallbacks`1.CreateCacheEntry(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{`0})">
+            <summary>
+            Creates a cache entry for the specified work item.
+            </summary>
+            <param name="item">The work item.</param>
+            <returns>Returns the created entry.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.IRunCachedCallbacks`1.ProcessUncached(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{`0})">
+            <summary>
+            Process the uncached work item.
+            </summary>
+            <param name="item">The work item.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.IRunCachedCallbacks`1.ProcessCached(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{`0},UnityEditor.Build.Pipeline.Utilities.CachedInfo)">
+            <summary>
+            Process the cached work item.
+            </summary>
+            <param name="item">The work item.</param>
+            <param name="info">The cached information for the work item.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.IRunCachedCallbacks`1.PostProcess(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{`0})">
+            <summary>
+            Post processes the work item.
+            </summary>
+            <param name="item">The work item.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.IRunCachedCallbacks`1.CreateCachedInfo(UnityEditor.Build.Pipeline.Utilities.TaskCachingUtility.WorkItem{`0})">
+            <summary>
+            Creates cached information for the specified work item.
+            </summary>
+            <param name="item">The work item.</param>
+            <returns>Returns the cached information created.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Utilities.BuildLogger">
+            <summary>
+            Logging overrides for SBP build logs.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogCache(System.String,System.Object[])">
+            <summary>
+            Logs build cache information.
+            </summary>
+            <param name="msg">The message to display.</param>
+            <param name="attrs">The objects formatted in the message.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogCacheWarning(System.String,System.Object[])">
+            <summary>
+            Logs a warning about the build cache.
+            </summary>
+            <param name="msg">The message to display.</param>
+            <param name="attrs">The objects formatted in the message.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.Log(System.String)">
+            <summary>
+            Logs general information.
+            </summary>
+            <param name="msg">The message to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.Log(System.Object)">
+            <summary>
+            Logs general information.
+            </summary>
+            <param name="msg">The message object to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.Log(System.String,System.Object[])">
+            <summary>
+            Logs general information.
+            </summary>
+            <param name="msg">The message to display.</param>
+            <param name="attrs">The objects formatted in the message.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogWarning(System.String)">
+            <summary>
+            Logs a general warning.
+            </summary>
+            <param name="msg">The message to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogWarning(System.Object)">
+            <summary>
+            Logs a general warning.
+            </summary>
+            <param name="msg">The message object to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogWarning(System.String,System.Object[])">
+            <summary>
+            Logs a general warning.
+            </summary>
+            <param name="msg">The message object to display.</param>
+            <param name="attrs">The objects formatted in the message.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogError(System.String)">
+            <summary>
+            Logs a general error.
+            </summary>
+            <param name="msg">The message to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogError(System.Object)">
+            <summary>
+            Logs a general error.
+            </summary>
+            <param name="msg">The message object to display.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogError(System.String,System.Object[])">
+            <summary>
+            Logs a general error.
+            </summary>
+            <param name="msg">The message to display.</param>
+            <param name="attrs">The objects formatted in the message.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Utilities.BuildLogger.LogException(System.Exception)">
+            <summary>
+            Logs a general exception.
+            </summary>
+            <param name="e">The exception to display.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IDependencyData">
+            <summary>
+            Base interface for the dependency data container
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.AssetInfo">
+            <summary>
+            Map of Asset to dependency data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.AssetUsage">
+            <summary>
+            Map of Asset to usage data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.SceneInfo">
+            <summary>
+            Map of Scene to dependency data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.SceneUsage">
+            <summary>
+            Map of Scene to usage data.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.DependencyHash">
+            <summary>
+            Map of Asset or Scene to pre-calculated dependency hash for caching.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.DependencyUsageCache">
+            <summary>
+            Reusable cache for calculating usage tags
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IDependencyData.GlobalUsage">
+            <summary>
+            BuildUsageTagGlobal value from GraphicsSettings
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.SpriteImporterData">
+            <summary>
+            The importer data about a sprite asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.SpriteImporterData.PackedSprite">
+            <summary>
+            Property if this sprite asset is packed by the sprite packer.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.SpriteImporterData.SourceTexture">
+            <summary>
+            Object identifier of the source texture for the sprite.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildSpriteData">
+            <summary>
+            Base interface for the storing sprite importer data for sprite assets.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildSpriteData.ImporterData">
+            <summary>
+            Map of sprite asset to importer data.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBundleExplictObjectLayout">
+            <summary>
+            Optional interface used for overriding the location where specific objects will be serialized
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleExplictObjectLayout.ExplicitObjectLocation">
+            <summary>
+            Map listing object identifiers and their new bundle location
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.CustomContent">
+            <summary>
+            Custom Content struct mapping a source asset to a processor to generate custom data for that asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.CustomContent.Asset">
+            <summary>
+            Input Asset for custom content
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Interfaces.CustomContent.Processor">
+            <summary>
+            Processor function to run to convert the input asset to the custom content
+            </summary>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:UnityEditor.Build.Pipeline.Interfaces.CustomContent.Equals(UnityEditor.Build.Pipeline.Interfaces.CustomContent)" -->
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.ICustomAssets">
+            <summary>
+            Base interface for storing the list of Custom Assets generated during the Scriptable Build Pipeline.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.ICustomAssets.Assets">
+            <summary>
+            List of Custom Assets to include.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContent">
+            <summary>
+            Base interface for feeding Assets to the Scriptable Build Pipeline.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildContent.Assets">
+            <summary>
+            List of Assets to include.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildContent.Scenes">
+            <summary>
+            List of Scenes to include.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildContent.CustomAssets">
+            <summary>
+            List of custom content to be included in asset bundles.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent">
+            <summary>
+            Base interface for feeding Assets with explicit Asset Bundle layout to the Scriptable Build Pipeline.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent.BundleLayout">
+            <summary>
+            Specific layout of asset bundles to assets or scenes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent.AdditionalFiles">
+            <summary>
+            Additional list of raw files to add to an asset bundle
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent.Addresses">
+            <summary>
+            Custom loading identifiers to use for Assets or Scenes.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildResults">
+            <summary>
+            Base interface for the build results container
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildResults.ScriptResults">
+            <summary>
+            Results from the script compiling step.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildResults.WriteResults">
+            <summary>
+            Map of serialized file name to results for built content.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildResults.WriteResultsMetaData">
+            <summary>
+            Map of serialized file name to additional metadata associated with the write result.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildResults.AssetResults">
+            <summary>
+            Map of Asset data included in this build
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults">
+            <summary>
+            Extended interface for Asset Bundle build results container.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildResults"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults.BundleInfos">
+            <summary>
+            Map of Asset Bundle name to details about the built bundle.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildTask">
+            <summary>
+            Base interface of all build tasks.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildTask.Version">
+            <summary>
+            Version identifier for the build task.
+            Primarily for caching.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildTask.Run">
+            <summary>
+            Run task method
+            </summary>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildCache">
+            <summary>
+            Base interface for the Build Caching
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCacheEntry(UnityEditor.GUID,System.Int32)">
+            <summary>
+            Gets a CacheEntry for an asset identified by its GUID.
+            </summary>
+            <param name="asset">GUID identifier for an asset from the Asset Database</param>
+            <param name="version">Version number of the system asking for an entry to distinguish it from previous incompatible entries. (Optional)</param>
+            <returns>CacheEntry representing current asset.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCacheEntry(System.String,System.Int32)">
+            <summary>
+            Gets a CacheEntry for a file identified by its relative path.
+            </summary>
+            <param name="path">Relative path of a file on disk</param>
+            <param name="version">Version number of the system asking for an entry to distinguish it from previous incompatible entries. (Optional)</param>
+            <returns>CacheEntry representing a file on disk.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCacheEntry(UnityEditor.Build.Content.ObjectIdentifier,System.Int32)">
+            <summary>
+            Gets a CacheEntry for an object identified by an Object Identifier.
+            </summary>
+            <param name="objectID">Object identifier for an object</param>
+            <param name="version">Version number of the system asking for an entry to distinguish it from previous incompatible entries. (Optional)</param>
+            <returns>CacheEntry representing an object identifier.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCacheEntry(System.Type,System.Int32)">
+            <summary>
+            Gets a CacheEntry for a scripting type by a System.Type.
+            </summary>
+            <param name="type">System.Type for a scripting type</param>
+            <param name="version">Version number of the system asking for an entry to distinguish it from previous incompatible entries. (Optional)</param>
+            <returns>CacheEntry representing an object identifier.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.HasAssetOrDependencyChanged(UnityEditor.Build.Pipeline.Utilities.CachedInfo)">
+            <summary>
+            Checks if the CachedInfo passed in needs to be rebuilt
+            </summary>
+            <param name="info">Cached Info to check</param>
+            <returns><c>true</c> if the cached info needs to be rebuilt; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCachedInfoFile(UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <summary>
+            Returns the path where info data can be saved in the cache
+            </summary>
+            <param name="entry">Cache entry to get the path</param>
+            <returns>Path on disk where to save cached info</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.GetCachedArtifactsDirectory(UnityEditor.Build.Pipeline.Utilities.CacheEntry)">
+            <summary>
+            Returns the path where artifact data can be saved in the cache
+            </summary>
+            <param name="entry">Cache entry to get the path</param>
+            <returns>Path on disk where to save cached artifacts</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.LoadCachedData(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Utilities.CacheEntry},System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Utilities.CachedInfo}@)">
+            <summary>
+            Loads a set of CachedInfos from the cache
+            </summary>
+            <param name="entries">List of cache entries to load</param>
+            <param name="cachedInfos">Out list of cached infos loaded</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildCache.SaveCachedData(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Utilities.CachedInfo})">
+            <summary>
+            Saves a set of CachedInfos to the cache
+            </summary>
+            <param name="infos">List of cached infos to save</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IWriteData">
+            <summary>
+            Base interface for the write data container.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteData.AssetToFiles">
+            <summary>
+            Map of asset to file dependencies.
+            First dependency in the list is the main file for an asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteData.FileToObjects">
+            <summary>
+            Map of file to list of objects in that file
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteData.WriteOperations">
+            <summary>
+            List of all write operations to serialize data to disk
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBundleWriteData">
+            <summary>
+            Extended interface for Asset Bundle write data container.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleWriteData.FileToBundle">
+            <summary>
+            Map of file name to bundle name
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleWriteData.FileToUsageSet">
+            <summary>
+            Map of file name to calculated usage set
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleWriteData.FileToReferenceMap">
+            <summary>
+            Map of file name to calculated object references
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IDeterministicIdentifiers">
+            <summary>
+            Base interface for the generating deterministic identifiers for different parts of the build pipeline.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IDeterministicIdentifiers.GenerateInternalFileName(System.String)">
+            <summary>
+            Generates a deterministic internal file name from the passed in name.
+            </summary>
+            <param name="name">Name identifier for internal file name generation</param>
+            <returns>Deterministic file name.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IDeterministicIdentifiers.SerializationIndexFromObjectIdentifier(UnityEditor.Build.Content.ObjectIdentifier)">
+            <summary>
+            Generates a deterministic id for a given object in the build.
+            </summary>
+            <param name="objectID">Object identifier to for id generation.</param>
+            <returns><c>long</c> representing the id of the objectID.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.ExtendedAssetData">
+            <summary>
+            The extended data about an asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.ExtendedAssetData.Representations">
+            <summary>
+            List of object identifiers that are classified as asset representations (sub assets).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.ExtendedAssetData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildExtendedAssetData">
+            <summary>
+            Base interface for the storing extended data about an asset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildExtendedAssetData.ExtendedData">
+            <summary>
+            Map of asset to extended data about an asset.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.LogLevel">
+            <summary>
+            Describes the level of a log entry
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Interfaces.LogLevel.Error">
+            <summary>
+            The entry is reporting an error.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Interfaces.LogLevel.Warning">
+            <summary>
+            The entry is reporting an warning.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Interfaces.LogLevel.Info">
+            <summary>
+            The entry is reporting general information.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Interfaces.LogLevel.Verbose">
+            <summary>
+            The entry is reporting verbose information.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger">
+            <summary>
+            Interface for monitoring the build process. Several tasks will log details of their progress through this interface.
+            See the [Build Logging](https://docs.unity3d.com/Packages/com.unity.scriptablebuildpipeline@latest/index.html?subfolder=/manual/BuildLogger.html) documentation for more details.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger.AddEntry(UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String)">
+            <summary>
+            Adds details to the active build step
+            </summary>
+            <param name="level">The log level of this entry.</param>
+            <param name="msg">The message to add.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger.BeginBuildStep(UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Should be called when beginning a build step.
+            </summary>
+            <param name="level">The log level of this step.</param>
+            <param name="stepName">A name associated with the step. It is recommended that this name does not include specific context about the step; dynamic context should be added under the step as an entry.</param>
+            <param name="subStepsCanBeThreaded">True if within this build step the IBuildLogger will be used on multiple threads.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildLogger.EndBuildStep">
+            <summary>
+            Ends the build step.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.ScopedBuildStep">
+            <summary>
+            Helper class to define a scope with a using statement
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.ScopedBuildStep.System#IDisposable#Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.BuildLoggerExternsions">
+            <summary>
+            Contains extension methods for the IBuildLogger interface
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.BuildLoggerExternsions.AddEntrySafe(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger,UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String)">
+            <summary>
+            Adds details to the active build step
+            </summary>
+            <param name="log">The build log.</param>
+            <param name="level">The log level of this entry.</param>
+            <param name="msg">The message to add.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.BuildLoggerExternsions.ScopedStep(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger,UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String,System.Boolean)">
+            <summary>
+            Begins a new build step and returns an ScopedBuildStep which will end the build step when disposed. It is recommended to use this in conjunction with the using statement.
+            </summary>
+            <param name="log">The build log.</param>
+            <param name="level">The log level of this step.</param>
+            <param name="stepName">A name associated with the step.</param>
+            <param name="multiThreaded">True if within this build step the IBuildLogger will be used on multiple threads.</param>
+            <returns>Returns a ScopedBuildStep that will end the build step when it is disposed.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.BuildLoggerExternsions.ScopedStep(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger,UnityEditor.Build.Pipeline.Interfaces.LogLevel,System.String,System.String)">
+            <summary>
+            Begins a new build step and returns an ScopedBuildStep which will end the build step when disposed. It is recommended to use this in conjunction with the using statement.
+            </summary>
+            <param name="log">The build log.</param>
+            <param name="level">The log level of this step.</param>
+            <param name="stepName">A name associated with the step.</param>
+            <param name="context">Adds an entry message the build step. This allows attaching specific context data without changing the stepName.</param>
+            <returns>Returns a ScopedBuildStep that will end the build step when it is disposed.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IProgressTracker">
+            <summary>
+            Base interface for the build progress tracker
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IProgressTracker.TaskCount">
+            <summary>
+            Number of build tasks to run
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IProgressTracker.Progress">
+            <summary>
+            Current 0.0f to 1.0f progress though the TaskCount
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IProgressTracker.UpdateTask(System.String)">
+            <summary>
+            Increments and updated the title of the progress bar.
+            </summary>
+            <param name="taskTitle">The title to display on the progress bar.</param>
+            <returns><c>false</c> if the build should not continue due to user interaction with the progress bar; otherwise, <c>true</c>.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IProgressTracker.UpdateInfo(System.String)">
+            <summary>
+            Updates the secondary information display of the progress bar.
+            </summary>
+            <param name="taskInfo">The secondary information to display on the progress bar.</param>
+            <returns><c>false</c> if the build should not continue due to user interaction with the progress bar; otherwise, <c>true</c>.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IObjectDependencyData">
+            <summary>
+            Base interface for the dependency data container
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IObjectDependencyData.ObjectDependencyMap">
+            <summary>
+            Dependencies of a given object
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters">
+            <summary>
+            Base interface for the parameters container
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.Target">
+            <summary>
+            Target build platform. <seealso cref="T:UnityEditor.BuildTarget"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.Group">
+            <summary>
+            Target build platform group. <seealso cref="T:UnityEditor.BuildTargetGroup"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.ContentBuildFlags">
+            <summary>
+            The set of build flags to use for building content.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.ScriptInfo">
+            <summary>
+            Scripting type information to use when building content.
+            Setting this to a previously cached value will prevent the default script compiling step.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.ScriptOptions">
+            <summary>
+            Script compilation options to use for the script compiling step.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.TempOutputFolder">
+            <summary>
+            Temporary location to be used for artifacts generated during the build but are not part of the final output.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.ScriptOutputFolder">
+            <summary>
+            Location to be used for compiled scripts generated during the build.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.UseCache">
+            <summary>
+            Enables the use of the build cache if set to true.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.CacheServerHost">
+            <summary>
+            Enables and specifies the cache server to use.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.CacheServerPort">
+            <summary>
+            The port for the cache server to use
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.WriteLinkXML">
+            <summary>
+            Writes out a link.xml file to the output folder to use with Unity managed code stripping.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.NonRecursiveDependencies">
+            <summary>
+            Calculates and build asset bundles using Non-Recursive Dependency calculation methods.
+            This approach helps reduce asset bundle rebuilds and runtime memory consumption.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.GetContentBuildSettings">
+            <summary>
+            Constructs and returns the BuildSettings struct to use for content building.
+            </summary>
+            <returns>Returns the BuildSettings struct to use for content building.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.GetOutputFilePathForIdentifier(System.String)">
+            <summary>
+            Returns the output folder to use for the specified identifier.
+            </summary>
+            <param name="identifier">Identifier used to identify which output folder to use.</param>
+            <returns>Returns the output folder to use for the specified identifier.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.GetCompressionForIdentifier(System.String)">
+            <summary>
+            Constructs and returns the BuildCompression struct to use for the specified identifier.
+            </summary>
+            <param name="identifier">Identifier used to construct the BuildCompression struct.</param>
+            <returns>Returns the BuildCompression struct to use for a specific identifier.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters.GetScriptCompilationSettings">
+            <summary>
+            Constructs and returns the ScriptCompilationSettings struct to use for script compiling.
+            </summary>
+            <returns>Returns the ScriptCompilationSettings struct to use for script compiling.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters">
+            <summary>
+            Base interface for the parameters container for building bundles.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters.AppendHash">
+            <summary>
+            Append the hash to the assetBundle file name.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters.ContiguousBundles">
+            <summary>
+            Packs assets in bundles contiguously based on the ordering of the source asset which results in improved asset loading times.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters.DisableVisibleSubAssetRepresentations">
+            <summary>
+            Assume sub Assets have no visible asset representations (are not visible in the Project view) which results in improved build times.
+            Sub Assets in the built bundles cannot be accessed by AssetBundle.LoadAsset&lt;T&gt; or AssetBundle.LoadAllAssets&lt;T&gt;.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IContextObject">
+            <summary>
+            Base interface for all objects that can be stored in <see cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext"/>.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IScriptsCallback">
+            <summary>
+            Base interface that handles processing the callbacks after script building step.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IScriptsCallback.PostScripts(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IBuildResults)">
+            <summary>
+            Processes all the callbacks after script building step.
+            </summary>
+            <param name="parameters">Parameters passed into the build pipeline.</param>
+            <param name="results">Results from the script building step.</param>
+            <returns>Return code from processing the callbacks.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IDependencyCallback">
+            <summary>
+            Base interface for handling running the callbacks after dependency calculation step.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IDependencyCallback.PostDependency(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData)">
+            <summary>
+            Processes all the callbacks after dependency calculation step.
+            </summary>
+            <param name="parameters">Parameters passed into the build pipeline.</param>
+            <param name="dependencyData">Results from the dependency calculation step.</param>
+            <returns>Return code from processing the callbacks.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IPackingCallback">
+            <summary>
+            Base interface for handling running the callbacks after packing step.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IPackingCallback.PostPacking(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData,UnityEditor.Build.Pipeline.Interfaces.IWriteData)">
+            <summary>
+            Processes all the callbacks after packing step.
+            </summary>
+            <param name="parameters">Parameters passed into the build pipeline.</param>
+            <param name="dependencyData">Results from the dependency calculation step.</param>
+            <param name="writeData">Results from the packing step.</param>
+            <returns>Return code from processing the callbacks.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IWritingCallback">
+            <summary>
+            Base interface for handling running the callbacks after writing step.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IWritingCallback.PostWriting(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData,UnityEditor.Build.Pipeline.Interfaces.IWriteData,UnityEditor.Build.Pipeline.Interfaces.IBuildResults)">
+            <summary>
+            Processes all the callbacks after writing step.
+            </summary>
+            <param name="parameters">Parameters passed into the build pipeline.</param>
+            <param name="dependencyData">Results from the dependency calculation step.</param>
+            <param name="writeData">Results from the packing step.</param>
+            <param name="results">Results from the writing step.</param>
+            <returns>Return code from processing the callbacks.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext">
+            <summary>
+            Base interface for build data container system
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.ContainsContextObject``1">
+            <summary>
+            Checks the build context for existence of a data that is of the specified type.
+            </summary>
+            <typeparam name="T">Type of data to check for existence.</typeparam>
+            <returns><c>true</c> if the context contains specified type of data; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.ContainsContextObject(System.Type)">
+            <summary>
+            Checks the build context for existence of a data that is of the specified type.
+            </summary>
+            <param name="type">Type of data to check for existence.</param>
+            <returns><c>true</c> if the context contains specified type of data; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.GetContextObject``1">
+            <summary>
+            Gets the data of the specified type contained in the build context.
+            </summary>
+            <typeparam name="T">Type of data to return.</typeparam>
+            <returns>The type of data specified.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.GetContextObject(System.Type)">
+            <summary>
+            Gets the data of the specified type contained in the build context.
+            </summary>
+            <param name="type">Type of data to return.</param>
+            <returns>The type of data specified.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.SetContextObject``1(UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <summary>
+            Adds the data of the specified type to the build context.
+            </summary>
+            <typeparam name="T">Type of data to add.</typeparam>
+            <param name="contextObject">Object holding the data to add.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.SetContextObject(System.Type,UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <summary>
+            Adds the data of the specified type to the build context.
+            </summary>
+            <param name="type">Type of data to add.</param>
+            <param name="contextObject">Object holding the data to add.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.SetContextObject(UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <summary>
+            Adds the data to the build context. Type will be inferred using Reflection.
+            </summary>
+            <param name="contextObject">Object holding the data to add.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.TryGetContextObject``1(``0@)">
+            <summary>
+            Tries to get the data of the specified type contained in the build context.
+            </summary>
+            <typeparam name="T">Type of data to return.</typeparam>
+            <param name="contextObject">The object holding the data to be returned if found.</param>
+            <returns><c>true</c> if the context was able to returned the specified data; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IBuildContext.TryGetContextObject(System.Type,UnityEditor.Build.Pipeline.Interfaces.IContextObject@)">
+            <summary>
+            Tries to get the data of the specified type contained in the build context.
+            </summary>
+            <param name="type">Type of data to return.</param>
+            <param name="contextObject">The object holding the data to be returned if found.</param>
+            <returns><c>true</c> if the context was able to returned the specified data; otherwise, <c>false</c>.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation">
+            <summary>
+            Base interface for wrapping the different low level WriteSerializeFile API around a common high level Write function
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.Command">
+            <summary>
+            The specific write command containing the details about what to write to disk.
+            <seealso cref="T:UnityEditor.Build.Content.WriteCommand"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.UsageSet">
+            <summary>
+            The specific usage data for objects in the write command.
+            <seealso cref="T:UnityEditor.Build.Content.BuildUsageTagSet"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.ReferenceMap">
+            <summary>
+            The specific reference data for objects in the write command.
+            <seealso cref="T:UnityEditor.Build.Content.BuildReferenceMap"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.DependencyHash">
+            <summary>
+            The hash that represents the unique set of input dependencies for caching this write command.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <summary>
+            Write function that wraps the low level WriteSerializeFile APIs that takes the common minimum set of parameters.
+            </summary>
+            <param name="outputFolder">The location to write data to disk.</param>
+            <param name="settings">The build settings to use for writing data.</param>
+            <param name="globalUsage">The global usage to use for writing data.</param>
+            <returns>The write results struct containing details about what was written to disk</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.GetHash128">
+            <summary>
+            Optimized hash function for use with the Build Cache system.
+            </summary>
+            <returns>Unique hash for the contents of this write operation.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Interfaces.IWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <summary>
+            Optimized hash function for use with the Build Cache system.
+            </summary>
+            <param name="log">The build log.</param>
+            <returns>Unique hash for the contents of this write operation.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation">
+            <summary>
+            Explicit implementation for writing a scene serialized file that can be used with the Asset Bundle systems.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.Command">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.UsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.ReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.Scene">
+            <summary>
+            Source scene asset path
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.ProcessedScene">
+            <summary>
+            Processed scene path returned by the ProcessScene API.
+            <seealso cref="M:UnityEditor.Build.Content.ContentBuildInterface.PrepareScene(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagSet,System.String)"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.PreloadInfo">
+            <summary>
+            Information needed for scene preloadeding.
+            <seealso cref="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.PreloadInfo"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.Info">
+            <summary>
+            Information needed for generating the Asset Bundle object to be included in the serialized file.
+            <see cref="T:UnityEditor.Build.Content.SceneBundleInfo"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneBundleWriteOperation.GetHash128">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation">
+            <summary>
+            Explicit implementation for writing a serialized file that can be used with the Asset Bundle systems.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.Command">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.UsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.ReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.Info">
+            <summary>
+            Information needed for generating the Asset Bundle object to be included in the serialized file.
+            <see cref="T:UnityEditor.Build.Content.AssetBundleInfo"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.AssetBundleWriteOperation.GetHash128">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation">
+            <summary>
+            Explicit implementation for writing a scene serialized file that can be used with the upcoming raw loading systems.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.Command">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.UsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.ReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.Scene">
+            <summary>
+            Source scene asset path
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.ProcessedScene">
+            <summary>
+            Processed scene path returned by the ProcessScene API.
+            <seealso cref="M:UnityEditor.Build.Content.ContentBuildInterface.PrepareScene(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagSet,System.String)"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneRawWriteOperation.GetHash128">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation">
+            <summary>
+            Explicit implementation for writing a serialized file that can be used with the upcoming raw loading systems.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.Command">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.UsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.ReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.RawWriteOperation.GetHash128">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation">
+            <summary>
+            Explicit implementation for writing a scene serialized file that can be used with the player data systems.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.Command">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.UsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.ReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.Scene">
+            <summary>
+            Source scene asset path
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.ProcessedScene">
+            <summary>
+            Processed scene path returned by the ProcessScene API.
+            <seealso cref="M:UnityEditor.Build.Content.ContentBuildInterface.PrepareScene(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagSet,System.String)"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.PreloadInfo">
+            <summary>
+            Information needed for scene preloadeding.
+            <seealso cref="P:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.PreloadInfo"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.Write(System.String,UnityEditor.Build.Content.BuildSettings,UnityEditor.Build.Content.BuildUsageTagGlobal)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.GetHash128(UnityEditor.Build.Pipeline.Interfaces.IBuildLogger)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.WriteTypes.SceneDataWriteOperation.GetHash128">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.ContentPipeline">
+            <summary>
+            Static class containing the main content building entry points into the Scriptable Build Pipeline.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ContentPipeline.kTempBuildPath">
+            <summary>
+            Default temporary path used for building content data.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ContentPipeline.kScriptBuildPath">
+            <summary>
+            Default temporary path used for building script data.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ContentPipeline.BuildCallbacks">
+            <summary>
+            Default callback implementation.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.ContentPipeline.BuildAssetBundles(UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults@)">
+            <summary>
+            Default implementation of generating Asset Bundles using the Scriptable Build Pipeline.
+            </summary>
+            <param name="parameters">Set of parameters used for building asset bundles.</param>
+            <param name="content">Set of content and explicit asset bundle layout to build.</param>
+            <param name="result">Results from building the content and explicit asset bundle layout.</param>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.ContentPipeline.BuildAssetBundles(UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults@,System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Interfaces.IBuildTask},UnityEditor.Build.Pipeline.Interfaces.IContextObject[])">
+            <summary>
+            Default implementation of generating Asset Bundles using the Scriptable Build Pipeline.
+            </summary>
+            <param name="parameters">Set of parameters used for building asset bundles.</param>
+            <param name="content">Set of content and explicit asset bundle layout to build.</param>
+            <param name="result">Results from building the content and explicit asset bundle layout.</param>
+            <param name="taskList">Custom task list for building asset bundles.</param>
+            <param name="contextObjects">Additional context objects to make available to the build.</param>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.CustomAssets">
+            <summary>
+            Basic implementation of ICustomAssets. Stores the list of Custom Assets generated during the Scriptable Build Pipeline.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.ICustomAssets"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.CustomAssets.Assets">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.CustomAssets.#ctor">
+            <summary>
+            Default constructor, creates an empty CustomAssets.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildContent">
+            <summary>
+            Basic implementation of IBuildContent. Stores the list of Assets to feed the Scriptable Build Pipeline.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContent"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildContent.Assets">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildContent.Scenes">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildContent.CustomAssets">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContent.#ctor">
+            <summary>
+            Default constructor, creates an empty BuildContent.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContent.#ctor(System.Collections.Generic.IEnumerable{UnityEditor.GUID})">
+            <summary>
+            Default constructor, takes a set of Assets and converts them to the appropriate properties.
+            </summary>
+            <param name="assets">The set of Assets identified by GUID to ensure are packaged with the build</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BundleBuildContent">
+            <summary>
+            Basic implementation of IBundleBuildContent. Stores the list of Assets with explicit Asset Bundle layout to feed the Scriptable Build Pipeline.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.Assets">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.Scenes">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.CustomAssets">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.AdditionalFiles">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.Addresses">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildContent.BundleLayout">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleBuildContent.#ctor">
+            <summary>
+            Default constructor, creates an empty BundleBuildContent.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleBuildContent.#ctor(System.Collections.Generic.IEnumerable{UnityEditor.AssetBundleBuild})">
+            <summary>
+            Default constructor, takes a set of AssetBundleBuild and converts them to the appropriate properties.
+            </summary>
+            <param name="bundleBuilds">The set of AssetbundleBuild to be built.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.DefaultBuildTasks">
+            <summary>
+            Basic static class containing preset build pipeline task collections.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset">
+            <summary>
+            Options for different preset build pipelines
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset.PlayerScriptsOnly">
+            <summary>
+            Use to indicate that the pipeline only executes player scripts.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset.AssetBundleCompatible">
+            <summary>
+            Use to indicate that the pipeline should create asset bundles.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset.AssetBundleBuiltInShaderExtraction">
+            <summary>
+            Use to indicate that the pipeline should create asset bundles and the built-in shader bundle.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset.AssetBundleShaderAndScriptExtraction">
+            <summary>
+            Use to indicate that the pipeline should create asset bundles, the built-in shader bundle, and MonoScript bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.DefaultBuildTasks.Create(UnityEditor.Build.Pipeline.DefaultBuildTasks.Preset)">
+            <summary>
+            Constructs and returns an IList containing the build tasks in the correct order for the preset build pipeline.
+            </summary>
+            <param name="preset">The preset build pipeline to construct and return.</param>
+            <returns>IList containing the build tasks in the correct order for the preset build pipeline.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.CompatibilityBuildPipeline">
+            <summary>
+            Static class exposing convenient methods that match the BuildPipeline <seealso cref="M:UnityEditor.BuildPipeline.BuildAssetBundles(System.String,UnityEditor.BuildAssetBundleOptions,UnityEditor.BuildTarget)"/> method, suitable
+            for porting existing projects to the Scriptable Build Pipeline quickly.
+            New projects could consider calling <see cref="M:UnityEditor.Build.Pipeline.ContentPipeline.BuildAssetBundles(UnityEditor.Build.Pipeline.Interfaces.IBundleBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildContent,UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults@)"/> directly.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.CompatibilityBuildPipeline.BuildAssetBundles(System.String,UnityEditor.BuildAssetBundleOptions,UnityEditor.BuildTarget)">
+            <summary>
+            Wrapper API to match BuildPipeline API but use the Scriptable Build Pipeline to build Asset Bundles.
+            <seealso cref="M:UnityEditor.BuildPipeline.BuildAssetBundles(System.String,UnityEditor.BuildAssetBundleOptions,UnityEditor.BuildTarget)"/>
+            </summary>
+            <remarks>
+            Not all BuildAssetBundleOptions are supported in the Scriptable Build Pipeline.
+            Supported options are: ForceRebuildAssetBundle, AppendHashToAssetBundleName, ChunkBasedCompression, UncompressedAssetBundle, and DisableWriteTypeTree.
+            In addition, existing BuildPipeline callbacks are not yet supported.
+            </remarks>
+            <param name="outputPath">Output path for the AssetBundles.</param>
+            <param name="assetBundleOptions">AssetBundle building options.</param>
+            <param name="targetPlatform">Chosen target build platform.</param>
+            <returns>CompatibilityAssetBundleManifest object exposing information about the generated asset bundles.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.CompatibilityBuildPipeline.BuildAssetBundles(System.String,UnityEditor.AssetBundleBuild[],UnityEditor.BuildAssetBundleOptions,UnityEditor.BuildTarget)">
+            <summary>
+            Wrapper API to match BuildPipeline API but use the Scriptable Build Pipeline to build Asset Bundles.
+            <seealso cref="M:UnityEditor.BuildPipeline.BuildAssetBundles(System.String,UnityEditor.AssetBundleBuild[],UnityEditor.BuildAssetBundleOptions,UnityEditor.BuildTarget)"/>
+            </summary>
+            <remarks>
+            Not all BuildAssetBundleOptions are supported in the Scriptable Build Pipeline.
+            Supported options are: ForceRebuildAssetBundle, AppendHashToAssetBundleName, ChunkBasedCompression, UncompressedAssetBundle, and DisableWriteTypeTree.
+            In addition, existing BuildPipeline callbacks are not yet supported.
+            </remarks>
+            <param name="outputPath">Output path for the AssetBundles.</param>
+            <param name="builds">AssetBundle building map.</param>
+            <param name="assetBundleOptions">AssetBundle building options.</param>
+            <param name="targetPlatform">Chosen target build platform.</param>
+            <returns>CompatibilityAssetBundleManifest object exposing information about the generated asset bundles.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.SerializedFileMetaData">
+            <summary>
+            Additional MetaData that is associated with a serialized file write result
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildResults"/>
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.SerializedFileMetaData.RawFileHash">
+            <summary>
+            A hash of all the serialized files
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.SerializedFileMetaData.ContentHash">
+            <summary>
+            Hash of file contents. Some resource files may choose to exclude sections of their content from this hash. For example,
+            serialized files exclude the header of their content which allows this hash not to change with new Unity versions.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildResults">
+            <summary>
+            Basic implementation of IBuildResults. Stores the results for script compilation and content building.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildResults"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildResults.ScriptResults">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildResults.WriteResults">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildResults.WriteResultsMetaData">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildResults.AssetResults">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildResults.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BundleBuildResults">
+            <summary>
+            Basic implementation of IBundleBuildResults. Stores the results for script compilation and asset bundle building.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBundleBuildResults"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildResults.ScriptResults">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildResults.BundleInfos">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildResults.WriteResults">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildResults.WriteResultsMetaData">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildResults.AssetResults">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleBuildResults.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildCallbacks">
+            <summary>
+            Basic implementation of IDependencyCallback, IPackingCallback, IWritingCallback, and IScriptsCallback.
+            Uses Func implementation for callbacks. <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IDependencyCallback"/>, <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IPackingCallback"/>
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IWritingCallback"/>, and <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IScriptsCallback"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildCallbacks.PostScriptsCallbacks">
+            <summary>
+            Func delegate for the callback after scripts have been compiled.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildCallbacks.PostDependencyCallback">
+            <summary>
+            Func delegate for the callback after dependency calculation has occurred.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildCallbacks.PostPackingCallback">
+            <summary>
+            Func delegate for the callback after packing has occurred.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildCallbacks.PostWritingCallback">
+            <summary>
+            Func delegate for the callback after writing content has occurred.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildCallbacks.PostScripts(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IBuildResults)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildCallbacks.PostDependency(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildCallbacks.PostPacking(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData,UnityEditor.Build.Pipeline.Interfaces.IWriteData)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildCallbacks.PostWriting(UnityEditor.Build.Pipeline.Interfaces.IBuildParameters,UnityEditor.Build.Pipeline.Interfaces.IDependencyData,UnityEditor.Build.Pipeline.Interfaces.IWriteData,UnityEditor.Build.Pipeline.Interfaces.IBuildResults)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.LinearPackedIdentifiers">
+            <summary>
+            Generates identifiers linearly for built content. Only deterministic if object order and initial Index is deterministic.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.LinearPackedIdentifiers.Index">
+            <summary>
+            The index at which to start linear id assignment.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.LinearPackedIdentifiers.#ctor(System.Int64)">
+            <summary>
+            Default constructor, takes an initial index at which to start linear id assignment.
+            </summary>
+            <param name="index">Initial index at which to start linear id assignment.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.LinearPackedIdentifiers.GenerateInternalFileName(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.LinearPackedIdentifiers.SerializationIndexFromObjectIdentifier(UnityEditor.Build.Content.ObjectIdentifier)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildParameters">
+            <summary>
+            Basic implementation of IBuildParameters. Stores the set of parameters passed into the Scriptable Build Pipeline.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildParameters"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.Target">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.Group">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.ContentBuildFlags">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.ScriptInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.ScriptOptions">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.BundleCompression">
+            <summary>
+            Default compression option to use for all built content files
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.OutputFolder">
+            <summary>
+            Final output location where built content will be written.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.TempOutputFolder">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.ScriptOutputFolder">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.UseCache">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.CacheServerHost">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.CacheServerPort">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.WriteLinkXML">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildParameters.NonRecursiveDependencies">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildParameters.#ctor(UnityEditor.BuildTarget,UnityEditor.BuildTargetGroup,System.String)">
+            <summary>
+            Default constructor, requires the target, group and output parameters at minimum for a successful build.
+            </summary>
+            <param name="target">The target for building content.</param>
+            <param name="group">The group for building content.</param>
+            <param name="outputFolder">The final output location for built content.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildParameters.GetContentBuildSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildParameters.GetScriptCompilationSettings">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildParameters.GetOutputFilePathForIdentifier(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildParameters.GetCompressionForIdentifier(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BundleBuildParameters">
+            <summary>
+            Stores the set of parameters passed into Scriptable Build Pipeline when building bundles.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleBuildParameters.#ctor(UnityEditor.BuildTarget,UnityEditor.BuildTargetGroup,System.String)">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildParameters.AppendHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildParameters.ContiguousBundles">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleBuildParameters.DisableVisibleSubAssetRepresentations">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BundleExplictObjectLayout">
+            <summary>
+            Optional context object used for overriding the location where specific objects will be serialized
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleExplictObjectLayout.ExplicitObjectLocation">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleExplictObjectLayout.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildExtendedAssetData">
+            <summary>
+            Basic implementation of IBuildExtendedAssetData. Stores the extended data about an asset in the build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildExtendedAssetData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildExtendedAssetData.ExtendedData">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildExtendedAssetData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Injector.InjectContextAttribute">
+            <summary>
+            Use to pass around information between build tasks.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Injector.InjectContextAttribute.Usage">
+            <summary>
+            Stores the how the attribute is used among build tasks.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.Injector.InjectContextAttribute.Optional">
+            <summary>
+            Stores whether using the context attribute is optional.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Injector.InjectContextAttribute.#ctor(UnityEditor.Build.Pipeline.Injector.ContextUsage,System.Boolean)">
+            <summary>
+            Creates a new context attribute that stores information that can be passed between build tasks.
+            </summary>
+            <param name="usage">The usage behavior for the attribute. By default it is set to <see cref="F:UnityEditor.Build.Pipeline.Injector.ContextUsage.InOut"/>.</param>
+            <param name="optional">Set to true if using the attribute is optional. Set to false otherwise.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Injector.ContextUsage">
+            <summary>
+            Options for how the attribute is used among build tasks. It can be either injected to and or extracted from a build task.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Injector.ContextUsage.InOut">
+            <summary>
+            Use to indicate that the attribute can be injected to and extracted from a build task.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Injector.ContextUsage.In">
+            <summary>
+            Use to indicate that the attribute can only be injected to a build task.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.Injector.ContextUsage.Out">
+            <summary>
+            Use to indicate that the attribute can only be extracted from a build task.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.Unity5PackedIdentifiers">
+            <summary>
+            Generates a deterministic identifier using a MD4 hash algorithm and does not require object ordering to be deterministic.
+            This algorithm generates identical results to what is used internally in <c>BuildPipeline.BuildAssetbundles</c>.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Unity5PackedIdentifiers.GenerateInternalFileName(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.Unity5PackedIdentifiers.SerializationIndexFromObjectIdentifier(UnityEditor.Build.Content.ObjectIdentifier)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.PrefabPackedIdentifiers">
+            <summary>
+            Generates a deterministic identifier using a MD5 hash algorithm and does not require object ordering to be deterministic.
+            This algorithm ensures objects coming from the same asset are packed closer together and can improve loading performance under certain situations.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.PrefabPackedIdentifiers.GenerateInternalFileName(System.String)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.PrefabPackedIdentifiers.SerializationIndexFromObjectIdentifier(UnityEditor.Build.Content.ObjectIdentifier)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildDependencyData">
+            <summary>
+            Basic implementation of IDependencyData. Stores the dependency and usage data calculated during a build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IDependencyData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.AssetInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.AssetUsage">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.SceneInfo">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.SceneUsage">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.DependencyHash">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.GlobalUsage">
+            <summary>
+            Stores how lighting information is being used during a build.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildDependencyData.DependencyUsageCache">
+            <summary>
+            Stores the dependency caching object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildDependencyData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.ObjectDependencyData">
+            <summary>
+            Basic implementation of IObjectDependencyData. Stores the dependencies between objects calculated during a build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IObjectDependencyData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.ObjectDependencyData.ObjectDependencyMap">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.ObjectDependencyData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildWriteData">
+            <summary>
+            Basic implementation of IWriteData. Stores the write information calculated during a build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IWriteData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildWriteData.AssetToFiles">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildWriteData.FileToObjects">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildWriteData.WriteOperations">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildWriteData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BundleWriteData">
+            <summary>
+            Basic implementation of IBundleWriteData. Stores the asset bundle write information calculated during a build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBundleWriteData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.AssetToFiles">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.FileToObjects">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.FileToBundle">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.FileToUsageSet">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.FileToReferenceMap">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BundleWriteData.WriteOperations">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BundleWriteData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildSpriteData">
+            <summary>
+            Basic implementation of IBuildSpriteData. Stores the sprite importer data for a sprite asset in the build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildSpriteData"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.Pipeline.BuildSpriteData.ImporterData">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildSpriteData.#ctor">
+            <summary>
+            Default constructor, initializes properties to defaults
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.ReturnCode">
+            <summary>
+            Options for scriptable build pipeline return codes. Int values of these return codes are standardized to 0 or greater for Success and -1 or less for Error.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.Success">
+            <summary>
+            Use to indicate that the operation suceeded.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.SuccessCached">
+            <summary>
+            Use to indicate that the operation suceeded.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.SuccessNotRun">
+            <summary>
+            Use to indicate that the operation suceeded but did not actually execute.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.Error">
+            <summary>
+            Use to indicate that the operation encountered an error.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.Exception">
+            <summary>
+            Use to indicate that the operation encountered an exception.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.Canceled">
+            <summary>
+            Use to indicate that the operation was cancelled.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.UnsavedChanges">
+            <summary>
+            Use to indicate that the operation failed because there are unsaved scene changes.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Pipeline.ReturnCode.MissingRequiredObjects">
+            <summary>
+            Use to indicate that the operation failed because it was missing the required objects.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildContext">
+            <summary>
+            Basic implementation of IBuildContext. Stores data generated during a build.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext"/>
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.#ctor(UnityEditor.Build.Pipeline.Interfaces.IContextObject[])">
+            <summary>
+            Default constructor, adds the passed in parameters to the context.
+            </summary>
+            <param name="buildParams">The set of initial parameters to add to the context.</param>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.SetContextObject``1(UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.SetContextObject(System.Type,UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.SetContextObject(UnityEditor.Build.Pipeline.Interfaces.IContextObject)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.ContainsContextObject``1">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.ContainsContextObject(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.GetContextObject``1">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.GetContextObject(System.Type)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.TryGetContextObject``1(``0@)">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildContext.TryGetContextObject(System.Type,UnityEditor.Build.Pipeline.Interfaces.IContextObject@)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Build.Pipeline.BuildTasksRunner">
+            <summary>
+            Basic static class containing default implementations for BuildTask validation and running.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildTasksRunner.Run(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Interfaces.IBuildTask},UnityEditor.Build.Pipeline.Interfaces.IBuildContext)">
+            <summary>
+            Basic run implementation that takes a set of tasks, a context, and runs returning the build results.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildTask"/>, <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext"/>, and <seealso cref="T:UnityEditor.Build.Pipeline.ReturnCode"/>
+            </summary>
+            <param name="pipeline">The set of build tasks to run.</param>
+            <param name="context">The build context to use for this run.</param>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildTasksRunner.RunProfiled(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Interfaces.IBuildTask},UnityEditor.Build.Pipeline.Interfaces.IBuildContext)">
+            <summary>
+            Run implementation with task profiler that takes a set of tasks, a context, runs returning the build results and prints out the profiler details.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildTask"/>, <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext"/>, and <seealso cref="T:UnityEditor.Build.Pipeline.ReturnCode"/>
+            </summary>
+            <param name="pipeline">The set of build tasks to run.</param>
+            <param name="context">The build context to use for this run.</param>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="M:UnityEditor.Build.Pipeline.BuildTasksRunner.Validate(System.Collections.Generic.IList{UnityEditor.Build.Pipeline.Interfaces.IBuildTask},UnityEditor.Build.Pipeline.Interfaces.IBuildContext)">
+            <summary>
+            Basic validate implementation that takes a set of tasks, a context, and does checks to ensure the task requirements are all satisfied.
+            <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildTask"/>, <seealso cref="T:UnityEditor.Build.Pipeline.Interfaces.IBuildContext"/>, and <seealso cref="T:UnityEditor.Build.Pipeline.ReturnCode"/>
+            </summary>
+            <param name="pipeline">The set of build tasks to run.</param>
+            <param name="context">The build context to use for this run.</param>
+            <returns>Return code with status information about success or failure causes.</returns>
+        </member>
+        <member name="T:UnityEditor.Build.Utilities.SceneStateCleanup">
+            <summary>
+            Cleans up scenes in the scene manager.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Utilities.SceneStateCleanup.#ctor">
+            <summary>
+            Creates a new scene state cleanup object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Utilities.SceneStateCleanup.Dispose">
+            <summary>
+            Disposes of the scene state cleanup instance.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.Utilities.SceneStateCleanup.Dispose(System.Boolean)">
+            <summary>
+            Disposes of the scene state cleanup instance.
+            </summary>
+            <param name="disposing">Set to true to reset the scenes list. Set to false to leave the scenes list as is.</param>
+        </member>
+        <member name="T:UnityEditor.Build.Utilities.CommonStrings">
+            <summary>
+            Static class of common strings and string formats used through out the build process
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Utilities.CommonStrings.UnityEditorResourcePath">
+            <summary>
+            Unity Editor Resources path
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Utilities.CommonStrings.UnityDefaultResourcePath">
+            <summary>
+            Unity Default Resources path
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Utilities.CommonStrings.UnityBuiltInExtraPath">
+            <summary>
+            Unity Built-In Extras path
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Utilities.CommonStrings.AssetBundleNameFormat">
+            <summary>
+            Default Asset Bundle internal file name format
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.Utilities.CommonStrings.SceneBundleNameFormat">
+            <summary>
+            Default Scene Bundle internal file name format
+            </summary>
+        </member>
+    </members>
+</doc>

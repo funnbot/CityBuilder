@@ -1,0 +1,2677 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.ResourceManager</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRequestOptions">
+            <summary>
+            Custom version of AssetBundleRequestOptions used to compute needed download size while bypassing the cache.  In the future a virtual cache may be implemented.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRequestOptions.ComputeSize(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceManager)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualBundledAssetProvider">
+            <summary>
+            Provides assets from virtual asset bundles.  Actual loads are done through the AssetDatabase API.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualBundledAssetProvider.#ctor">
+            <summary>
+            Default copnstructor.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VBAsyncOperation`1.OperationException">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VBAsyncOperation`1.PercentComplete">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VBAsyncOperation`1.Context">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleEntry">
+            <summary>
+            Contains data needed to simulate a bundled asset
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleEntry.Name">
+            <summary>
+            The name of the asset.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleEntry.Size">
+            <summary>
+            The file size of the asset, in bytes.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleEntry.#ctor">
+            <summary>
+            Construct a new VirtualAssetBundleEntry
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleEntry.#ctor(System.String,System.Int64)">
+            <summary>
+            Construct a new VirtualAssetBundleEntry
+            </summary>
+            <param name="name">The name of the asset.</param>
+            <param name="size">The size of the asset, in bytes.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle">
+            <summary>
+            Contains data need to simulate an asset bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.Name">
+            <summary>
+            The name of the bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.Assets">
+            <summary>
+            The assets contained in the bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.#ctor">
+            <summary>
+            Construct a new VirtualAssetBundle object.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.PercentComplete">
+            <summary>
+            The percent of data that has been loaded.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.#ctor(System.String,System.Boolean,System.UInt32,System.String)">
+            <summary>
+            Construct a new VirtualAssetBundle
+            </summary>
+            <param name="name">The name of the bundle.</param>
+            <param name="local">Is the bundle local or remote.  This is used to determine which bandwidth value to use when simulating loading.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.SetSize(System.Int64,System.Int64)">
+            <summary>
+            Set the size of the bundle.
+            </summary>
+            <param name="dataSize">The size of the data.</param>
+            <param name="headerSize">The size of the header.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.OnBeforeSerialize">
+            <summary>
+            Not used
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.OnAfterDeserialize">
+            <summary>
+            Load serialized data into runtime structures.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.LoadAssetAsync(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Load an asset via its location.  The asset will actually be loaded via the AssetDatabase API.
+            </summary>
+            <typeparam name="TObject"></typeparam>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundle.GetAssetBundle">
+            <summary>
+            Implementation of IAssetBundleResource API
+            </summary>
+            <returns>Always returns null.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData">
+            <summary>
+            Serialized data containing the asset bundle layout.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData.AssetBundles">
+            <summary>
+            The list of asset bundles to simulate.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData.RemoteLoadSpeed">
+            <summary>
+            Bandwidth value (in bytes per second) to simulate loading from a remote location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData.LocalLoadSpeed">
+            <summary>
+            Bandwidth value (in bytes per second) to simulate loading from a local location.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData.#ctor">
+            <summary>
+            Construct a new VirtualAssetBundleRuntimeData object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData.#ctor(System.Int64,System.Int64)">
+            <summary>
+            Construct a new VirtualAssetBundleRuntimeData object.
+            </summary>
+            <param name="localSpeed">Bandwidth value (in bytes per second) to simulate loading from a local location.</param>
+            <param name="remoteSpeed">Bandwidth value (in bytes per second) to simulate loading from a remote location.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleProvider">
+            <summary>
+            Simulates the loading behavior of an asset bundle.  Internally it uses the AssetDatabase API.  This provider will only work in the editor.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleProvider.GetDefaultType(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleProvider.#ctor(UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleRuntimeData)">
+            <summary>
+            Construct a new VirtualAssetBundleProvider object;
+            <param name="data">Contains information on virtual bundle layout</param>
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleProvider.Initialize(System.String,System.String)">
+            <summary>
+            Initilization data is passed when when constructed from serialized data
+            </summary>
+            <param name="id">The provider id</param>
+            <param name="data">The data string, this is assumed to be the virtual bundle data path</param>
+            <returns>true if the data is as expected</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.Simulation.VirtualAssetBundleProvider.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters">
+            <summary>
+            Class that contains properties to apply to instantiated objects.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.Position">
+            <summary>
+            Position in world space to instantiate object.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.Rotation">
+            <summary>
+            Rotation in world space to instantiate object.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.Parent">
+            <summary>
+            Transform to set as the parent of the instantiated object.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.InstantiateInWorldPosition">
+            <summary>
+            When setting the parent Transform, this sets whether to preserve instance transform relative to world space or relative to the parent.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.SetPositionRotation">
+            <summary>
+            Flag to tell the IInstanceProvider whether to set the position and rotation on new instances.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.#ctor(UnityEngine.Transform,System.Boolean)">
+            <summary>
+            Create a new InstantationParameters class that will set the parent transform and use the prefab transform.
+            </summary>
+            <param name="parent">Transform to set as the parent of the instantiated object.</param>
+            <param name="instantiateInWorldSpace">Flag to tell the IInstanceProvider whether to set the position and rotation on new instances.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.#ctor(UnityEngine.Vector3,UnityEngine.Quaternion,UnityEngine.Transform)">
+            <summary>
+            Create a new InstantationParameters class that will set the position, rotation, and Transform parent of the instance.
+            </summary>
+            <param name="position">Position relative to the parent to set on the instance.</param>
+            <param name="rotation">Rotation relative to the parent to set on the instance.</param>
+            <param name="parent">Transform to set as the parent of the instantiated object.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters.Instantiate``1(``0)">
+            <summary>
+            Instantiate an object with the parameters of this object.
+            </summary>
+            <typeparam name="TObject">Object type. This type must be of type UnityEngine.Object.</typeparam>
+            <param name="source">Object to instantiate.</param>
+            <returns>Returns the instantiated object.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.IInstanceProvider">
+            <summary>
+            Interface that provides instances of objects.  This is used in ResourceManager.Instantiate* calls.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IInstanceProvider.ProvideInstance(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.GameObject},UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters)">
+            <summary>
+            Provide an instance of the gameobject contained in the prefabHandle.
+            </summary>
+            <param name="resourceManager">The object that contains all the resource locations.</param>
+            <param name="prefabHandle">The operation handle for the prefab to instantiate.</param>
+            <param name="instantiateParameters">The parameters to use for instantation.</param>
+            <returns>The instantiated object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IInstanceProvider.ReleaseInstance(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.GameObject)">
+            <summary>
+            Release an instance.
+            </summary>
+            <param name="resourceManager">The object that contains all the resource locations.</param>
+            <param name="instance">The instance to release.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase">
+            <summary>
+            Base class for IResourceProvider.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.m_ProviderId">
+            <summary>
+            The unique identifier of the provider.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.m_BehaviourFlags">
+            <summary>
+            The extra behavior of the provider.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.ProviderId">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.Initialize(System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.CanProvide(System.Type,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.ToString">
+            <summary>
+            Converts information about the resource provider to a formatted string.
+            </summary>
+            <returns>Returns information about the resource provider.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <summary>
+            Release the specified object that was created from the specified location.
+            </summary>
+            <param name="location">The location of the object</param>
+            <param name="obj">The object to release.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.GetDefaultType(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Get the default type of object that this provider can provide.
+            </summary>
+            <param name="location"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <summary>
+            Provide the object specified in the provideHandle.
+            </summary>
+            <param name="provideHandle">Contains all data needed to provide the requested object.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.InitializeAsync(UnityEngine.ResourceManagement.ResourceManager,System.String,System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ResourceProviderBase.BaseInitAsyncOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.ProviderLoadRequestOptions">
+            <summary>
+            Contains options used in Resource Provider load requests.  ProviderLoadRequestOptions are used to specify
+            parameters such as whether or not to ignore load failures and UnityWebRequest timeouts.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProviderLoadRequestOptions.Copy">
+            <summary>
+            Creates a memberwise clone of a given ProviderLoadRequestOption.
+            </summary>
+            <returns>The newly created ProviderLoadRequestOption object</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProviderLoadRequestOptions.IgnoreFailures">
+            <summary>
+            IgnoreFailures for provider load requests
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProviderLoadRequestOptions.WebRequestTimeout">
+            <summary>
+            UnityWebRequest Timeout
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider">
+            <summary>
+            Implementation if ISceneProvider
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.SceneOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.SceneOp.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.UnloadSceneOp.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.ProvideScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.ProvideScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneParameters,System.Boolean,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.ReleaseScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneProvider.UnityEngine#ResourceManagement#ResourceProviders#ISceneProvider2#ReleaseScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},UnityEngine.SceneManagement.UnloadSceneOptions)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider">
+            <summary>
+            Basic implementation of IInstanceProvider.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider.ProvideInstance(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.GameObject},UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider.ReleaseInstance(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.GameObject)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider">
+            <summary>
+            Provides raw text from a local or remote URL.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider.IgnoreFailures">
+            <summary>
+            Controls whether errors are logged - this is disabled when trying to load from the local cache since failures are expected
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider.Convert(System.Type,System.String)">
+            <summary>
+            Method to convert the text into the object type requested.  Usually the text contains a JSON formatted serialized object.
+            </summary>
+            <param name="type">The object type the text is converted to.</param>
+            <param name="text">The text to be converted.</param>
+            <returns>The converted object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.TextDataProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <summary>
+            Provides raw text data from the location.
+            </summary>
+            <param name="provideHandle">The data needed by the provider to perform the load.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider">
+            <summary>
+            Provides assets loaded via Resources.LoadAsync API.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.LegacyResourcesProvider.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance">
+            <summary>
+            Wrapper for scenes.  This is used to allow access to the AsyncOperation and delayed activation.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.Scene">
+            <summary>
+            The scene instance.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.Activate">
+            <summary>
+            Activate the scene via the AsyncOperation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.ActivateAsync">
+            <summary>
+            Activate the scene via the AsyncOperation.  This is the scene loading AsyncOperation provided by the engine.
+            The documentation for AsyncOperation can be found here: https://docs.unity3d.com/ScriptReference/AsyncOperation.html
+            </summary>
+            <returns>The scene load operation.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.GetHashCode">
+            <inheritdoc cref="P:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.Scene"/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.Equals(System.Object)">
+            <inheritdoc cref="P:UnityEngine.ResourceManagement.ResourceProviders.SceneInstance.Scene"/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider">
+            <summary>
+            Interface for scene providers.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider.ProvideScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Load a scene at a specified resource location.
+            </summary>
+            <param name="resourceManager">The resource manager to use for loading dependencies.</param>
+            <param name="location">The location of the scene.</param>
+            <param name="loadMode">Load mode for the scene.</param>
+            <param name="activateOnLoad">If true, the scene is activated as soon as it finished loading. Otherwise it needs to be activated via the returned SceneInstance object.</param>
+            <param name="priority">The loading priority for the load.</param>
+            <returns>An operation handle for the loading of the scene.  The scene is wrapped in a SceneInstance object to support delayed activation.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider.ProvideScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneParameters,System.Boolean,System.Int32)">
+            <summary>
+            Load a scene at a specified resource location.
+            </summary>
+            <param name="resourceManager">The resource manager to use for loading dependencies.</param>
+            <param name="location">The location of the scene.</param>
+            <param name="loadSceneParameters">Load parameters for the scene.</param>
+            <param name="activateOnLoad">If true, the scene is activated as soon as it finished loading. Otherwise it needs to be activated via the returned SceneInstance object.</param>
+            <param name="priority">The loading priority for the load.</param>
+            <returns>An operation handle for the loading of the scene.  The scene is wrapped in a SceneInstance object to support delayed activation.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider.ReleaseScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance})">
+            <summary>
+            Release a scene.
+            </summary>
+            <param name="resourceManager">The resource manager to use for loading dependencies.</param>
+            <param name="sceneLoadHandle">The operation handle used to load the scene.</param>
+            <returns>An operation handle for the unload.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider2.ReleaseScene(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance},UnityEngine.SceneManagement.UnloadSceneOptions)">
+            <summary>
+            Release a scene.
+            </summary>
+            <param name="resourceManager">The resource manager to use for loading dependencies.</param>
+            <param name="sceneLoadHandle">The operation handle used to load the scene.</param>
+            <returns>An operation handle for the unload.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AtlasSpriteProvider">
+            <summary>
+            Provides sprites from atlases
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AtlasSpriteProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.JsonAssetProvider">
+            <summary>
+            Converts JSON serialized text into the requested object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.JsonAssetProvider.Convert(System.Type,System.String)">
+            <summary>
+            Converts raw text into requested object type via JSONUtility.FromJson.
+            </summary>
+            <param name="type">The object type the text is converted to.</param>
+            <param name="text">The text to convert.</param>
+            <returns>Returns the converted object.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider">
+            <summary>
+            Provides assets stored in an asset bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.BinaryDataProvider">
+            <summary>
+            Provides raw text from a local or remote URL.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.BinaryDataProvider.IgnoreFailures">
+            <summary>
+            Controls whether errors are logged - this is disabled when trying to load from the local cache since failures are expected
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.BinaryDataProvider.Convert(System.Type,System.Byte[])">
+            <summary>
+            Method to convert the text into the object type requested.  Usually the text contains a JSON formatted serialized object.
+            </summary>
+            <param name="type">The object type the text is converted to.</param>
+            <param name="data">The byte array to be converted.</param>
+            <returns>The converted object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.BinaryDataProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <summary>
+            Provides raw text data from the location.
+            </summary>
+            <param name="provideHandle">The data needed by the provider to perform the load.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetLoadMode">
+            <summary>
+            Used to indication how Assets are loaded from the AssetBundle on the first load request.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.AssetLoadMode.RequestedAssetAndDependencies">
+            <summary>
+            Only load the requested Asset and Dependencies
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.AssetLoadMode.AllPackedAssetsAndDependencies">
+            <summary>
+            Load all assets inside the AssetBundle
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.IAssetBundleResource">
+            <summary>
+            Wrapper for asset bundles.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IAssetBundleResource.GetAssetBundle">
+            <summary>
+            Retrieves the asset bundle.
+            </summary>
+            <returns>Returns the asset bundle.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions">
+            <summary>
+            Contains cache information to be used by the AssetBundleProvider
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.Hash">
+            <summary>
+            Hash value of the asset bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.Crc">
+            <summary>
+            CRC value of the bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.Timeout">
+            <summary>
+            Attempt to abort after the number of seconds in timeout have passed, where the UnityWebRequest has received no data.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.ChunkedTransfer">
+            <summary>
+            Indicates whether the UnityWebRequest system should employ the HTTP/1.1 chunked-transfer encoding method.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.RedirectLimit">
+            <summary>
+            Indicates the number of redirects which this UnityWebRequest will follow before halting with a “Redirect Limit Exceeded” system error.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.RetryCount">
+            <summary>
+            Indicates the number of times the request will be retried.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.BundleName">
+            <summary>
+            The name of the original bundle.  This does not contain the appended hash.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.AssetLoadMode">
+             <summary>
+             Determines how Assets are loaded when accessed.
+             </summary>
+             <remarks>
+             Requested Asset And Dependencies, will only load the requested Asset (Recommended).
+             All Packed Assets And Dependencies, will load all Assets that are packed together. Best used when loading all Assets into memory is required.
+            </remarks>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.BundleSize">
+            <summary>
+            The size of the bundle, in bytes.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.UseCrcForCachedBundle">
+            <summary>
+            If false, the CRC will not be used when loading bundles from the cache.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.UseUnityWebRequestForLocalBundles">
+            <summary>
+            If true, UnityWebRequest will be used even if the bundle is stored locally.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.ClearOtherCachedVersionsWhenLoaded">
+            <summary>
+            If false, the CRC will not be used when loading bundles from the cache.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleRequestOptions.ComputeSize(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceManager)">
+            <summary>
+            Computes the amount of data needed to be downloaded for this bundle.
+            </summary>
+            <param name="location">The location of the bundle.</param>
+            <param name="resourceManager">The object that contains all the resource locations.</param>
+            <returns>The size in bytes of the bundle that is needed to be downloaded.  If the local cache contains the bundle or it is a local bundle, 0 will be returned.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource">
+            <summary>
+            Provides methods for loading an AssetBundle from a local or remote location.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.LoadType">
+            <summary>
+            Options for where an AssetBundle can be loaded from.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.LoadType.None">
+            <summary>
+            Cannot determine where the AssetBundle is located.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.LoadType.Local">
+            <summary>
+            Load the AssetBundle from a local file location.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.LoadType.Web">
+            <summary>
+            Download the AssetBundle from a web server.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.GetAssetPreloadRequest">
+            <summary>
+            Creates a request for loading all assets from an AssetBundle.
+            </summary>
+            <returns>Returns the request.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.GetAssetBundle">
+            <summary>
+            Get the asset bundle object managed by this resource.  This call may force the bundle to load if not already loaded.
+            </summary>
+            <returns>The asset bundle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.Start(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle,UnityEngine.AssetBundleUnloadOperation)">
+            <summary>
+            Stores AssetBundle loading information, starts loading the bundle.
+            </summary>
+            <param name="provideHandle">The container for AssetBundle loading information.</param>
+            <param name="unloadOp">The async operation for unloading the AssetBundle.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.GetLoadInfo(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle,UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.LoadType@,System.String@)">
+            <summary>
+            Determines where an AssetBundle can be loaded from.
+            </summary>
+            <param name="handle">The container for AssetBundle loading information.</param>
+            <param name="loadType">Specifies where an AssetBundle can be loaded from.</param>
+            <param name="path">The file path or url where the AssetBundle is located.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.Update(System.Single)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleResource.Unload(UnityEngine.AssetBundleUnloadOperation@)">
+            <summary>
+            Starts an async operation that unloads all resources associated with the AssetBundle.
+            </summary>
+            <param name="unloadOp">The async operation.</param>
+            <returns>Returns true if the async operation object is valid.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider">
+            <summary>
+            IResourceProvider for asset bundles.  Loads bundles via UnityWebRequestAssetBundle API if the internalId starts with "http".  If not, it will load the bundle via AssetBundle.LoadFromFileAsync.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider.UnloadingBundles">
+            <summary>
+            Stores async operations that unload the requested AssetBundles.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider.GetDefaultType(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <summary>
+            Releases the asset bundle via AssetBundle.Unload(true).
+            </summary>
+            <param name="location">The location of the asset to release</param>
+            <param name="asset">The asset in question</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.AssetDatabaseProvider">
+            <summary>
+            Provides assets loaded via the AssetDatabase API.  This provider is only available in the editor and is used for fast iteration or to simulate asset bundles when in play mode.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetDatabaseProvider.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetDatabaseProvider.#ctor(System.Single)">
+            <summary>
+            Constructor that allows for a sepcified delay for all requests.
+            </summary>
+            <param name="delay">Time in seconds for each delay call.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.AssetDatabaseProvider.CanProvide(System.Type,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.ProviderBehaviourFlags">
+            <summary>
+            Options for resource provider behavior.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.ProviderBehaviourFlags.None">
+            <summary>
+            Indicates that the provider does not have extra specified behavior.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceProviders.ProviderBehaviourFlags.CanProvideWithFailedDependencies">
+            <summary>
+            Indicates that the provider will still fulfill requests even with failed dependencies.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle">
+            <summary>
+            Container for all data need by providers to fulfill requests.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.ResourceManager">
+            <summary>
+            The ResourceManager used to create the operation.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.Type">
+            <summary>
+            The requested object type.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.Location">
+            <summary>
+            The location for the request.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.DependencyCount">
+            <summary>
+            Number of dependencies.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.GetDependency``1(System.Int32)">
+            <summary>
+            Get a specific dependency object.
+            </summary>
+            <typeparam name="TDepObject">The dependency type.</typeparam>
+            <param name="index">The index of the dependency.</param>
+            <returns>The dependency object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.GetDependencies(System.Collections.Generic.IList{System.Object})">
+            <summary>
+            Get the depedency objects.
+            </summary>
+            <param name="list">The list of dependecies to fill in.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.SetProgressCallback(System.Func{System.Single})">
+            <summary>
+            Set the func for handling progress requests.
+            </summary>
+            <param name="callback">The callback function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.SetDownloadProgressCallbacks(System.Func{UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus})">
+            <summary>
+            Set the func for handling download progress requests.
+            </summary>
+            <param name="callback">The callback function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.SetWaitForCompletionCallback(System.Func{System.Boolean})">
+            <summary>
+            Set the func for handling a request to wait for the completion of the operation
+            </summary>
+            <param name="callback">The callback function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle.Complete``1(``0,System.Boolean,System.Exception)">
+            <summary>
+            Called to complete the operation.
+            </summary>
+            <typeparam name="T">The type of object requested.</typeparam>
+            <param name="result">The result object.</param>
+            <param name="status">True if the operation was successful, false otherwise.</param>
+            <param name="exception">The exception if the operation failed.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider">
+            <summary>
+            Resoure Providers handle loading (Provide) and unloading (Release) of objects
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.ProviderId">
+            <summary>
+            Unique identifier for this provider, used by Resource Locations to find a suitable Provider
+            </summary>
+            <value>The provider identifier.</value>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.GetDefaultType(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            The default type of object that this provider can provide.
+            </summary>
+            <param name="location">The location that can be used to determine the type.</param>
+            <returns>The type of object that can be provided.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.CanProvide(System.Type,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Determine if this provider can provide the specified object type from the specified location.
+            </summary>
+            <param name="type">The type of object.</param>
+            <param name="location">The resource location of the object.</param>
+            <returns>True if this provider can create the specified object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.Provide(UnityEngine.ResourceManagement.ResourceProviders.ProvideHandle)">
+            <summary>
+            Tells the provide that it needs to provide a resource and report the results through the passed provideHandle. When this is called, all dependencies have completed and are available through the provideHandle.
+            </summary>
+            <param name="provideHandle">A handle used to update the operation.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.Release(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Object)">
+            <summary>
+            Release and/or unload the given resource location and asset
+            </summary>
+            <param name="location">Location to release.</param>
+            <param name="asset">Asset to unload.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider.BehaviourFlags">
+            <summary>
+            Custom flags for the provider.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceProviders.BinaryAssetProvider`1">
+            <summary>
+            Converts ray binary data into the requested object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceProviders.BinaryAssetProvider`1.Convert(System.Type,System.Byte[])">
+            <summary>
+            Converts raw bytes into requested object type via BinaryStorageBuffer.ISerializationAdapter
+            </summary>
+            <param name="type">The object type the text is converted to.</param>
+            <param name="data">The data to convert.</param>
+            <returns>Returns the converted object.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceManager">
+            <summary>
+            Entry point for ResourceManager API
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType">
+            <summary>
+            Options for event types that will be sent by the ResourceManager
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationFail">
+            <summary>
+            Use to indicate that an operation failed.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationCreate">
+            <summary>
+            Use to indicate that an operation was created.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationPercentComplete">
+            <summary>
+            Use to indicate the percentage of completion for an operation was updated.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationComplete">
+            <summary>
+            Use to indicate that an operation has completed.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationReferenceCount">
+            <summary>
+            Use to indicate that the reference count of an operation was modified.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType.AsyncOperationDestroy">
+            <summary>
+            Use to indicate that an operation was destroyed.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext">
+            <summary>
+            Container for information associated with a Diagnostics event.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.OperationHandle">
+            <summary>
+            Operation handle for the event.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.Type">
+            <summary>
+            The type of diagnostic event.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.EventValue">
+            <summary>
+            The value for this event.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.Location">
+            <summary>
+            The IResourceLocation being provided by the operation triggering this event.
+            This value is null if the event is not while providing a resource.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.Context">
+            <summary>
+            Addition data included with this event.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.Error">
+            <summary>
+            Any error that occured.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext.#ctor(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType,System.Int32,System.String,System.Object)">
+            <summary>
+            Construct a new DiagnosticEventContext.
+            </summary>
+            <param name="op">Operation handle for the event.</param>
+            <param name="type">The type of diagnostic event.</param>
+            <param name="eventValue">The value for this event.</param>
+            <param name="error">Any error that occured.</param>
+            <param name="context">Additional context data.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.ExceptionHandler">
+            <summary>
+            Global exception handler.  This will be called whenever an IAsyncOperation.OperationException is set to a non-null value.
+            </summary>
+            <example>
+            <code source="../../Tests/Editor/DocExampleCode/AddExceptionHandler.cs" region="doc_AddExceptionHandler" title="Adding a global exception hanlder"/>
+            </example>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.InternalIdTransformFunc">
+             <summary>
+             Functor to transform internal ids before being used by the providers.
+             </summary>
+             <remarks>
+             Used to assign a function to the [ResourceManager](xref:UnityEngine.ResourceManagement.ResourceManager)  that replaces location identifiers used at runtime.
+             This is useful when you want to load assets from a different location than the one specified in the content catalog,
+             for example downloading a remote AssetBundle from a different URL.
+            
+             Assigning this value through the <see cref="!:Addressables"/> object will set the value on the <see cref="T:UnityEngine.ResourceManagement.ResourceManager"/>.
+             
+             The example below instantiates a GameObject from a local AssetBundle. The location identifier of the bundle is replaced with a file URI, and so the bundle is loaded via UnityWebRequest. 
+             <code source="../../Tests/Editor/DocExampleCode/ScriptReference/UsingInternalIdTransformFunc.cs" region="SAMPLE"/>/// 
+             </remarks>
+             <value>A function taking an [IResourceLocation](xref:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation) and returning a transformed string location.</value>
+             <seealso href="xref:addressables-api-transform-internal-id">Transforming resource URLs</seealso>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.TransformInternalId(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Checks for an internal id transform function and uses it to modify the internal id value.
+            </summary>
+            <param name="location">The location to transform the internal id of.</param>
+            <returns>If a transform func is set, use it to pull the local id; otherwise, the InternalId property of the location is used.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.WebRequestOverride">
+             <summary>
+             Delegate that can be used to override the web request options before being sent.
+             </summary>
+             <remarks>
+             You can assign a function to the <see cref="!:Addressables"/> object's WebRequestOverride property to individually modify the <see cref="T:UnityEngine.Networking.UnityWebRequest"/> which is used to download files.
+            
+             This can be used to add custom request headers or query strings.
+            
+             This affects all downloads through Addressables including catalog files and asset bundles.
+            
+             Assigning this value through the <see cref="!:Addressables"/> object will set the value on the <see cref="T:UnityEngine.ResourceManagement.ResourceManager"/>.
+             
+             For example you could add an Authorization header to authenticate with Cloud Content Delivery's private buckets.
+             <code source="../../Tests/Editor/DocExampleCode/ScriptReference/UsingWebRequestOverride.cs" region="SAMPLE" />
+             </remarks>
+             <seealso href="xref:addressables-api-transform-internal-id#webrequest-override">Transforming resource URLs</seealso>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.AddUpdateReceiver(UnityEngine.ResourceManagement.IUpdateReceiver)">
+            <summary>
+            Add an update reveiver.
+            </summary>
+            <param name="receiver">The object to add. The Update method will be called until the object is removed. </param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.RemoveUpdateReciever(UnityEngine.ResourceManagement.IUpdateReceiver)">
+            <summary>
+            Remove update receiver.
+            </summary>
+            <param name="receiver">The object to remove.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.Allocator">
+            <summary>
+            The allocation strategy object.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.ResourceProviders">
+            <summary>
+            Gets the list of configured <see cref="T:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider"/> objects. Resource Providers handle load and release operations for <see cref="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation"/> objects.
+            </summary>
+            <value>The resource providers list.</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceManager.CertificateHandlerInstance">
+            <summary>
+            The CertificateHandler instance object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.#ctor(UnityEngine.ResourceManagement.Util.IAllocationStrategy)">
+            <summary>
+            Constructor for the resource manager.
+            </summary>
+            <param name="alloc">The allocation strategy to use.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ClearDiagnosticsCallback">
+            <summary>
+            Clears out the diagnostics callback handler.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ClearDiagnosticCallbacks">
+            <summary>
+            Clears out the diagnostics callbacks handler.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.UnregisterDiagnosticCallback(System.Action{UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext})">
+            <summary>
+            Unregister a handler for diagnostic events.
+            </summary>
+            <param name="func">The event handler function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.RegisterDiagnosticCallback(System.Action{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventType,System.Int32,System.Object})">
+            <summary>
+            Register a handler for diagnostic events.
+            </summary>
+            <param name="func">The event handler function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.RegisterDiagnosticCallback(System.Action{UnityEngine.ResourceManagement.ResourceManager.DiagnosticEventContext})">
+            <summary>
+            Register a handler for diagnostic events.
+            </summary>
+            <param name="func">The event handler function.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.GetResourceProvider(System.Type,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Gets the appropriate <see cref="T:UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider"/> for the given <paramref name="location"/> and <paramref name="type"/>.
+            </summary>
+            <returns>The resource provider. Or null if an appropriate provider cannot be found</returns>
+            <param name="t">The desired object type to be loaded from the provider.</param>
+            <param name="location">The resource location.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideResource(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Type,System.Boolean)">
+            <summary>
+            Load the <typeparamref name="TObject"/> at the specified <paramref name="location"/>.
+            </summary>
+            <returns>An async operation.</returns>
+            <param name="location">Location to load.</param>
+            <param name="releaseDependenciesOnFailure">When true, if the operation fails, dependencies will be released.</param>
+            <typeparam name="TObject">Object type to load.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateCacheKeyForLocation(UnityEngine.ResourceManagement.ResourceProviders.IResourceProvider,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Type)">
+            <summary>
+            Creates the appropriate cache key for a given location + provider.  AssetBundleProviders need to use a different
+            cache key than regular locations.
+            </summary>
+            <param name="provider">The ResourceProvider for the given location</param>
+            <param name="location">The location of the asset we're attempting to request</param>
+            <param name="desiredType">The desired type of the asset we're attempting to request.</param>
+            <returns>An IOperationCacheKey for use with the async operation cache.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideResource``1(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Load the <typeparamref name="TObject"/> at the specified <paramref name="location"/>.
+            </summary>
+            <returns>An async operation.</returns>
+            <param name="location">Location to load.</param>
+            <typeparam name="TObject">Object type to load.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.StartOperation``1(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase{``0},UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Registers an operation with the ResourceManager. The operation will be executed when the <paramref name="dependency"/> completes.
+            This should only be used when creating custom operations.
+            </summary>
+            <returns>The AsyncOperationHandle used to access the result and status of the operation.</returns>
+            <param name="operation">The custom AsyncOperationBase object</param>
+            <param name="dependency">Execution of the operation will not occur until this handle completes. A default handle can be passed if no dependency is required.</param>
+            <typeparam name="TObject">Object type associated with this operation.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CompletedOperation`1.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateCompletedOperation``1(``0,System.String)">
+            <summary>
+            Creates an operation that has already completed with a specified result and error message./>.
+            </summary>
+            <param name="result">The result that the operation will provide.</param>
+            <param name="errorMsg">The error message if the operation should be in the failed state. Otherwise null or empty string.</param>
+            <typeparam name="TObject">Object type.</typeparam>
+            <returns>The operation handle used for the completed operation.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateCompletedOperationWithException``1(``0,System.Exception)">
+            <summary>
+            Creates an operation that has already completed with a specified result and error message./>.
+            </summary>
+            <param name="result">The result that the operation will provide.</param>
+            <param name="exception">The exception with an error message if the operation should be in the failed state. Otherwise null.</param>
+            <typeparam name="TObject">Object type.</typeparam>
+            <returns>The operation handle used for the completed operation.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.Release(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Release the operation associated with the specified handle
+            </summary>
+            <param name="handle">The handle to release.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.Acquire(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Increment reference count of operation handle.
+            </summary>
+            <param name="handle">The handle to the resource to increment the reference count for.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateGroupOperation``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation})">
+            <summary>
+            Create a group operation for a set of locations.
+            </summary>
+            <typeparam name="T">The expected object type for the operations.</typeparam>
+            <param name="locations">The list of locations to load.</param>
+            <returns>The operation for the entire group.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateGroupOperation``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Boolean)">
+            <summary>
+            Create a group operation for a set of locations.
+            </summary>
+            <typeparam name="T">The expected object type for the operations.</typeparam>
+            <param name="locations">The list of locations to load.</param>
+            <param name="allowFailedDependencies">The operation succeeds if any grouped locations fail.</param>
+            <returns>The operation for the entire group.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateGenericGroupOperation(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle},System.Boolean)">
+            <summary>
+            Create a group operation for a set of AsyncOperationHandles
+            </summary>
+            <param name="operations">The list of operations that need to complete.</param>
+            <param name="releasedCachedOpOnComplete">Determine if the cached operation should be released or not.</param>
+            <returns>The operation for the entire group</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideResources``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Action{``0})">
+            <summary>
+            Asynchronously load all objects in the given collection of <paramref name="locations"/>.
+            If any matching location fails, all loads and dependencies will be released.  The returned .Result will be null, and .Status will be Failed.
+            </summary>
+            <returns>An async operation that will complete when all individual async load operations are complete.</returns>
+            <param name="locations">locations to load.</param>
+            <param name="callback">This callback will be invoked once for each object that is loaded.</param>
+            <typeparam name="TObject">Object type to load.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideResources``1(System.Collections.Generic.IList{UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation},System.Boolean,System.Action{``0})">
+            <summary>
+            Asynchronously load all objects in the given collection of <paramref name="locations"/>.
+            </summary>
+            <returns>An async operation that will complete when all individual async load operations are complete.</returns>
+            <param name="locations">locations to load.</param>
+            <param name="releaseDependenciesOnFailure">
+            If all matching locations succeed, this parameter is ignored.
+            When true, if any matching location fails, all loads and dependencies will be released.  The returned .Result will be null, and .Status will be Failed.
+            When false, if any matching location fails, the returned .Result will be an IList of size equal to the number of locations attempted.  Any failed location will
+            correlate to a null in the IList, while successful loads will correlate to a TObject in the list. The .Status will still be Failed.
+            When true, op does not need to be released if anything fails, when false, it must always be released.
+            </param>
+            <param name="callback">This callback will be invoked once for each object that is loaded.</param>
+            <typeparam name="TObject">Object type to load.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateChainOperation``2(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``1},System.Func{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``1},UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``0}})">
+            <summary>
+            Create a chain operation to handle dependencies.
+            </summary>
+            <typeparam name="TObject">The type of operation handle to return.</typeparam>
+            <typeparam name="TObjectDependency">The type of the dependency operation.</typeparam>
+            <param name="dependentOp">The dependency operation.</param>
+            <param name="callback">The callback method that will create the dependent operation from the dependency operation.</param>
+            <returns>The operation handle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateChainOperation``1(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Func{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``0}})">
+            <summary>
+            Create a chain operation to handle dependencies.
+            </summary>
+            <typeparam name="TObject">The type of operation handle to return.</typeparam>
+            <param name="dependentOp">The dependency operation.</param>
+            <param name="callback">The callback method that will create the dependent operation from the dependency operation.</param>
+            <returns>The operation handle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateChainOperation``2(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``1},System.Func{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``1},UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``0}},System.Boolean)">
+            <summary>
+            Create a chain operation to handle dependencies.
+            </summary>
+            <typeparam name="TObject">The type of operation handle to return.</typeparam>
+            <typeparam name="TObjectDependency">The type of the dependency operation.</typeparam>
+            <param name="dependentOp">The dependency operation.</param>
+            <param name="callback">The callback method that will create the dependent operation from the dependency operation.</param>
+            <param name="releaseDependenciesOnFailure"> Whether to release dependencies if the created operation has failed.</param>
+            <returns>The operation handle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CreateChainOperation``1(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,System.Func{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{``0}},System.Boolean)">
+            <summary>
+            Create a chain operation to handle dependencies.
+            </summary>
+            <typeparam name="TObject">The type of operation handle to return.</typeparam>
+            <param name="dependentOp">The dependency operation.</param>
+            <param name="callback">The callback method that will create the dependent operation from the dependency operation.</param>
+            <param name="releaseDependenciesOnFailure"> Whether to release dependencies if the created operation has failed.</param>
+            <returns>The operation handle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.InstanceOperation.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.InstanceOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideScene(UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneMode,System.Boolean,System.Int32)">
+            <summary>
+            Load a scene at a specificed resource location.
+            </summary>
+            <param name="sceneProvider">The scene provider instance.</param>
+            <param name="location">The location of the scene.</param>
+            <param name="loadSceneMode">The load mode for the scene.</param>
+            <param name="activateOnLoad">If false, the scene will be loaded in the background and not activated when complete.</param>
+            <param name="priority">The priority for the load operation.</param>
+            <returns>Async operation handle that will complete when the scene is loaded.  If activateOnLoad is false, then Activate() will need to be called on the SceneInstance returned.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideScene(UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.SceneManagement.LoadSceneParameters,System.Boolean,System.Int32)">
+            <summary>
+            Load a scene at a specificed resource location.
+            </summary>
+            <param name="sceneProvider">The scene provider instance.</param>
+            <param name="location">The location of the scene.</param>
+            <param name="loadSceneParameters">The load parameters for the scene.</param>
+            <param name="activateOnLoad">If false, the scene will be loaded in the background and not activated when complete.</param>
+            <param name="priority">The priority for the load operation.</param>
+            <returns>Async operation handle that will complete when the scene is loaded.  If activateOnLoad is false, then Activate() will need to be called on the SceneInstance returned.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ReleaseScene(UnityEngine.ResourceManagement.ResourceProviders.ISceneProvider,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{UnityEngine.ResourceManagement.ResourceProviders.SceneInstance})">
+            <summary>
+            Release a scene.
+            </summary>
+            <param name="sceneProvider">The scene provider.</param>
+            <param name="sceneLoadHandle">The operation handle used to load the scene.</param>
+            <returns>An operation handle for the unload.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.ProvideInstance(UnityEngine.ResourceManagement.ResourceProviders.IInstanceProvider,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceProviders.InstantiationParameters)">
+            <summary>
+            Asynchronously instantiate a prefab (GameObject) at the specified <paramref name="location"/>.
+            </summary>
+            <returns>Async operation that will complete when the prefab is instantiated.</returns>
+            <param name="provider">An implementation of IInstanceProvider that will be used to instantiate and destroy the GameObject.</param>
+            <param name="location">Location of the prefab.</param>
+            <param name="instantiateParameters">A struct containing the parameters to pass the the Instantiation call.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.CleanupSceneInstances(UnityEngine.SceneManagement.Scene)">
+            <summary>
+            Releases all instances the given scence.
+            </summary>
+            <param name="scene">The scene whose instances should be released.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceManager.Dispose">
+            <summary>
+            Disposes internal resources used by the resource manager
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.IdCacheKey">
+            <summary>
+            Used to compare cachable operation based solely on a single string id
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.IInitializableObject">
+            <summary>
+            Interface for objects that support post construction initialization via an id and byte array.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.IInitializableObject.Initialize(System.String,System.String)">
+            <summary>
+            Initialize a constructed object.
+            </summary>
+            <param name="id">The id of the object.</param>
+            <param name="data">Serialized data for the object.</param>
+            <returns>The result of the initialization.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.IInitializableObject.InitializeAsync(UnityEngine.ResourceManagement.ResourceManager,System.String,System.String)">
+            <summary>
+            Async operation for initializing a constructed object.
+            </summary>
+            <param name="rm">The current instance of Resource Manager.</param>
+            <param name="id">The id of the object.</param>
+            <param name="data">Serialized data for the object.</param>
+            <returns>Async operation</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.IObjectInitializationDataProvider">
+            <summary>
+            Interface for objects that can create object initialization data.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.IObjectInitializationDataProvider.Name">
+            <summary>
+            The name used in the GUI for this provider
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.IObjectInitializationDataProvider.CreateObjectInitializationData">
+            <summary>
+            Construct initialization data for runtime.
+            </summary>
+            <returns>Init data that will be deserialized at runtime.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.IAllocationStrategy">
+            <summary>
+            Allocation strategy for managing heap allocations
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.IAllocationStrategy.New(System.Type,System.Int32)">
+            <summary>
+            Create a new object of type t.
+            </summary>
+            <param name="type">The type to return.</param>
+            <param name="typeHash">The hash code of the type.</param>
+            <returns>The new object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.IAllocationStrategy.Release(System.Int32,System.Object)">
+            <summary>
+            Release an object.
+            </summary>
+            <param name="typeHash">The hash code of the type.</param>
+            <param name="obj">The object to release.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.DefaultAllocationStrategy">
+            <summary>
+            Default allocator that relies in garbace collection
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.DefaultAllocationStrategy.New(System.Type,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.DefaultAllocationStrategy.Release(System.Int32,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.LRUCacheAllocationStrategy">
+            <summary>
+            Allocation strategy that uses internal pools of objects to avoid allocations that can trigger GC calls.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.LRUCacheAllocationStrategy.#ctor(System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Create a new LRUAllocationStrategy objct.
+            </summary>
+            <param name="poolMaxSize">The max size of each pool.</param>
+            <param name="poolCapacity">The initial capacity to create each pool list with.</param>
+            <param name="poolCacheMaxSize">The max size of the internal pool cache.</param>
+            <param name="initialPoolCacheCapacity">The initial number of pools to create.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.LRUCacheAllocationStrategy.New(System.Type,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.LRUCacheAllocationStrategy.Release(System.Int32,System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.SerializedTypeRestrictionAttribute">
+            <summary>
+            Attribute for restricting which types can be assigned to a SerializedType
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.Util.SerializedTypeRestrictionAttribute.type">
+            <summary>
+            The type to restrict a serialized type to.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.LinkedListNodeCache`1">
+            <summary>
+            Cache for nodes of LinkedLists.  This can be used to eliminate GC allocations.
+            </summary>
+            <typeparam name="T">The type of node.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.LinkedListNodeCache`1.Acquire(`0)">
+            <summary>
+            Creates or returns a LinkedListNode of the requested type and set the value.
+            </summary>
+            <param name="val">The value to set to returned node to.</param>
+            <returns>A LinkedListNode with the value set to val.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.LinkedListNodeCache`1.Release(System.Collections.Generic.LinkedListNode{`0})">
+            <summary>
+            Release the linked list node for later use.
+            </summary>
+            <param name="node"></param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.SerializedType">
+            <summary>
+            Wrapper for serializing types for runtime.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.SerializedType.AssemblyName">
+            <summary>
+            The assembly name of the type.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.SerializedType.ClassName">
+            <summary>
+            The name of the type.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.SerializedType.ToString">
+            <summary>
+            Converts information about the serialized type to a formatted string.
+            </summary>
+            <returns>Returns information about the serialized type.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.SerializedType.Value">
+            <summary>
+            Get and set the serialized type.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.SerializedType.ValueChanged">
+            <summary>
+            Used for multi-object editing. Indicates whether or not property value was changed.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.ObjectInitializationData">
+            <summary>
+            Contains data used to construct and initialize objects at runtime.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.ObjectInitializationData.Id">
+            <summary>
+            The object id.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.ObjectInitializationData.ObjectType">
+            <summary>
+            The object type that will be created.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.ObjectInitializationData.Data">
+            <summary>
+            String representation of the data that will be passed to the IInitializableObject.Initialize method of the created object.  This is usually a JSON string of the serialized data object.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.ToString">
+            <summary>
+            Converts information about the initialization data to a formatted string.
+            </summary>
+            <returns>Returns information about the initialization data.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.CreateInstance``1(System.String)">
+            <summary>
+            Create an instance of the defined object.  Initialize will be called on it with the id and data if it implements the IInitializableObject interface.
+            </summary>
+            <typeparam name="TObject">The instance type.</typeparam>
+            <param name="idOverride">Optional id to assign to the created object.  This only applies to objects that inherit from IInitializableObject.</param>
+            <returns>Constructed object.  This object will already be initialized with its serialized data and id.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.GetAsyncInitHandle(UnityEngine.ResourceManagement.ResourceManager,System.String)">
+            <summary>
+            Create an instance of the defined object.  This will get the AsyncOperationHandle for the async Initialization operation if the object implements the IInitializableObject interface.
+            </summary>
+            <param name="rm">The current instance of Resource Manager</param>
+            <param name="idOverride">Optional id to assign to the created object.  This only applies to objects that inherit from IInitializableObject.</param>
+            <returns>AsyncOperationHandle for the async initialization operation if the defined type implements IInitializableObject, otherwise returns a default AsyncOperationHandle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.CreateSerializedInitializationData(System.Type,System.String,System.Object)">
+            <summary>
+            Construct a serialized data for the object.
+            </summary>
+            <param name="objectType">The type of object to create.</param>
+            <param name="id">The object id.</param>
+            <param name="dataObject">The serializable object that will be saved into the Data string via the JSONUtility.ToJson method.</param>
+            <returns>Contains data used to construct and initialize an object at runtime.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.CreateSerializedInitializationData``1(System.String,System.Object)">
+            <summary>
+            Construct a serialized data for the object.
+            </summary>
+            <typeparam name="T">The type of object to create.</typeparam>
+            <param name="id">The ID for the object</param>
+            <param name="dataObject">The serializable object that will be saved into the Data string via the JSONUtility.ToJson method.</param>
+            <returns>Contains data used to construct and initialize an object at runtime.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ObjectInitializationData.GetRuntimeTypes">
+            <summary>
+            Get the set of runtime types need to deserialized this object.  This is used to ensure that types are not stripped from player builds.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.ResourceManagerConfig">
+            <summary>
+            Resource Manager Config utility class.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.ExtractKeyAndSubKey(System.Object,System.String@,System.String@)">
+            <summary>
+            Extracts main and subobject keys if properly formatted
+            </summary>
+            <param name="keyObj">The key as an object.</param>
+            <param name="mainKey">The key of the main asset.  This will be set to null if a sub key is not found.</param>
+            <param name="subKey">The key of the sub object.  This will be set to null if not found.</param>
+            <returns>Returns true if properly formatted keys are extracted.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.IsPathRemote(System.String)">
+            <summary>
+            Check to see if a path is remote or not.
+            </summary>
+            <param name="path">The path to check.</param>
+            <returns>Returns true if path is remote.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.StripQueryParameters(System.String)">
+            <summary>
+            Strips the query parameters of an url.
+            </summary>
+            <param name="path">The path to check.</param>
+            <returns>Returns the path without query parameters.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.ShouldPathUseWebRequest(System.String)">
+            <summary>
+            Check if path should use WebRequest.  A path should use WebRequest for remote paths and platforms that require WebRequest to load locally.
+            </summary>
+            <param name="path">The path to check.</param>
+            <returns>Returns true if path should use WebRequest.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.PlatformCanLoadLocallyFromUrlPath">
+            <summary>
+            Checks if the current platform can use urls for load loads.
+            </summary>
+            <returns>True if the current platform can use urls for local loads, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.CreateArrayResult(System.Type,UnityEngine.Object[])">
+            <summary>
+            Used to create an operation result that has multiple items.
+            </summary>
+            <param name="type">The type of the result.</param>
+            <param name="allAssets">The result objects.</param>
+            <returns>Returns Array object with result items.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.CreateArrayResult``1(UnityEngine.Object[])">
+            <summary>
+            Used to create an operation result that has multiple items.
+            </summary>
+            <typeparam name="TObject">The type of the result.</typeparam>
+            <param name="allAssets">The result objects.</param>
+            <returns>Returns result Array as TObject.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.CreateListResult(System.Type,UnityEngine.Object[])">
+            <summary>
+            Used to create an operation result that has multiple items.
+            </summary>
+            <param name="type">The type of the result objects.</param>
+            <param name="allAssets">The result objects.</param>
+            <returns>An IList of the resulting objects.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.CreateListResult``1(UnityEngine.Object[])">
+            <summary>
+            Used to create an operation result that has multiple items.
+            </summary>
+            <typeparam name="TObject">The type of the result.</typeparam>
+            <param name="allAssets">The result objects.</param>
+            <returns>An IList of the resulting objects converted to TObject.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ResourceManagerConfig.IsInstance``2">
+            <summary>
+            Check if one type is an instance of another type.
+            </summary>
+            <typeparam name="T1">Expected base type.</typeparam>
+            <typeparam name="T2">Expected child type.</typeparam>
+            <returns>Returns true if T2 is a base type of T1.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.UnityWebRequestUtilities">
+            <summary>
+            Utility class for extracting information from UnityWebRequests.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.UnityWebRequestUtilities.RequestHasErrors(UnityEngine.Networking.UnityWebRequest,UnityEngine.ResourceManagement.Util.UnityWebRequestResult@)">
+            <summary>
+            Determines if a web request resulted in an error.
+            </summary>
+            <param name="webReq">The web request.</param>
+            <param name="result"></param>
+            <returns>True if a web request resulted in an error.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.UnityWebRequestUtilities.IsAssetBundleDownloaded(UnityEngine.Networking.UnityWebRequestAsyncOperation)">
+            <summary>
+            Indicates if the requested AssetBundle is downloaded.
+            </summary>
+            <param name="op">The object returned from sending the web request.</param>
+            <returns>Returns true if the AssetBundle is downloaded.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.UnityWebRequestResult">
+            <summary>
+            Container class for the result of a unity web request.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.#ctor(UnityEngine.Networking.UnityWebRequest)">
+            <summary>
+            Creates a new instance of <see cref="T:UnityEngine.ResourceManagement.Util.UnityWebRequestResult"/>.
+            </summary>
+            <param name="request">The unity web request.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.ToString">
+            <summary>Provides a new string object describing the result.</summary>
+            <returns>A newly allocated managed string.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.Error">
+            <summary>
+            A string explaining the error that occured.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.ResponseCode">
+            <summary>
+            The numeric HTTP response code returned by the server, if any.
+            See <a href="https://docs.unity3d.com/ScriptReference/Networking.UnityWebRequest-responseCode.html">documentation</a> for more details.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.Result">
+            <summary>
+            The outcome of the request.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.Method">
+            <summary>
+            The HTTP verb used by this UnityWebRequest, such as GET or POST.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.Url">
+            <summary>
+            The target url of the request.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.UnityWebRequestResult.ShouldRetryDownloadError">
+            <summary>
+            Determines if the web request can be sent again based on its error. 
+            </summary>
+            <returns>Returns true if the web request can be sent again.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Util.ComponentSingleton`1">
+            <summary>
+            Creates a singleton.
+            </summary>
+            <typeparam name="T">The singleton type.</typeparam>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.ComponentSingleton`1.Exists">
+            <summary>
+            Indicates whether or not there is an existing instance of the singleton.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Util.ComponentSingleton`1.Instance">
+            <summary>
+            Stores the instance of the singleton.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ComponentSingleton`1.GetGameObjectName">
+            <summary>
+            Retrieves the name of the object.
+            </summary>
+            <returns>Returns the name of the object.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Util.ComponentSingleton`1.DestroySingleton">
+            <summary>
+            Destroys the singleton.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.IUpdateReceiver">
+            <summary>
+            Providers that implement this interface will received Update calls from the ResourceManager each frame
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.IUpdateReceiver.Update(System.Single)">
+            <summary>
+            This will be called once per frame by the ResourceManager
+            </summary>
+            <param name="unscaledDeltaTime">The unscaled delta time since the last invocation of this function</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ChainOperation`2.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ChainOperation`2.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ChainOperationTypelessDepedency`1.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ChainOperationTypelessDepedency`1.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException">
+            <summary>
+            Base class for all ResourceManager related exceptions.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException.#ctor">
+            <summary>
+            Construct a new ResourceManagerException.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException.#ctor(System.String)">
+            <summary>
+            Construct a new ResourceManagerException.
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Construct a new ResourceManagerException.
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+            <param name="innerException">Inner exception that caused this exception.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Construct a new ResourceManagerException.
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+            <param name="context">Context related to the exception.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ResourceManagerException.ToString">
+            <summary>Provides a new string object describing the exception.</summary>
+            <returns>A newly allocated managed string.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException">
+            <summary>
+            Exception returned when the IResourceProvider is not found for a location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.Location">
+            <summary>
+            The location that contains the provider id that was not found.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.#ctor(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation)">
+            <summary>
+            Construct a new UnknownResourceProviderException
+            </summary>
+            <param name="location">The location that caused the exception to be created.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.#ctor">
+            <summary>
+             Construct a new UnknownResourceProviderException
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.#ctor(System.String)">
+            <summary>
+            Construct a new UnknownResourceProviderException
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.#ctor(System.String,System.Exception)">
+            <summary>
+            Construct a new UnknownResourceProviderException
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+            <param name="innerException">Inner exception that caused this exception.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.#ctor(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+            <summary>
+            Construct a new UnknownResourceProviderException
+            </summary>
+            <param name="message">Message to describe the exception.</param>
+            <param name="context">Context related to the exception.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.Message">
+            <summary>
+            Returns a string describing this exception.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.UnknownResourceProviderException.ToString">
+            <summary>
+            Returns string representation of exception.
+            </summary>
+            <returns>String representation of exception.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Exceptions.OperationException">
+            <summary>
+            Class that represent an error that occured during an AsyncOperation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.OperationException.#ctor(System.String,System.Exception)">
+            <summary>
+            Creates a new instance of <see cref="T:UnityEngine.ResourceManagement.Exceptions.OperationException"/>.
+            </summary>
+            <param name="message">A message describing the error.</param>
+            <param name="innerException">The exception that caused the error, if any.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.OperationException.ToString">
+            <summary>Provides a new string object describing the exception.</summary>
+            <returns>A newly allocated managed string.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Exceptions.ProviderException">
+            <summary>
+            Class that represent an error that occured during a ProviderOperation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.ProviderException.#ctor(System.String,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,System.Exception)">
+            <summary>
+            Creates a new instance of <see cref="T:UnityEngine.ResourceManagement.Exceptions.ProviderException"/>.
+            </summary>
+            <param name="message">A message describing the error.</param>
+            <param name="location">The resource location that the operation was trying to provide.</param>
+            <param name="innerException">The exception that caused the error, if any.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Exceptions.ProviderException.Location">
+            <summary>
+            The resource location that the operation was trying to provide.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Exceptions.RemoteProviderException">
+            <summary>
+            Class representing an error occured during an operation that remotely fetch data.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.RemoteProviderException.#ctor(System.String,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.Util.UnityWebRequestResult,System.Exception)">
+            <summary>
+            Creates a new instance of <see cref="T:UnityEngine.ResourceManagement.Exceptions.ProviderException"/>.
+            </summary>
+            <param name="message">A message describing the error.</param>
+            <param name="location">The resource location that the operation was trying to provide.</param>
+            <param name="uwrResult">The result of the unity web request, if any.</param>
+            <param name="innerException">The exception that caused the error, if any.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Exceptions.RemoteProviderException.Message">
+            <summary>
+            Returns a string describing this exception.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Exceptions.RemoteProviderException.WebRequestResult">
+            <summary>
+            The result of the unity web request, if any.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Exceptions.RemoteProviderException.ToString">
+            <summary>Provides a new string object describing the exception.</summary>
+            <returns>A newly allocated managed string.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent">
+            <summary>
+            Diagnostic event data.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Graph">
+            <summary>
+            Gets the graph id that this event is intended for
+            </summary>
+            <value>The graph Id</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.ObjectId">
+            <summary>
+            Unique object identifier for this event
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.DisplayName">
+            <summary>
+            Display name for event
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Dependencies">
+            <summary>
+            Array of object identifiers that are dependencies for this event
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Stream">
+            <summary>
+            The stream id for the event.  Each graph may display multiple streams of data for the same event Id
+            </summary>
+            <value>Stream Id</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Frame">
+            <summary>
+            The frame that the event occurred
+            </summary>
+            <value>Frame number</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Value">
+            <summary>
+            The value of the event. This value depends on the event type
+            </summary>
+            <value>Event value</value>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.#ctor(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32[])">
+            <summary>
+            DiagnosticEvent constructor
+            </summary>
+            <param name="graph">Graph id.</param>
+            <param name="name">Event name.</param>
+            <param name="id">Event id.</param>
+            <param name="stream">Stream index.</param>
+            <param name="frame">Frame number.</param>
+            <param name="value">Event value.</param>
+            <param name="deps">Array of dependency event ids.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Serialize">
+            <summary>
+            Serializes the event into JSON and then encodes with System.Text.Encoding.ASCII.GetBytes
+            </summary>
+            <returns>Byte array containing serialized version of the event</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Deserialize(System.Byte[])">
+            <summary>
+            Deserializes event from a byte array created by the <see cref="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent.Serialize"/> method
+            </summary>
+            <returns>Deserialized DiagnosticEvent struct</returns>
+            <param name="data">Serialized data</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton">
+            <summary>
+            Collects ResourceManager events and passed them on the registered event handlers.  In editor play mode, events are passed directly to the ResourceManager profiler window.
+            In player builds, events are sent to the editor via the EditorConnection API.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton.PlayerConnectionGuid">
+            <summary>
+            The guid used for the PlayerConnect messaging system.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton.GetGameObjectName">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton.RegisterEventHandler(System.Action{UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent},System.Boolean,System.Boolean)">
+            <summary>
+            Register for diagnostic events.  If there is no collector, this will fail and return false.
+            </summary>
+            <param name="handler">The handler method action.</param>
+            <param name="register">Register or unregister.</param>
+            <param name="create">If true, the event collector will be created if needed.</param>
+            <returns>True if registered, false if not.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton.UnregisterEventHandler(System.Action{UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent})">
+            <summary>
+            Unregister event hander
+            </summary>
+            <param name="handler">Method or delegate that will handle the events</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollectorSingleton.PostEvent(UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent)">
+            <summary>
+            Send a <see cref="T:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent"/> event to all registered handlers
+            </summary>
+            <param name="diagnosticEvent">The event to send</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector">
+            <summary>
+            Collects ResourceManager events and passed them on the registered event handlers.  In editor play mode, events are passed directly to the ResourceManager profiler window.
+            In player builds, events are sent to the editor via the EditorConnection API.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector.PlayerConnectionGuid">
+            <summary>
+            The guid used for the PlayerConnect messaging system.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector.FindOrCreateGlobalInstance">
+            <summary>
+            Retrieves the global event collector.  A new one is created if needed.
+            </summary>
+            <returns>The event collector global instance.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector.RegisterEventHandler(System.Action{UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent},System.Boolean,System.Boolean)">
+            <summary>
+            Register for diagnostic events.  If there is no collector, this will fail and return false.
+            </summary>
+            <param name="handler">The handler method action.</param>
+            <param name="register">Register or unregister.</param>
+            <param name="create">If true, the event collector will be created if needed.</param>
+            <returns>True if registered, false if not.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector.UnregisterEventHandler(System.Action{UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent})">
+            <summary>
+            Unregister event hander
+            </summary>
+            <param name="handler">Method or delegate that will handle the events</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEventCollector.PostEvent(UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent)">
+            <summary>
+            Send a <see cref="T:UnityEngine.ResourceManagement.Diagnostics.DiagnosticEvent"/> event to all registered handlers
+            </summary>
+            <param name="diagnosticEvent">The event to send</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation">
+            <summary>
+            Contains enough information to load an asset (what/where/how/dependencies)
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.InternalId">
+            <summary>
+            Internal name used by the provider to load this location
+            </summary>
+            <value>The identifier.</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.ProviderId">
+            <summary>
+            Matches the provider used to provide/load this location
+            </summary>
+            <value>The provider id.</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.Dependencies">
+            <summary>
+            Gets the dependencies to other IResourceLocations
+            </summary>
+            <value>The dependencies.</value>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.Hash(System.Type)">
+            <summary>
+            The hash of this location combined with the specified type.
+            </summary>
+            <param name="resultType">The type of the result.</param>
+            <returns>The combined hash of the location and the type.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.DependencyHashCode">
+            <summary>
+            The precomputed hash code of the dependencies.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.HasDependencies">
+            <summary>
+            Gets the dependencies to other IResourceLocations
+            </summary>
+            <value>The dependencies.</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.Data">
+            <summary>
+            Gets any data object associated with this locations
+            </summary>
+            <value>The object.</value>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.PrimaryKey">
+            <summary>
+            Primary address for this location.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation.ResourceType">
+            <summary>
+            The type of the resource for th location.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase">
+            <summary>
+            Basic implementation of IResourceLocation
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.InternalId">
+            <summary>
+            Internal id.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.ProviderId">
+            <summary>
+            Provider Id.  This is usually set to the FullName property of the type of the provider class.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.Dependencies">
+            <summary>
+            List of dependencies that must be loaded before this location.  This value may be null.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.HasDependencies">
+            <summary>
+            Convenience method to see if there are any dependencies.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.Data">
+            <summary>
+            Data that is intended for the provider.  Objects can be serialized during the build process to be used by the provider.  An example of usage is cache usage data for AssetBundleProvider.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.PrimaryKey">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.DependencyHashCode">
+            <summary>
+            Precomputed hash code of dependencies.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.ResourceType">
+            <summary>
+            The type of the resource for th location.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.Hash(System.Type)">
+            <summary>
+            Compute the hash of this location for the specified type.
+            </summary>
+            <param name="t">The type to hash with.</param>
+            <returns>The combined hash code of the location and type.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.ToString">
+            <summary>
+            Returns the Internal name used by the provider to load this location
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.#ctor(System.String,System.String,System.String,System.Type,UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation[])">
+            <summary>
+            Construct a new ResourceLocationBase.
+            </summary>
+            <param name="name">The name of the location.  This is usually set to the primary key, or "address" of the location.</param>
+            <param name="id">The internal id of the location.  This is used by the IResourceProvider to identify the object to provide.  For example this may contain the file path or url of an asset.</param>
+            <param name="providerId">The provider id.  This is set to the FullName of the type of the provder class.</param>
+            <param name="t">The type of the object to provide.</param>
+            <param name="dependencies">Locations for the dependencies of this location.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.ResourceLocationBase.ComputeDependencyHash">
+            <summary>
+            Compute the dependency hash for this location
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.ResourceLocations.ILocationSizeData">
+            <summary>
+            Interface for computing size of loading a location.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.ResourceLocations.ILocationSizeData.ComputeSize(UnityEngine.ResourceManagement.ResourceLocations.IResourceLocation,UnityEngine.ResourceManagement.ResourceManager)">
+            <summary>
+            Compute the numder of bytes need to download for the specified location.
+            </summary>
+            <param name="location">The location to compute the size for.</param>
+            <param name="resourceManager">The object that contains all the resource locations.</param>
+            <returns>The size in bytes of the data needed to be downloaded.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.ProviderOperation`1.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.ProviderOperation`1.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.GroupOperation.InvokeWaitForCompletion">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.GroupOperation.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1">
+            <summary>
+            Handle for internal operations.  This allows for reference counting and checking for valid references.
+            </summary>
+            <typeparam name="TObject">The object type of the underlying operation.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.op_Implicit(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{`0})~UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle">
+            <summary>
+            Conversion from typed to non typed handles.  This does not increment the reference count.
+            To convert from non-typed back, use AsyncOperationHandle.Convert&lt;T&gt;()
+            </summary>
+            <param name="obj">The typed handle to convert.</param>
+            <returns>Returns the converted operation handle.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.GetDownloadStatus">
+            <summary>
+            Return the current download status for this operation and its dependencies.
+            </summary>
+            <returns>The download status.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Acquire">
+            <summary>
+            Acquire a new handle to the internal operation.  This will increment the reference count, therefore the returned handle must also be released.
+            </summary>
+            <returns>A new handle to the operation.  This handle must also be released.</returns>
+        </member>
+        <member name="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Completed">
+            <summary>
+            Completion event for the internal operation.  If this is assigned on a completed operation, the callback is deferred until the LateUpdate of the current frame.
+            </summary>
+        </member>
+        <member name="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.CompletedTypeless">
+            <summary>
+            Completion event for non-typed callback handlers.  If this is assigned on a completed operation, the callback is deferred until the LateUpdate of the current frame.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.DebugName">
+            <summary>
+            Debug name of the operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <summary>
+            Get dependency operations.
+            </summary>
+            <param name="deps">The list of AsyncOperationHandles that are dependencies of a given AsyncOperationHandle</param>
+        </member>
+        <member name="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Destroyed">
+            <summary>
+            Event for handling the destruction of the operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Equals(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle{`0})">
+            <summary>
+            Provide equality for this struct.
+            </summary>
+            <param name="other">The operation to compare to.</param>
+            <returns>True if the the operation handles reference the same AsyncOperation and the version is the same.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.GetHashCode">
+            <summary>
+            Get hash code of this struct.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.WaitForCompletion">
+            <summary>
+            Synchronously complete the async operation.
+            </summary>
+            <returns>The result of the operation or null.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.IsDone">
+            <summary>
+            True if the operation is complete.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.IsValid">
+            <summary>
+            Check if the handle references an internal operation.
+            </summary>
+            <returns>True if valid.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.OperationException">
+            <summary>
+            The exception for a failed operation.  This will be null unless Status is failed.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.PercentComplete">
+            <summary>
+            The progress of the internal operation.
+            This is evenly weighted between all sub-operations. For example, a LoadAssetAsync call could potentially
+            be chained with InitializeAsync and have multiple dependent operations that download and load content.
+            In that scenario, PercentComplete would reflect how far the overal operation was, and would not accurately
+            represent just percent downloaded or percent loaded into memory.
+            For accurate download percentages, use GetDownloadStatus().
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.ReferenceCount">
+            <summary>
+            The current reference count of the internal operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Release">
+            <summary>
+            Release the handle.  If the internal operation reference count reaches 0, the resource will be released.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Result">
+            <summary>
+            The result object of the operations.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Status">
+            <summary>
+            The status of the internal operation.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.Task">
+            <summary>
+            Return a Task object to wait on when using async await.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.System#Collections#IEnumerator#MoveNext">
+            <summary>
+            Overload for <see cref="M:System.Collections.IEnumerator.MoveNext"/>.
+            </summary>
+            <returns>Returns true if the enumerator can advance to the next element in the collectin. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle`1.System#Collections#IEnumerator#Reset">
+            <summary>
+            Overload for <see cref="M:System.Collections.IEnumerator.Reset"/>.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle">
+            <summary>
+            Non typed operation handle.  This allows for reference counting and checking for valid references.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Acquire">
+            <summary>
+            Acquire a new handle to the internal operation.  This will increment the reference count, therefore the returned handle must also be released.
+            </summary>
+            <returns>A new handle to the operation.  This handle must also be released.</returns>
+        </member>
+        <member name="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Completed">
+            <summary>
+            Completion event for the internal operation.  If this is assigned on a completed operation, the callback is deferred until the LateUpdate of the current frame.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Convert``1">
+            <summary>
+            Converts handle to be typed.  This does not increment the reference count.
+            To convert back to non-typed, implicit conversion is available.
+            </summary>
+            <typeparam name="T">The type of the handle.</typeparam>
+            <returns>A new handle that is typed.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Equals(UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle)">
+            <summary>
+            Provide equality for this struct.
+            </summary>
+            <param name="other">The operation to compare to.</param>
+            <returns>True if the the operation handles reference the same AsyncOperation and the version is the same.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.DebugName">
+            <summary>
+            Debug name of the operation.
+            </summary>
+        </member>
+        <member name="E:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Destroyed">
+            <summary>
+            Event for handling the destruction of the operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <summary>
+            Get dependency operations.
+            </summary>
+            <param name="deps"></param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.GetHashCode">
+            <summary>
+            Get hash code of this struct.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.IsDone">
+            <summary>
+            True if the operation is complete.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.IsValid">
+            <summary>
+            Check if the internal operation is not null and has the same version of this handle.
+            </summary>
+            <returns>True if valid.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.OperationException">
+            <summary>
+            The exception for a failed operation.  This will be null unless Status is failed.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.PercentComplete">
+            <summary>
+            The progress of the internal operation.
+            This is evenly weighted between all sub-operations. For example, a LoadAssetAsync call could potentially
+            be chained with InitializeAsync and have multiple dependent operations that download and load content.
+            In that scenario, PercentComplete would reflect how far the overal operation was, and would not accurately
+            represent just percent downloaded or percent loaded into memory.
+            For accurate download percentages, use GetDownloadStatus().
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.GetDownloadStatus">
+            <summary>
+            Return the current download status for this operation and its dependencies.  In some instances, the information will not be available.  This can happen if the operation
+            is dependent on the initialization operation for addressables.  Once the initialization operation completes, the information returned will be accurate.
+            </summary>
+            <returns>The download status.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.ReferenceCount">
+            <summary>
+            The current reference count of the internal operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Release">
+            <summary>
+            Release the handle.  If the internal operation reference count reaches 0, the resource will be released.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Result">
+            <summary>
+            The result object of the operations.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Status">
+            <summary>
+            The status of the internal operation.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.Task">
+            <summary>
+            Return a Task object to wait on when using async await.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.System#Collections#IEnumerator#MoveNext">
+            <summary>
+            Overload for <see cref="M:System.Collections.IEnumerator.MoveNext"/>.
+            </summary>
+            <returns>Returns true if the enumerator can advance to the next element in the collectin. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.System#Collections#IEnumerator#Reset">
+            <summary>
+            Overload for <see cref="M:System.Collections.IEnumerator.Reset"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle.WaitForCompletion">
+            <summary>
+            Synchronously complete the async operation.
+            </summary>
+            <returns>The result of the operation or null.</returns>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus">
+            <summary>
+            Options for IAsyncOperations status values
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.None">
+            <summary>
+            Use to indicate that the operation is still in progress.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Succeeded">
+            <summary>
+            Use to indicate that the operation succeeded.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationStatus.Failed">
+            <summary>
+            Use to indicate that the operation failed.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1">
+            <summary>
+            base class for implemented AsyncOperations, implements the needed interfaces and consolidates redundant code
+            </summary>
+            <typeparam name="TObject">The type of the operation.</typeparam>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Execute">
+            <summary>
+            This will be called by the resource manager after all dependent operation complete. This method should not be called manually.
+            A custom operation should override this method and begin work when it is called.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Destroy">
+            <summary>
+            This will be called by the resource manager when the reference count of the operation reaches zero. This method should not be called manually.
+            A custom operation should override this method and release any held resources
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Progress">
+            <summary>
+            A custom operation should override this method to return the progress of the operation.
+            </summary>
+            <returns>Progress of the operation. Value should be between 0.0f and 1.0f</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.DebugName">
+            <summary>
+            A custom operation should override this method to provide a debug friendly name for the operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <summary>
+            A custom operation should override this method to provide a list of AsyncOperationHandles that it depends on.
+            </summary>
+            <param name="dependencies">The list that should be populated with dependent AsyncOperationHandles.</param>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Result">
+            <summary>
+            Accessor to Result of the operation.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.HasExecuted">
+            <summary>
+            True, If the operation has been executed, else false
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.ReferenceCount">
+            <summary>
+            The number of references that are using this operation.
+            When the ReferenceCount reaches 0, this operation is Destroyed.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.IsRunning">
+            <summary>
+            True if the current op has begun but hasn't yet reached completion.  False otherwise.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.#ctor">
+            <summary>
+            Basic constructor for AsyncOperationBase.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.WaitForCompletion">
+            <summary>
+            Synchronously complete the async operation.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.InvokeWaitForCompletion">
+            <summary>
+            Used for the implementation of WaitForCompletion in an IAsyncOperation.
+            </summary>
+            <returns>True if the operation has completed, otherwise false.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.IncrementReferenceCount">
+            <summary>
+            Increments the reference count for this operation.
+            </summary>
+            <exception cref="T:System.Exception">Thrown if the operation has already been destroyed after reaching 0 reference count.</exception>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.DecrementReferenceCount">
+            <summary>
+            Reduces the reference count for this operation by 1. If the reference count is reduced to 0, the operation is destroyed.
+            </summary>
+            <exception cref="T:System.Exception">Thrown if the operation has already been destroyed after reaching 0 reference count.</exception>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.ToString">
+            <summary>
+            Converts the information about the operation to a formatted string.
+            </summary>
+            <returns>Returns the information about the operation.</returns>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Status">
+            <inheritdoc />
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.OperationException">
+            <inheritdoc />
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Complete(`0,System.Boolean,System.String)">
+            <summary>
+            Complete the operation and invoke events.
+            </summary>
+            <remarks>
+            An operation is considered to have failed silently if success is true and if errorMsg isn't null or empty.
+            The exception handler will be called in cases of silent failures.
+            Any failed operations will call Release on any dependencies that succeeded.
+            </remarks>
+            <param name="result">The result object for the operation.</param>
+            <param name="success">True if successful or if the operation failed silently.</param>
+            <param name="errorMsg">The error message if the operation has failed.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Complete(`0,System.Boolean,System.String,System.Boolean)">
+            <summary>
+            Complete the operation and invoke events.
+            </summary>
+            <remarks>
+            An operation is considered to have failed silently if success is true and if errorMsg isn't null or empty.
+            The exception handler will be called in cases of silent failures.
+            </remarks>
+            <param name="result">The result object for the operation.</param>
+            <param name="success">True if successful or if the operation failed silently.</param>
+            <param name="errorMsg">The error message if the operation has failed.</param>
+            <param name="releaseDependenciesOnFailure">When true, failed operations will release any dependencies that succeeded.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.Complete(`0,System.Boolean,System.Exception,System.Boolean)">
+            <summary>
+            Complete the operation and invoke events.
+            </summary>
+            <remarks>
+            An operation is considered to have failed silently if success is true and if exception isn't null.
+            The exception handler will be called in cases of silent failures.
+            </remarks>
+            <param name="result">The result object for the operation.</param>
+            <param name="success">True if successful or if the operation failed silently.</param>
+            <param name="exception">The exception if the operation has failed.</param>
+            <param name="releaseDependenciesOnFailure">When true, failed operations will release any dependencies that succeeded.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#GetResultAsObject">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#GetDependencies(System.Collections.Generic.List{UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#DecrementReferenceCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#IncrementReferenceCount">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#InvokeCompletionEvent">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#Start(UnityEngine.ResourceManagement.ResourceManager,UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationHandle,DelegateList{System.Single})">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.AsyncOperations.AsyncOperationBase`1.UnityEngine#ResourceManagement#AsyncOperations#IAsyncOperation#GetDownloadStatus(System.Collections.Generic.HashSet{System.Object})">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus">
+            <summary>
+            Contains download information for async operations.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus.TotalBytes">
+            <summary>
+            The number of bytes downloaded by the operation and all of its dependencies.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus.DownloadedBytes">
+            <summary>
+            The total number of bytes needed to download by the operation and dependencies.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus.IsDone">
+            <summary>
+            Is the operation completed.  This is used to determine if the computed Percent should be 0 or 1 when TotalBytes is 0.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.AsyncOperations.DownloadStatus.Percent">
+            <summary>
+            Returns the computed percent complete as a float value between 0 &amp; 1.  If TotalBytes == 0, 1 is returned.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.WebRequestQueueOperation">
+            <summary>
+            Represents a web request stored in the <seealso cref="T:UnityEngine.ResourceManagement.WebRequestQueue"/>.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.WebRequestQueueOperation.Result">
+            <summary>
+            Stores the async operation object returned from sending the web request.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.ResourceManagement.WebRequestQueueOperation.OnComplete">
+            <summary>
+            Event that is invoked when the async operation is complete.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.WebRequestQueueOperation.IsDone">
+            <summary>
+            Indicates that the async operation is complete.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.ResourceManagement.WebRequestQueueOperation.WebRequest">
+            <summary>
+            The web request.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.WebRequestQueueOperation.#ctor(UnityEngine.Networking.UnityWebRequest)">
+            <summary>
+            Initializes and returns an instance of WebRequestQueueOperation.
+            </summary>
+            <param name="request">The web request associated with this object.</param>
+        </member>
+        <member name="T:UnityEngine.ResourceManagement.WebRequestQueue">
+            <summary>
+            Represents a queue of web requests. Completed requests are removed from the queue.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.WebRequestQueue.SetMaxConcurrentRequests(System.Int32)">
+            <summary>
+            Sets the max number of web requests running at the same time.
+            </summary>
+            <param name="maxRequests">The max number of web requests.</param>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.WebRequestQueue.QueueRequest(UnityEngine.Networking.UnityWebRequest)">
+            <summary>
+            Adds a web request to the queue.
+            </summary>
+            <param name="request">The web request.</param>
+            <returns>Returns an object representing the web request.</returns>
+        </member>
+        <member name="M:UnityEngine.ResourceManagement.WebRequestQueue.WaitForRequestToBeActive(UnityEngine.ResourceManagement.WebRequestQueueOperation,System.Int32)">
+            <summary>
+            Synchronously waits for a particular web request to be completed.
+            </summary>
+            <param name="request">The web request.</param>
+            <param name="millisecondsTimeout">The amount of time in milliseconds spent waiting per iteration before checking if the request is complete.</param>
+        </member>
+    </members>
+</doc>

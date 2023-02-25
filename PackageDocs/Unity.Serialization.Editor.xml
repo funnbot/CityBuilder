@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Serialization.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Serialization.Editor.UserSettings`1">
+            <summary>
+            Wrapper utility around <see cref="T:UnityEditor.EditorUserSettings"/> to allow saving arbitrary data as User settings.
+            </summary>
+            <typeparam name="T">The type of the setting</typeparam>
+        </member>
+        <member name="M:Unity.Serialization.Editor.UserSettings`1.Clear(System.String)">
+            <summary>
+            Clears the data stored at the provided key.
+            </summary>
+            <param name="key">The key to the data.</param>
+        </member>
+        <member name="M:Unity.Serialization.Editor.UserSettings`1.GetOrCreate(System.String)">
+            <summary>
+            Returns an instance of <see cref="!:T"/> for the provided key.  
+            </summary>
+            <param name="key">The key to the data.</param>
+            <returns>The <see cref="!:T"/> instance.</returns>
+        </member>
+        <member name="T:Unity.Serialization.Editor.SessionState`1">
+            <summary>
+            Wrapper utility around <see cref="T:UnityEditor.SessionState"/> to allow saving arbitrary data for a given session.
+            </summary>
+            <typeparam name="T">The type of the session state data</typeparam>
+        </member>
+        <member name="M:Unity.Serialization.Editor.SessionState`1.Clear(System.String)">
+            <summary>
+            Clears the data stored at the provided key.
+            </summary>
+            <param name="key">The key to the data.</param>
+        </member>
+        <member name="M:Unity.Serialization.Editor.SessionState`1.GetOrCreate(System.String)">
+            <summary>
+            Returns an instance of <see cref="!:T"/> for the provided key.  
+            </summary>
+            <param name="key">The key to the data.</param>
+            <returns>The <see cref="!:T"/> instance.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,2332 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.RenderPipelines.Universal.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGraph.MaterialType">
+            <summary>
+            Options for the material type.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.MaterialType.Lit">
+            <summary>
+            Use this for URP lit.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.MaterialType.Unlit">
+            <summary>
+            Use this for URP unlit.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.MaterialType.SpriteLit">
+            <summary>
+            Use this for sprite lit.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.MaterialType.SpriteUnlit">
+            <summary>
+            Use this for Sprite unlit.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGraph.WorkflowMode">
+            <summary>
+            Workflow modes for the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.WorkflowMode.Specular">
+            <summary>
+            Use this for specular workflow.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGraph.WorkflowMode.Metallic">
+            <summary>
+            Use this for metallic workflow.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGraph.CorePasses.AddAlphaToMaskControlToPass(UnityEditor.ShaderGraph.PassDescriptor@,UnityEditor.Rendering.Universal.ShaderGraph.UniversalTarget)">
+            <summary>
+             Automatically enables Alpha-To-Coverage in the provided opaque pass targets using alpha clipping
+            </summary>
+            <param name="pass">The pass to modify</param>
+            <param name="target">The target to query</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UniversalAdditionLightDataEditor">
+            <summary>
+            Editor script for a <c>UniversalAdditionalLightData</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalAdditionLightDataEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ScriptableRendererDataEditor">
+            <summary>
+            Editor script for a <c>ScriptableRendererData</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ScriptableRendererDataEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UniversalRenderPipelineAssetEditor">
+            <summary>
+            Editor script for a <c>UniversalRenderPipelineAsset</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineAssetEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Projection">
+            <summary> Projection</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Physical">
+            <summary> Physical</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Output">
+            <summary> Output</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Orthographic">
+            <summary> Orthographic</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.RenderLoop">
+            <summary> RenderLoop</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Rendering">
+            <summary> Rendering</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Environment">
+            <summary> Environment</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.Expandable.Stack">
+            <summary> Stack</summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineCameraUI.ExpandableAdditional.Rendering">
+            <summary> Rendering</summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ConverterItemInfo">
+            <summary>
+            A structure holding the information for each Item that needs to be Converted.
+            Descriptor = The ConverterItemDescriptor this item contain.
+            Index = The index for this item in the list of converter items.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.ConverterItemInfo.descriptor">
+            <summary> The ConverterItemDescriptor this item contain. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.ConverterItemInfo.index">
+            <summary> The index for this item in the list of converter items. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.DisplacableRectHandles.center">
+            <summary>The position of the center of the box in Handle.matrix space. On plane z=0.</summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.DisplacableRectHandles.size">
+            <summary>The size of the box in Handle.matrix space. On plane z=0.</summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.DisplacableRectHandles.baseColor">
+            <summary>The baseColor used to draw the rect.</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.DisplacableRectHandles.DrawRect(System.Boolean,System.Single,System.Single)">
+            <summary>Draw the rect.</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.DisplacableRectHandles.DrawHandle">
+            <summary>Draw the manipulable handles</summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.DecalProjectorScope">
+            <summary>
+            Scope that indicates start of <see cref="T:UnityEngine.Rendering.Universal.DecalProjector"/> GUI.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.DecalShaderGraphGUI">
+            <summary>
+            Represents the GUI for Decal Shader Graph materials.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.DecalShaderGraphGUI.OnGUI(UnityEditor.MaterialEditor,UnityEditor.MaterialProperty[])">
+            <summary>
+            Override this function to implement your custom GUI. To display a user interface similar to HDRP shaders, use a MaterialUIBlockList.
+            </summary>
+            <param name="materialEditor">The current material editor.</param>
+            <param name="props">The list of properties the material has.</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI">
+            <summary>
+            Editor script for the SimpleLit material inspector.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SpecularSource">
+            <summary>
+            Options for specular source.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SpecularSource.SpecularTextureAndColor">
+            <summary>
+            Use this to use specular texture and color.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SpecularSource.NoSpecular">
+            <summary>
+            Use this when not using specular.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SmoothnessMapChannel">
+            <summary>
+            Options to select the texture channel where the smoothness value is stored.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SmoothnessMapChannel.SpecularAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the Specular Map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SmoothnessMapChannel.AlbedoAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the Albedo Map.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.Styles">
+            <summary>
+            Container for the text and tooltips used to display the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.Styles.specularMapText">
+            <summary>
+            The text and tooltip for the specular map GUI.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties">
+            <summary>
+            Container for the properties used in the <c>SimpleLitGUI</c> editor script.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.specColor">
+            <summary>
+            The MaterialProperty for specular color.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.specGlossMap">
+            <summary>
+            The MaterialProperty for specular smoothness map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.specHighlights">
+            <summary>
+            The MaterialProperty for specular highlights.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.smoothnessMapChannel">
+            <summary>
+            The MaterialProperty for smoothness alpha channel.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.smoothness">
+            <summary>
+            The MaterialProperty for smoothness value.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.bumpMapProp">
+            <summary>
+            The MaterialProperty for normal map.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties.#ctor(UnityEditor.MaterialProperty[])">
+            <summary>
+            Constructor for the <c>SimpleLitProperties</c> container struct.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.Inputs(UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties,UnityEditor.MaterialEditor,UnityEngine.Material)">
+            <summary>
+            Draws the surface inputs GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.Advanced(UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties)">
+            <summary>
+            Draws the advanced GUI.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.DoSpecularArea(UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SimpleLitProperties,UnityEditor.MaterialEditor,UnityEngine.Material)">
+            <summary>
+            Draws the specular area GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.SimpleLitGUI.SetMaterialKeywords(UnityEngine.Material)">
+            <summary>
+            Sets up the keywords for the material and shader.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI">
+            <summary>
+            Editor script for the particle material inspector.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode">
+            <summary>
+            The available color modes.
+            Controls how the Particle color and the Material color blend together.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Multiply">
+            <summary>
+            Use this to select multiply mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Additive">
+            <summary>
+            Use this to select additive mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Subtractive">
+            <summary>
+            Use this to select subtractive mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Overlay">
+            <summary>
+            Use this to select overlay mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Color">
+            <summary>
+            Use this to select color mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ColorMode.Difference">
+            <summary>
+            Use this to select difference mode.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles">
+            <summary>
+            Container for the text and tooltips used to display the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.colorMode">
+            <summary>
+            The text and tooltip color mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.flipbookMode">
+            <summary>
+            The text and tooltip flip-book blending.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.softParticlesEnabled">
+            <summary>
+            The text and tooltip soft particles.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.softParticlesFadeText">
+            <summary>
+            The text and tooltip soft particles surface fade.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.softParticlesNearFadeDistanceText">
+            <summary>
+            The text and tooltip soft particles near fade distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.softParticlesFarFadeDistanceText">
+            <summary>
+            The text and tooltip soft particles far fade distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.cameraFadingEnabled">
+            <summary>
+            The text and tooltip camera fading.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.cameraFadingDistanceText">
+            <summary>
+            The text and tooltip camera fading distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.cameraNearFadeDistanceText">
+            <summary>
+            The text and tooltip camera fading near distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.cameraFarFadeDistanceText">
+            <summary>
+            The text and tooltip camera fading far distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.distortionEnabled">
+            <summary>
+            The text and tooltip distortion.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.distortionStrength">
+            <summary>
+            The text and tooltip distortion strength.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.distortionBlend">
+            <summary>
+            The text and tooltip distortion blend.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.VertexStreams">
+            <summary>
+            The text and tooltip for vertex streams.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamPositionText">
+            <summary>
+            The string for position vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamNormalText">
+            <summary>
+            The string for normal vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamColorText">
+            <summary>
+            The string for color vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamColorInstancedText">
+            <summary>
+            The string for color instanced vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamUVText">
+            <summary>
+            The string for UV vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamUV2Text">
+            <summary>
+            The string for UV2 vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamAnimBlendText">
+            <summary>
+            The string for AnimBlend Texcoord1 vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamAnimFrameText">
+            <summary>
+            The string for AnimBlend Instanced1 vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamTangentText">
+            <summary>
+            The string for tangent vertex stream.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.streamApplyToAllSystemsText">
+            <summary>
+            The text and tooltip for the vertex stream fix now GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.undoApplyCustomVertexStreams">
+            <summary>
+            The string for applying custom vertex streams from material.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.Styles.vertexStreamIcon">
+            <summary>
+            The vertex stream icon.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties">
+            <summary>
+            Container for the properties used in the <c>ParticleGUI</c> editor script.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.colorMode">
+            <summary>
+            The MaterialProperty for color mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.flipbookMode">
+            <summary>
+            The MaterialProperty for flip-book blending.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.softParticlesEnabled">
+            <summary>
+            The MaterialProperty for soft particles enabled.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.cameraFadingEnabled">
+            <summary>
+            The MaterialProperty for camera fading.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.distortionEnabled">
+            <summary>
+            The MaterialProperty for distortion enabled.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.softParticlesNearFadeDistance">
+            <summary>
+            The MaterialProperty for soft particles near fade distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.softParticlesFarFadeDistance">
+            <summary>
+            The MaterialProperty for soft particles far fade distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.cameraNearFadeDistance">
+            <summary>
+            The MaterialProperty for camera fading near distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.cameraFarFadeDistance">
+            <summary>
+            The MaterialProperty for camera fading far distance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.distortionBlend">
+            <summary>
+            The MaterialProperty for distortion blend.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.distortionStrength">
+            <summary>
+            The MaterialProperty for distortion strength.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties.#ctor(UnityEditor.MaterialProperty[])">
+            <summary>
+            Constructor for the <c>ParticleProperties</c> container struct.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.SetupMaterialWithColorMode(UnityEngine.Material)">
+            <summary>
+            Sets up the material with correct keywords based on the color mode.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.FadingOptions(UnityEngine.Material,UnityEditor.MaterialEditor,UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.ParticleProperties)">
+            <summary>
+            Draws the fading options GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="materialEditor">The material editor to use.</param>
+            <param name="properties">The particle properties to use.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.DoVertexStreamsArea(UnityEngine.Material,System.Collections.Generic.List{UnityEngine.ParticleSystemRenderer},System.Boolean)">
+            <summary>
+            Draws the vertex streams area.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="renderers">List of particle system renderers.</param>
+            <param name="useLighting">Marks whether the renderers uses lighting or not.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.ParticleGUI.SetMaterialKeywords(UnityEngine.Material)">
+            <summary>
+            Sets up the keywords for the material and shader.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI">
+            <summary>
+            Editor script for the BakedLit material inspector.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI.BakedLitProperties">
+            <summary>
+            Container for the properties used in the <c>BakedLitGUI</c> editor script.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI.BakedLitProperties.bumpMapProp">
+            <summary>
+            The MaterialProperty for normal map.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI.BakedLitProperties.#ctor(UnityEditor.MaterialProperty[])">
+            <summary>
+            Constructor for the <c>BakedLitProperties</c> container struct.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI.Inputs(UnityEditor.Rendering.Universal.ShaderGUI.BakedLitGUI.BakedLitProperties,UnityEditor.MaterialEditor)">
+            <summary>
+            Draws the surface inputs GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI">
+            <summary>
+            Editor script for the Lit material inspector.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.WorkflowMode">
+            <summary>
+            Workflow modes for the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.WorkflowMode.Specular">
+            <summary>
+            Use this for specular workflow.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.WorkflowMode.Metallic">
+            <summary>
+            Use this for metallic workflow.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.SmoothnessMapChannel">
+            <summary>
+            Options to select the texture channel where the smoothness value is stored.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.SmoothnessMapChannel.SpecularMetallicAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the Specular/Metallic Map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.SmoothnessMapChannel.AlbedoAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the Albedo Map.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles">
+            <summary>
+            Container for the text and tooltips used to display the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.workflowModeText">
+            <summary>
+            The text and tooltip for the workflow Mode GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.specularMapText">
+            <summary>
+            The text and tooltip for the specular Map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.metallicMapText">
+            <summary>
+            The text and tooltip for the metallic Map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.smoothnessText">
+            <summary>
+            The text and tooltip for the smoothness GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.smoothnessMapChannelText">
+            <summary>
+            The text and tooltip for the smoothness source GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.highlightsText">
+            <summary>
+            The text and tooltip for the specular Highlights GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.reflectionsText">
+            <summary>
+            The text and tooltip for the environment Reflections GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.heightMapText">
+            <summary>
+            The text and tooltip for the height map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.occlusionText">
+            <summary>
+            The text and tooltip for the occlusion map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.metallicSmoothnessChannelNames">
+            <summary>
+            The names for smoothness alpha options available for metallic workflow.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.specularSmoothnessChannelNames">
+            <summary>
+            The names for smoothness alpha options available for specular workflow.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.clearCoatText">
+            <summary>
+            The text and tooltip for the enabling/disabling clear coat GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.clearCoatMaskText">
+            <summary>
+            The text and tooltip for the clear coat Mask GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Styles.clearCoatSmoothnessText">
+            <summary>
+            The text and tooltip for the clear coat smoothness GUI.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties">
+            <summary>
+            Container for the properties used in the <c>LitGUI</c> editor script.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.workflowMode">
+            <summary>
+            The MaterialProperty for workflow mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.metallic">
+            <summary>
+            The MaterialProperty for metallic value.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.specColor">
+            <summary>
+            The MaterialProperty for specular color.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.metallicGlossMap">
+            <summary>
+            The MaterialProperty for metallic Smoothness map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.specGlossMap">
+            <summary>
+            The MaterialProperty for specular smoothness map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.smoothness">
+            <summary>
+            The MaterialProperty for smoothness value.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.smoothnessMapChannel">
+            <summary>
+            The MaterialProperty for smoothness alpha channel.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.bumpMapProp">
+            <summary>
+            The MaterialProperty for normal map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.bumpScaleProp">
+            <summary>
+            The MaterialProperty for normal map scale.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.parallaxMapProp">
+            <summary>
+            The MaterialProperty for height map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.parallaxScaleProp">
+            <summary>
+            The MaterialProperty for height map scale.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.occlusionStrength">
+            <summary>
+            The MaterialProperty for occlusion strength.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.occlusionMap">
+            <summary>
+            The MaterialProperty for occlusion map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.highlights">
+            <summary>
+            The MaterialProperty for specular highlights.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.reflections">
+            <summary>
+            The MaterialProperty for environment reflections.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.clearCoat">
+            <summary>
+            The MaterialProperty for enabling/disabling clear coat.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.clearCoatMap">
+            <summary>
+            The MaterialProperty for clear coat map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.clearCoatMask">
+            <summary>
+            The MaterialProperty for clear coat mask.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.clearCoatSmoothness">
+            <summary>
+            The MaterialProperty for clear coat smoothness.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties.#ctor(UnityEditor.MaterialProperty[])">
+            <summary>
+            Constructor for the <c>LitProperties</c> container struct.
+            </summary>
+            <param name="properties"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.Inputs(UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties,UnityEditor.MaterialEditor,UnityEngine.Material)">
+            <summary>
+            Draws the surface inputs GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+            <param name="material"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.DoClearCoat(UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties,UnityEditor.MaterialEditor,UnityEngine.Material)">
+            <summary>
+            Draws the clear coat GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+            <param name="material"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.DoMetallicSpecularArea(UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.LitProperties,UnityEditor.MaterialEditor,UnityEngine.Material)">
+            <summary>
+            Draws the metallic/specular area GUI.
+            </summary>
+            <param name="properties"></param>
+            <param name="materialEditor"></param>
+            <param name="material"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.DoSmoothness(UnityEditor.MaterialEditor,UnityEngine.Material,UnityEditor.MaterialProperty,UnityEditor.MaterialProperty,System.String[])">
+            <summary>
+            Draws the smoothness GUI.
+            </summary>
+            <param name="materialEditor"></param>
+            <param name="material"></param>
+            <param name="smoothness"></param>
+            <param name="smoothnessMapChannel"></param>
+            <param name="smoothnessChannelNames"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.GetSmoothnessMapChannel(UnityEngine.Material)">
+            <summary>
+            Retrieves the alpha channel used for smoothness.
+            </summary>
+            <param name="material"></param>
+            <returns>The Alpha channel used for Smoothness.</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ShaderGUI.LitGUI.SetMaterialKeywords(UnityEngine.Material)">
+            <summary>
+            Sets up the keywords for the Lit shader and material.
+            </summary>
+            <param name="material"></param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UniversalRendererDataEditor">
+            <summary>
+            Editor script for a <c>UniversalRendererData</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRendererDataEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.PostProcessDataEditor">
+            <summary>
+            Editor script for a <c>PostProcessData</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.PostProcessDataEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.settings">
+            <summary>The base settings of the light</summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.serializedObject">
+            <summary>The light serialized</summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.serializedAdditionalDataObject">
+            <summary>The additional light data serialized</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.Update">
+            <summary>Method that updates the <see cref="T:UnityEditor.SerializedObject"/> of the Light and the Additional Light Data</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.Apply">
+            <summary>Method that applies the modified properties the <see cref="T:UnityEditor.SerializedObject"/> of the Light and the Light Camera Data</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedLight.#ctor(UnityEditor.SerializedObject,UnityEditor.LightEditor.Settings)">
+            <summary>Constructor</summary>
+            <param name="serializedObject"><see cref="T:UnityEditor.SerializedObject"/> with the light</param>
+            <param name="settings"><see cref="T:UnityEditor.LightEditor.Settings"/>with the settings</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.DecalMeshDepthBiasType">
+            <summary>
+            Options for mesh bias type.
+            The Mesh bias lets you prevent z-fighting between the Decal GameObject and the GameObject it overlaps.
+            This property is only applicable for GameObjects with a Decal Material type assigned directly.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.DecalMeshDepthBiasType.DepthBias">
+            <summary>
+            When drawing the decal gameObject, Unity changes the depth value of each pixel of the GameObject by this value.
+            A negative value shifts pixels closer to the Camera, so that Unity draws the Decal GameObject on top of the overlapping Mesh, which prevents z-fighting.
+            Decal projectors ignore this property.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.DecalMeshDepthBiasType.ViewBias">
+            <summary>
+            A world-space bias (in meters).
+            When drawing the Decal GameObject, Unity shifts each pixel of the GameObject by this value along the view vector.
+            A positive value shifts pixels closer to the Camera, so that Unity draws the decal GameObject on top of the overlapping mesh, which prevents z-fighting.
+            Decal projectors ignore this property.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.RunItemContext">
+            <summary>
+            A structure needed for the conversion part of the converter.
+            This holds the item that is being converted.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RunItemContext.item">
+            <summary> The item that will go through the conversion code. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RunItemContext.didFail">
+            <summary> A bool to set if this item failed to convert. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RunItemContext.info">
+            <summary> Info to store data to be shown in the UI. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RunItemContext.hasConverted">
+            <summary> A bool to set if this item failed to convert. </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RunItemContext.isBatchMode">
+            <summary> A bool set to true if the converter is running in batch mode. </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RunItemContext.#ctor(UnityEditor.Rendering.Universal.ConverterItemInfo)">
+            <summary> Constructor for the RunItemContext. </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.RenderPipelineConverterContainer">
+            <summary>
+            A class to contain converters. This is for a common set of converters.
+            For example: Converters that is for Built-in to URP would have it's own container.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverterContainer.name">
+            <summary>
+            The name of the container. This name shows up in the UI.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverterContainer.info">
+            <summary>
+            The description of the container.
+            It is shown in the UI. Describe the converters in this container.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverterContainer.priority">
+            <summary>
+            The priority of the container. The lower the number (can be negative), the earlier Unity executes the container, and the earlier it shows up in the converter container menu.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ScriptableRendererFeatureEditor">
+            <summary>
+            Editor script for a <c>ScriptableRendererFeature</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ScriptableRendererFeatureEditor.OnInspectorGUI">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.SerializedUniversalRenderPipelineAsset.Update">
+            <summary>
+            Refreshes the serialized object
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.SerializedUniversalRenderPipelineAsset.Apply">
+            <summary>
+            Applies the modified properties of the serialized object
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineMaterialUpgrader.OnInitialize(UnityEditor.Rendering.Universal.InitializeConverterContext,System.Action)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineMaterialUpgrader.OnRun(UnityEditor.Rendering.Universal.RunItemContext@)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineMaterialUpgrader.OnClicked(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.SupportedUpgradeParams">
+            <summary>
+            Upgrade parameters for the supported shaders.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.diffuseOpaque">
+            <summary>
+            Upgrade parameters for diffuse Opaque.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.specularOpaque">
+            <summary>
+            Upgrade parameters for specular opaque.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.diffuseAlpha">
+            <summary>
+            Upgrade parameters for diffuse alpha.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.specularAlpha">
+            <summary>
+            Upgrade parameters for specular alpha.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.diffuseAlphaCutout">
+            <summary>
+            Upgrade parameters for diffuse alpha cutout.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.specularAlphaCutout">
+            <summary>
+            Upgrade parameters for specular alpha cutout.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.diffuseCubemap">
+            <summary>
+            Upgrade parameters for diffuse cubemap.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.specularCubemap">
+            <summary>
+            Upgrade parameters for specular cubemap.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.diffuseCubemapAlpha">
+            <summary>
+            Upgrade parameters for diffuse cubemap alpha.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SupportedUpgradeParams.specularCubemapAlpha">
+            <summary>
+            Upgrade parameters for specular cubemap alpha.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.StandardUpgrader">
+            <summary>
+            Upgrader for the standard and standard (specular setup) shaders.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.StandardUpgrader.UpdateStandardMaterialKeywords(UnityEngine.Material)">
+            <summary>
+            Updates keywords for the standard shader.
+            </summary>
+            <param name="material">The material to update.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.StandardUpgrader.UpdateStandardSpecularMaterialKeywords(UnityEngine.Material)">
+            <summary>
+            Updates keywords for the standard specular shader.
+            </summary>
+            <param name="material">The material to update.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.StandardUpgrader.#ctor(System.String)">
+            <summary>
+            Constructor for the StandardUpgrader class.
+            </summary>
+            <param name="oldShaderName">The name of the old shader.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.TerrainUpgrader">
+            <summary>
+            Upgrader for terrain materials.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.TerrainUpgrader.#ctor(System.String)">
+            <summary>
+            Constructor for the terrain upgrader.
+            </summary>
+            <param name="oldShaderName">The name of the old shader.</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ParticleUpgrader">
+            <summary>
+            Upgrader for particle materials.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ParticleUpgrader.#ctor(System.String)">
+            <summary>
+            Constructor for the particle upgrader.
+            </summary>
+            <param name="oldShaderName">The name of the old shader.</param>
+            <exception cref="T:System.ArgumentNullException"></exception>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ParticleUpgrader.UpdateStandardSurface(UnityEngine.Material)">
+            <summary>
+            Updates the standard shader surface properties.
+            </summary>
+            <param name="material"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ParticleUpgrader.UpdateUnlit(UnityEngine.Material)">
+            <summary>
+            Updates the unlit shader properties.
+            </summary>
+            <param name="material"></param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ParticleUpgrader.UpdateSurfaceBlendModes(UnityEngine.Material)">
+            <summary>
+            Updates the blending mode properties.
+            </summary>
+            <param name="material"></param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.AutodeskInteractiveUpgrader">
+            <summary>
+            Upgrader for the autodesk interactive shaders.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.AutodeskInteractiveUpgrader.#ctor(System.String)">
+            <summary>
+            Constructor for the autodesk interactive upgrader.
+            </summary>
+            <param name="oldShaderName">The name of the old shader.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.AutodeskInteractiveUpgrader.Convert(UnityEngine.Material,UnityEngine.Material)">
+            <inheritdoc/>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.InitializeConverterContext">
+            <summary>
+            A structure needed for the initialization step of the converter.
+            Stores data to be visible in the UI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.InitializeConverterContext.items">
+            <summary>
+            Stores the list of ConverterItemDescriptor that will be filled in during the initialization step.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.InitializeConverterContext.isBatchMode">
+            <summary>
+            A bool set to true if the converter is running in batch mode.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.InitializeConverterContext.AddAssetToConvert(UnityEditor.Rendering.Universal.ConverterItemDescriptor)">
+            <summary>
+            Add to the list of assets to be converted.
+            This will be used to display information to the user in the UI.
+            </summary>
+            <param name="item">The item to add to the list items to convert</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.Internal.ResourceGuid">
+            <summary>
+            Contains a database of built-in resource GUIds. These are used to load built-in resource files.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.Internal.ResourceGuid.rendererTemplate">
+            <summary>
+            GUId for the <c>ScriptableRendererFeature</c> template file.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ConverterItemDescriptor">
+            <summary>
+            A structure holding the information for each Item that needs to be Converted.
+            Name = The Name of the asset that is being converted.
+            Info = Information that can be used to store some data. This will also be shown in the UI.
+            WarningMessage = If there are some issues with the converter that we already know about.
+                Example: If we know it is a custom shader, we can not convert it so we add the information here.
+            HelpLink = Link to the documentation of how to convert this asset. Useful if the conversion failed or if we know we can not convert this asset automatically.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterItemDescriptor.name">
+            <summary> Name of the asset being converted. This will be shown in the UI. </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterItemDescriptor.info">
+            <summary> Information that can be used to store some data. This will also be shown in the UI. </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterItemDescriptor.warningMessage">
+            <summary> If there are some issues with the converter that we already know about during init phase. This will be added as a tooltip on the warning icon. </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterItemDescriptor.helpLink">
+            <summary> Link to the documentation of how to convert this asset. Useful if the conversion failed or if we know we can not convert this asset automatically. </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.MaterialReferenceBuilder.GetComponentTypes">
+            <summary>
+            Gets all of the types in the Material Reference lookup that are components. Used to determine whether to run the
+            method directly or on the component
+            </summary>
+            <returns>List of types that are components</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.MaterialReferenceBuilder.GetMaterialsFromObject(UnityEngine.Object)">
+            <summary>
+            Gets all material properties from an object or a component of an object
+            </summary>
+            <param name="obj">The GameObject or Scriptable Object</param>
+            <returns>List of Materials</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.MaterialReferenceBuilder.GetMaterialFromMethod(System.Reflection.MethodInfo,UnityEngine.Object,System.Func{System.String,System.String,System.String})">
+            <summary>
+            Text Mesh pro will sometimes be missing the GetFontSharedMaterials method, even though the property is supposed
+            to have that method. This gracefully handles that case.
+            </summary>
+            <param name="method">The Method being invoked</param>
+            <param name="obj">The Unity Object the method is invoked upon</param>
+            <param name="generateErrorString">The function that takes the method name and object name and produces an error string</param>
+            <returns>The resulting object from invoking the method on the Object</returns>
+            <exception cref="T:System.Exception">Any exception that is not the missing method exception</exception>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.MaterialReferenceBuilder.GetMaterialPropertiesWithoutLeaking(System.Type)">
+            <summary>
+            Gets the SharedMaterial(s) properties when there are shared materials so that we don't leak material instances into the scene
+            </summary>
+            <param name="property">The property Type that we are getting the SharedMaterial(s) properties from</param>
+            <returns>List of shared material properties and other material properties that won't leak material instances</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.MaterialReferenceBuilder.GetIsReadonlyMaterial(UnityEngine.Material)">
+            <summary>
+            Get whether or not a Material is considered readonly (Built In Resource)
+            </summary>
+            <param name="material">The Material to test</param>
+            <returns>Boolean of whether or not that Material is considered readonly</returns>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UniversalRenderPipelineLightUI.Styles.RenderingLayers">
+            <summary>Title with "Rendering Layer"</summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderSettingsConverter.GatherGraphicsTiers">
+            <summary>
+            Grabs the 3rd tier from the Graphics Tier Settings based off the current build platform
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderSettingsConverter.GatherQualityLevels(UnityEditor.Rendering.Universal.InitializeConverterContext@)">
+            <summary>
+            Iterates over all Quality Settings and saves relevant settings to a RenderSettingsItem.
+            This will also create the required information for the Render Pipeline Converter UI.
+            </summary>
+            <param name="context">Converter context to add elements to.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderSettingsConverter.SetPipelineSettings(UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset,UnityEditor.Rendering.Universal.RenderSettingsConverter.RenderSettingItem)">
+            <summary>
+            Sets all relevant RP settings in order they appear in URP
+            </summary>
+            <param name="asset">Pipeline asset to set</param>
+            <param name="settings">The ProjectSettingItem with stored settings</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "M:UnityEditor.Rendering.Universal.RendererDataPatcher.UniversalRendererPatcher" -->
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedCamera.Update">
+            <summary>
+            Updates the internal serialized objects
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedCamera.Apply">
+            <summary>
+            Applies the modified properties to the serialized objects
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.UniversalRenderPipelineSerializedCamera.Refresh">
+            <summary>
+            Refreshes the serialized properties from the serialized objects
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverter.name">
+            <summary>
+            Name of the converter.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverter.info">
+            <summary>
+            The information when hovering over the converter.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverter.isEnabled">
+            <summary>
+            A check if the converter is enabled or not. Can be used to do a check if prerequisites are met to have it enabled or disabled.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverter.priority">
+            <summary>
+            A priority of the converter. The lower the number (can be negative), the earlier it will be executed. Can be used to make sure that a converter runs before another converter.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.RenderPipelineConverter.needsIndexing">
+            <summary>
+            A check to see if the converter needs to create the index.
+            This will only need to be set to true if the converter is using search api, and search queries.
+            If set to true the converter framework will create the indexer and remove it after all search queries are done.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderPipelineConverter.OnClicked(System.Int32)">
+            <summary>
+            This method getting triggered when clicking the listview item in the UI.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderPipelineConverter.OnInitialize(UnityEditor.Rendering.Universal.InitializeConverterContext,System.Action)">
+            <summary>
+            This runs when initializing the converter. To gather data for the UI and also for the converter if needed.
+            </summary>
+            <param name="context">The context that will be used to initialize data for the converter.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderPipelineConverter.OnPreRun">
+            <summary>
+            The method that will be run before Run method if needed.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderPipelineConverter.OnRun(UnityEditor.Rendering.Universal.RunItemContext@)">
+            <summary>
+            The method that will be run when converting the assets.
+            </summary>
+            <param name="context">The context that will be used when executing converter.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.RenderPipelineConverter.OnPostRun">
+            <summary>
+            The method that will be run after the converters are done if needed.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ConverterFilter">
+            <summary>
+            Filter for the list of converters used in batch mode.
+            </summary>
+            <seealso cref="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId,System.Collections.Generic.List{UnityEditor.Rendering.Universal.ConverterId},UnityEditor.Rendering.Universal.ConverterFilter)"/>.)
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterFilter.Inclusive">
+            <summary>
+            Use this to include converters matching the filter.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterFilter.Exclusive">
+            <summary>
+            Use this to exclude converters matching the filter.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ConverterContainerId">
+            <summary>
+            The container to run in batch mode.
+            </summary>
+            <seealso cref="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId)"/>.)
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterContainerId.BuiltInToURP">
+            <summary>
+            Use this for Built-in to URP converter.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterContainerId.BuiltInToURP2D">
+            <summary>
+            Use this for Built-in to 2D (URP) converter.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterContainerId.UpgradeURP2DAssets">
+            <summary>
+            Use this to upgrade 2D (URP) assets.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ConverterId">
+            <summary>
+            The converter to run in batch mode.
+            </summary>
+            <seealso cref="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId,System.Collections.Generic.List{UnityEditor.Rendering.Universal.ConverterId},UnityEditor.Rendering.Universal.ConverterFilter)"/>.)
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.Material">
+            <summary>
+            Use this for the material converters.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.RenderSettings">
+            <summary>
+            Use this for the render settings converters.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.AnimationClip">
+            <summary>
+            Use this for the animation clip converters.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.ReadonlyMaterial">
+            <summary>
+            Use this for readonly material converters.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.PPv2">
+            <summary>
+            Use this for post processing V2 converters.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ConverterId.ParametricToFreeformLight">
+            <summary>
+            Use this for parametric to freeform light converters.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.Converters">
+            <summary>
+            Class for the converter framework.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId)">
+            <summary>
+            Call this method to run all the converters in a specific container in batch mode.
+            </summary>
+            <param name="containerName">The name of the container which will be batched. All Converters in this Container will run if prerequisites are met.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(UnityEditor.Rendering.Universal.ConverterContainerId,System.Collections.Generic.List{UnityEditor.Rendering.Universal.ConverterId},UnityEditor.Rendering.Universal.ConverterFilter)">
+            <summary>
+            Call this method to run a specific list of converters in a specific container in batch mode.
+            </summary>
+            <param name="containerName">The name of the container which will be batched.</param>
+            <param name="converterList">The list of converters that will be either included or excluded from batching. These converters need to be part of the passed in container for them to run.</param>
+            <param name="converterFilter">The enum that decide if the list of converters will be included or excluded when batching.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.Converters.RunInBatchMode(System.Type)">
+            <summary>
+            The method that will be run when converting the assets in batch mode.
+            </summary>
+            <param name="containerName">The name of the container which will be batched.</param>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UpgradeSurfaceType">
+            <summary>
+            The surface type for your material.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeSurfaceType.Opaque">
+            <summary>
+            Use this for opaque surfaces.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeSurfaceType.Transparent">
+            <summary>
+            Use this for transparent surfaces.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UpgradeBlendMode">
+            <summary>
+            The blend mode for your material.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeBlendMode.Alpha">
+            <summary>
+            Use this for alpha blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeBlendMode.Premultiply">
+            <summary>
+            Use this for premultiply blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeBlendMode.Additive">
+            <summary>
+            Use this for additive blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.UpgradeBlendMode.Multiply">
+            <summary>
+            Use this for multiply blend mode.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.SpecularSource">
+            <summary>
+            Options for Specular source.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SpecularSource.SpecularTextureAndColor">
+            <summary>
+            Use this to use specular texture and color.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SpecularSource.NoSpecular">
+            <summary>
+            Use this when not using specular.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.SmoothnessSource">
+            <summary>
+            Options to select the texture channel where the smoothness value is stored.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SmoothnessSource.SpecularAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the Specular Map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.SmoothnessSource.BaseAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the base Map.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ReflectionSource">
+            <summary>
+            Options to select the source for reflections.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ReflectionSource.NoReflection">
+            <summary>
+            Use this when there are no reflections.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ReflectionSource.Cubemap">
+            <summary>
+            Use this when the source comes from a cubemap.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.Universal.ReflectionSource.ReflectionProbe">
+            <summary>
+            Use this when the source comes from a reflection probe.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.UpgradeParams">
+            <summary>
+            Container for the upgrade parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UpgradeParams.surfaceType">
+            <summary>
+            Surface type upgrade parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UpgradeParams.blendMode">
+            <summary>
+            Blend mode upgrade parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UpgradeParams.alphaClip">
+            <summary>
+            Alpha clip upgrade parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UpgradeParams.specularSource">
+            <summary>
+            Specular source upgrade parameters.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Rendering.Universal.UpgradeParams.smoothnessSource">
+            <summary>
+            Smoothness source upgrade parameters.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.Universal.ForwardRendererDataEditor">
+            <summary>
+            Editor script for a <c>ForwardRendererData</c> class.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.Universal.ForwardRendererDataEditor.OnInspectorGUI">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Rendering.SerializedShaderPropertyUsage">
+            <summary>
+            Flags describing usage of an asset by its dependents, when that asset might have serialized shader property names.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.Unknown">
+            <summary>
+            Asset's usage is unknown.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.NoShaderProperties">
+            <summary>
+            Asset contains no serialized shader properties.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.UsedByUpgraded">
+            <summary>
+            Asset is used by objects that have materials which have been upgraded.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.UsedByNonUpgraded">
+            <summary>
+            Asset is used by objects that have materials which were not upgraded.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.UsedByAmbiguouslyUpgraded">
+            <summary>
+            Asset is used by objects that have materials which may have been upgraded, but there is no unambiguous upgrade path.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.UpgradeUtility">
+            <summary>
+            Class containing utility methods for upgrading assets affected by render pipeline migration.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Rendering.UpgradeUtility.UID">
+            <summary>
+            Stable, unique identifier for some asset.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})">
+            <summary>
+            Create A table of new shader names and all known upgrade paths to them in the target pipeline.
+            </summary>
+            <param name="upgraders">The set of <see cref="T:UnityEditor.Rendering.MaterialUpgrader"/> from which to build the table.</param>
+            <returns>A table of new shader names and all known upgrade paths to them in the target pipeline.</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.UpgradeUtility.GetNewPropertyName(System.String,UnityEditor.Rendering.UpgradeUtility.IMaterial,UnityEditor.Rendering.MaterialUpgrader.MaterialPropertyType,System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.String@)">
+            <summary>
+            Gets the new name for a serialized shader property, which needs to be applied to a material that has been upgraded.
+            </summary>
+            <remarks>
+            Some assets serialize shader property names, in order to apply modifications to a material at run-time.
+            Use this method's return value to determine whether the serialized property name can be safely substituted,
+            based on a material the host object intends to apply it to.
+            </remarks>
+            <param name="shaderPropertyName">A shader property name serialized on a host object.</param>
+            <param name="material">
+            The target material to which some shader property modification will be applied.
+            It is presumed to have already been upgraded.
+            </param>
+            <param name="materialPropertyType">What type of property <paramref name="shaderPropertyName"/> is.</param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+            <param name="newPropertyName">
+            The new name for <paramref name="shaderPropertyName"/>.
+            Its value is only guaranteed to be unambiguous if the method returns
+            <see cref="F:UnityEditor.Rendering.SerializedShaderPropertyUsage.UsedByUpgraded"/>.
+            </param>
+            <returns>
+            Usage flags indicating how <paramref name="shaderPropertyName"/> relates to <paramref name="material"/>.
+            </returns>
+        </member>
+        <member name="T:UnityEditor.Rendering.AnimationClipUpgrader">
+            <summary>
+            Internal type definitions for <see cref="T:UnityEditor.Rendering.AnimationClipUpgrader"/>.
+            </summary>
+            <remarks>
+            This class contains two categories of internal types:
+            1. Proxies for UnityObject assets (used for test mocking and facilitating usage without requiring loading all assets of the given type at once).
+            2. Asset path wrappers (used for stronger typing and clarity in the API surface).
+            </remarks>
+            <summary>
+            A class containing static methods for updating <see cref="T:UnityEngine.AnimationClip"/> assets with bindings for <see cref="T:UnityEngine.Material"/> properties.
+            </summary>
+            <remarks>
+            Animation clips store bindings for material properties by path name, but don't know whether those properties exist on their dependents.
+            Because property names did not change uniformly in the material/shader upgrade process, it is not possible to patch path names indiscriminately.
+            This class provides utilities for discovering how clips are used, so users can make decisions about whether or not to then update them.
+            It has the limitation that it only knows about:
+            - Clips that are directly referenced by an <see cref="T:UnityEngine.Animation"/> component
+            - Clips referenced by an <see cref="T:UnityEditor.Animations.AnimatorController"/> used by an <see cref="T:UnityEngine.Animator"/> component
+            - Clips that are sub-assets of a <see cref="T:UnityEngine.Playables.PlayableAsset"/> used by a <see cref="T:UnityEngine.Playables.PlayableDirector"/> component with a single <see cref="T:UnityEngine.Animator"/> binding
+            It does not know about clips that might be referenced in other ways for run-time reassignment.
+            Recommended usage is to call <see cref="M:UnityEditor.Rendering.AnimationClipUpgrader.DoUpgradeAllClipsMenuItem(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader},System.String,System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},UnityEditor.Rendering.SerializedShaderPropertyUsage)"/> from a menu item callback.
+            The utility can also provide faster, more reliable results if it knows what <see cref="T:UnityEditor.Rendering.MaterialUpgrader"/> was used to upgrade specific materials.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.IsMaterialBinding(UnityEditor.EditorCurveBinding)">
+            <summary>
+            Determines whether the specified<see cref="T:UnityEditor.EditorCurveBinding"/> is for a material property.
+            </summary>
+            <remarks>Internal only for testability.</remarks>
+            <param name="b">An <see cref="T:UnityEditor.EditorCurveBinding"/>.</param>
+            <returns><c>true</c> if the binding is for a material property; <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.InferShaderProperty(UnityEditor.EditorCurveBinding)">
+            <summary>
+            Infer a shader property name and type from an <see cref="T:UnityEditor.EditorCurveBinding"/>.
+            </summary>
+            <remarks>Internal only for testability.</remarks>
+            <param name="binding">A binding presumed to map to a material property. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.IsMaterialBinding(UnityEditor.EditorCurveBinding)"/>.)</param>
+            <returns>A shader property name, and a guess of what type of shader property it targets.</returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})">
+            <summary>
+            Gets asset data for all clip assets at the specified paths, which contain bindings for material properties.
+            (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentPrefabs(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})"/> and <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentScenes(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ScenePath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ScenePath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})"/>.)
+            </summary>
+            <param name="clipPaths">Paths to assets containing <see cref="T:UnityEngine.AnimationClip"/>.</param>
+            <returns>
+            Lookup table mapping <see cref="T:UnityEngine.AnimationClip"/> to its asset path, bindings, property rename table, and usage.
+            (Use <see cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentPrefabs(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})"/> to initialize rename table and usage.)
+            </returns>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GetClipDependencyMappings``1(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{``0}}@,System.Collections.Generic.IReadOnlyDictionary{``0,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}}@)">
+            <summary>
+            Get dependency mappings between <see cref="T:UnityEngine.AnimationClip"/> and their dependents.
+            </summary>
+            <param name="clips"> Paths to clips to consider. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)</param>
+            <param name="assets">Paths to assets to consider.</param>
+            <param name="clipToDependentAssets">Mapping of clip paths to paths of their dependents.</param>
+            <param name="assetToClipDependencies">Mapping of asset paths to their clip dependencies.</param>
+            <typeparam name="T">The type of asset path.</typeparam>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentPrefabs(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})">
+            <summary>
+            Get information about a clip's usage among its dependent scenes to determine whether or not it should be upgraded.
+            </summary>
+            <param name="clipDependents">
+            A table mapping clip asset paths, to asset paths of their dependent prefabs.
+            (See <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetClipDependencyMappings``1(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{``0}}@,System.Collections.Generic.IReadOnlyDictionary{``0,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}}@)"/>.)
+            </param>
+            <param name="assetDependencies">
+            A table mapping prefab asset paths, to asset paths of their clip dependencies.
+            (See <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetClipDependencyMappings``1(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{``0}}@,System.Collections.Generic.IReadOnlyDictionary{``0,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}}@)"/>.)
+            </param>
+            <param name="clipData">
+            A table mapping clips to other data about them. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)
+            </param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+            <param name="progressFunctor">
+            Optional functor to display a progress bar.
+            </param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentScenes(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ScenePath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ScenePath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})">
+            <summary>
+            Get information about a clip's usage among its dependent scenes to determine whether or not it should be upgraded.
+            </summary>
+            <remarks>
+            Because this method will open scenes to search for usages, it is recommended you first prompt for user input.
+            It is also a good idea to first call <see cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageInDependentPrefabs(System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.PrefabPath,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},System.Func{System.String,System.Single,System.Boolean})"/> to generate usage data.
+            Clips that are already known to be unsafe for upgrading based on their prefab usage can be skipped here.
+            </remarks>
+            <param name="clipDependents">
+            A table mapping clip asset paths, to asset paths of their dependent scenes.
+            (See <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetClipDependencyMappings``1(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{``0}}@,System.Collections.Generic.IReadOnlyDictionary{``0,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}}@)"/>.)
+            </param>
+            <param name="assetDependencies">
+            A table mapping scene asset paths, to asset paths of their clip dependencies.
+            (See <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetClipDependencyMappings``1(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,System.Collections.Generic.IReadOnlyCollection{``0}}@,System.Collections.Generic.IReadOnlyDictionary{``0,System.Collections.Generic.IReadOnlyCollection{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath}}@)"/>.)
+            </param>
+            <param name="clipData">
+            A table mapping clips to other data about them. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)
+            </param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+            <param name="progressFunctor">
+            Optional functor to display a progress bar.
+            </param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageForGameObject(UnityEngine.GameObject,System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader})">
+            <summary>
+            Update usage information about the specified clips in the clip data table.
+            </summary>
+            <param name="go">A prefab, or a <see cref="T:UnityEngine.GameObject"/> in a scene.</param>
+            <param name="clipData">
+            A table mapping clips to other data about them. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)
+            </param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipsUsageForAnimatedHierarchy(UnityEngine.Transform,System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip},System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader})">
+            <summary>
+            Update usage information about the specified clips in the clip data table.
+            </summary>
+            <param name="root">The root of the animated hierarchy (i.e., object with Animation or Animator).</param>
+            <param name="clips">Collection of animation clips</param>
+            <param name="clipData">
+            A table mapping clips to other data about them. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)
+            </param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.GatherClipUsage(UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.IRenderer,System.Collections.Generic.List{UnityEditor.Rendering.UpgradeUtility.IMaterial}}},System.Collections.Generic.IReadOnlyDictionary{System.String,System.Collections.Generic.IReadOnlyList{UnityEditor.Rendering.MaterialUpgrader}},System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader})">
+            <summary>
+            Update usage information about the specified clip in the clip data table.
+            </summary>
+            <remarks>
+            This method works by looking at shaders used by materials assigned to the specified renderers.
+            Usage and property renames for the clip are updated, if a binding in the clip matches an upgrader.
+            Internal only for testability.
+            </remarks>
+            <param name="clip">An animation clip.</param>
+            <param name="clipData">
+            A table mapping clips to other data about them. (See also <seealso cref="M:UnityEditor.Rendering.AnimationClipUpgrader.GetAssetDataForClipsFiltered(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath})"/>.)
+            </param>
+            <param name="renderersByPath">
+            A table mapping transform paths of renderers to lists of the materials they use.
+            </param>
+            <param name="allUpgradePathsToNewShaders">
+            A table of new shader names and all known upgrade paths to them in the target pipeline.
+            (See also <seealso cref="M:UnityEditor.Rendering.UpgradeUtility.GetAllUpgradePathsToShaders(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader})"/>.)
+            </param>
+            <param name="upgradePathsUsedByMaterials">
+            Optional table of materials known to have gone through a specific upgrade path.
+            </param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.UpgradeClips(System.Collections.Generic.IDictionary{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.EditorCurveBinding[],UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.IDictionary{UnityEditor.EditorCurveBinding,System.String}}},UnityEditor.Rendering.SerializedShaderPropertyUsage,System.Collections.Generic.HashSet{System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.Rendering.SerializedShaderPropertyUsage}},System.Collections.Generic.HashSet{System.ValueTuple{UnityEditor.Rendering.AnimationClipUpgrader.IAnimationClip,UnityEditor.Rendering.AnimationClipUpgrader.ClipPath,UnityEditor.Rendering.SerializedShaderPropertyUsage}},System.Func{System.String,System.Single,System.Boolean})">
+            <summary>
+            Upgrade the specified clips using the associated property rename table.
+            </summary>
+            <param name="clipsToUpgrade">
+            A table mapping clips to property renaming tables that can be safely applied to their bindings.
+            </param>
+            <param name="excludeFlags">Do not upgrade clips that have any of these flags set.</param>
+            <param name="upgraded">Collector for all clips that are upgraded.</param>
+            <param name="notUpgraded">Collector for all clips that are not upgraded.</param>
+            <param name="progressFunctor">Optional functor to display a progress bar.</param>
+        </member>
+        <member name="M:UnityEditor.Rendering.AnimationClipUpgrader.DoUpgradeAllClipsMenuItem(System.Collections.Generic.IEnumerable{UnityEditor.Rendering.MaterialUpgrader},System.String,System.Collections.Generic.IReadOnlyDictionary{UnityEditor.Rendering.UpgradeUtility.UID,UnityEditor.Rendering.MaterialUpgrader},UnityEditor.Rendering.SerializedShaderPropertyUsage)">
+            <summary>
+            A function to call from a menu item callback, which will upgrade all <see cref="T:UnityEngine.AnimationClip"/> in the project.
+            </summary>
+            <param name="allUpgraders">All <see cref="T:UnityEditor.Rendering.MaterialUpgrader"/> for the current render pipeline.</param>
+            <param name="knownUpgradePaths">
+            Optional mapping of materials to upgraders they are known to have used.
+            Without this mapping, the method makes inferences about how a material might have been upgraded.
+            Making these inferences is slower and possibly not sensitive to ambiguous upgrade paths.
+            </param>
+            <param name="filterFlags">
+            Optional flags to filter out clips that are used in ways that are not safe for upgrading.
+            </param>
+        </member>
+        <member name="T:UnityEditor.LightExplorer">
+            <summary>
+            Editor script for the Lighting Explorer.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.LightExplorer.GetReflectionProbeColumns">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI">
+            <summary>
+            The base class for shader GUI in URP.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.Expandable">
+            <summary>
+            Flags for the foldouts used in the base shader GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Expandable.SurfaceOptions">
+            <summary>
+            Use this for surface options foldout.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Expandable.SurfaceInputs">
+            <summary>
+            Use this for surface input foldout.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Expandable.Advanced">
+            <summary>
+            Use this for advanced foldout.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Expandable.Details">
+            <summary>
+            Use this for additional details foldout.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.SurfaceType">
+            <summary>
+            The surface type for your object.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.SurfaceType.Opaque">
+            <summary>
+            Use this for opaque surfaces.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.SurfaceType.Transparent">
+            <summary>
+            Use this for transparent surfaces.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.BlendMode">
+            <summary>
+            The blend mode for your material.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.BlendMode.Alpha">
+            <summary>
+            Use this for alpha blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.BlendMode.Premultiply">
+            <summary>
+            Use this for premultiply blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.BlendMode.Additive">
+            <summary>
+            Use this for additive blend mode.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.BlendMode.Multiply">
+            <summary>
+            Use this for multiply blend mode.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.SmoothnessSource">
+            <summary>
+            Options to select the texture channel where the smoothness value is stored.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.SmoothnessSource.SpecularAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the specular map.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.SmoothnessSource.BaseAlpha">
+            <summary>
+            Use this when smoothness is stored in the alpha channel of the base map.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.RenderFace">
+            <summary>
+            The face options to render your geometry.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.RenderFace.Front">
+            <summary>
+            Use this to render only front face.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.RenderFace.Back">
+            <summary>
+            Use this to render only back face.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.RenderFace.Both">
+            <summary>
+            Use this to render both faces.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.QueueControl">
+            <summary>
+            The options for controlling the render queue.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.QueueControl.Auto">
+            <summary>
+            Use this to select automatic behavior.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.QueueControl.UserOverride">
+            <summary>
+            Use this for explicitly selecting a render queue.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.BaseShaderGUI.Styles">
+            <summary>
+            Container for the text and tooltips used to display the shader.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.surfaceTypeNames">
+            <summary>
+            The names for options available in the SurfaceType enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.blendModeNames">
+            <summary>
+            The names for options available in the BlendMode enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.renderFaceNames">
+            <summary>
+            The names for options available in the RenderFace enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.zwriteNames">
+            <summary>
+            The names for options available in the ZWriteControl enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.queueControlNames">
+            <summary>
+            The names for options available in the QueueControl enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.ztestValues">
+            <summary>
+            The values for options available in the ZTestMode enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.ztestNames">
+            <summary>
+            The names for options available in the ZTestMode enum.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.SurfaceOptions">
+            <summary>
+            The text and tooltip for the surface options GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.SurfaceInputs">
+            <summary>
+            The text and tooltip for the surface inputs GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.AdvancedLabel">
+            <summary>
+            The text and tooltip for the advanced options GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.surfaceType">
+            <summary>
+            The text and tooltip for the Surface Type GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.blendingMode">
+            <summary>
+            The text and tooltip for the blending mode GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.preserveSpecularText">
+            <summary>
+            The text and tooltip for the preserve specular lighting GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.cullingText">
+            <summary>
+            The text and tooltip for the render face GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.zwriteText">
+            <summary>
+            The text and tooltip for the depth write GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.ztestText">
+            <summary>
+            The text and tooltip for the depth test GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.alphaClipText">
+            <summary>
+            The text and tooltip for the alpha clipping GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.alphaClipThresholdText">
+            <summary>
+            The text and tooltip for the alpha clipping threshold GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.castShadowText">
+            <summary>
+            The text and tooltip for the cast shadows GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.receiveShadowText">
+            <summary>
+            The text and tooltip for the receive shadows GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.baseMap">
+            <summary>
+            The text and tooltip for the base map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.emissionMap">
+            <summary>
+            The text and tooltip for the emission map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.normalMapText">
+            <summary>
+            The text and tooltip for the normal map GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.bumpScaleNotSupported">
+            <summary>
+            The text and tooltip for the bump scale not supported GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.fixNormalNow">
+            <summary>
+            The text and tooltip for the normals fix now GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.queueSlider">
+            <summary>
+            The text and tooltip for the sorting priority GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.queueControl">
+            <summary>
+            The text and tooltip for the queue control GUI.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.Styles.documentationIcon">
+            <summary>
+            The text and tooltip for the help reference GUI.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.materialEditor">
+            <summary>
+            The editor for the material.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.surfaceTypeProp">
+            <summary>
+            The MaterialProperty for surface type.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.blendModeProp">
+            <summary>
+            The MaterialProperty for the blend mode.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.preserveSpecProp">
+            <summary>
+            The MaterialProperty for preserve specular.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.cullingProp">
+            <summary>
+            The MaterialProperty for cull mode.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.ztestProp">
+            <summary>
+            The MaterialProperty for zTest.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.zwriteProp">
+            <summary>
+            The MaterialProperty for zWrite.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.alphaClipProp">
+            <summary>
+            The MaterialProperty for alpha clip.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.alphaCutoffProp">
+            <summary>
+            The MaterialProperty for alpha cutoff.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.castShadowsProp">
+            <summary>
+            The MaterialProperty for cast shadows.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.receiveShadowsProp">
+            <summary>
+            The MaterialProperty for receive shadows.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.baseMapProp">
+            <summary>
+            The MaterialProperty for base map.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.baseColorProp">
+            <summary>
+            The MaterialProperty for base color.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.emissionMapProp">
+            <summary>
+            The MaterialProperty for emission map.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.emissionColorProp">
+            <summary>
+            The MaterialProperty for emission color.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.queueOffsetProp">
+            <summary>
+            The MaterialProperty for queue offset.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.queueControlProp">
+            <summary>
+            The MaterialProperty for queue control.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.BaseShaderGUI.m_FirstTimeApply">
+            <summary>
+            Used to sure that needed setup (ie keywords/render queue) are set up when switching some existing material to a universal shader.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.MaterialChanged(UnityEngine.Material)">
+            <summary>
+            Called when a material has been changed.
+            This function has been deprecated and has been renamed to ValidateMaterial.
+            </summary>
+            <param name="material">The material that has been changed.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.FindProperties(UnityEditor.MaterialProperty[])">
+            <summary>
+            Finds all the properties used in the Base Shader GUI.
+            </summary>
+            <param name="properties">Array of properties to search in.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.OnGUI(UnityEditor.MaterialEditor,UnityEditor.MaterialProperty[])">
+            <inheritdoc/>
+        </member>
+        <member name="P:UnityEditor.BaseShaderGUI.materialFilter">
+            <summary>
+            Filter for the surface options, surface inputs, details and advanced foldouts.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.OnOpenGUI(UnityEngine.Material,UnityEditor.MaterialEditor)">
+            <summary>
+            Draws the GUI for the material.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="materialEditor">The material editor to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.ShaderPropertiesGUI(UnityEngine.Material)">
+            <summary>
+            Draws the shader properties GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawSurfaceOptions(UnityEngine.Material)">
+            <summary>
+            Draws the surface options GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawSurfaceInputs(UnityEngine.Material)">
+            <summary>
+            Draws the surface inputs GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawAdvancedOptions(UnityEngine.Material)">
+            <summary>
+            Draws the advanced options GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawQueueOffsetField">
+            <summary>
+            Draws the queue offset field.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.FillAdditionalFoldouts(UnityEditor.Rendering.MaterialHeaderScopeList)">
+            <summary>
+            Draws additional foldouts.
+            </summary>
+            <param name="materialScopesList"></param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawBaseProperties(UnityEngine.Material)">
+            <summary>
+            Draws the base properties GUI.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawEmissionProperties(UnityEngine.Material,System.Boolean)">
+            <summary>
+            Draws the emission properties.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="keyword">The keyword used for emission.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawNormalArea(UnityEditor.MaterialEditor,UnityEditor.MaterialProperty,UnityEditor.MaterialProperty)">
+            <summary>
+            Draws the GUI for the normal area.
+            </summary>
+            <param name="materialEditor">The material editor to use.</param>
+            <param name="bumpMap">The normal map property.</param>
+            <param name="bumpMapScale">The normal map scale property.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DrawTileOffset(UnityEditor.MaterialEditor,UnityEditor.MaterialProperty)">
+            <summary>
+            Draws the tile offset GUI.
+            </summary>
+            <param name="materialEditor">The material editor to use.</param>
+            <param name="textureProp">The texture property.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.SetMaterialKeywords(UnityEngine.Material,System.Action{UnityEngine.Material},System.Action{UnityEngine.Material})">
+            <summary>
+            Sets up the keywords for the material and shader.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="shadingModelFunc">Function to set shading models.</param>
+            <param name="shaderFunc">Function to set some extra shader parameters.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.SetupMaterialBlendMode(UnityEngine.Material)">
+            <summary>
+            Sets up the blend mode.
+            </summary>
+            <param name="material">The material to use.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.AssignNewShaderToMaterial(UnityEngine.Material,UnityEngine.Shader,UnityEngine.Shader)">
+            <summary>
+            Assigns a new shader to the material.
+            </summary>
+            <param name="material">The material to use.</param>
+            <param name="oldShader">The old shader.</param>
+            <param name="newShader">The new shader to replace.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.TwoFloatSingleLine(UnityEngine.GUIContent,UnityEditor.MaterialProperty,UnityEngine.GUIContent,UnityEditor.MaterialProperty,UnityEngine.GUIContent,UnityEditor.MaterialEditor,System.Single)">
+            <summary>
+            Helper function to draw two float variables in one lines.
+            </summary>
+            <param name="title">The title to use.</param>
+            <param name="prop1">The property for the first float.</param>
+            <param name="prop1Label">The label for the first float.</param>
+            <param name="prop2">The property for the second float.</param>
+            <param name="prop2Label">The label for the second float.</param>
+            <param name="materialEditor">The material editor to use.</param>
+            <param name="labelWidth">The width of the labels.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.DoPopup(UnityEngine.GUIContent,UnityEditor.MaterialProperty,System.String[])">
+            <summary>
+            Helper function to draw a popup.
+            </summary>
+            <param name="label">The label to use.</param>
+            <param name="property">The property to display.</param>
+            <param name="options">The options available.</param>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.TextureColorProps(UnityEditor.MaterialEditor,UnityEngine.GUIContent,UnityEditor.MaterialProperty,UnityEditor.MaterialProperty,System.Boolean)">
+            <summary>
+            Helper function to show texture and color properties.
+            </summary>
+            <param name="materialEditor">The material editor to use.</param>
+            <param name="label">The label to use.</param>
+            <param name="textureProp">The texture property.</param>
+            <param name="colorProp">The color property.</param>
+            <param name="hdr">Marks whether this is a HDR texture or not.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.FindProperty(System.String,UnityEditor.MaterialProperty[])">
+            <summary>
+            Searches and tries to find a property in an array of properties.
+            </summary>
+            <param name="propertyName">The property to find.</param>
+            <param name="properties">Array of properties to search in.</param>
+            <returns>A MaterialProperty instance for the property.</returns>
+        </member>
+        <member name="M:UnityEditor.BaseShaderGUI.FindProperty(System.String,UnityEditor.MaterialProperty[],System.Boolean)">
+            <summary>
+            Searches and tries to find a property in an array of properties.
+            </summary>
+            <param name="propertyName">The property to find.</param>
+            <param name="properties">Array of properties to search in.</param>
+            <param name="propertyIsMandatory">Should throw exception if property is not found</param>
+            <returns>A MaterialProperty instance for the property.</returns>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="T:FullScreenPassRendererFeatureEditor">
+            <summary>
+            Custom editor for FullScreenPassRendererFeature class responsible for drawing unavailable by default properties
+            such as custom drop down items and additional properties.
+            </summary>
+        </member>
+        <member name="P:FullScreenPassRendererFeatureEditor.showAdditionalProperties">
+            <summary>
+            A toggle that is responsible whether additional properties are shown.
+            This toggle also sets pass index to 0 when toggle's value changes.
+            </summary>
+        </member>
+        <member name="M:FullScreenPassRendererFeatureEditor.OnInspectorGUI">
+            <summary>
+            Implementation for a custom inspector
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.Universal.ShaderUtils">
+            <summary>
+            Various utility functions for shaders in URP.
+            </summary>
+        </member>
+    </members>
+</doc>

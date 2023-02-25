@@ -1,0 +1,386 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnityEditor.CacheServer</name>
+    </assembly>
+    <members>
+        <member name="M:UnityEditor.Build.CacheServer.Util.StringToHash(System.String)">
+            <summary>
+            Convert a hex string to a byte array that represents an Asset Hash
+            </summary>
+            <param name="hashStr">32 character hex string</param>
+            <returns>byte array</returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.StringToGuid(System.String)">
+            <summary>
+            Convert a hex string to a byte array that represents an Asset GUID
+            </summary>
+            <param name="guidStr">32 character hex string</param>
+            <returns>byte array</returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.ReadUInt32(System.Byte[],System.Int32)">
+            <summary>
+            Parse an ascii byte array at <paramref name="index"/>start as an int value
+            </summary>
+            <param name="bytes">byte array</param>
+            <param name="index">offset</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.EncodeInt32(System.Int32,System.Boolean)">
+            <summary>
+            Encode an integer as an ascii byte array
+            </summary>
+            <param name="input">integer</param>
+            <param name="minLength">true ensure the byte array is as short as possible; false to pad to 8 bytes</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.ReadUInt64(System.Byte[],System.Int32)">
+            <summary>
+            Parse a subset of an ascii byte array as a long value
+            </summary>
+            <param name="bytes">byte array</param>
+            <param name="index">offset within <paramref name="bytes"/> to read from</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.EncodeInt64(System.Int64)">
+            <summary>
+            Encode a long value into an ascii byte array
+            </summary>
+            <param name="input">long value</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.ByteArraysAreEqual(System.Byte[],System.Byte[])">
+            <summary>
+            Compare two byte arrays for value equality
+            </summary>
+            <param name="ar1">first array</param>
+            <param name="ar2">second array</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.ByteArraysAreEqual(System.Byte[],System.Int32,System.Byte[],System.Int32,System.Int32)">
+            <summary>
+            Compare two byte arrays for value equality at specific offsets and length
+            </summary>
+            <param name="ar1">first array</param>
+            <param name="start1">offset within first array</param>
+            <param name="ar2">second array</param>
+            <param name="start2">offset within second array</param>
+            <param name="count">number of bytes to compare</param>
+            <returns></returns>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.Util.ConfigCacheServerAddress">
+            <summary>
+            Retrieve the configured cache server address for the Unity Editor
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Util.ParseCacheServerIpAddress(System.String,System.String@,System.Int32@)">
+            <summary>
+            Parse an address string in the format of 'address:port' to a string address and integer port number
+            </summary>
+            <param name="address">combined address string</param>
+            <param name="host">address part</param>
+            <param name="port">port part</param>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.CacheServerUploader">
+            <summary>
+            The CacheServerUploader is responsible for uploading assets to a given Cache Server.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.CacheServerUploader.UploadAllFilesToCacheServer">
+            <summary>
+            Synchronize project library with the configured Cache Server.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.CacheServerUploader.UploadAllFilesToCacheServer(System.String,System.Int32)">
+            <summary>
+            Synchronize project library folder with a remote Cache Server.
+            </summary>
+            <param name="host">Host name or IP or remote Cache Server</param>
+            <param name="port">Port number for remote Cache Server</param>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.FileType">
+            <summary>
+            Options for the type of a particular file.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.FileType.Asset">
+            <summary>
+            Use to indicate that the file is an asset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.FileType.Info">
+            <summary>
+            Use to indicate that the file holds information for an asset/resource.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.FileType.Resource">
+            <summary>
+            Use to indicate that the file is a resource.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.DownloadResult">
+            <summary>
+            Options for the result returned by a download operation.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.DownloadResult.Failure">
+            <summary>
+            Use to indicate that the operation failed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.DownloadResult.FileNotFound">
+            <summary>
+            Use to indicate that the operation failed because it could not locate the specified file.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.DownloadResult.Success">
+            <summary>
+            Use to indicate that the operation succedeed.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.FileId">
+            <summary>
+            A GUID/Hash pair that uniquely identifies a particular file. For each FileId, the Cache Server can store a separate
+            binary stream for each FileType.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.FileId.guid">
+            <summary>
+            The guid byte array.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Build.CacheServer.FileId.hash">
+            <summary>
+            The hash code byte array.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileId.#ctor(System.Byte[],System.Byte[])">
+            <summary>
+            A structure used to identify a file by guid and hash code.
+            </summary>
+            <param name="guid">File GUID.</param>
+            <param name="hash">File hash code.</param>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileId.From(System.String,System.String)">
+            <summary>
+            Create a FileId given a string guid and string hash code representation.
+            </summary>
+            <param name="guidStr">GUID string representation.</param>
+            <param name="hashStr">Hash code string representation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileId.From(System.Byte[],System.Byte[])">
+            <summary>
+            Create a FileId given a byte array guid and byte array hash code.
+            </summary>
+            <param name="guid">GUID byte array.</param>
+            <param name="hash">Hash code byte array.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileId.Equals(System.Object,System.Object)">
+            <summary>
+            Check equality of two objects given their guid and hash code.
+            </summary>
+            <param name="x">lhs object.</param>
+            <param name="y">rhs object.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileId.GetHashCode(System.Object)">
+            <summary>
+            Get the hash code for a specific object.
+            </summary>
+            <param name="obj">The object you want the hash code for.</param>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.TransactionIsolationException">
+            <summary>
+            Exception thrown when an upload operation is not properly isolated within a begin/end transaction
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.TransactionIsolationException.#ctor(System.String)">
+            <summary>
+            Creates a new exception for when an upload operation is not properly isolated within a begin/end transaction.
+            </summary>
+            <param name="msg">The text containing information to display.</param>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.DownloadFinishedEventArgs">
+            <summary>
+            EventArgs passed to the DownloadFinished event handler
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.DownloadFinishedEventArgs.Result">
+            <summary>
+            EventArgs download result code.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.DownloadFinishedEventArgs.DownloadItem">
+            <summary>
+            The downloaded item.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.DownloadFinishedEventArgs.Size">
+            <summary>
+            The size of the downloaded item.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.DownloadFinishedEventArgs.DownloadQueueLength">
+            <summary>
+            The length of the download queue.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.Client">
+            <summary>
+            A client API for uploading and downloading files from a Cache Server
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.Client.DownloadQueueLength">
+            <summary>
+            Returns the number of items in the download queue
+            </summary>
+        </member>
+        <member name="E:UnityEditor.Build.CacheServer.Client.DownloadFinished">
+            <summary>
+            Event fired when a queued download request finishes.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.ResetDownloadFinishedEventHandler">
+            <summary>
+            Remove all listeners from the DownloadFinished event
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.#ctor(System.String,System.Int32)">
+            <summary>
+            Create a new Cache Server client
+            </summary>
+            <param name="host">The host name or IP of the Cache Server.</param>
+            <param name="port">The port number of the Cache Server. Default port is 8126.</param>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.Connect">
+            <summary>
+            Connects to the Cache Server and sends a protocol version handshake.
+            </summary>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.Connect(System.Int32)">
+            <summary>
+            Connects to the Cache Server and sends a protocol version handshake. A TimeoutException is thrown if the connection cannot
+            be established within <paramref name="timeoutMs"/> milliseconds.
+            </summary>
+            <param name="timeoutMs"></param>
+            <exception cref="T:System.TimeoutException"></exception>
+            <exception cref="T:System.Exception"></exception>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.BeginTransaction(UnityEditor.Build.CacheServer.FileId)">
+            <summary>
+            Begin an upload transaction for an asset. Transactions in process can be interupted by calling BeginTransaction
+            again before calling EndTransaction.
+            </summary>
+            <param name="fileId"></param>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.Upload(UnityEditor.Build.CacheServer.FileType,System.IO.Stream)">
+            <summary>
+            Upload from the given stream for the given FileType. Will throw an exception if not preceeded by BeginTransaction.
+            </summary>
+            <param name="type"></param>
+            <param name="readStream"></param>
+            <exception cref="T:UnityEditor.Build.CacheServer.TransactionIsolationException"></exception>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.EndTransaction">
+            <summary>
+            Commit the uploaded files to the Cache Server. Will throw an exception if not preceeded by BeginTransaction.
+            </summary>
+            <exception cref="T:UnityEditor.Build.CacheServer.TransactionIsolationException"></exception>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.QueueDownload(UnityEditor.Build.CacheServer.IDownloadItem)">
+            <summary>
+            Send a download request to the Cache Server. Listen to the DownloadComplete event to read the results.
+            </summary>
+            <param name="downloadItem">The IDownloadItem that specifies which file to download</param>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.Client.Close">
+            <summary>
+            Close the connection to the Cache Server. Sends the 'quit' command and closes the network stream.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.IDownloadItem">
+            <summary>
+            Represents a single file download request from a Cache Server.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.IDownloadItem.Id">
+            <summary>
+            the FileId (guid/hash pair) of the file to download
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.IDownloadItem.Type">
+            <summary>
+            the FileType for the given FileId to download
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.IDownloadItem.GetWriteStream(System.Int64)">
+            <summary>
+            Provides a writable stream for saving downloaded file bytes
+            </summary>
+            <param name="size">Size of file to download</param>
+            <returns>A writable stream</returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.IDownloadItem.Finish">
+            <summary>
+            Method called when a download is finished. Used to finalize and cleanup a single file download. e.g. to move
+            a temporary file into place.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.CacheServerUploaderWindow">
+            <summary>
+            The Cache Server Uploader window.  This interface will upload your assets to a the given address of a Cache Server.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.CacheServerUploaderWindow.UploadAllFilesToCacheServerMenuItem">
+            <summary>
+            Uploads all assets to the cache server.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Build.CacheServer.FileDownloadItem">
+            <summary>
+            IDownloadItem implementation for downloading to a file specified by path.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.FileDownloadItem.Id">
+            <summary>
+            The FileId for the FileDownloadItem.  FileId consists of an assets guid and hash code.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.FileDownloadItem.Type">
+            <summary>
+            The type of the FileDownloadItems desired item.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Build.CacheServer.FileDownloadItem.FilePath">
+            <summary>
+            File path where downloaded file data is saved. Data is first written to a temporary file location, and moved
+            into place when the Finish() method is called by the Cache Server Client.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileDownloadItem.GetWriteStream(System.Int64)">
+            <summary>
+            Gets the write stream for a given FileDownloadItem.  If one does not exist, it will be created.
+            </summary>
+            <param name="size"></param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileDownloadItem.#ctor(UnityEditor.Build.CacheServer.FileId,UnityEditor.Build.CacheServer.FileType,System.String)">
+            <summary>
+            Create a new FileDownloadItem
+            </summary>
+            <param name="fileId">The FileId of the desired item.</param>
+            <param name="fileType">The FileType of the desired item.</param>
+            <param name="path">The path of the desired item.</param>
+        </member>
+        <member name="M:UnityEditor.Build.CacheServer.FileDownloadItem.Finish">
+            <summary>
+            Dispose the FileDownloadItems write stream and move the data from the temporary path to its final destination.
+            </summary>
+        </member>
+    </members>
+</doc>

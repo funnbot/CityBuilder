@@ -1,0 +1,1281 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnityEngine.TestRunner</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEngine.TestTools.Utils.Vector3ComparerWithEqualsOperator">
+            <summary>
+            Use these classes to compare two objects of the same type for equality within the range of a given tolerance using NUnit or custom constraints . Call Instance to apply the default calculation error value to the comparison.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector3ComparerWithEqualsOperator.Instance">
+            <summary>
+            A singleton instance of the comparer with a predefined default error value.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector3ComparerWithEqualsOperator.Equals(UnityEngine.Vector3,UnityEngine.Vector3)">
+             <summary>
+             Compares the actual and expected objects for equality using a custom comparison mechanism.
+             </summary>
+             <param name="expected">Expected Vector3 used to compare</param>
+             <param name="actual">Actual Vector3 value to test.</param>
+             <returns>Returns true if expected and actual objects are equal, otherwise it returns false.</returns>
+             <example>
+             <code>
+             [TestFixture]
+             public class Vector3Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector3ObjectsAreEqual()
+                 {
+                     var actual = new Vector2(10e-7f, 10e-7f, 10e-7f);
+                     var expected = new Vector2(0f, 0f, 0f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(Vector3ComparerWithEqualsOperator.Instance));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector3ComparerWithEqualsOperator.GetHashCode(UnityEngine.Vector3)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec3"> A not null Vector3 object</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.ColorEqualityComparer">
+            <summary>
+            Use this class to compare two Color objects. ColorEqualityComparer.Instance has default calculation error value set to 0.01f. To set a test specific error value instantiate a comparer instance using the one argument constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.ColorEqualityComparer.Instance">
+             <summary>
+            A singleton instance of the comparer with a default error value set to 0.01f.
+             </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.ColorEqualityComparer.#ctor(System.Single)">
+            <summary>
+            Creates an instance of the comparer with a custom error value.
+            </summary>
+            <param name="error">The custom error value.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.ColorEqualityComparer.Equals(UnityEngine.Color,UnityEngine.Color)">
+             <summary>
+             Compares the actual and expected Color objects for equality using <see cref="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqualAbsoluteError(System.Single,System.Single,System.Single)"/> to compare the RGB and Alpha attributes of Color. Returns true if expected and actual objects are equal otherwise, it returns false.
+             </summary>
+             <param name="expected">The expected Color value used to compare.</param>
+             <param name="actual">The actual Color value to test.</param>
+             <returns>True if actual and expected are equal, false otherwise</returns>
+             <example>
+            <code>
+             [TestFixture]
+             public class ColorEqualityTest
+             {
+                 [Test]
+                 public void GivenColorsAreEqual_WithAllowedCalculationError()
+                 {
+                     // Using default error
+                     var firstColor = new Color(0f, 0f, 0f, 0f);
+                     var secondColor = new Color(0f, 0f, 0f, 0f);
+            
+                     Assert.That(firstColor, Is.EqualTo(secondColor).Using(ColorEqualityComparer.Instance));
+            
+                     // Allowed error 10e-5f
+                     var comparer = new ColorEqualityComparer(10e-5f);
+                     firstColor = new Color(0f, 0f, 0f, 1f);
+                     secondColor = new Color(10e-6f, 0f, 0f, 1f);
+            
+                     Assert.That(firstColor, Is.EqualTo(secondColor).Using(comparer));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.ColorEqualityComparer.GetHashCode(UnityEngine.Color)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="color">A not null Color object.</param>
+            <returns>Returns 0.</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Vector2ComparerWithEqualsOperator">
+            <summary>
+            Use these classes to compare two objects of the same type for equality within the range of a given tolerance using NUnit or custom constraints . Call Instance to apply the default calculation error value to the comparison.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector2ComparerWithEqualsOperator.Instance">
+            <summary>
+            A singleton instance of the comparer with a predefined default error value.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector2ComparerWithEqualsOperator.Equals(UnityEngine.Vector2,UnityEngine.Vector2)">
+             <summary>
+             Compares the actual and expected objects for equality using a custom comparison mechanism.
+             </summary>
+             <param name="expected">Expected Vector2 used to compare</param>
+             <param name="actual">Actual Vector2 value to test.</param>
+             <returns>Returns true if expected and actual objects are equal, otherwise it returns false.</returns>
+             <example>
+             <code>
+             [TestFixture]
+             public class Vector2Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector2ObjectsAreEqual()
+                 {
+                     var actual = new Vector2(10e-7f, 10e-7f);
+                     var expected = new Vector2(0f, 0f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(Vector2ComparerWithEqualsOperator.Instance));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector2ComparerWithEqualsOperator.GetHashCode(UnityEngine.Vector2)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec2"> A not null Vector2 object</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Vector3EqualityComparer">
+            <summary>
+            Use this class to compare two Vector3 objects for equality with NUnit constraints. Call Vector3EqualityComparer.Instance comparer to perform a comparison with the default calculation error value 0.0001f. To specify a different error value, use the one argument constructor to instantiate a new comparer.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector3EqualityComparer.Instance">
+             <summary>
+             A comparer instance with the default calculation error value equal to 0.0001f.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector3EqualityComparer.#ctor(System.Single)">
+            <summary>
+            Initializes an instance of Vector3Equality comparer with custom allowed calculation error.
+            </summary>
+            <param name="allowedError">This value identifies the calculation error allowed.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector3EqualityComparer.Equals(UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+             Compares the actual and expected Vector3 objects
+             for equality using <see cref="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqual(System.Single,System.Single,System.Single)"/> to compare the x, y, and z attributes of Vector3.
+             </summary>
+             <param name="expected">The expected Vector3 used for comparison</param>
+             <param name="actual">The actual Vector3 to test</param>
+             <returns>True if the vectors are equals, false otherwise.</returns>
+             <example>
+             The following example shows how to verify if two Vector3 are equals
+             <code>
+             [TestFixture]
+             public class Vector3Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector3ObjectsAreEqual()
+                 {
+                 //Custom error 10e-6f
+                 var actual = new Vector3(10e-8f, 10e-8f, 10e-8f);
+                 var expected = new Vector3(0f, 0f, 0f);
+                 var comparer = new Vector3EqualityComparer(10e-6f);
+            
+            
+                 Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+            
+                 //Default error 0.0001f
+                 actual = new Vector3(0.01f, 0.01f, 0f);
+                 expected = new Vector3(0.01f, 0.01f, 0f);
+            
+                 Assert.That(actual, Is.EqualTo(expected).Using(Vector3EqualityComparer.Instance));
+                 }
+             }
+             </code>
+            </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector3EqualityComparer.GetHashCode(UnityEngine.Vector3)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec3">A not null Vector3</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Vector2EqualityComparer">
+            <summary>
+            Use this class to compare two Vector2 objects for
+            equality with NUnit constraints. Use the static
+            <see cref="P:UnityEngine.TestTools.Utils.Vector2EqualityComparer.Instance"/>
+            to have the calculation error value set to default 0.0001f.
+            For any other error value, instantiate a new comparer
+            object with the one argument constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector2EqualityComparer.Instance">
+             <summary>
+             A comparer instance with the default error value set to 0.0001f.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector2EqualityComparer.#ctor(System.Single)">
+            <summary>
+            Initializes an instance of Vector2Equality comparer with custom allowed calculation error.
+            </summary>
+            <param name="error">This value identifies the calculation error allowed.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector2EqualityComparer.Equals(UnityEngine.Vector2,UnityEngine.Vector2)">
+             <summary>
+             Compares the actual and expected Vector2 objects for equality using the <see cref="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqual(System.Single,System.Single,System.Single)"/> method.
+             </summary>
+             <param name="expected">The expected Vector2 used for comparison</param>
+             <param name="actual">The actual Vector2 to test</param>
+             <returns>True if the vectors are equals, false otherwise.</returns>
+             <example>
+             The following example shows how to verify if two Vector2 are equals
+            <code>
+            [TestFixture]
+             public class Vector2Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector2ObjectsAreEqual()
+                 {
+                     // Custom calculation error
+                     var actual = new Vector2(10e-7f, 10e-7f);
+                     var expected = new Vector2(0f, 0f);
+                     var comparer = new Vector2EqualityComparer(10e-6f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+            
+                     //Default error 0.0001f
+                     actual = new Vector2(0.01f, 0.01f);
+                     expected = new Vector2(0.01f, 0.01f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(Vector2EqualityComparer.Instance));
+                  }
+              }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector2EqualityComparer.GetHashCode(UnityEngine.Vector2)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec2">A not null Vector2</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Vector4EqualityComparer">
+            <summary>
+            Use this class to compare two Vector4 objects for equality with NUnit constraints. Call Vector4EqualityComparer.Instance to perform comparisons using default calculation error value 0.0001f. To set a custom test value, instantiate a new comparer using the one argument constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector4EqualityComparer.Instance">
+            <summary>
+            A comparer instance with the default calculation error value set to 0.0001f.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector4EqualityComparer.#ctor(System.Single)">
+            <summary>
+            Initializes an instance of Vector4Equality comparer with custom allowed calculation error.
+            </summary>
+            <param name="allowedError">This value identifies the calculation error allowed.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector4EqualityComparer.Equals(UnityEngine.Vector4,UnityEngine.Vector4)">
+             <summary>
+             Compares the actual and expected Vector4 objects for equality using <see cref="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqual(System.Single,System.Single,System.Single)"/> to compare the x, y, z, and w attributes of Vector4.
+             </summary>
+             <param name="expected">The expected Vector4 used for comparison</param>
+             <param name="actual">The actual Vector4 to test</param>
+             <returns>True if the vectors are equals, false otherwise.</returns>
+             <example>
+             <code>
+            [TestFixture]
+             public class Vector4Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector4ObjectsAreEqual()
+                 {
+                     // Custom error 10e-6f
+                     var actual = new Vector4(0, 0, 1e-6f, 1e-6f);
+                     var expected = new Vector4(1e-6f, 0f, 0f, 0f);
+                     var comparer = new Vector4EqualityComparer(10e-6f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+            
+                     // Default error 0.0001f
+                     actual = new Vector4(0.01f, 0.01f, 0f, 0f);
+                     expected = new Vector4(0.01f, 0.01f, 0f, 0f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(Vector4EqualityComparer.Instance));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector4EqualityComparer.GetHashCode(UnityEngine.Vector4)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec4"> A not null Vector4 object</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.FloatEqualityComparer">
+            <summary>
+            Use this class to compare two float values for equality with NUnit constraints. Use FloatEqualityComparer.Instance comparer to have the default error value set to 0.0001f. For any other error, use the one argument constructor to create a comparer.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.FloatEqualityComparer.Instance">
+             <summary>
+            A singleton instance of the comparer with a default error value set to 0.0001f.
+             </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.FloatEqualityComparer.#ctor(System.Single)">
+            <summary>
+            Initializes an instance of a FloatEqualityComparer with a custom error value instead of the default 0.0001f.
+            </summary>
+            <param name="allowedError">The custom error value</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.FloatEqualityComparer.Equals(System.Single,System.Single)">
+             <summary>
+             Compares the actual and expected float values for equality using <see cref="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqual(System.Single,System.Single,System.Single)"/>.
+             </summary>
+             <param name="expected">The expected float value used to compare.</param>
+             <param name="actual">The actual float value to test.</param>
+             <returns>True if the values are equals, false otherwise.</returns>
+             <example>
+             <code>
+             [TestFixture]
+             public class FloatsTest
+            {
+                [Test]
+                public void VerifyThat_TwoFloatsAreEqual()
+                {
+                    var comparer = new FloatEqualityComparer(10e-6f);
+                    var actual = -0.00009f;
+                    var expected = 0.00009f;
+            
+                    Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+            
+                    // Default relative error 0.0001f
+                    actual = 10e-8f;
+                    expected = 0f;
+            
+                    Assert.That(actual, Is.EqualTo(expected).Using(FloatEqualityComparer.Instance));
+                }
+            }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.FloatEqualityComparer.GetHashCode(System.Single)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="value">A not null float number.</param>
+            <returns>Returns 0.</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Vector4ComparerWithEqualsOperator">
+            <summary>
+            Use these classes to compare two objects of the same type for equality within the range of a given tolerance using NUnit or custom constraints . Call Instance to apply the default calculation error value to the comparison.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.Vector4ComparerWithEqualsOperator.Instance">
+            <summary>
+            A singleton instance of the comparer with a predefined default error value.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector4ComparerWithEqualsOperator.Equals(UnityEngine.Vector4,UnityEngine.Vector4)">
+             <summary>
+             Compares the actual and expected objects for equality using a custom comparison mechanism.
+             </summary>
+             <param name="expected">Expected Vector4 used to compare</param>
+             <param name="actual">Actual Vector4 value to test.</param>
+             <returns>Returns true if expected and actual objects are equal, otherwise it returns false.</returns>
+             <example>
+             <code>
+             [TestFixture]
+             public class Vector4Test
+             {
+                 [Test]
+                 public void VerifyThat_TwoVector4ObjectsAreEqual()
+                 {
+                     var actual = new Vector4(10e-7f, 10e-7f, 10e-7f, 10e-7f);
+                     var expected = new Vector4(0f, 0f, 0f, 0f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(Vector4ComparerWithEqualsOperator.Instance));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Vector4ComparerWithEqualsOperator.GetHashCode(UnityEngine.Vector4)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="vec4"> A not null Vector4 object</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.QuaternionEqualityComparer">
+            <summary>
+            Use this utility to compare two Quaternion objects for equality
+            with NUnit assertion constraints.
+            Use the static instance QuaternionEqualityComparer.Instance
+            to have the default calculation error value set to 0.00001f.
+            For any other custom error value, use the one argument constructor.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.Utils.QuaternionEqualityComparer.Instance">
+             <summary>
+            A comparer instance with the default error value 0.00001f.
+             </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.QuaternionEqualityComparer.#ctor(System.Single)">
+            <summary>
+            Creates an instance of the comparer with a custom allowed error value.
+            </summary>
+            <param name="allowedError">Describes the custom allowed error value</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.QuaternionEqualityComparer.Equals(UnityEngine.Quaternion,UnityEngine.Quaternion)">
+             <summary>
+             Compares the actual and expected Quaternion objects
+             for equality using the <see cref="M:UnityEngine.Quaternion.Dot(UnityEngine.Quaternion,UnityEngine.Quaternion)"/> method.
+             </summary>
+             <param name="expected">Expected Quaternion value used for comparison</param>
+             <param name="actual">Actual Quaternion value to test</param>
+             <returns>True if the quaternion are equals, false otherwise.</returns>
+             <example>
+             The following example shows how to verify if two Quaternion are equals
+             <code>
+             [TestFixture]
+             public class QuaternionTest
+             {
+                 [Test]
+                 public void VerifyThat_TwoQuaternionsAreEqual()
+                 {
+                     var actual = new Quaternion(10f, 0f, 0f, 0f);
+                     var expected = new Quaternion(1f, 10f, 0f, 0f);
+                     var comparer = new QuaternionEqualityComparer(10e-6f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(comparer));
+            
+                     //Using default error 0.00001f
+                     actual = new Quaternion(10f, 0f, 0.1f, 0f);
+                     expected = new Quaternion(1f, 10f, 0.1f, 0f);
+            
+                     Assert.That(actual, Is.EqualTo(expected).Using(QuaternionEqualityComparer.Instance));
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.QuaternionEqualityComparer.GetHashCode(UnityEngine.Quaternion)">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <param name="quaternion">A not null Quaternion</param>
+            <returns>Returns 0</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Utils.Utils">
+            <summary>
+            This contains test utility functions for float value comparison and creating primitives.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqual(System.Single,System.Single,System.Single)">
+             <summary>
+             Relative epsilon comparison of two float values for equality.
+             The relative error is the absolute error divided by the magnitude of the exact value.
+             </summary>
+             <param name="expected">The expected float value used to compare.</param>
+             <param name="actual">The actual float value to test.</param>
+             <param name="epsilon"> Epsilon is the relative error to be used in relative epsilon comparison.</param>
+             <returns>Returns true if the actual value is equivalent to the expected value.</returns>
+             <example>
+             <code>
+             [TestFixture]
+             class UtilsTests
+             {
+                 [Test]
+                 public void CheckThat_FloatsAreEqual()
+                 {
+                     float expected = 10e-8f;
+                     float actual = 0f;
+                     float allowedRelativeError = 10e-6f;
+            
+                     Assert.That(Utils.AreFloatsEqual(expected, actual, allowedRelativeError), Is.True);
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Utils.AreFloatsEqualAbsoluteError(System.Single,System.Single,System.Single)">
+             <summary>
+             Compares two floating point numbers for equality under the given absolute tolerance.
+             </summary>
+             <param name="expected">The expected float value used to compare.</param>
+             <param name="actual">The actual float value to test.</param>
+             <param name="allowedAbsoluteError">AllowedAbsoluteError is the permitted error tolerance.</param>
+             <returns> Returns true if the actual value is equivalent to the expected value under the given tolerance.
+             </returns>
+             <example>
+             <code>
+             [TestFixture]
+             class UtilsTests
+             {
+                 [Test]
+                 public void CheckThat_FloatsAreAbsoluteEqual()
+                 {
+                     float expected = 0f;
+                     float actual = 10e-6f;
+                     float error = 10e-5f;
+            
+                     Assert.That(Utils.AreFloatsEqualAbsoluteError(expected, actual, error), Is.True);
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Utils.Utils.CreatePrimitive(UnityEngine.PrimitiveType)">
+            <summary>
+            Analogous to GameObject.CreatePrimitive, but creates a primitive mesh renderer with fast shader instead of a default builtin shader.
+            Optimized for testing performance.
+            </summary>
+            <returns>A GameObject with primitive mesh renderer and collider.</returns>
+            <param name="type">The type of primitive object to create.</param>
+        </member>
+        <member name="T:UnityEngine.TestTools.UnityPlatformAttribute">
+             <summary>
+             Use this attribute to define a specific set of platforms you want or do not want your test(s) to run on.
+            
+             You can use this attribute on the test method, test class, or test assembly level. Use the supported <see cref="T:UnityEngine.RuntimePlatform"/> enumeration values to specify the platforms. You can also specify which platforms to test by passing one or more `RuntimePlatform` values along with or without the include or exclude properties as parameters to the [Platform](https://github.com/nunit/docs/wiki/Platform-Attribute) attribute constructor.
+            
+             The test(s) skips if the current target platform is:
+             - Not explicitly specified in the included platforms list
+             - In the excluded platforms list
+             </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.UnityPlatformAttribute.include">
+            <summary>
+            A subset of platforms you need to have your tests run on.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.UnityPlatformAttribute.exclude">
+            <summary>
+            List the platforms you do not want to have your tests run on.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityPlatformAttribute.#ctor">
+            <summary>
+            Constructs a new instance of the <see cref="T:UnityEngine.TestTools.UnityPlatformAttribute"/> class.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityPlatformAttribute.#ctor(UnityEngine.RuntimePlatform[])">
+            <summary>
+            Constructs a new instance of the <see cref="T:UnityEngine.TestTools.UnityPlatformAttribute"/> class with a list of platforms to include.
+            </summary>
+            <param name="include">The different <see cref="T:UnityEngine.RuntimePlatform"/> to run the test on.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityPlatformAttribute.ApplyToTest(NUnit.Framework.Internal.Test)">
+            <summary>
+            Modifies a test as defined for the specific attribute.
+            </summary>
+            <param name="test">The test to modify</param>
+        </member>
+        <member name="T:UnityEngine.TestTools.PrebuildSetupAttribute">
+            <summary>
+            PrebuildSetup attribute run if the test or test class is in the current test run. The test is included either by running all tests or setting a filter that includes the test. If multiple tests reference the same pre-built setup or post-build cleanup, then it only runs once.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.PrebuildSetupAttribute.#ctor(System.Type)">
+            <summary>
+             Initializes and returns an instance of PrebuildSetupAttribute by type.
+            </summary>
+            <param name="targetClass">The type of the target class.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.PrebuildSetupAttribute.#ctor(System.String)">
+             <summary>
+            
+             </summary>
+             <param name="targetClassName"></param>
+             <example>
+             <code>
+             [TestFixture]
+             public class CreateSpriteTest : IPrebuildSetup
+             {
+                 Texture2D m_Texture;
+                 Sprite m_Sprite;
+            
+                 public void Setup()
+                 {
+            
+                     #if UNITY_EDITOR
+            
+                     var spritePath = "Assets/Resources/Circle.png";
+                     var ti = UnityEditor.AssetImporter.GetAtPath(spritePath) as UnityEditor.TextureImporter;
+                     ti.textureCompression = UnityEditor.TextureImporterCompression.Uncompressed;
+                     ti.SaveAndReimport();
+            
+                     #endif
+                 }
+            
+                 [SetUp]
+                 public void SetUpTest()
+                 {
+                     m_Texture = Resources.Load&lt;Texture2D&gt;("Circle");
+                 }
+            
+                 [Test]
+                 public void WhenNullTextureIsPassed_CreateShouldReturnNullSprite()
+                 {
+            
+                     // Check with Valid Texture.
+                     LogAssert.Expect(LogType.Log, "Circle Sprite Created");
+                     Sprite.Create(m_Texture, new Rect(0, 0, m_Texture.width, m_Texture.height), new Vector2(0.5f, 0.5f));
+                     Debug.Log("Circle Sprite Created");
+            
+                     // Check with NULL Texture. Should return NULL Sprite.
+                     m_Sprite = Sprite.Create(null, new Rect(0, 0, m_Texture.width, m_Texture.heig`t), new Vector2(0.5f, 0.5f));
+                     Assert.That(m_Sprite, Is.Null, "Sprite created with null texture should be null");
+                 }
+             }
+             </code>
+             Tip: Use `#if UNITY_EDITOR` if you want to access Editor only APIs, but the setup/cleanup is inside a **Play Mode** assembly.
+             </example>
+        </member>
+        <member name="T:UnityEngine.TestTools.TestMustExpectAllLogsAttribute">
+             <summary>
+             The presence of this attribute will cause the test runner to require that every single log is expected. By
+             default, the runner will only automatically fail on any error logs, so this adds warnings and infos as well.
+             It is the same as calling `LogAssert.NoUnexpectedReceived()` at the bottom of every affected test.
+            
+             This attribute can be applied to test assemblies (will affect every test in the assembly), fixtures (will
+             affect every test in the fixture), or on individual test methods. It is also automatically inherited from base
+             fixtures.
+            
+             The MustExpect property (on by default) lets you selectively enable or disable the higher level value. For
+             example when migrating an assembly to this more strict checking method, you might attach
+             `[assembly:TestMustExpectAllLogs]` to the assembly itself, but then whitelist failing fixtures and test methods
+             with `[TestMustExpectAllLogs(MustExpect=false)]` until they can be migrated. This also means new tests in that
+             assembly would be required to have the more strict checking. 
+             </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.TestMustExpectAllLogsAttribute.#ctor(System.Boolean)">
+            <summary>
+            Initializes and returns an instance of TestMustExpectAllLogsAttribute.
+            </summary>
+            <param name="mustExpect">
+            A value indicating whether the test must expect all logs.
+            </param>
+        </member>
+        <member name="P:UnityEngine.TestTools.TestMustExpectAllLogsAttribute.MustExpect">
+            <summary>
+            Returns the flag of whether the test must expect all logs.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.Constraints.AllocatingGCMemoryConstraint">
+             <summary>
+             An NUnit test constraint class to test whether a given block of code makes any GC allocations.
+             
+             Use this class with NUnit's Assert.That() method to make assertions about the GC behaviour of your code. The constraint executes the delegate you provide, and checks if it has caused any GC memory to be allocated. If any GC memory was allocated, the constraint passes; otherwise, the constraint fails.
+            
+             Usually you negate this constraint to make sure that your delegate does not allocate any GC memory. This is easy to do using the Is class:
+             </summary>
+             <example>
+             <code>
+             using NUnit.Framework;
+             using UnityEngine.TestTools.Constraints;
+             using Is = UnityEngine.TestTools.Constraints.Is;
+             
+             public class MyTestClass
+             {
+                 [Test]
+                 public void SettingAVariableDoesNotAllocate()
+                 {
+                     Assert.That(() => {
+                         int a = 0;
+                         a = 1;
+                     }, Is.Not.AllocatingGCMemory());
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.Constraints.AllocatingGCMemoryConstraint.ApplyTo(System.Object)">
+            <summary>
+            Applies GC memory constraint to the test.
+            </summary>
+            <param name="obj">An object to apply the GC constraint to. Should be a <see cref="T:NUnit.Framework.TestDelegate"/>.</param>
+            <returns>A ConstraintResult</returns>
+            <exception cref="T:System.ArgumentNullException">Throws a <see cref="T:System.ArgumentNullException"/> if the provided object is null.</exception>
+            <exception cref="T:System.ArgumentException">Throws a <see cref="T:System.ArgumentException"/> if the provided object is not a <see cref="T:NUnit.Framework.TestDelegate"/>.</exception>
+        </member>
+        <member name="M:UnityEngine.TestTools.Constraints.AllocatingGCMemoryConstraint.ApplyTo``1(NUnit.Framework.Constraints.ActualValueDelegate{``0})">
+            <summary>
+            Test whether the constraint is satisfied by a given reference.
+            The default implementation simply dereferences the value but
+            derived classes may override it to provide for delayed processing.
+            </summary>
+            <typeparam name="TActual">The type of the actual value delegate to be tested.</typeparam>
+            <param name="del">A reference to the value delegate to be tested</param>
+            <returns>A ConstraintResult</returns>
+            <exception cref="T:System.ArgumentNullException">Throws a <see cref="T:System.ArgumentNullException"/> if the provided delegate is null.</exception>
+        </member>
+        <member name="P:UnityEngine.TestTools.Constraints.AllocatingGCMemoryConstraint.Description">
+            <summary>
+            The Description of what this constraint tests, for to use in messages and in the ConstraintResult.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.Constraints.ConstraintExtensions">
+            <summary>
+            An NUnit test constraint class to test whether a given block of code makes any GC allocations.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Constraints.ConstraintExtensions.AllocatingGCMemory(NUnit.Framework.Constraints.ConstraintExpression)">
+            <summary>
+            Use this with NUnit's Assert.That() method to make assertions about the GC behaviour of your code. The constraint executes the delegate you provide, and checks if it caused any GC memory to be allocated. If any GC memory was allocated, the constraint passes; otherwise, the constraint fails.
+            See https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/api/UnityEngine.TestTools.Constraints.AllocatingGCMemoryConstraint.html for an example.
+            </summary>
+            <param name="chain"></param>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.Constraints.Is">
+            <summary>
+            Extension of the `Is` class in NUnit.Framework, see [Is](https://docs.microsoft.com/en-us/dotnet/api/nunit.framework.is?view=xamarin-ios-sdk-12). 
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.Constraints.Is.AllocatingGCMemory">
+            <summary>
+            Creates a new instance of `AllocatingGCMemoryConstraint`.
+            </summary>
+            <returns>A new AllocatingGCMemoryConstraint object.</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.ConditionalIgnoreAttribute">
+            <summary>
+            This attribute is an alternative to the standard `Ignore` attribute in [NUnit](https://nunit.org/). It allows for ignoring tests only under a specified condition. The condition evaluates during `OnLoad`, referenced by ID.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.ConditionalIgnoreAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:UnityEngine.TestTools.ConditionalIgnoreAttribute"/> class with a condition key.
+            </summary>
+            <param name="conditionKey">The key to check for enabling the conditional ignore. The condition is set with the static <see cref="M:UnityEngine.TestTools.ConditionalIgnoreAttribute.AddConditionalIgnoreMapping(System.String,System.Boolean)"/> method.</param>
+            <param name="ignoreReason">The reason for the ignore.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.ConditionalIgnoreAttribute.ApplyToTest(NUnit.Framework.Internal.Test)">
+            <summary>
+            Modifies a test as defined for the specific attribute.
+            </summary>
+            <param name="test">The test to modify</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.ConditionalIgnoreAttribute.AddConditionalIgnoreMapping(System.String,System.Boolean)">
+             <summary>
+             Adds a flag indicating whether tests with the same key should be ignored.
+             </summary>
+             <param name="key">The key to ignore tests for.</param>
+             <param name="value">A boolean value indicating whether the tests should be ignored.</param>
+             <example>
+             An example in which tests are ignored in the Mac editor only.
+             <code>
+             using UnityEditor;
+             using NUnit.Framework;
+             using UnityEngine.TestTools;
+            
+             [InitializeOnLoad]
+             public class OnLoad
+             {
+                 static OnLoad()
+                 {
+                     var editorIsOSX = false;
+                     #if UNITY_EDITOR_OSX
+                     editorIsOSX = true;
+                     #endif
+            
+                     ConditionalIgnoreAttribute.AddConditionalIgnoreMapping("IgnoreInMacEditor", editorIsOSX);
+                 }
+             }
+            
+             public class MyTestClass
+             {
+                 [Test, ConditionalIgnore("IgnoreInMacEditor", "Ignored on Mac editor.")]
+                 public void TestNeverRunningInMacEditor()
+                 {
+                     Assert.Pass();
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="T:UnityEngine.TestTools.NUnitExtensions.ActionDelegator">
+            <summary>
+            This class delegates actions from the NUnit thread that should be executed on the main thread.
+            NUnit thread calls Delegate which blocks the execution on the thread until the action is executed.
+            The main thread will poll for awaiting actions (HasAction) and invoke them (Execute).
+            Once the action is executed, the main thread releases the lock and executino on the NUnit thread is continued.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.NUnitExtensions.ConstructDelegator">
+            <summary>
+            Specialization of BaseDelegator that makes sure objects are created on the MainThread.
+            It also deals with ScriptableObjects so that tests can survive assembly reload.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.TestPlatform">
+            <summary>
+            A flag indicating the targeted test platforms.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.TestTools.TestPlatform.All">
+            <summary>
+            Both platforms.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.TestTools.TestPlatform.EditMode">
+            <summary>
+            The EditMode test platform.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.TestTools.TestPlatform.PlayMode">
+            <summary>
+            The PlayMode test platform.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.IEditModeTestYieldInstruction">
+            <summary>
+            In an Edit Mode test, you can use `IEditModeTestYieldInstruction` interface to implement your own instruction. There are also a couple of commonly used implementations available:
+            - [EnterPlayMore](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/api/UnityEngine.TestTools.EnterPlayMode.html)
+            - <see cref = "!:ExitPlayMode"/> 
+            - <see cref = "!:RecompileScripts"/> 
+            - <see cref = "!:WaitForDomainReload"/> 
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.IEditModeTestYieldInstruction.ExpectDomainReload">
+            <summary>
+            Whether or not the instruction expects a domain reload to occur.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.IEditModeTestYieldInstruction.ExpectedPlaymodeState">
+            <summary>
+            Whether or not the instruction expects the Unity Editor to be in **Play Mode**.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.IEditModeTestYieldInstruction.Perform">
+            <summary>
+             Used to define multi-frame operations performed when instantiating a yield instruction.
+            </summary>
+            <returns>Enumerable collection of operations to perform.</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.UnitySetUpAttribute">
+             <summary>
+             The `UnitySetUp` and <see cref="T:UnityEngine.TestTools.UnityTearDownAttribute"/> attributes are identical to the standard `SetUp` and `TearDown` attributes, with the exception that they allow for <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/>. The `UnitySetUp` and `UnityTearDown` attributes expect a return type of [IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/system.collections.ienumerator?view=netframework-4.8).
+             <example>
+             <code>
+            public class SetUpTearDownExample
+             {
+                 [UnitySetUp]
+                 public IEnumerator SetUp()
+                 {
+                     yield return new EnterPlayMode();
+                 }
+            
+                 [Test]
+                 public void MyTest()
+                 {
+                     Debug.Log("This runs inside playmode");
+                 }
+            
+                 [UnityTearDown]
+                 public IEnumerator TearDown()
+                 {
+                     yield return new ExitPlayMode();
+                 }
+             }
+             </code>
+             </example>
+             </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.PostBuildCleanupAttribute">
+            <summary>
+            PostBuildCleanup attributes run if the respective test or test class is in the current test run. The test is included either by running all tests or setting a [filter](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/workflow-create-test.html#filters) that includes the test. If multiple tests reference the same pre-built setup or post-build cleanup, then it only runs once.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.PostBuildCleanupAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes and returns an instance of PostBuildCleanupAttribute by type.
+            </summary>
+            <param name="targetClass">The type of the target class.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.PostBuildCleanupAttribute.#ctor(System.String)">
+            <summary>
+            Initializes and returns an instance of PostBuildCleanupAttribute by class name.
+            </summary>
+            <param name="targetClassName">The name of the target class.</param>
+        </member>
+        <member name="T:UnityEngine.TestTools.IPrebuildSetup">
+            <summary>
+            Implement this interface if you want to define a set of actions to run as a pre-build step.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.IPrebuildSetup.Setup">
+             <summary>
+             Implement this method to call actions automatically before the build process.
+             </summary>
+             <example>
+             <code>
+             [TestFixture]
+             public class CreateSpriteTest : IPrebuildSetup
+             {
+                 Texture2D m_Texture;
+                 Sprite m_Sprite;
+            
+                 public void Setup()
+                 {
+                     #if UNITY_EDITOR
+                     var spritePath = "Assets/Resources/Circle.png";
+            
+                     var ti = UnityEditor.AssetImporter.GetAtPath(spritePath) as UnityEditor.TextureImporter;
+            
+                     ti.textureCompression = UnityEditor.TextureImporterCompression.Uncompressed;
+            
+                     ti.SaveAndReimport();
+                     #endif
+                 }
+            
+                 [SetUp]
+                 public void SetUpTest()
+                 {
+                     m_Texture = Resources.Load&lt;Texture2D&gt;("Circle");
+                 }
+            
+                 [Test]
+                 public void WhenNullTextureIsPassed_CreateShouldReturnNullSprite()
+                 {
+                     // Check with Valid Texture.
+            
+                     LogAssert.Expect(LogType.Log, "Circle Sprite Created");
+            
+                     Sprite.Create(m_Texture, new Rect(0, 0, m_Texture.width, m_Texture.height), new Vector2(0.5f, 0.5f));
+            
+                     Debug.Log("Circle Sprite Created");
+            
+                     // Check with NULL Texture. Should return NULL Sprite.
+                     m_Sprite = Sprite.Create(null, new Rect(0, 0, m_Texture.width, m_Texture.height), new Vector2(0.5f, 0.5f));
+            
+                     Assert.That(m_Sprite, Is.Null, "Sprite created with null texture should be null");
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="T:UnityEngine.TestTools.UnityTearDownAttribute">
+             <summary>
+             The <see cref="T:UnityEngine.TestTools.UnitySetUpAttribute"/> and `UnityTearDown` attributes are identical to the standard `SetUp` and `TearDown` attributes, with the exception that they allow for <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/>. The `UnitySetUp` and `UnityTearDown` attributes expect a return type of [IEnumerator](https://docs.microsoft.com/en-us/dotnet/api/system.collections.ienumerator?view=netframework-4.8).
+             <example>
+             <code>
+            public class SetUpTearDownExample
+             {
+                 [UnitySetUp]
+                 public IEnumerator SetUp()
+                 {
+                     yield return new EnterPlayMode();
+                 }
+            
+                 [Test]
+                 public void MyTest()
+                 {
+                     Debug.Log("This runs inside playmode");
+                 }
+            
+                 [UnityTearDown]
+                 public IEnumerator TearDown()
+                 {
+                     yield return new ExitPlayMode();
+                 }
+             }
+             </code>
+             </example>
+             </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.IOuterUnityTestAction">
+            <summary>
+            When implemented by an attribute, this interface implemented to provide actions to execute before setup and after teardown of tests.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.IOuterUnityTestAction.BeforeTest(NUnit.Framework.Interfaces.ITest)">
+            <summary>Executed before each test is run</summary>
+            <param name="test">The test that is going to be run.</param>
+            <returns>Enumerable collection of actions to perform before test setup.</returns>
+        </member>
+        <member name="M:UnityEngine.TestTools.IOuterUnityTestAction.AfterTest(NUnit.Framework.Interfaces.ITest)">
+            <summary>Executed after each test is run</summary>
+            <param name="test">The test that has just been run.</param>
+            <returns>Enumerable collection of actions to perform after test teardown.</returns>
+        </member>
+        <member name="T:UnityEngine.TestTools.IMonoBehaviourTest">
+            <summary>
+            An interface implemented by a MonoBehaviour test.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.IMonoBehaviourTest.IsTestFinished">
+            <summary>True when the test is considered finished.</summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.MonoBehaviourTest`1">
+            <summary>
+            This is a wrapper that allows running tests on MonoBehaviour scripts. Inherits from <see cref="T:UnityEngine.CustomYieldInstruction"/>.
+            </summary>
+            <typeparam name="T">A MonoBehaviour component created for the test and attached to the tests [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html).</typeparam>
+        </member>
+        <member name="P:UnityEngine.TestTools.MonoBehaviourTest`1.component">
+            <summary>A MonoBehaviour component created for the test and attached to the tests [GameObject](https://docs.unity3d.com/ScriptReference/GameObject.html).</summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.MonoBehaviourTest`1.gameObject">
+            <summary>
+            A `GameObject` created as a container for the test component.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.MonoBehaviourTest`1.#ctor(System.Boolean)">
+             <summary>
+             `MonoBehaviourTest` is a [coroutine](https://docs.unity3d.com/ScriptReference/Coroutine.html) and a helper for writing MonoBehaviour tests.
+             Yield a `MonoBehaviour`Test when using the `UnityTest` attribute to instantiate the `MonoBehaviour` you wish to test and wait for it to finish running. Implement the `IMonoBehaviourTest` interface on the `MonoBehaviour` to state when the test completes.
+             </summary>
+             <param name="dontDestroyOnLoad"></param>
+             <example>
+             <code>
+             [UnityTest]
+             public IEnumerator MonoBehaviourTest_Works()
+             {
+                 yield return new MonoBehaviourTest&lt;MyMonoBehaviourTest&gt;();
+             }
+            
+             public class MyMonoBehaviourTest : MonoBehaviour, IMonoBehaviourTest
+             {
+                 private int frameCount;
+                 public bool IsTestFinished
+                 {
+                     get { return frameCount &gt; 10; }
+                 }
+            
+                 void Update()
+                 {
+                     frameCount++;
+                 }
+             }
+             </code>
+             </example>
+        </member>
+        <member name="P:UnityEngine.TestTools.MonoBehaviourTest`1.keepWaiting">
+            <summary>
+            (Inherited) Returns `true`` if the test is not finished yet, which keeps the coroutine suspended
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.IPostBuildCleanup">
+            <summary>
+            Implement this interface if you want to define a set of actions to execute as a post-build step. Cleanup runs right away for a standalone test run, but only after all the tests run within the Editor.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.IPostBuildCleanup.Cleanup">
+            <summary>
+            Implement this method to specify actions that should run as a post-build cleanup step.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.UnityTestAttribute">
+             <summary>
+             `UnityTest` attribute is the main addition to the standard [NUnit](http://www.nunit.org/) library for the Unity Test Framework. This type of unit test allows you to skip a frame from within a test (so background tasks can finish) or give certain commands to the Unity **Editor**, such as performing a domain reload or entering **Play Mode** from an **Edit Mode** test.
+             In Play Mode, the `UnityTest` attribute runs as a [coroutine](https://docs.unity3d.com/Manual/Coroutines.html). Whereas Edit Mode tests run in the [EditorApplication.update](https://docs.unity3d.com/ScriptReference/EditorApplication-update.html) callback loop.
+             The `UnityTest` attribute is, in fact, an alternative to the `NUnit` [Test attribute](https://github.com/nunit/docs/wiki/Test-Attribute), which allows yielding instructions back to the framework. Once the instruction is complete, the test run continues. If you `yield return null`, you skip a frame. That might be necessary to ensure that some changes do happen on the next iteration of either the `EditorApplication.update` loop or the [game loop](https://docs.unity3d.com/Manual/ExecutionOrder.html).
+             <example>
+             ## Edit Mode example
+             The most simple example of an Edit Mode test could be the one that yields `null` to skip the current frame and then continues to run:
+             <code>
+             [UnityTest]
+             public IEnumerator EditorUtility_WhenExecuted_ReturnsSuccess()
+             {
+                 var utility = RunEditorUtilityInTheBackground();
+            
+                 while (utility.isRunning)
+                 {
+                     yield return null;
+                 }
+            
+                 Assert.IsTrue(utility.isSuccess);
+             }
+             </code>
+             </example>
+             <example>
+             ## Play Mode example
+            
+             In Play Mode, a test runs as a coroutine attached to a [MonoBehaviour](https://docs.unity3d.com/ScriptReference/MonoBehaviour.html). So all the yield instructions available in coroutines, are also available in your test.
+            
+             From a Play Mode test you can use one of Unity’s [Yield Instructions](https://docs.unity3d.com/ScriptReference/YieldInstruction.html):
+            
+             - [WaitForFixedUpdate](https://docs.unity3d.com/ScriptReference/WaitForFixedUpdate.html): to ensure changes expected within the next cycle of physics calculations.
+             - [WaitForSeconds](https://docs.unity3d.com/ScriptReference/WaitForSeconds.html): if you want to pause your test coroutine for a fixed amount of time. Be careful about creating long-running tests.
+            
+             The simplest example is to yield to `WaitForFixedUpdate`:
+             <code>
+             [UnityTest]
+             public IEnumerator GameObject_WithRigidBody_WillBeAffectedByPhysics()
+             {
+                 var go = new GameObject();
+                 go.AddComponent&lt;Rigidbody&gt;();
+                 var originalPosition = go.transform.position.y;
+            
+                 yield return new WaitForFixedUpdate();
+            
+                 Assert.AreNotEqual(originalPosition, go.transform.position.y);
+             }
+             </code>
+             </example>
+             </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityTestAttribute.#ctor">
+            <summary>
+            Initializes and returns an instance of UnityTestAttribute.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityTestAttribute.NUnit#Framework#Interfaces#ISimpleTestBuilder#BuildFrom(NUnit.Framework.Interfaces.IMethodInfo,NUnit.Framework.Internal.Test)">
+            <summary>
+            This method builds the TestMethod from the Test and the method info. In addition it removes the expected result of the test.
+            </summary>
+            <param name="method">The method info.</param>
+            <param name="suite">The test.</param>
+            <returns>A TestMethod object</returns>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityTestAttribute.NUnit#Framework#Interfaces#ITestBuilder#BuildFrom(NUnit.Framework.Interfaces.IMethodInfo,NUnit.Framework.Internal.Test)">
+            <summary>
+            This method hides the base method from CombiningStrategyAttribute.
+            It builds a TestMethod from a Parameterized Test and the method info.
+            In addition it removes the expected result of the test.
+            </summary>
+            <param name="method">The method info.</param>
+            <param name="suite">The test.</param>
+            <returns>A TestMethod object</returns>
+        </member>
+        <member name="M:UnityEngine.TestTools.UnityTestAttribute.ApplyToTest(NUnit.Framework.Internal.Test)">
+            <summary>
+            This method hides the base method ApplyToTest from CombiningStrategyAttribute.
+            In addition it ensures that the test with the `UnityTestAttribute` has an IEnumerator as return type.
+            </summary>
+            <param name="test">The test.</param>
+        </member>
+        <member name="T:UnityEngine.TestTools.LogAssert">
+            <summary>
+            A test fails if Unity logs a message other than a regular log or warning message. Use `LogAssert` to check for an expected message in the log so that the test does not fail when Unity logs the message.
+            Use `LogAssert.Expect` before running the code under test, as the check for expected logs runs at the end of each frame.
+            A test also reports a failure, if an expected message does not appear, or if Unity does not log any regular log or warning messages.
+            
+            `LogAssert` lets you expect Unity log messages that would otherwise cause the test to fail.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.LogAssert.Expect(UnityEngine.LogType,System.String)">
+             <summary>
+             Verifies that a log message of a specified type appears in the log. A test won't fail from an expected error, assertion, or exception log message. It does fail if an expected message does not appear in the log.
+             If multiple LogAssert.Expect are used to expect multiple messages, they are expected to be logged in that order.
+             </summary>
+             <param name="type">A type of log to expect. It can take one of the [LogType enum](https://docs.unity3d.com/ScriptReference/LogType.html) values.</param>
+             <param name="message">A string value that should equate to the expected message.</param>
+             <example>
+             <code>
+             [Test]
+             public void LogAssertExample()
+             {
+                 // Expect a regular log message
+                 LogAssert.Expect(LogType.Log, "Log message");
+            
+                 // The test fails without the following expected log message
+                 Debug.Log("Log message");
+            
+                 // An error log
+                 Debug.LogError("Error message");
+            
+                 // Without expecting an error log, the test would fail
+                 LogAssert.Expect(LogType.Error, "Error message");
+             }
+            
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestTools.LogAssert.Expect(UnityEngine.LogType,System.Text.RegularExpressions.Regex)">
+            <summary>
+            Verifies that a log message of a specified type appears in the log. A test won't fail from an expected error, assertion, or exception log message. It does fail if an expected message does not appear in the log.
+            </summary>
+            <param name="type">A type of log to expect. It can take one of the [LogType enum](https://docs.unity3d.com/ScriptReference/LogType.html) values.</param>
+            <param name="message">A regular expression pattern to match the expected message.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.LogAssert.NoUnexpectedReceived">
+            <summary>
+            Triggers an assertion when receiving any log messages and fails the test if some are unexpected messages. If multiple tests need to check for no received unexpected logs, consider using the <see cref="T:UnityEngine.TestTools.TestMustExpectAllLogsAttribute"/> attribute instead.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.LogAssert.ignoreFailingMessages">
+            <summary>Set this property to `true` to prevent unexpected error log messages from triggering an assertion. By default, it is `false`.</summary>
+            <returns>The value of the ignoreFailingMessages boolean property.</returns>
+        </member>
+        <member name="T:UnityEngine.TestRunner.ITestRunCallback">
+            <summary>
+            Interface for getting callsbacks on test progress directly from NUnit. This is available both in the editor and directly in the runtime. It is registered by using <see cref="T:UnityEngine.TestRunner.TestRunCallbackAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestRunner.ITestRunCallback.RunStarted(NUnit.Framework.Interfaces.ITest)">
+            <summary>
+            A callback invoked when a test run is started.
+            </summary>
+            <param name="testsToRun">The full loaded test tree.</param>
+        </member>
+        <member name="M:UnityEngine.TestRunner.ITestRunCallback.RunFinished(NUnit.Framework.Interfaces.ITestResult)">
+            <summary>
+            A callback invoked when a test run is finished.
+            </summary>
+            <param name="testResults">The result of the test run.</param>
+        </member>
+        <member name="M:UnityEngine.TestRunner.ITestRunCallback.TestStarted(NUnit.Framework.Interfaces.ITest)">
+            <summary>
+            A callback invoked when each individual node of the test tree has started executing.
+            </summary>
+            <param name="test">The test node currently executed.</param>
+        </member>
+        <member name="M:UnityEngine.TestRunner.ITestRunCallback.TestFinished(NUnit.Framework.Interfaces.ITestResult)">
+            <summary>
+            A callback invoked when each individual node of the test tree has finished executing.
+            </summary>
+            <param name="result">The result of the test tree node after it had been executed.</param>
+        </member>
+        <member name="T:UnityEngine.TestRunner.TestRunCallbackAttribute">
+             <summary>
+             An assembly level attribute that indicates that a given type should be subscribed for receiving updates on the test progress.
+             </summary>
+             <example>
+             <code>
+             using NUnit.Framework.Interfaces;
+             using UnityEngine;
+             using UnityEngine.TestRunner;
+            
+             [assembly:TestRunCallback(typeof(TestListener))]
+            
+             public class TestListener : ITestRunCallback
+             {
+                public void RunStarted(ITest testsToRun)
+                {
+            
+                }
+            
+                public void RunFinished(ITestResult testResults)
+                {
+                    Debug.Log($"Run finished with result {testResults.ResultState}.");
+                }
+            
+                public void TestStarted(ITest test)
+                {
+            
+                }
+            
+                public void TestFinished(ITestResult result)
+                {
+            
+                }
+            }
+             </code>
+             </example>
+        </member>
+        <member name="M:UnityEngine.TestRunner.TestRunCallbackAttribute.#ctor(System.Type)">
+            <summary>
+            Constructs a new instance of the <see cref="T:UnityEngine.TestRunner.TestRunCallbackAttribute"/> class.
+            </summary>
+            <param name="type">A target type that implements <see cref="T:UnityEngine.TestRunner.ITestRunCallback"/>.</param>
+            <exception cref="T:System.ArgumentException">Throws an ArgumentException if the provided type does not implement <see cref="T:UnityEngine.TestRunner.ITestRunCallback"/>.</exception>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,712 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.UI.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Entities.UI.InspectorRegistry">
+            <summary>
+            Maintains a database of all the inspector-related types and allows creation of new instances of inspectors.
+            </summary>
+            <summary>
+            Maintains a database of all the inspector-related types and allows creation of new instances of inspectors.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetInspector``1(Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates a new instance of a <see cref="T:Unity.Entities.UI.Inspector`1"/> that can act as a root inspector.
+            </summary>
+            <param name="constraints">Constraints that filter the candidate inspector types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <returns>The inspector instance or null</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetPropertyInspector``1(Unity.Properties.IProperty,Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates a new instance of a <see cref="T:Unity.Entities.UI.PropertyInspector`2"/> that can act as a property drawer
+            for a given field.
+            </summary>
+            <param name="property"></param>
+            <param name="constraints">Constraints that filter the candidate property drawer types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <returns>The property drawer instance or null</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetAttributeInspector``1(Unity.Properties.IProperty,Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates a new instance of a <see cref="T:Unity.Entities.UI.PropertyInspector`2"/> that can act as a property drawer
+            for a given field.
+            </summary>
+            <param name="property"></param>
+            <param name="constraints">Constraints that filter the candidate property drawer types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <returns>The property drawer instance or null</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetPropertyInspector``1(Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates a new instance of a <see cref="T:Unity.Entities.UI.PropertyInspector`2"/> that can act as a property drawer
+            for a given field.
+            </summary>
+            <param name="constraints">Constraints that filter the candidate property drawer types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <typeparam name="TAttribute">The attribute type the value was tagged with</typeparam>
+            <returns>The property drawer instance or null</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetInspectorWithConstraints``1(Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates an inspector instance that satisfy the constraints.
+            </summary>
+            <param name="constraints">Constraints that filter the candidate property drawer types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <returns>An inspector instance of null</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorRegistry.GetInspectorTypes``1(Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Returns all the inspector candidate types that satisfy the constraints.
+            </summary>
+            <param name="constraints">Constraints that filter the candidate property drawer types.</param>
+            <typeparam name="TValue">The type of the value</typeparam>
+            <returns>The candidate inspector types</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorContext`1">
+            <summary>
+            Context of the inspector that give access to the data.
+            </summary>
+            <typeparam name="T">The type of the value being inspected.</typeparam>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorContext`1.Data">
+            <summary>
+            Accessor for the data.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorBase`1">
+            <summary>
+            Base class for defining a custom inspector for values of type <see cref="!:T"/>.
+            </summary>
+            <typeparam name="T">The type of the value to inspect.</typeparam>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.Target">
+            <summary>
+            Accessor to the value being inspected.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.Name">
+            <summary>
+            Returns the property name of the current value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.Part">
+            <summary>
+            Returns the property path of the current value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.DisplayName">
+            <summary>
+            Returns the display name of the current value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.Tooltip">
+            <summary>
+            Returns the tooltip of the current value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.IsDelayed">
+            <summary>
+            Returns <see langword="true"/> if the value field was tagged with the <see cref="T:UnityEngine.DelayedAttribute"/>.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.IsReadOnly">
+            <summary>
+            Returns <see langword="true"/> if the value field is read-only.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.PropertyPath">
+            <summary>
+            Returns the full property path of the current target.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.HasAttribute``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.GetAttribute``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.GetAttributes``1">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.GetContext``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.HasContext``1(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.Build">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.Update">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.IsPathValid(Unity.Properties.PropertyPath)">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorBase`1.Type">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.DoDefaultGui(UnityEngine.UIElements.VisualElement,System.String)">
+            <summary>
+            Allows to revert to the default drawing handler for a specific field.
+            </summary>
+            <param name="parent">The parent element.</param>
+            <param name="propertyPath">The property path to the field that needs to be drawn.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.DoDefaultGui(UnityEngine.UIElements.VisualElement,Unity.Properties.PropertyPath)">
+            <summary>
+            Allows to revert to the default drawing handler for a specific property path.
+            </summary>
+            <param name="parent">The parent element.</param>
+            <param name="propertyPath">The property path to the field that needs to be drawn.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.DoDefaultGuiAtIndex(UnityEngine.UIElements.VisualElement,System.Int32)">
+            <summary>
+            Allows to revert to the default drawing handler for a specific field.
+            </summary>
+            <param name="parent">The parent element.</param>
+            <param name="index">The index of the field that needs to be drawn.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.DoDefaultGuiAtKey``1(UnityEngine.UIElements.VisualElement,``0)">
+            <summary>
+            Allows to revert to the default drawing handler for a specific field.
+            </summary>
+            <param name="parent">The parent element.</param>
+            <param name="key">The key of the field that needs to be drawn.</param>
+            <typeparam name="TKey">The type of the key.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.DoDefaultGui">
+            <summary>
+            Generates the default inspector.
+            </summary>
+            <returns>The parent <see cref="T:UnityEngine.UIElements.VisualElement"/> containing the generated inspector.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorBase`1.NotifyChanged">
+            <summary>
+            Notifies the root element that a change occured on this value. This must be called when doing manual
+            data binding.
+            </summary>
+            <remarks>
+            This is called automatically when the "binding=path" is set to a valid value/field combination.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.UI.PropertyInspector`1">
+            <summary>
+            Base class for defining a custom inspector for field values of type <see cref="!:TValue"/> when it is tagged with an
+            attribute of type <see cref="!:TAttribute"/>.
+            </summary>
+            <typeparam name="TValue">The type of the field value to inspect.</typeparam>
+        </member>
+        <member name="T:Unity.Entities.UI.PropertyInspector`2">
+            <summary>
+            Base class for defining a custom inspector for field values of type <see cref="!:TValue"/> when it is tagged with an
+            attribute of type <see cref="!:TAttribute"/>.
+            </summary>
+            <typeparam name="TValue">The type of the field value to inspect.</typeparam>
+            <typeparam name="TAttribute">The property drawer type. </typeparam>
+        </member>
+        <member name="P:Unity.Entities.UI.PropertyInspector`2.DrawerAttribute">
+            <summary>
+            Returns the <see cref="T:UnityEngine.PropertyAttribute"/> of the field.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.IInspectorConstraint">
+            <summary>
+            Base interface to define a constraint that needs to be verified when filtering the inspector types.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspectorConstraint.Satisfy(System.Type)">
+            <summary>
+            Returns true if the constraint is satisfied for the provided inspector type.
+            </summary>
+            <param name="inspectorType">the inspector type that must satisfy the constraint</param>
+            <returns>true if constraint is satisfied; false otherwise</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorConstraint">
+            <summary>
+            Helper class to easily build inspector contraints.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorConstraint.Not">
+            <summary>
+            Helper class to invert a constraint.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorConstraint.Not.AssignableTo``1">
+            <summary>
+            Create an instance of an inverted <see cref="T:Unity.Entities.UI.InspectorConstraint.AssignableToConstraint"/>.
+            </summary>
+            <typeparam name="TType">The type that must not be assignable to</typeparam>
+            <returns>The constraint instance</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorConstraint.Not.AssignableTo(System.Type)">
+            <summary>
+            Create an instance of an inverted <see cref="T:Unity.Entities.UI.InspectorConstraint.AssignableToConstraint"/>.
+            </summary>
+            <param name="inspectorType">The type that must not be assignable to</param>
+            <returns>The constraint instance</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorConstraint.AssignableTo(System.Type)">
+            <summary>
+            Creates an instance of a <see cref="T:Unity.Entities.UI.InspectorConstraint.AssignableToConstraint"/>.
+            </summary>
+            <param name="type">The type that must be assignable to</param>
+            <returns>The constraint instance</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorConstraint.AssignableTo``1">
+            <summary>
+            Creates an instance of a <see cref="T:Unity.Entities.UI.InspectorConstraint.AssignableToConstraint"/>.
+            </summary>
+            <typeparam name="TType">The type that must be assignable to</typeparam>
+            <returns>The constraint instance</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorConstraint.Combine(Unity.Entities.UI.IInspectorConstraint,Unity.Entities.UI.IInspectorConstraint[])">
+            <summary>
+            Creates a constraint that combines a constraint with other constraints.
+            </summary>
+            <param name="constraint">The constraint to combine</param>
+            <param name="others">The other constraints</param>
+            <returns>The aggregate constraint</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.StylingUtility">
+            <summary>
+            Provides utility methods around styling.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.StylingUtility.AlignInspectorLabelWidth(UnityEngine.UIElements.VisualElement)">
+            <summary>
+            Dynamically computes and sets the width of <see cref="T:UnityEngine.UIElements.Label"/> elements so that they stay properly aligned
+            when indented with <see cref="T:UnityEngine.UIElements.Foldout"/> elements.
+            </summary>
+            <remarks>
+            This will effectively inline the <see cref="P:UnityEngine.UIElements.IStyle.width"/> and the <see cref="P:UnityEngine.UIElements.IStyle.minWidth"/> value of
+            every <see cref="T:UnityEngine.UIElements.VisualElement"/> under the provided root.
+            </remarks>
+            <param name="root">The target element</param>
+        </member>
+        <member name="T:Unity.Entities.UI.PropertyElement">
+            <summary>
+            Makes an element that can generate a UI hierarchy for a given object. When generating the UI hierarchy for
+            the target and its properties, inspector types deriving from <see cref="T:Unity.Entities.UI.PropertyInspector`1"/> and
+            <see cref="T:Unity.Entities.UI.PropertyInspector`2"/> will be considered.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.PropertyElement.MakeWithValue``1(``0)">
+            <summary>
+            Creates a new instance of <see cref="T:Unity.Entities.UI.PropertyElement"/> with the provided target value.
+            </summary>
+            <param name="value">The target.</param>
+            <typeparam name="TValue">The target type.</typeparam>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.PropertyElement.PropertyElementFactory">
+            <summary>
+              <para>Instantiates a <see cref="T:Unity.Entities.UI.PropertyElement"/> using the data read from a UXML file.</para>
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.PropertyElement.PropertyElementTraits">
+            <summary>
+              <para>Defines UxmlTraits for the <see cref="T:Unity.Entities.UI.PropertyElement"/>.</para>
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectionContext">
+            <summary>
+            Base type to define an inspection context that can be passed to a <see cref="T:Unity.Entities.UI.BindingContextElement"/>.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectionContext.Name">
+            <summary>
+            Returns the name of the context.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InvalidBindingException">
+            <summary>
+            The exception that is thrown when trying to resolve an invalid path.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InvalidBindingException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unity.Entities.UI.InvalidBindingException"/> class with a specified path.
+            </summary>
+            <param name="message">The exception message.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.InvalidBindingException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Unity.Entities.UI.InvalidBindingException"/> class with a specified type and a reference to the inner exception that is the cause of this exception.
+            </summary>
+            <param name="message">The exception message.</param>
+            <param name="inner">The inner exception reference.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.GuiFactory.AddRuntimeBar(UnityEngine.UIElements.AttachToPanelEvent,UnityEngine.UIElements.VisualElement)">
+            <summary>
+            Add runtime bar when parent element is the root PropertyElement with user data or
+            its ancestor is the root PropertyElement with user data.
+            User data is set to the root PropertyElement to indicate this is a live property displaying runtime data,
+            hence we add the runtime bar to the field.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.Inspector`1">
+            <summary>
+            Base class for defining a custom inspector for values of type <see cref="!:T"/>.
+            </summary>
+            <typeparam name="T">The type of the value to inspect.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.Build">
+            <summary>
+            Called whenever the UI needs to be rebuilt.
+            </summary>
+            <returns>The root visual element to use for the inspection.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.Update">
+            <summary>
+            Called whenever the underlying data changed, so the custom inspector can update it's data.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.IsPathValid(Unity.Properties.PropertyPath)">
+            <summary>
+            Allows to know if a property exists at the given path.
+            </summary>
+            <param name="path">The property path.</param>
+            <returns><see langword="true"/> if a property exists at the given path.</returns>
+        </member>
+        <member name="P:Unity.Entities.UI.IInspector.PropertyPath">
+            <summary>
+            The property path from the root to this value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.IInspector.Type">
+            <summary>
+            The type of the declared value type.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.HasAttribute``1">
+            <summary>
+            Returns true if the field has any attributes of the given type.
+            </summary>
+            <typeparam name="TAttribute">The attribute type to check for.</typeparam>
+            <returns><see langword="true"/> if the field has the given attribute type; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.GetAttribute``1">
+            <summary>
+            Returns the first attribute of the given type.
+            </summary>
+            <typeparam name="TAttribute">The attribute type to get.</typeparam>
+            <returns>The attribute of the given type for this field.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.GetAttributes``1">
+            <summary>
+            Returns all attribute of the given type.
+            </summary>
+            <typeparam name="TAttribute">The attribute type to get.</typeparam>
+            <returns>An <see cref="T:System.Collections.Generic.IEnumerable`1"/> for all attributes of the given type.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.GetContext``1(System.String)">
+            <summary>
+            Returns the first inspection context of the given type.
+            </summary>
+            <param name="contextName">The name of the inspection context.</param>
+            <typeparam name="TInspectionContext">The inspection context type to get.</typeparam>
+            <returns>The inspection content of the given type, if it exists.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.IInspector.HasContext``1(System.String)">
+            <summary>
+            Returns <see langword="true"/> if an inspection context of the given type exists.
+            </summary>
+            <param name="contextName">The name of the inspection context.</param>
+            <typeparam name="TInspectionContext">The inspection context type to get.</typeparam>
+            <returns><see langword="true"/>, if it exists.</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.IInspector`1">
+            <summary>
+            Allows to declare a type as custom inspector for the specified type.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectedReferences">
+            <summary>
+            The <see cref="T:Unity.Entities.UI.InspectedReferences"/> class can be used to prevent circular object references in the UI.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectedReferences.PushReference(System.Object,Unity.Properties.PropertyPath)">
+            <summary>
+            Flags the specified object as being gathered during the inspector visitation. This is an internal method.
+            </summary>
+            <param name="value">The object being visited.</param>
+            <returns><see langword="true"/> if this is the first time encountering this object; otherwise, <see langword="false"/>.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectedReferences.PopReference(System.Object)">
+            <summary>
+            Removes the specified object from the current visitation.
+            </summary>
+            <param name="value">The object being visited.</param>
+            <returns><see langword="true"/> if the object has been removed.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectedReferences.GetPath(System.Object)">
+            <summary>
+            Returns the path to the first reference that was visited.
+            </summary>
+            <param name="value"></param>
+            <returns>Path to the first visited object.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectedReferences.Clear">
+            <summary>
+            Clears this object for re-use. This is an internal method.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorElement">
+            <summary>
+            Makes an element that can generate a UI hierarchy for a given object. Inspector types deriving from
+            <see cref="T:Unity.Entities.UI.Inspector`1"/> will be considered for the root target only. When generating the UI hierarchy for
+            properties of the target, inspector types deriving from <see cref="T:Unity.Entities.UI.PropertyInspector`1"/> and
+            <see cref="T:Unity.Entities.UI.PropertyInspector`2"/> will be considered.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.InspectorElement.MakeWithValue``1(``0)">
+            <summary>
+            Creates a new instance of <see cref="T:Unity.Entities.UI.InspectorElement"/> with the provided target value.
+            </summary>
+            <param name="value">The target.</param>
+            <typeparam name="TValue">The target type.</typeparam>
+            <returns>The new instance.</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorElement.InspectorElementFactory">
+            <summary>
+              <para>Instantiates a <see cref="T:Unity.Entities.UI.InspectorElement"/> using the data read from a UXML file.</para>
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorElement.InspectorElementTraits">
+            <summary>
+              <para>Defines UxmlTraits for the <see cref="T:Unity.Entities.UI.InspectorElement"/>.</para>
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.StringExtensions.SplitPascalCase(System.String)">
+             <summary>
+             Given a pascal case or camel case string this method will add spaces between the capital letters.
+            
+             e.g.
+             "someField"    -> "Some Field"
+             "layoutWidth"  -> "Layout Width"
+             "TargetCount"  -> "Target Count"
+             </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.IPropertyDrawer">
+            <summary>
+            Base interface to declare a property drawer. This is an internal interface.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.IPropertyDrawer`1">
+            <summary>
+            Allows to tag a <see cref="T:Unity.Entities.UI.IInspector"/> to override the drawing of that field. This is an internal interface.
+            </summary>
+            <typeparam name="TDrawerAttribute">The <see cref="T:UnityEngine.PropertyAttribute"/> attribute for which this drawer is for.</typeparam>
+        </member>
+        <member name="T:Unity.Entities.UI.BindingContextElement">
+            <summary>
+            Base class for elements that can generate a UI hierarchy for a given object.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.BindingContextElement.ChangeHandler">
+            <summary>
+            Handler to react to changes.
+            </summary>
+            <param name="element">The element under which the change is detected.</param>
+            <param name="path">The property path of the change</param>
+            <remarks>
+            The property path can be empty for the root object or when the path to the change is not provided.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.UI.BindingContextElement.AttributeFilterHandler">
+            <summary>
+            Handler to filter visitation based on a field's attribute.
+            </summary>
+            <param name="attributes">The attributes of the field.</param>
+            <returns><see langword="true"/>if the field should be shown; <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="E:Unity.Entities.UI.BindingContextElement.OnChanged">
+            <summary>
+            Register to this event to be notified when a change is detected.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.#ctor">
+            <summary>
+            Constructs an instance of <see cref="T:Unity.Entities.UI.BindingContextElement"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.TryGetTarget``1(``0@)">
+            <summary>
+            Tries to get the target of the <see cref="T:Unity.Entities.UI.BindingContextElement"/> as an instance of type <see cref="!:T"/>.
+            </summary>
+            <param name="target">The target instance.</param>
+            <typeparam name="T">The type of the target.</typeparam>
+            <returns><see langword="true"/> if target was of the correct type; <see langword="false"/> otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.GetTarget``1">
+            <summary>
+            Gets the target of the <see cref="T:Unity.Entities.UI.BindingContextElement"/> as <see cref="!:T"/>.
+            </summary>
+            <typeparam name="T">The type of the target.</typeparam>
+            <returns>The instance of the target.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when no target has been set.</exception>
+            <exception cref="T:System.InvalidCastException">Thrown when the target is not of type <see cref="!:T"/>.</exception>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.SetTarget``1(``0)">
+            <summary>
+            Sets the current target.
+            </summary>
+            <remarks>
+            This will clear current hierarchy and regenerate a new one.
+            </remarks>
+            <param name="target">The target to set.</param>
+            <typeparam name="T">The type of the target.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.ClearTarget">
+            <summary>
+            Clears the current target and removes all child elements from this element's contentContainer.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.ForceReload">
+            <summary>
+            Clears the current children and re-generates them.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.SetAttributeFilter(Unity.Entities.UI.BindingContextElement.AttributeFilterHandler)">
+            <summary>
+            Allows to filter the hierarchy generation based on the field's attributes.
+            </summary>
+            <param name="filter">The filter method to apply.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.AddContext(Unity.Entities.UI.InspectionContext)">
+            <summary>
+            Adds an inspection context to this element.
+            </summary>
+            <param name="inspectionContext">The inspection context to add.</param>
+            <exception cref="T:System.NullReferenceException">The inspection context is <see langword="null"/>.</exception>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.RemoveContext(Unity.Entities.UI.InspectionContext)">
+            <summary>
+            Removes an inspection context from this element.
+            </summary>
+            <param name="inspectionContext">The inspection context to add.</param>
+            <exception cref="T:System.NullReferenceException">The inspection context is <see langword="null"/>.</exception>
+            <exception cref="T:System.ArgumentException">The inspection context was not previously added.</exception>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.GetContext``1(System.String)">
+            <summary>
+            Returns an inspection context of the given type.
+            </summary>
+            <param name="contextName">The name of the inspection context.</param>
+            <typeparam name="T">The inspection context type.</typeparam>
+            <returns>The inspection context, if it exists.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.HasContext``1(System.String)">
+            <summary>
+            Returns <see langword="true"/> if an inspection context of the given type exists.
+            </summary>
+            <param name="contextName">The name of the inspection context.</param>
+            <typeparam name="T">The inspection context type.</typeparam>
+            <returns><see langword="true"/>, if it exists.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.SetValue``1(Unity.Properties.PropertyPath,``0)">
+            <summary>
+            Sets the value of type <see cref="!:TValue"/> at the given path.
+            </summary>
+            <param name="path">The property path to the value.</param>
+            <param name="value">the value we want to set.</param>
+            <typeparam name="TValue">The value type.</typeparam>
+            <exception cref="T:System.InvalidOperationException">Thrown when no target has been set.</exception>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.TrySetValue``1(Unity.Properties.PropertyPath,``0)">
+            <summary>
+            Tries to set the value of type <see cref="!:TValue"/> at the given path.
+            </summary>
+            <param name="path">The property path to the value.</param>
+            <param name="value">the value we want to set.</param>
+            <typeparam name="TValue">The value type.</typeparam>
+            <returns>The value that was effectively set.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.GetValue``1(Unity.Properties.PropertyPath)">
+            <summary>
+            Gets the value of type <see cref="!:TValue"/> at the given path.
+            </summary>
+            <param name="path">The property path to the value.</param>
+            <typeparam name="TValue">The value type.</typeparam>
+            <returns>The value at path.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown when no target has been set.</exception>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.TryGetValue``1(Unity.Properties.PropertyPath,``0@)">
+            <summary>
+            Tries to get the value of type <see cref="!:TValue"/> at the given path.
+            </summary>
+            <param name="path">The property path to the value.</param>
+            <param name="value">The value at path.</param>
+            <typeparam name="TValue">The value type.</typeparam>
+            <returns><see langword="true"/> if the getting the value was successful.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.IsPathValid(Unity.Properties.PropertyPath)">
+            <summary>
+            Returns <see langword="true"/> if the given path is valid from the target.
+            </summary>
+            <param name="path">the property path.</param>
+            <returns><see langword="true"/> if the path is valid.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.BindingContextElement.GetTargetType">
+            <summary>
+            Returns the type of the current target.
+            </summary>
+            <returns>The type of the target.</returns>
+        </member>
+        <member name="T:Unity.Entities.UI.TypeConstructionUtility">
+            <summary>
+            Utility class around <see cref="T:System.Type"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.TypeConstructionUtility.GetAllConstructableTypes``1">
+            <summary>
+            Returns a list of all the constructable types from the <see cref="!:TType"/> type.
+            </summary>
+            <typeparam name="TType">The type to query.</typeparam>
+            <returns>A list of all the constructable types from the <see cref="!:TType"/> type.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.TypeConstructionUtility.GetAllConstructableTypes``1(System.Collections.Generic.List{System.Type})">
+            <summary>
+            Adds all the constructable types from the <see cref="!:TType"/> type to the given list.
+            </summary>
+            <param name="result">List to contain the results.</param>
+            <typeparam name="TType">The type to query.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.UI.TypeConstructionUtility.GetAllConstructableTypes(System.Type)">
+            <summary>
+            Returns a list of all the constructable types from the provided type.
+            </summary>
+            /// <param name="type">The type to query.</param>
+            <returns>A list of all the constructable types from the provided type.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.TypeConstructionUtility.GetAllConstructableTypes(System.Type,System.Collections.Generic.List{System.Type})">
+            <summary>
+            Adds all the constructable types from the provided type to the given list.
+            </summary>
+            <param name="type">The type to query.</param>
+            <param name="result">List to contain the results.</param>
+        </member>
+        <member name="M:Unity.Entities.UI.TypeConstructionUtility.CanBeConstructedFromDerivedType``1">
+            <summary>
+            Returns <see langword="true"/> if type <see cref="!:T"/> is constructable from any of its derived types.
+            </summary>
+            <remarks>
+            Constructable is defined as either having a default or implicit constructor or having a registered construction method.
+            </remarks>
+            <typeparam name="T">The type to query.</typeparam>
+            <returns><see langword="true"/> if type <see cref="!:T"/> is constructable from any of its derived types.</returns>
+        </member>
+        <member name="M:Unity.Entities.UI.UITemplate.Clone(UnityEngine.UIElements.VisualElement)">
+            <summary>
+            Clones the template into the given root element and applies the style sheets from the template.
+            </summary>
+            <param name="root">The element that will serve as the root for cloning the template.</param>
+        </member>
+    </members>
+</doc>

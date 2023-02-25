@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.PerformanceTesting</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.PerformanceTesting.Meters.StopWatch">
+            <summary>
+            Takes use of System.Diagnostics.Stopwatch to provide stopwatch functionality implementing IStopWatch
+            </summary>
+        </member>
+        <member name="T:Unity.PerformanceTesting.Meters.IStopWatch">
+            <summary>
+            Provides stopwatch functionality for measuring time
+            </summary>
+        </member>
+        <member name="M:Unity.PerformanceTesting.Meters.IStopWatch.Start">
+            <summary>
+            Resets and starts the stopwatch
+            </summary>
+        </member>
+        <member name="M:Unity.PerformanceTesting.Meters.IStopWatch.Split">
+            <summary>
+            Takes a split time since start of stopwatch
+            </summary>
+            <returns>Time passed since start in milliseconds</returns>
+        </member>
+    </members>
+</doc>

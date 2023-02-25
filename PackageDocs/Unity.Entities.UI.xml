@@ -1,0 +1,202 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.UI</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Entities.UI.SystemVersionUsage">
+            <summary>
+            Defines the different mode of display for the <see cref="T:System.Version"/> type.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.SystemVersionUsage.MajorMinor">
+            <summary>
+            The inspector should only show the major and minor version numbers.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.SystemVersionUsage.MajorMinorBuild">
+            <summary>
+            The inspector should only show the major, minor and build version numbers.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.SystemVersionUsage.MajorMinorBuildRevision">
+            <summary>
+            The inspector should show the major, minor, build and revision version numbers.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.SystemVersionUsageAttribute">
+            <summary>
+            Use this attribute on fields and properties of type <see cref="T:System.Version"/> to indicate which properties
+            should be displayed.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.SystemVersionUsageAttribute.Usage">
+            <summary>
+            Returns the information about how a <see cref="T:System.Version"/> should be displayed.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.SystemVersionUsageAttribute.IncludeBuild">
+            <summary>
+            Return <see langword="true"/> if the <see cref="P:System.Version.Build"/> property should be displayed.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.SystemVersionUsageAttribute.IncludeRevision">
+            <summary>
+            Return <see langword="true"/> if the <see cref="P:System.Version.Revision"/> property should be displayed.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.SystemVersionUsageAttribute.#ctor(Unity.Entities.UI.SystemVersionUsage)">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.SystemVersionUsageAttribute"/> with the provided usage.
+            </summary>
+            <param name="usage">The indented usage of the <see cref="T:System.Version"/> type.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.MinValueAttribute">
+            <summary>
+              Attribute used to make a numeric field or property restricted to a specific minimum value.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.MinValueAttribute.Min">
+            <summary>
+              The minimum allowed value.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.MinValueAttribute.#ctor(System.Single)">
+            <summary>
+              Attribute used to make a float or int variable in a script be restricted to a specific minimum value.
+            </summary>
+            <param name="min">The minimum allowed value.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.DisplayNameAttribute">
+            <summary>
+            Use this attribute on fields and properties to change the display name shown when inspected.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.DisplayNameAttribute.Name">
+            <summary>
+            Name to display.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.DisplayNameAttribute.#ctor(System.String)">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.DisplayNameAttribute"/> with the provided name.
+            </summary>
+            <param name="name">The name to use for the field or property in the inspector.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.MinMaxAttribute">
+            <summary>
+            Tag a <see cref="T:UnityEngine.Vector2"/> or a <see cref="T:UnityEngine.Vector2Int"/> field to draw it as a min-max slider.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.MinMaxAttribute.Min">
+            <summary>
+            Low-limit value.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.MinMaxAttribute.Max">
+            <summary>
+            High-limit value.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.MinMaxAttribute.#ctor(System.Single,System.Single)">
+            <summary>
+            Constructs a new <see cref="T:Unity.Entities.UI.MinMaxAttribute"/> with specified min and max values.
+            </summary>
+            <param name="min">The minimum allowed value.</param>
+            <param name="max">The maximum allowed value.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.CreateInstanceOnInspectionAttribute">
+            <summary>
+            Tag a field or a property to try to create a new instance if it is null.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.CreateInstanceOnInspectionAttribute.Type">
+            <summary>
+            Returns the type of the instance that should be instantiated.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.CreateInstanceOnInspectionAttribute.#ctor">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.CreateInstanceOnInspectionAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.CreateInstanceOnInspectionAttribute.#ctor(System.Type)">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.CreateInstanceOnInspectionAttribute"/> with the specified <see cref="P:Unity.Entities.UI.CreateInstanceOnInspectionAttribute.Type"/>.
+            </summary>
+            <param name="type">The targeted <see cref="P:Unity.Entities.UI.CreateInstanceOnInspectionAttribute.Type"/> when creating a new instance.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.CreateElementOnAddAttribute">
+            <summary>
+            Tag a collection field or a property to try to create an instance when adding a new element to the collection.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.CreateElementOnAddAttribute.Type">
+            <summary>
+            Returns the type of the instance that should be instantiated.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.CreateElementOnAddAttribute.#ctor">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.CreateElementOnAddAttribute"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.CreateElementOnAddAttribute.#ctor(System.Type)">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.CreateElementOnAddAttribute"/> with the specified <see cref="P:Unity.Entities.UI.CreateElementOnAddAttribute.Type"/>.
+            </summary>
+            <param name="type">The targeted <see cref="P:Unity.Entities.UI.CreateElementOnAddAttribute.Type"/> when creating a new instance.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorAttribute">
+            <summary>
+            Base class to derive property attributes that can work on fields and properties.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.DelayedValueAttribute">
+             <summary>
+             Attribute used to make a numeric or string value be delayed.
+            
+             When this attribute is used, the numeric or text field will not return a new value until the user has pressed enter or focus is moved away from the field.
+             </summary>
+        </member>
+        <member name="T:Unity.Entities.UI.InlineUnityObjectAttribute">
+            <summary>
+            Attribute used to inform visitation that the <see cref="T:UnityEngine.Object"/> should be considered as a regular
+            type rather than a <see cref="T:UnityEngine.Object"/>.
+            </summary>
+            <remarks>Has no effect when tagged on a field or property whose type is not assignable to <see cref="T:UnityEngine.Object"/></remarks>
+        </member>
+        <member name="T:Unity.Entities.UI.PaginationAttribute">
+            <summary>
+            Tag a list field or property to add pagination.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.PaginationAttribute.Sizes">
+            <summary>
+            Returns the pagination sizes that should be displayed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.UI.PaginationAttribute.AutoHide">
+            <summary>
+            Indicates if the pagination should be hidden when the list contains less elements than the minimal pagination
+            size.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UI.PaginationAttribute.#ctor(System.Int32[])">
+            <summary>
+            Constructs a new instance of <see cref="T:Unity.Entities.UI.PaginationAttribute"/> with the specified pagination sizes.
+            </summary>
+            <param name="sizes">The number of elements to be displayed when using pagination.</param>
+        </member>
+        <member name="T:Unity.Entities.UI.InspectorOptionsAttribute">
+            <summary>
+            Allows to configure how the UI hierarchy is generated.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.UI.InspectorOptionsAttribute.HideResetToDefault">
+            <summary>
+            Suppresses the "Reset to default" context menu item.
+            </summary>
+        </member>
+    </members>
+</doc>

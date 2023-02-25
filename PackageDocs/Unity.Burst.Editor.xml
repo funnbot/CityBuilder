@@ -1,0 +1,489 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Burst.Editor</name>
+    </assembly>
+    <members>
+        <member name="F:Unity.Burst.Editor.BurstInspectorGUI._buttonBarWidth">
+            <remarks>Used because it's not legal to change layout of GUI in a frame without the users input.</remarks>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstInspectorGUI.FlowToNewLine(System.Single@,System.Single,UnityEngine.Vector2)">
+            <summary>
+            Checks if there is space for given content withs style, and starts new horizontalgroup
+            if there is no space on this line.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstInspectorGUI.HandleButtonBars(Unity.Burst.Editor.BurstCompileTarget,System.Boolean,System.Int32@,System.Boolean@,System.Boolean@)">
+            <summary>
+            Renders buttons bar, and handles saving/loading of _assemblyKind options when changing in inspector settings
+            that disable/enables some options for _assemblyKind.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstInspectorGUI.HandleMouseEventForSelection(UnityEngine.Rect,System.Int32,System.Boolean)">
+            <summary>
+            Handles mouse events for selecting text.
+            </summary>
+            <remarks>
+            Must be called after Render(...), as it uses the mouse events, and Render(...)
+            need mouse events for buttons etc.
+            </remarks>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstInspectorGUI.HandleKeyboardEventForSelection(UnityEngine.Rect,System.Boolean)">
+            <remarks>
+            Must be called after Render(...) because of depenency on LongTextArea.finalAreaSize.
+            </remarks>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstInspectorGUI.TryFocusJobInAssemblyView(UnityEngine.Rect@,System.Boolean,Unity.Burst.Editor.BurstCompileTarget)">
+            <summary>
+            Focuses the view on the active function if a jump is doable.
+            </summary>
+            <param name="workingArea">Current assembly view.</param>
+            <param name="wasTextSetup">Whether text was set in <see cref="F:Unity.Burst.Editor.BurstInspectorGUI._textArea"/>.</param>
+            <param name="target">Target job to find function in.</param>
+            <returns>Whether a focus was attempted or not.</returns>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler">
+            <summary>
+            Disassembler for Intel and ARM
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.LLVMIRAsmTokenKindProvider">
+            <summary>
+            <see cref="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenKind"/> provider for LLVM IR - intrinsics are not covered at this time
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.X86AsmTokenKindProvider">
+            <summary>
+            <see cref="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenKind"/> provider for Intel x86-64
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenKindProvider">
+            <summary>
+            Base class for providing extended information of an identifier
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenizer">
+            <summary>
+            The ASM tokenizer
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.StringSlice">
+            <summary>
+            A slice of a string from an original string.
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmToken">
+            <summary>
+            An ASM token. The token doesn't contain the string of the token, but provides method <see cref="M:Unity.Burst.Editor.BurstDisassembler.AsmToken.Slice(System.String)"/> and <see cref="M:Unity.Burst.Editor.BurstDisassembler.AsmToken.ToString(System.String)"/> to extract it.
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenKind">
+            <summary>
+            Kind of an ASM token.
+            </summary>
+        </member>
+        <member name="P:Unity.Burst.Editor.BurstDisassembler.Blocks">
+            <summary>
+            Gets all the blocks.
+            </summary>
+        </member>
+        <member name="P:Unity.Burst.Editor.BurstDisassembler.IsColored">
+            <summary>
+            Gets whether the disassembly is colored.
+            </summary>
+        </member>
+        <member name="P:Unity.Burst.Editor.BurstDisassembler.Lines">
+            <summary>
+            Gets all the lines for all the blocks.
+            </summary>
+        </member>
+        <member name="P:Unity.Burst.Editor.BurstDisassembler.Tokens">
+            <summary>
+            Gets all the tokens
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetTokenIndexFromColumn(System.Int32,System.Int32,System.Int32,System.Int32@)">
+            <summary>
+            Get a token index for a particular block, line number and column number.
+            </summary>
+            <param name="blockIndex"></param>
+            <param name="line"></param>
+            <param name="column"></param>
+            <param name="lineIndex">Returns the line index to query <see cref="P:Unity.Burst.Editor.BurstDisassembler.Lines"/></param>
+            <returns>The token index to use with <see cref="M:Unity.Burst.Editor.BurstDisassembler.GetToken(System.Int32)"/> or -1 if the line, column was not found.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetOrRenderBlockToTextUncached(System.Int32,System.Boolean)">
+            <summary>
+            Gets or renders a particular block to text without caching the result.
+            </summary>
+            <param name="blockIndex">The block to render.</param>
+            <param name="colored">Whether output should be colored.</param>
+            <returns>A string representation of the block.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetOrRenderBlockToText(System.Int32)">
+            <summary>
+            Gets or renders a particular block to text (colored if specified at <see cref="M:Unity.Burst.Editor.BurstDisassembler.Initialize(System.String,Unity.Burst.Editor.BurstDisassembler.AsmKind,System.Boolean,System.Boolean)"/> time)
+            </summary>
+            <param name="blockIndex">The block to render.</param>
+            <returns>A string representation of the block.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetToken(System.Int32)">
+            <summary>
+            Gets a token at the specified token index.
+            </summary>
+            <param name="tokenIndex">The token index</param>
+            <returns>The token available at the specified index</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetTokenAsTextSlice(System.Int32)">
+            <summary>
+            Returns the text representation of the token at the specified index
+            </summary>
+            <param name="tokenIndex"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetTokenAsTextSlice(Unity.Burst.Editor.BurstDisassembler.AsmToken)">
+            <summary>
+            Returns the text representation of the specified token.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetTokenAsText(Unity.Burst.Editor.BurstDisassembler.AsmToken)">
+            <summary>
+            Returns the text representation of the specified token.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetInstructionInformation(System.String,System.String@)">
+            <summary>
+            Try and get description of <see cref="!:instruction"/>.
+            </summary>
+            <param name="instruction">Instruction to query information about.</param>
+            <param name="info">If instruction present the queried information, else default string.</param>
+            <returns>Whether instruction was present in burst disassembler core.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.Initialize(System.String,Unity.Burst.Editor.BurstDisassembler.AsmKind,System.Boolean,System.Boolean)">
+            <summary>
+            Initialize the disassembler with the input and parametesr.
+            </summary>
+            <param name="input"></param>
+            <param name="asmKind"></param>
+            <param name="useDarkSkin"></param>
+            <param name="useSyntaxColoring"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.RenderFullText">
+             <summary>
+             Helper method to output the full (colored) text as we did before.
+            
+             This method will be deprecated. Just here for testing during the transition.
+             </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetBlockIdxFromTextIdx(System.Int32)">
+            <summary>
+            Finds the block index encapsulating <see cref="!:textIdx"/>.
+            </summary>
+            <param name="textIdx">Text index relative to <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>.</param>
+            <param name="start">Left-most block index to search within.</param>
+            <param name="end">Right-most block index to search within.</param>
+            <returns>(block index, blocks start index in <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>, blocks end index in <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>)</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.GetBlockIdxFromTextIdx(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Finds the block index encapsulating <see cref="!:textIdx"/>.
+            </summary>
+            <param name="textIdx">Text index relative to <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>.</param>
+            <param name="start">Left-most block index to search within.</param>
+            <param name="end">Right-most block index to search within.</param>
+            <returns>(block index, blocks start index in <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>, blocks end index in <see cref="F:Unity.Burst.Editor.BurstDisassembler._input"/>)</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstDisassembler.AsmBlock.SortEdges">
+            <summary>
+            Sort edges by in-bound first, block index, line index
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmTokenIterator">
+            <summary>
+            An <see cref="T:Unity.Burst.Editor.BurstDisassembler.AsmToken"/> iterator skipping spaces.
+            </summary>
+        </member>
+        <member name="F:Unity.Burst.Editor.BurstDisassembler.AsmLine.ColumnIndex">
+            <summary>
+            Index into <see cref="F:Unity.Burst.Editor.BurstDisassembler._columnIndices"/>, the column indices will then contain <see cref="F:Unity.Burst.Editor.BurstDisassembler.AsmLine.Length"/> minus 1 of column ints,
+            each column corresponding the horizontal offset to a token.
+            The first column is always 0 for the first token, hence the minus 1.
+            Only get filled when asking for the text for a block.
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.AsmEdge">
+            <summary>
+            An inbound or outbound connection for a block to another block+line
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.TempLabelRef">
+            <summary>
+            Structure used to store all label references before they are getting fully resolved
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstDisassembler.X86AsmInstructionInfo">
+            <summary>
+            Instruction information provider for x86-64.
+            </summary>
+        </member>
+        <member name="F:Unity.Burst.Editor.LongTextArea.GetEndIndexOfColoredLine">
+            <returns>
+            (idx in regards to whole <see cref="!:str"/> , where color tags are removed from this line, idx from this line with color tags removed)
+            </returns>
+        </member>
+        <member name="F:Unity.Burst.Editor.LongTextArea.HoverBox.columnRange">
+            <summary>
+            Indicates start and end column of hovered token.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.GetMousePosForHover">
+            <summary>
+            Use this for hover, as there is a slight visual mis-balance
+            between cursor position and visual cursor.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.CalculateBranch(Unity.Burst.Editor.BurstDisassembler.AsmEdge,System.Single,System.Single,System.Single,System.Int32)">
+            <summary>
+            Calculate the position and size of an edge, and return it as a branch.
+            </summary>
+            <param name="edge"> The edge to base branch on. </param>
+            <param name="x"> Start x position of branch. </param>
+            <param name="y1"> Start y position of branch. </param>
+            <param name="y2"> End y position of branch. </param>
+            <param name="w"> Depth of branch. </param>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.DrawBranch(Unity.Burst.Editor.LongTextArea.Branch,System.Int32,UnityEngine.Rect)">
+            <summary>
+            Draws a branch as a jump-able set of boxes.
+            </summary>
+            <param name="branch"> The branch to draw. </param>
+            <param name="w"> Depth of the branch. </param>
+            <param name="colourWheel"> Array of possible colors for branches. </param>
+            <param name="workingArea"> Current view in inspector. </param>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.GetFragNrFromBlockIdx(System.Int32,System.Int32,System.Int32,System.Single@)">
+            <summary>
+            Find accumulated fragment number the block start at.
+            </summary>
+            <param name="start">Block index to start search at. Should match <see cref="!:acc"/>.</param>
+            <param name="acc">Accumulated fragment number that block <see cref="!:start"/> start at.</param>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.SearchTextEnhanced(Unity.Burst.Editor.SearchCriteria,System.Text.RegularExpressions.Regex,UnityEngine.Rect@,System.Boolean,System.Boolean)">
+            <summary>
+            Searches <see cref="F:Unity.Burst.Editor.LongTextArea.m_Text"/> for every match, and saves each match in <see cref="F:Unity.Burst.Editor.LongTextArea.searchHits"/>.
+            </summary>
+            <param name="criteria">Search options.</param>
+            <param name="regx">Used if <see cref="!:criteria"/> specifies a regex search.</param>
+            <param name="workingArea">Inspector View.</param>
+            <param name="stopFirstMatch">Whether search should stop at first match.</param>
+            <param name="focusTop">Whether match focus should be at the top of view.</param>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.GetFragNrFromEnhancedTextIdx(System.Int32,System.Int32,System.Int32,System.Int32,System.Single@)">
+            <remarks>Works on non-colored text.</remarks>
+            <param name="goal">Index we want fragment number from.</param>
+            <param name="blockNrStart">Block to start search in.</param>
+            <param name="fragNrStart">Accumulated fragment number of <see cref="!:blockNrStart"/>.</param>
+            <param name="start">Start index of <see cref="!:blockNrStart"/>.</param>
+            <returns>(accumulated fragment number, total index for returning fragment number)</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.GetFragNrFromPlainTextIdx(System.Int32,System.Int32,System.Int32,System.Single@)">
+            <returns>(accumulated fragment number, total index for returning fragment number)</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.RenderLineSelection(System.Single,System.Single,System.Int32,System.Int32,System.Boolean)">
+            <summary>
+            Renders a blue box relative to text at (positionX, positionY) from start idx to end idx.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.UpdateSelectTextIdx(System.Func{System.String,System.Int32,System.ValueTuple{System.Int32,System.Int32}})">
+            <summary>
+            Updates _textSelectionIdx based on the position of _selectPos and _selectDragPos.
+            </summary>
+            <param name="GetEndIndexOfLine"> either  GetEndIndexOfPlainLine or GetEndIndexOfColoredLine</param>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.Render(UnityEngine.GUIStyle,UnityEngine.Rect,System.Boolean,System.Boolean,Unity.Burst.Editor.SearchCriteria,System.Text.RegularExpressions.Regex)">
+            <returns>Whether the GUI should be forced to repaint during this frame.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.LongTextArea.UpdateSelectionByFolding(System.Single,System.Int32,Unity.Burst.Editor.BurstDisassembler.AsmBlock,System.Single)">
+            <summary>
+            Updates selection based on whether <see cref="!:blockIdx"/> was folded or unfolded.
+            </summary>
+            <param name="hPad">horizontal padding.</param>
+            <param name="blockIdx">Block idx of folded/unfolded block.</param>
+            <param name="block">folded/unfolded block.</param>
+            <param name="positionY">Blocks y-position in textarea.</param>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.GetEndIndexOfPlainLine(System.String,System.Int32)">
+            <summary>
+            Gets index of line end in given string, both absolute and relative to start of line.
+            </summary>
+            <param name="str">String to search in.</param>
+            <param name="line">Line to get end index of.</param>
+            <returns>(absolute line end index of string, line end index relative to line start).</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+            Argument must be greater than 0 and less than or equal to number of lines in
+            <paramref name="str" />.
+            </exception>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.GetEndIndexOfColoredLine(System.String,System.Int32)">
+            <summary>
+            Gets index of line end in given string, both absolute and relative to start of line.
+            Adjusts the index so color tags are not included in relative index.
+            </summary>
+            <param name="str">String to search in.</param>
+            <param name="line">Line to find end of in string.</param>
+            <returns>(absolute line end index of string, line end index relative to line start adjusted for color tags).</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.RemoveColorTagFromIdx(System.String,System.Int32,System.Int32)">
+            <summary>
+            Adjusts index of color tags on line.
+            </summary>
+            <remarks>Assumes that <see cref="!:tidx"/> is index of something not a color tag.</remarks>
+            <param name="str">String containing the indexes.</param>
+            <param name="tidx">Total index of line end.</param>
+            <param name="ridx">Relative index of line end.</param>
+            <returns>(<see cref="!:tidx"/>, <see cref="!:ridx"/>) adjusted for color tags on line.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.FindLineNr(System.String,System.Int32)">
+            <summary>
+            Finds the zero indexed line number of given <see cref="!:matchIdx"/>.
+            </summary>
+            <param name="str">String to search in.</param>
+            <param name="matchIdx">Index to find line number of.</param>
+            <returns>Line number of given index in string.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.FindMatch(System.String,Unity.Burst.Editor.SearchCriteria,System.Text.RegularExpressions.Regex,System.Int32)">
+            <summary>
+            Finds first match of <see cref="!:criteria"/> in given string.
+            </summary>
+            <param name="str">String to search in.</param>
+            <param name="criteria">Search options.</param>
+            <param name="regx">Used when <see cref="!:criteria"/> specifies regex search.</param>
+            <param name="startIdx">Index to start the search at.</param>
+            <returns>(start index of match, length of match)</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstStringSearch.IndexOfWholeWord(System.String,System.Int32,System.String,System.StringComparison)">
+            <summary>
+            Finds index of <see cref="!:filter"/> matching for whole words.
+            </summary>
+            <param name="str">String to search in.</param>
+            <param name="startIdx">Index to start search from.</param>
+            <param name="filter">Key to search for.</param>
+            <param name="opt">Options for string comparison.</param>
+            <returns>Index of match or -1.</returns>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstAotCompiler">
+            <summary>
+            Integration of the burst AOT compiler into the Unity build player pipeline
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstAotCompiler.CollectCombinations(Unity.Burst.TargetPlatform,Unity.Burst.Editor.TargetCpus,UnityEditor.Build.Reporting.BuildSummary)">
+            <summary>
+            Collect CPU combinations for the specified TargetPlatform and TargetCPU
+            </summary>
+            <param name="targetPlatform">The target platform (e.g Windows)</param>
+            <param name="targetCpus">The target CPUs (e.g X64_SSE4)</param>
+            <param name="report">Error reporting</param>
+            <returns>The list of CPU combinations</returns>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstAotCompiler.BurstOutputCombination">
+            <summary>
+            Defines an output path (for the generated code) and the target CPU
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstAotCompiler.BclOutputErrorParser">
+            <summary>
+            Internal class used to parse bcl output errors
+            </summary>
+        </member>
+        <member name="T:Unity.Burst.Editor.LabeledPopup.PopperCallBack">
+            <summary>
+            Enables having several popup menus functioning independently at the same time.
+            </summary>
+        </member>
+        <member name="F:Unity.Burst.Editor.LabeledPopup.PopperCallBack.IndexChangeEventName">
+            <summary>
+            Name of the event send when an index have been chosen.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.LabeledPopup.PopperCallBack.GetSelectionValue(System.Int32,System.Int32)">
+            <summary>
+            Tries to get selection chosen by dropdown menu <see cref="!:controlID"/>.
+            </summary>
+            <param name="controlId">ID of popup menu.</param>
+            <param name="selectedIdx">Current selected index.</param>
+            <returns>
+            Either the selected target, or the <see cref="!:selectedIdx"/>
+            if none were chosen yet.
+            </returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.LabeledPopup.PopperCallBack.SetSelection(System.Object)">
+            <summary>
+            Sets selection on the opened dropdown, and sends an event
+            to the view the popup is within.
+            </summary>
+            <param name="index">Index selected.</param>
+        </member>
+        <member name="F:Unity.Burst.Editor.LabeledPopup.LabelControlName">
+            <summary>
+            Name used for getting a controlID for popup menus.
+            </summary>
+        </member>
+        <member name="M:Unity.Burst.Editor.LabeledPopup.Popup(System.Int32,System.String,System.String[])">
+            <summary>
+            Create a immediate automatically positioned popup menu.
+            </summary>
+            <param name="index">Current active selection index.</param>
+            <param name="display">Name to display as the button.</param>
+            <param name="options">Display name for the dropdown menu.</param>
+            <returns>The possibly new active selection index.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstMath.AnglePoint(System.Single,UnityEngine.Vector2,UnityEngine.Vector2)">
+            <summary>
+            Rotates <see cref="!:point"/> around a pivot point according to angle given in degrees.
+            </summary>
+            <param name="angle">Angle in degrees.</param>
+            <param name="point">Point to rotate.</param>
+            <param name="pivotPoint">Pivot point to rotate around.</param>
+            <returns>The rotated point.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstMath.CalculateAngle(UnityEngine.Vector2,UnityEngine.Vector2)">
+            <summary>
+            Calculated angle in degrees between two points.
+            </summary>
+            <param name="start">Starting point.</param>
+            <param name="end">End point.</param>
+            <returns>Angle in degrees.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstMath.AdjustedContains(UnityEngine.Rect,UnityEngine.Vector2)">
+            <summary>
+            Checks if <see cref="!:point"/> is within <see cref="!:rect"/> enlarged by <see cref="F:Unity.Burst.Editor.BurstMath.HitBoxAdjust"/>.
+            </summary>
+            <param name="rect">Give rect to enlarge and check with.</param>
+            <param name="point">Given point to match in enlarged <see cref="!:rect"/>.</param>
+            <returns>Whether <see cref="!:point"/> is within enlarged <see cref="!:rect"/>.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstMath.WithinRange(System.Single,System.Single,System.Single)">
+            <summary>
+            Checks if <see cref="!:num"/> is within the closed interval defined by endPoint1 and endPoint2.
+            </summary>
+            <param name="endPoint1">One side of range.</param>
+            <param name="endPoint2">Other side of range.</param>
+            <param name="num">Number to check if it is in between <see cref="!:endPoint1"/> and <see cref="!:endPoint2"/>.</param>
+            <returns>Whether <see cref="!:num"/> is within given range.</returns>
+        </member>
+        <member name="M:Unity.Burst.Editor.BurstMath.RoundDownToNearest(System.Single,System.Single)">
+            <summary>
+            Rounds down to nearest amount specified by <see cref="!:to"/>.
+            </summary>
+            <param name="number">Number to round down.</param>
+            <param name="to">Specifies what amount to round down to.</param>
+            <returns><see cref="!:number"/> rounded down to amount <see cref="!:to"/>.</returns>
+        </member>
+        <member name="T:Unity.Burst.Editor.BurstMenu">
+            <summary>
+            Register all menu entries for burst to the Editor
+            </summary>
+        </member>
+    </members>
+</doc>

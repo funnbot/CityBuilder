@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.PlasticSCM.Editor</name>
+    </assembly>
+    <members>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.ChangesetFromCollabCommitResponse.Error">
+            <summary>
+            Error caused by the request.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.ChangesetFromCollabCommitResponse.RepId">
+            <summary>
+            The repository ID
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.ChangesetFromCollabCommitResponse.RepModuleId">
+            <summary>
+            The repository module ID
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.ChangesetFromCollabCommitResponse.ChangesetId">
+            <summary>
+            The changeset ID
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.ChangesetFromCollabCommitResponse.BranchId">
+            <summary>
+            The branch ID
+            </summary>
+        </member>
+        <member name="T:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse">
+            <summary>
+            Response to credentials request.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.Error">
+            <summary>
+            Error caused by the request.
+            </summary>
+        </member>
+        <member name="T:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.TokenType">
+            <summary>
+            Type of the token.
+            </summary>
+        </member>
+        <member name="F:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.TokenType.Password">
+            <summary>
+            Password token.
+            </summary>
+        </member>
+        <member name="F:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.TokenType.Bearer">
+            <summary>
+            Bearer token.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.Type">
+            <summary>
+            Get the type of the token.
+            </summary>
+        </member>
+        <member name="F:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.Email">
+            <summary>
+            The user's email.
+            </summary>
+        </member>
+        <member name="F:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.Token">
+            <summary>
+            The credential's token.
+            </summary>
+        </member>
+        <member name="F:Unity.PlasticSCM.Editor.WebApi.CredentialsResponse.TokenTypeValue">
+            <summary>
+            The token type represented as an integer.
+            </summary>
+        </member>
+        <member name="T:Unity.PlasticSCM.Editor.WebApi.TokenExchangeResponse">
+            <summary>
+            Response to token exchange request.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.TokenExchangeResponse.Error">
+            <summary>
+            Error caused by the request.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.TokenExchangeResponse.User">
+            <summary>
+            The user's username.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.TokenExchangeResponse.AccessToken">
+            <summary>
+            The access token.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.TokenExchangeResponse.RefreshToken">
+            <summary>
+            The refresh token.
+            </summary>
+        </member>
+        <member name="T:Unity.PlasticSCM.Editor.WebApi.CurrentUserAdminCheckResponse">
+            <summary>
+            Response to current user admin check request.
+            </summary>
+        </member>
+        <member name="P:Unity.PlasticSCM.Editor.WebApi.CurrentUserAdminCheckResponse.Error">
+            <summary>
+            Error caused by the request.
+            </summary>
+        </member>
+        <member name="T:Unity.PlasticSCM.Editor.PlasticPlugin">
+            <summary>
+            The Plastic SCM plugin for Unity editor.
+            </summary>
+        </member>
+        <member name="E:Unity.PlasticSCM.Editor.PlasticPlugin.OnNotificationUpdated">
+            <summary>
+            Invoked when notification status changed.
+            </summary>
+        </member>
+        <member name="M:Unity.PlasticSCM.Editor.PlasticPlugin.OpenPlasticWindowDisablingOfflineModeIfNeeded">
+            <summary>
+            Open the Plastic SCM window.
+            Also, it disables the offline mode if it is enabled.
+            </summary>
+        </member>
+        <member name="M:Unity.PlasticSCM.Editor.PlasticPlugin.GetPluginStatusIcon">
+            <summary>
+            Get the plugin status icon.
+            </summary>
+        </member>
+    </members>
+</doc>

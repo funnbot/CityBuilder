@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.Graphics.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:MaterialOverrideAssetEditor">
+            <summary>
+            Represents the Inspector UI for a material override asset.
+            </summary>
+        </member>
+        <member name="M:MaterialOverrideAssetEditor.OnInspectorGUI">
+            <summary>
+            Draws the custom inspector for the material override asset.
+            </summary>
+        </member>
+        <member name="T:MaterialOverrideEditor">
+            <summary>
+            Represents the Inspector UI for a material override.
+            </summary>
+        </member>
+        <member name="M:MaterialOverrideEditor.OnInspectorGUI">
+            <summary>
+            Draws the custom inspector for the material override asset.
+            </summary>
+        </member>
+    </members>
+</doc>

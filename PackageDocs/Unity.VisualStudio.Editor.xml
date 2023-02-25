@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.VisualStudio.Editor</name>
+    </assembly>
+    <members>
+        <member name="M:Microsoft.Unity.VisualStudio.Editor.ProjectGeneration.SyncIfNeeded(System.Collections.Generic.IEnumerable{System.String},System.Collections.Generic.IEnumerable{System.String})">
+            <summary>
+            Syncs the scripting solution if any affected files are relevant.
+            </summary>
+            <returns>
+            Whether the solution was synced.
+            </returns>
+            <param name='affectedFiles'>
+            A set of files whose status has changed
+            </param>
+            <param name="reimportedFiles">
+            A set of files that got reimported
+            </param>
+        </member>
+        <member name="M:Microsoft.Unity.VisualStudio.Editor.ProjectGeneration.GetProjectEntriesText(System.Collections.Generic.IEnumerable{Microsoft.Unity.VisualStudio.Editor.SolutionProjectEntry})">
+            <summary>
+            Get a Project("{guid}") = "MyProject", "MyProject.unityproj", "{projectguid}"
+            entry for each relevant language
+            </summary>
+        </member>
+        <member name="M:Microsoft.Unity.VisualStudio.Editor.ProjectGeneration.GetProjectActiveConfigurations(System.String)">
+            <summary>
+            Generate the active configuration string for a given project guid
+            </summary>
+        </member>
+    </members>
+</doc>

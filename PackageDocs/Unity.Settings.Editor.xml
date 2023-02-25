@@ -1,0 +1,1160 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Settings.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.SettingsManagement.ISettingsRepository">
+            <summary>
+            An interface that represents a settings repository, which is responsible for implementing the saving and loading of values.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.ISettingsRepository.scope">
+            <summary>
+            Implement this property to get the <see cref="T:UnityEditor.SettingsScope"/> this repository applies to.
+            </summary>
+            <value>
+            Indicates whether this is a <see cref="F:UnityEditor.SettingsScope.Project"/> setting
+            or a <see cref="F:UnityEditor.SettingsScope.User"/> preference.
+            </value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.ISettingsRepository.name">
+            <summary>
+            Implement this property to get the name to identify this repository.
+            </summary>
+            <value>The bare filename of this repository.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.ISettingsRepository.path">
+            <summary>
+            Implement this property to get the file path to the serialized settings data.
+            </summary>
+            <value>Full path to the JSON file containing the settings data.</value>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ISettingsRepository.Save">
+            <summary>
+            Implement this method to save all settings to their serialized state.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ISettingsRepository.Set``1(System.String,``0)">
+            <summary>
+            Implement this method to set a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. Must be serializable.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ISettingsRepository.Get``1(System.String,``0)">
+            <summary>
+            Implement this method to get a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>The value matching both `key` and type `T`. If there was no match, this returns the `fallback` value.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ISettingsRepository.ContainsKey``1(System.String)">
+            <summary>
+            Implement this method to evaluate whether the repository contains a settings entry that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>True if a settings entry matches both `key` and type `T`; false if no entry is found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ISettingsRepository.Remove``1(System.String)">
+            <summary>
+            Implement this method to remove a key-value pair from the settings repository. This method identifies the settings entry to remove
+            by matching the specified key for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSettingsRepository">
+            <summary>
+            Represents a settings repository for user preferences.
+            </summary>
+            <seealso cref="T:UnityEditor.EditorPrefs"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingsRepository.scope">
+            <summary>
+            Gets the <see cref="T:UnityEditor.SettingsScope">scope</see> this repository applies to.
+            </summary>
+            <value>Indicates that this is a <see cref="F:UnityEditor.SettingsScope.User"/> preference.</value>
+            <seealso cref="P:UnityEditor.SettingsManagement.ISettingsRepository.scope"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingsRepository.name">
+            <summary>
+            Gets the identifying name for this repository.
+            </summary>
+            <value>User settings are named "EditorPrefs".</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingsRepository.path">
+            <summary>
+            Gets the full path to the file containing the serialized settings data.
+            </summary>
+            <remarks>This property returns an empty string.</remarks>
+            <value>The location stored for this repository.</value>
+            <seealso cref="P:UnityEditor.SettingsManagement.ISettingsRepository.path"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsRepository.Save">
+            <summary>
+            Saves all settings to their serialized state.
+            </summary>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.Save"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsRepository.Set``1(System.String,``0)">
+            <summary>
+            Sets a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. This must be serializable.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsRepository.Get``1(System.String,``0)">
+            <summary>
+            Returns a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>The value matching both `key` and type `T`. If there was no match, this returns the `fallback` value.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsRepository.ContainsKey``1(System.String)">
+            <summary>
+            Determines whether this repository contains a settings entry that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>True if a settings entry matches both `key` and type `T`; false if no entry is found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsRepository.Remove``1(System.String)">
+            <summary>
+            Removes a key-value pair from this settings repository. This method identifies the settings entry to remove
+            by matching the specified key for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSettingsProvider">
+            <summary>
+            A <see cref="T:UnityEditor.SettingsProvider"/> implementation that creates an interface from settings reflected
+            from a collection of assemblies.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.UserSettingsProvider.developerModeCategory">
+            <summary>
+            Category string constant to check whether Unity is running in developer (internal) mode.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsProvider.#ctor(System.String,UnityEditor.SettingsManagement.Settings,System.Reflection.Assembly[],UnityEditor.SettingsScope)">
+            <summary>
+            Initializes and returns a new `UserSettingsProvider` instance.
+            </summary>
+            <param name="path">The settings menu path.</param>
+            <param name="settings">The Settings instance that this provider is inspecting.</param>
+            <param name="assemblies">A collection of assemblies to scan for <see cref="T:UnityEditor.SettingsManagement.UserSettingAttribute"/> and <see cref="T:UnityEditor.SettingsManagement.UserSettingBlockAttribute"/> attributes.</param>
+            <param name="scopes">Which scopes this provider is valid for.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if settings or assemblies is null.</exception>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsProvider.OnActivate(System.String,UnityEngine.UIElements.VisualElement)">
+            <summary>
+            Invoked by the <see cref="T:UnityEditor.SettingsProvider"/> when activated in the Editor.
+            </summary>
+            <param name="searchContext">
+            Search context in the search box on the
+            [Settings](https://docs.unity3d.com/Manual/comp-ManagerGroup.html) window.
+            </param>
+            <param name="rootElement">
+            Root of the UIElements tree. If you add to this root, the SettingsProvider uses
+            [UIElements](https://docs.unity3d.com/ScriptReference/UnityEngine.UIElementsModule.html)
+            instead of calling <see cref="M:UnityEditor.SettingsManagement.UserSettingsProvider.OnGUI(System.String)"/> to build the UI.
+            See <see cref="M:UnityEditor.SettingsProvider.OnActivate(System.String,UnityEngine.UIElements.VisualElement)"/> for details.
+            </param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsProvider.OnTitleBarGUI">
+            <summary>
+            Invoked by the SettingsProvider container when drawing the UI header.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingsProvider.OnGUI(System.String)">
+            <summary>
+            Called when the Settings window opens in the Editor.
+            </summary>
+            <param name="searchContext">
+            Search context in the search box on the
+            [Settings](https://docs.unity3d.com/Manual/comp-ManagerGroup.html) window.
+            </param>
+            <seealso cref="M:UnityEditor.SettingsProvider.OnGUI(System.String)"/>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.SettingsGUILayout">
+            <summary>
+            Provides extension methods for <see cref="T:UnityEngine.GUILayout"/> that also implement settings-specific functionality.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.SettingsGUILayout.IndentedGroup">
+            <summary>
+            Provides methods for creating and managing indented GUI sections.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.IndentedGroup.#ctor">
+            <summary>
+            Creates an indented GUI section.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.IndentedGroup.#ctor(System.String)">
+            <summary>
+            Creates an indented GUI section with a label.
+            </summary>
+            <param name="label">The name of the section to display in the UI as a label. </param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.IndentedGroup.Dispose">
+            <summary>
+            Reverts the GUI indent back to its original value.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableSlider(UnityEngine.GUIContent,System.Single,System.Single,System.Single,System.String)">
+            <summary>
+            Creates a slider that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableSlider(System.String,System.Single,System.Single,System.Single,System.String)">
+            <summary>
+            Creates a slider that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableFloatField(UnityEngine.GUIContent,System.Single,System.String)">
+            <summary>
+            Creates a float field that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableFloatField(System.String,System.Single,System.String)">
+            <summary>
+            Creates a float field that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableIntField(UnityEngine.GUIContent,System.Int32,System.String)">
+            <summary>
+            Creates an int field that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableIntField(System.String,System.Int32,System.String)">
+            <summary>
+            Creates an int field that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableToggle(UnityEngine.GUIContent,System.Boolean,System.String)">
+            <summary>
+            Creates a toggle field that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableToggle(System.String,System.Boolean,System.String)">
+            <summary>
+            Creates a toggle field that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableTextField(UnityEngine.GUIContent,System.String,System.String)">
+            <summary>
+            Creates a text field that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableTextField(System.String,System.String,System.String)">
+            <summary>
+            Creates a text field that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableColorField(UnityEngine.GUIContent,UnityEngine.Color,System.String)">
+            <summary>
+            Creates a color field that implements search filtering.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SearchableColorField(System.String,UnityEngine.Color,System.String)">
+            <summary>
+            Creates a color field that implements search filtering.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsSlider(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.Single},System.Single,System.Single,System.String)">
+            <summary>
+            Creates a float slider that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsSlider(System.String,UnityEditor.SettingsManagement.UserSetting{System.Single},System.Single,System.Single,System.String)">
+            <summary>
+            Creates a float slider that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsSlider(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.Int32},System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates an int slider that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsSlider(System.String,UnityEditor.SettingsManagement.UserSetting{System.Int32},System.Int32,System.Int32,System.String)">
+            <summary>
+            Creates an int slider that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="min">The value at the left end of the slider.</param>
+            <param name="max">The value at the right end of the slider.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsFloatField(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.Single},System.String)">
+            <summary>
+            Creates a float field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsFloatField(System.String,UnityEditor.SettingsManagement.UserSetting{System.Single},System.String)">
+            <summary>
+            Creates a float field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsIntField(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.Int32},System.String)">
+            <summary>
+            Creates an integer field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsIntField(System.String,UnityEditor.SettingsManagement.UserSetting{System.Int32},System.String)">
+            <summary>
+            Creates an integer field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsToggle(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.Boolean},System.String)">
+            <summary>
+            Creates a boolean toggle field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsToggle(System.String,UnityEditor.SettingsManagement.UserSetting{System.Boolean},System.String)">
+            <summary>
+            Creates a boolean toggle field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsTextField(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{System.String},System.String)">
+            <summary>
+            Creates a text field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsTextField(System.String,UnityEditor.SettingsManagement.UserSetting{System.String},System.String)">
+            <summary>
+            Creates a text field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsColorField(UnityEngine.GUIContent,UnityEditor.SettingsManagement.UserSetting{UnityEngine.Color},System.String)">
+            <summary>
+            Creates a color field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a <see cref="T:UnityEngine.GUIContent"/> instance to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.SettingsColorField(System.String,UnityEditor.SettingsManagement.UserSetting{UnityEngine.Color},System.String)">
+            <summary>
+            Creates a color field that implements search filtering and a <see cref="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">Reset</see> context menu entry.
+            </summary>
+            <param name="label">Specify a string to set the label that appears beside the value field. </param>
+            <param name="value">The value to edit.</param>
+            <param name="searchContext">A string representing the current search query. Empty or null strings match any value.</param>
+            <returns>The value set by the user.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsGUILayout.DoResetContextMenuForLastRect(UnityEditor.SettingsManagement.IUserSetting)">
+            <summary>
+            Implements a "Reset" context menu entry for the specified user setting.
+            using the rect from the last automatic layout.
+            </summary>
+            <param name="setting">The target setting for the "Reset" context menu entry.</param>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.PackageSettingsRepository">
+            <summary>
+            A settings repository that stores data local to a Unity project relative to a package.
+            The settings data is serialized to a JSON file.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.PackageSettingsRepository.#ctor(System.String,System.String)">
+            <summary>
+            Initializes and returns an instance of the PackageSettingsRepository with the
+            serialized data location set to a path defined by the specified `package` and
+            `name` values relative to the `ProjectSettings` directory. For example:
+            `MyUnityProject/ProjectSettings/Packages/com.example.my-package/Settings.json`.
+            </summary>
+            <param name="package">The name of the package to store the serialized data under.</param>
+            <param name="name">The base filename to use for the serialized data location.</param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.PackageSettingsRepository.GetSettingsPath(System.String,System.String)">
+            <summary>
+            Builds and returns a path for a settings file relative to the calling assembly's package directory.
+            This method constructs the location from the specified `package` and (filename) `name` under the `ProjectSettings` folder.
+            </summary>
+            <param name="packageName">The name of the package requesting this setting.</param>
+            <param name="name">An optional name for the settings file. Default is "Settings."</param>
+            <returns>A package-scoped path to the settings file inside the project's `ProjectSettings`.</returns>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSettingAttribute">
+            <summary>
+            A custom attribute for registering a static field of type <see cref="T:UnityEditor.SettingsManagement.IUserSetting"/> for the <see cref="T:UnityEditor.SettingsManagement.UserSettingsProvider"/> window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingAttribute.category">
+            <summary>
+            Gets the name of the group (category) to assign this settings value to.
+            When Unity finds settings values in assemblies, it displays them in groups, organized by category.
+            </summary>
+            <value>The group or category where this setting appears in the UI.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingAttribute.title">
+            <summary>
+            Gets the label to show for this setting.
+            </summary>
+            <value>The label that appears beside this setting in the UI.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingAttribute.visibleInSettingsProvider">
+            <summary>
+            True to show this field in the <see cref="T:UnityEditor.SettingsManagement.UserSettingsProvider"/> interface; false if not.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingAttribute.#ctor">
+            <summary>
+            Registers a static field as a setting. Fields must be of a type that implements <see cref="T:UnityEditor.SettingsManagement.IUserSetting"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingAttribute.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Registers a static field as a setting and creates an entry in the UI. The field must be of a type that implements <see cref="T:UnityEditor.SettingsManagement.IUserSetting"/>.
+            </summary>
+            <param name="category">The category to assign this setting to.</param>
+            <param name="title">The display text for this setting in the UI.</param>
+            <param name="tooltip">Optional. The tooltip for this setting.</param>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.SettingsKeyAttribute">
+            <summary>
+            A custom attribute for registering a field with <see cref="T:UnityEditor.SettingsManagement.Settings"/>, but without automatically creating
+            a property field in the <see cref="T:UnityEditor.SettingsProvider"/>.
+            Unlike <see cref="T:UnityEditor.SettingsManagement.UserSettingAttribute"/>, this attribute is valid for instance properties as well as static. These values
+            don't appear in the SettingsProvider. Unity clears their stored values when "Reset All" is invoked.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.SettingsKeyAttribute.key">
+            <summary>
+            Gets the key for this value.
+            </summary>
+            <value>The key used to identify this settings value from the repository.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.SettingsKeyAttribute.scope">
+            <summary>
+            Gets the location where this setting is serialized.
+            </summary>
+            <value>
+            Indicates whether this is a <see cref="F:UnityEditor.SettingsScope.Project"/> setting
+            or a <see cref="F:UnityEditor.SettingsScope.User"/> preference.
+            </value>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.SettingsKeyAttribute.#ctor(System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Registers a field as a setting. This allows the <see cref="T:UnityEditor.SettingsManagement.UserSettingsProvider"/> to reset its value and display it
+            in debugging modes.
+            </summary>
+            <param name="key">The key for this setting.</param>
+            <param name="scope">The scope in which this setting is serialized.</param>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSettingBlockAttribute">
+            <summary>
+            A custom attribute for adding a section of settings to a category.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSettingBlockAttribute.category">
+            <summary>
+            Returns the title for the settings group.
+            When Unity finds settings values in assemblies, it displays them in groups, organized by category.
+            </summary>
+            <value>The group or category where this setting appears in the UI.</value>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettingBlockAttribute.#ctor(System.String)">
+            <summary>
+            Registers a static method for a callback in the <see cref="T:UnityEditor.SettingsManagement.UserSettingsProvider"/> Editor window under a category.
+            <code><![CDATA[
+            [UserSettingBlock("General")]
+            static void GeneralSettings(string[] searchContext) {}
+            ]]></code>
+            </summary>
+            <param name="category">Specify the title of the group of settings under which this setting appears in the UI.</param>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.FileSettingsRepository">
+            <summary>
+            Represents a settings repository that stores data serialized to a JSON file.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.FileSettingsRepository.k_PackageSettingsDirectory">
+            <summary>
+            Location of where the package settings are saved under the `ProjectSettings` directory.
+            </summary>
+            <returns>The folder where package settings are saved under the `ProjectSettings` directory.</returns>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.FileSettingsRepository.k_UserProjectSettingsDirectory">
+            <summary>
+            Location of where the package settings are saved under the `UserSettings` directory.
+            </summary>
+            <returns>Per-project user settings directory. </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.#ctor(System.String)">
+            <summary>
+            Initializes and returns an instance of the FileSettingsRepository
+            with the serialized data location set to the specified path.
+            </summary>
+            <param name="path">The project-relative path to save settings to.</param>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.FileSettingsRepository.scope">
+            <summary>
+            Sets the <see cref="T:UnityEditor.SettingsScope"/> this repository applies to.
+            </summary>
+            <remarks>
+            By default, this repository implementation is relevant to the Project scope, but any implementations
+            that override this method can choose to store this serialized data at a user scope instead.
+            </remarks>
+            <value>
+            <see cref="F:UnityEditor.SettingsScope.Project"/>, meaning that this setting applies to project settings (the default);
+            or <see cref="F:UnityEditor.SettingsScope.User"/>, meaning that this setting applies to user preferences.
+            </value>
+            <seealso cref="P:UnityEditor.SettingsManagement.ISettingsRepository.scope"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.FileSettingsRepository.path">
+            <summary>
+            Gets the full path to the file containing the serialized settings data.
+            </summary>
+            <value>The location stored for this repository.</value>
+            <seealso cref="P:UnityEditor.SettingsManagement.ISettingsRepository.path"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.FileSettingsRepository.name">
+            <summary>
+            Sets the name of file containing the serialized settings data.
+            </summary>
+            <value>The bare filename of the settings file.</value>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.TryLoadSavedJson(System.String@)">
+            <summary>
+            Loads the JSON file that stores the values for this settings object.
+            </summary>
+            <param name="json">The full path to the JSON file to load.</param>
+            <returns>True if the file exists; false if it doesn't.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.Save">
+            <summary>
+            Saves all settings to their serialized state.
+            </summary>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.Save"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.Set``1(System.String,``0)">
+            <summary>
+            Sets a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. This value must be serializable.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.Set``1(System.String,``0)"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.Get``1(System.String,``0)">
+            <summary>
+            Returns a value with key of type `T`, or the fallback value if no matching key is found.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>The settings value if a match is found; otherwise, it returns the default (fallback) value.</returns>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.Get``1(System.String,``0)"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.ContainsKey``1(System.String)">
+            <summary>
+            Determines whether this repository contains a settings entry that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>True if a match is found for both key and type; false if no entry is found.</returns>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.ContainsKey``1(System.String)"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.FileSettingsRepository.Remove``1(System.String)">
+            <summary>
+            Removes a key-value pair from the settings repository. This method identifies the settings entry to remove
+            by matching the specified key for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <seealso cref="M:UnityEditor.SettingsManagement.ISettingsRepository.Remove``1(System.String)"/>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.ProjectUserSettings">
+            <summary>
+            Represents a settings repository that stores data local to a Unity project.
+            The settings data is serialized to a JSON file.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ProjectUserSettings.#ctor(System.String,System.String)">
+            <summary>
+            Initializes and returns an instance of the ProjectUserSettings repository with the
+            serialized data location set to a path defined by the specified `package` and
+            `name` values relative to the `UserSettings` directory. For example:
+            `MyUnityProject/UserSettings/Packages/com.example.my-package/Settings.json`.
+            </summary>
+            <param name="package">The name of the package to store the serialized data under.</param>
+            <param name="name">The base filename to use for the serialized data location (defaults to "Settings").</param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.ProjectUserSettings.GetUserSettingsPath(System.String,System.String)">
+            <summary>
+            Builds and returns a path for a settings file relative to the calling assembly's package directory.
+            This method constructs the location from the specified `package` and (filename) `name` under the `UserSettings` folder.
+            </summary>
+            <param name="package">The name of the package requesting this setting.</param>
+            <param name="name">An optional name for the settings file. Default is "Settings."</param>
+            <returns>A package-scoped path to the settings file inside the project's `UserSettings` folder.</returns>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.SettingVisibility.Visible">
+            <summary>
+            Matches any static field implementing IUserSetting and tagged with [UserSettingAttribute(visibleInSettingsProvider = true)].
+            These fields are automatically scraped by the SettingsProvider and displayed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.SettingVisibility.Hidden">
+            <summary>
+            Matches any static field implementing IUserSetting and tagged with [UserSettingAttribute(visibleInSettingsProvider = false)].
+            These fields will be reset by the "Reset All" menu in SettingsProvider, but are not shown in the interface.
+            Typically these fields require some conditional formatting or data handling, and are shown in the
+            SettingsProvider UI with a [UserSettingBlockAttribute].
+            </summary>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.SettingVisibility.Unlisted">
+            <summary>
+            A static or instance field tagged with [SettingsKeyAttribute].
+            Unlisted settings are not shown in the SettingsProvider, but are reset to default values by the "Reset All"
+            context menu.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.SettingsManagement.SettingVisibility.Unregistered">
+            <summary>
+            A static field implementing IUserSetting that is not marked with any setting attribute.
+            Unregistered IUserSetting fields are not affected by the SettingsProvider.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.IUserSetting">
+            <summary>
+            An interface that represents a user setting.
+            Types implementing IUserSetting are eligible for use with <see cref="T:UnityEditor.SettingsManagement.UserSettingAttribute"/>, which enables
+            fields to automatically populate the <see cref="T:UnityEditor.SettingsManagement.UserSettingsProvider"/> interface.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.IUserSetting.key">
+            <summary>
+            Implement this property to get the key for this value.
+            </summary>
+            <value>The key used to identify the settings entry. This is used along with the <see cref="P:UnityEditor.SettingsManagement.IUserSetting.type"/> to uniquely identify the value.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.IUserSetting.type">
+            <summary>
+            Implement this property to get the type of the stored value.
+            </summary>
+            <value>The type of value. This is used along with the <see cref="P:UnityEditor.SettingsManagement.IUserSetting.key"/> to uniquely identify the value.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.IUserSetting.scope">
+            <summary>
+            Implement this property to get the location in the UI where this setting will appear.
+            </summary>
+            <value>
+            Indicates whether this is a <see cref="F:UnityEditor.SettingsScope.Project"/> setting
+            or a <see cref="F:UnityEditor.SettingsScope.User"/> preference.
+            </value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.IUserSetting.settingsRepositoryName">
+            <summary>
+            Implement this property to get the name of the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> that this setting should be associated with.
+            If null, the first repository matching the <see cref="P:UnityEditor.SettingsManagement.IUserSetting.scope"/> is used.
+            </summary>
+            <value>The bare filename of this repository.</value>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.IUserSetting.settings">
+            <summary>
+            Implement this property to get the <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance to save and load this setting from.
+            </summary>
+            <value>A reference to <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance.</value>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.GetValue">
+            <summary>
+            Implement this method to return the stored settings value.
+            If you are implementing IUserSetting, you should cache this value.
+            </summary>
+            <returns>
+            The stored value.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.GetDefaultValue">
+            <summary>
+            Implement this method to return the the default value for this setting.
+            </summary>
+            <returns>
+            The default value for this setting.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.SetValue(System.Object,System.Boolean)">
+            <summary>
+            Implement this method to set the value for this setting.
+            </summary>
+            <param name="value">The new value.</param>
+            <param name="saveProjectSettingsImmediately">
+            True to immediately serialize the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> that is backing this value; or false to postpone.
+            If not serializing immediately, be sure to call <see cref="M:UnityEditor.SettingsManagement.Settings.Save"/>.
+            </param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.ApplyModifiedProperties">
+            <summary>
+            Implement this method to explicitly update the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> that is backing this value.
+            When the inspected type is a reference value, it is possible to change properties without affecting the
+            backing setting. ApplyModifiedProperties provides a method to force serialize these changes.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.Reset(System.Boolean)">
+            <summary>
+            Implement this method to set the current value back to the default.
+            </summary>
+            <param name="saveProjectSettingsImmediately">True to immediately re-serialize project settings. By default, no values are updated. </param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.IUserSetting.Delete(System.Boolean)">
+            <summary>
+            Implement this method to delete the saved setting. This does not clear the current value.
+            </summary>
+            <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.Reset(System.Boolean)"/>
+            <param name="saveProjectSettingsImmediately">True to immediately re-serialize project settings. By default, no values are updated.</param>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSetting`1">
+            <summary>
+            A generic implementation of <see cref="T:UnityEditor.SettingsManagement.IUserSetting"/> to use with a <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance. This default
+            implementation assumes that the <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance contains two <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> interfaces:
+            - Project settings (<see cref="F:UnityEditor.SettingsScope.Project"/>)
+            - User preferences (<see cref="F:UnityEditor.SettingsScope.User"/>)
+            </summary>
+            <typeparam name="T">Type of value.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.#ctor(UnityEditor.SettingsManagement.Settings,System.String,`0,UnityEditor.SettingsScope)">
+            <summary>
+            Initializes and returns an instance of the UserSetting&lt;T&gt; type.
+            </summary>
+            <param name="settings">The <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance to save and load this setting from.</param>
+            <param name="key">The key for this value.</param>
+            <param name="value">The default value for this key.</param>
+            <param name="scope">The scope for this setting. By default, the scope is the project.</param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.#ctor(UnityEditor.SettingsManagement.Settings,System.String,System.String,`0,UnityEditor.SettingsScope)">
+            <summary>
+            Initializes and returns an instance of the UserSetting&lt;T&gt; type using the specified repository.
+            </summary>
+            <param name="settings">The <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance to save and load this setting from.</param>
+            <param name="repository">The <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> name to save and load this setting from. Specify null to save to the first available instance.</param>
+            <param name="key">The key for this value.</param>
+            <param name="value">The default value for this key.</param>
+            <param name="scope">The scope for this setting. By default, the scope is the project.</param>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.key">
+            <summary>
+            Gets the key for this value.
+            </summary>
+            <seealso cref="P:UnityEditor.SettingsManagement.IUserSetting.key"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.settingsRepositoryName">
+            <summary>
+            Gets the name of the repository that this setting is saved in.
+            </summary>
+            <seealso cref="P:UnityEditor.SettingsManagement.IUserSetting.settingsRepositoryName" />
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.type">
+            <summary>
+            Gets the type that this setting represents (&lt;T&gt;).
+            </summary>
+            <seealso cref="P:UnityEditor.SettingsManagement.IUserSetting.type" />
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.GetDefaultValue">
+            <summary>
+            Returns a copy of the default value.
+            </summary>
+            <returns>
+            The default value.
+            </returns>
+            <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.GetDefaultValue" />
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.GetValue">
+            <summary>
+            Returns the currently stored value.
+            </summary>
+            <returns>
+            The value that is currently set.
+            </returns>
+            <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.GetValue" />
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.scope">
+            <summary>
+            Gets the scope (<see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>) where the <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance saves
+            its data.
+            </summary>
+            <seealso cref="P:UnityEditor.SettingsManagement.IUserSetting.scope" />
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.settings">
+            <summary>
+            Gets the <see cref="T:UnityEditor.SettingsManagement.Settings"/> instance to read from and save to.
+            </summary>
+            <seealso cref="P:UnityEditor.SettingsManagement.IUserSetting.settings" />
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.SetValue(System.Object,System.Boolean)">
+             <summary>
+             Sets the value for this setting from the specified object.
+             </summary>
+             <param name="value">The new value to set.</param>
+             <param name="saveProjectSettingsImmediately">
+             Set this value to true if you want to immediately serialize the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>
+             that is backing this value. By default, this is false.
+            
+             **Note**: If not serializing immediately, you need to call <see cref="M:UnityEditor.SettingsManagement.Settings.Save"/>.
+             </param>
+             <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.SetValue(System.Object,System.Boolean)" />
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.SetValue(`0,System.Boolean)">
+            <inheritdoc cref="M:UnityEditor.SettingsManagement.UserSetting`1.SetValue(System.Object,System.Boolean)" />
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.Delete(System.Boolean)">
+             <summary>
+             Deletes the saved setting but doesn't clear the current value.
+             </summary>
+             <param name="saveProjectSettingsImmediately">
+             Set this value to true if you want to immediately serialize the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>
+             that is backing this value. By default, this is false.
+            
+             **Note**: If not serializing immediately, you need to call <see cref="M:UnityEditor.SettingsManagement.Settings.Save"/>.
+             </param>
+             <seealso cref="M:UnityEditor.SettingsManagement.UserSetting`1.Reset(System.Boolean)" />
+             <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.Delete(System.Boolean)"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.ApplyModifiedProperties">
+            <summary>
+            Forces Unity to serialize the changed properties to the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> that is backing this value.
+            When the inspected type is a reference value, it is possible to change properties without affecting the
+            backing setting.
+            </summary>
+            <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.ApplyModifiedProperties"/>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.Reset(System.Boolean)">
+             <summary>
+             Sets the current value back to the default.
+             </summary>
+             <param name="saveProjectSettingsImmediately">
+             Set this value to true if you want to immediately serialize the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>
+             that is backing this value. By default, this is false.
+            
+             **Note**: If not serializing immediately, you need to call <see cref="M:UnityEditor.SettingsManagement.Settings.Save"/>.
+             </param>
+             <seealso cref="M:UnityEditor.SettingsManagement.IUserSetting.Reset(System.Boolean)"/>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.defaultValue">
+            <summary>
+            Gets the default value for this setting.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.SettingsManagement.UserSetting`1.value">
+            <summary>
+            Gets or sets the currently stored value.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.op_Implicit(UnityEditor.SettingsManagement.UserSetting{`0})~`0">
+            <summary>
+            Implicit casts this setting to the backing type `T`.
+            </summary>
+            <param name="pref">The UserSetting&lt;T&gt; to cast to `T`.</param>
+            <returns>
+            The currently stored <see cref="P:UnityEditor.SettingsManagement.UserSetting`1.value"/>.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSetting`1.ToString">
+            <summary>
+            Returns a string representation of this setting.
+            </summary>
+            <returns>A string summary of this setting of format "[scope] setting. Key: [key]  Value: [value]".</returns>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.UserSettings">
+            <summary>
+            A collection of utilities for working with settings.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.UserSettings.FindUserSettings(System.Collections.Generic.IEnumerable{System.Reflection.Assembly},UnityEditor.SettingsManagement.SettingVisibility,System.Reflection.BindingFlags)">
+            <summary>
+            Collect all registered UserSetting and HiddenSetting attributes.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEditor.SettingsManagement.Settings">
+            <summary>
+            Represents a collection of objects that implement <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>.
+            </summary>
+        </member>
+        <member name="E:UnityEditor.SettingsManagement.Settings.beforeSettingsSaved">
+            <summary>
+            Called prior to when an instance of <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> serializes its current state.
+            </summary>
+        </member>
+        <member name="E:UnityEditor.SettingsManagement.Settings.afterSettingsSaved">
+            <summary>
+            Called immediately after an instance of <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> serializes its current state.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.#ctor(System.String,System.String)">
+            <summary>
+            Creates a new Settings instance with a <see cref="T:UnityEditor.SettingsManagement.UserSettingsRepository"/> and <see cref="T:UnityEditor.SettingsManagement.PackageSettingsRepository"/>.
+            </summary>
+            <param name="package">The package name, such as `com.example.my-package`.</param>
+            <param name="settingsFileName">The name of the settings file. The default value is `Settings`.</param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.#ctor(System.Collections.Generic.IEnumerable{UnityEditor.SettingsManagement.ISettingsRepository})">
+            <summary>
+            Creates a new Settings instance with a collection of objects that implement <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/>.
+            </summary>
+            <param name="repositories">The repositories to populate the Settings instance with.</param>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.GetRepository(UnityEditor.SettingsScope)">
+            <summary>
+            Finds and returns a settings repository that matches the specified scope.
+            </summary>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <returns>
+            An <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> instance that implements the requested scope; or null if no
+            matching repository is found.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.GetRepository(UnityEditor.SettingsScope,System.String)">
+            <summary>
+            Finds and returns a settings repository that matches the specified scope and name.
+            </summary>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <param name="name">The name of the <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> to match.</param>
+            <returns>
+            An <see cref="T:UnityEditor.SettingsManagement.ISettingsRepository"/> instance that implements the specified scope and matches the name; or
+            null if no matching repository is found.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Save">
+            <summary>
+            Serializes the state of all settings repositories.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Set``1(System.String,``0,UnityEditor.SettingsScope)">
+            <summary>
+            Sets a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. This must be serializable.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Set``1(System.String,``0,System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Sets a value for a settings entry with a matching key and type `T` from the specified repository.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. This must be serializable.</param>
+            <param name="repositoryName">Optional. The name of the repository to set this value in.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Set``2(System.String,``0,System.String)">
+            <summary>
+            Sets a value for a settings entry with a matching key and type `T` from the specified repository of type `K`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="value">The value to set. This must be serializable.</param>
+            <param name="repositoryName">Optional. The name of the repository to set this value in.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <typeparam name="K">The type of repository to search for matching keys.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Get``1(System.String,UnityEditor.SettingsScope,``0)">
+            <summary>
+            Returns a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>The value from a matching settings entry; or the default value if not found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Get``1(System.String,System.String,UnityEditor.SettingsScope,``0)">
+            <summary>
+            Returns a value for a settings entry with a matching key and type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="repositoryName">The repository name to match.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>The value from a matching settings entry; or the default value if not found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.Get``2(System.String,``0,System.String)">
+            <summary>
+            Returns a value for a settings entry with a matching key and type `T` from the specified repository of type `K`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="fallback">Specify the value of type `T` to return if the entry can't be found.</param>
+            <param name="repositoryName">If provided, only repositories with a matching name will be searched for the key.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <typeparam name="K">The type of repository to search for matching keys.</typeparam>
+            <returns>The value from a matching settings entry; or the default value if not found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.ContainsKey``1(System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Determines whether the repository in the specified <see cref="T:UnityEditor.SettingsScope">scope</see> contains a settings entry
+            that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>True if a setting matching both key and type is found; false if no entry is found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.ContainsKey``1(System.String,System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Determines whether the specified repository contains a settings entry that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="repositoryName">The repository name to match.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <returns>True if a setting matching both key and type is found; false if no entry is found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.ContainsKey``2(System.String,System.String)">
+            <summary>
+            Determines whether the specified repository of type `K` contains a settings entry that matches the specified key and is of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="repositoryName">The repository name to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <typeparam name="K">The type of repository to search for matching keys.</typeparam>
+            <returns>True if a setting matching both key and type is found; false if no entry is found.</returns>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.DeleteKey``1(System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Removes a key-value pair from a settings repository. This method identifies the settings entry to remove
+            from any repository in the specified <see cref="T:UnityEditor.SettingsScope">scope</see> by matching the specified key
+            for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.DeleteKey``1(System.String,System.String,UnityEditor.SettingsScope)">
+            <summary>
+            Removes a key-value pair from a settings repository. This method identifies the settings entry to remove
+            from the specified repository by matching the specified key for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="repositoryName">The repository name to match.</param>
+            <param name="scope">The <see cref="T:UnityEditor.SettingsScope">scope</see> of the settings repository to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+        </member>
+        <member name="M:UnityEditor.SettingsManagement.Settings.DeleteKey``2(System.String,System.String)">
+            <summary>
+            Removes a key-value pair from a settings repository. This method identifies the settings entry to remove
+            from the specified repository of type `K` by matching the specified key for a value of type `T`.
+            </summary>
+            <param name="key">The key used to identify the settings entry.</param>
+            <param name="repositoryName">The repository name to match.</param>
+            <typeparam name="T">The type of value that this key points to.</typeparam>
+            <typeparam name="K">The type of repository to search for matching keys.</typeparam>
+        </member>
+    </members>
+</doc>

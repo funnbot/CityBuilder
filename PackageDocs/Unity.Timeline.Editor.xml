@@ -1,0 +1,2320 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Timeline.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.Timeline.TimelineWindow.TimelinePlaybackControlsImpl">
+            <summary>
+            Internal class that implements TimelinePlaybackControls
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineWindow.navigator">
+            <summary>
+            The public Breadcrumb navigation controller, accessible through TimelineEditorWindow
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl">
+             <summary>
+             Implementation of TimelineNavigator
+             </summary>
+             <remarks>
+             Always use TimelineNavigator, not this class.
+            
+             The class acts as a handle on the TimelineWindow, and lets users navigate the breadcrumbs and dive into subtimelines
+             </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.#ctor(UnityEditor.Timeline.IWindowStateProvider)">
+             <summary>
+            
+             </summary>
+             <param name="window"></param>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.GetCurrentContext">
+            <summary>
+            Creates a SequenceContext from the top of the breadcrumb stack
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.GetParentContext">
+            <summary>
+            Creates a SequenceContext from the second to last breadcrumb in the list
+            </summary>
+            <returns>Valid context if there is a parent, Invalid context otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.GetRootContext">
+            <summary>
+            Creates a SequenceContext from the top of the breadcrumb stack
+            </summary>
+            <returns>Always returns a valid SequenceContext</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.GetChildContexts">
+            <summary>
+            Creates SequenceContexts for all the child Timelines
+            </summary>
+            <returns>Collection of SequenceContexts. Can be empty if there are no valid child contexts</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.GetBreadcrumbs">
+            <summary>
+            Creates SequenceContexts from the breadcrumb stack, from top to bottom
+            </summary>
+            <returns>Collection of SequenceContexts. Should never be empty</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineWindow.TimelineNavigatorImpl.NavigateTo(UnityEditor.Timeline.SequenceContext)">
+            <summary>
+            Changes the current Timeline shown in the TimelineWindow to a new SequenceContext (if different and valid)
+            </summary>
+            <remarks>
+            Should only ever accept SequenceContexts that are in the breadcrumbs. SetTimeline is the proper
+            method to use to switch root Timelines.
+            </remarks>
+            <param name="context">A valid SequenceContext. <paramref name="context"/> should always be found in the breadcrumbs</param>
+            <exception cref="T:System.ArgumentException"> The context is not valid</exception>
+            <exception cref="T:System.InvalidOperationException"> The context is not a valid navigation destination.</exception>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.TrackAction">
+            <summary>
+            Base class for a track action.
+            Inherit from this class to make an action that would react on selected tracks after a menu click and/or a key shortcut.
+            </summary>
+            <example>
+            Simple track Action example (with context menu and shortcut support).
+            <code source="../../DocCodeExamples/ActionExamples.cs" region="declare-sampleTrackAction" title="SampleTrackAction"/>
+            </example>
+            <remarks>
+            To add an action as a menu item in the Timeline context menu, add <see cref="T:UnityEditor.Timeline.Actions.MenuEntryAttribute"/> on the action class.
+            To make an action to react to a shortcut, use the Shortcut Manager API with <see cref="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute"/>.
+            <seealso cref="T:UnityEditor.ShortcutManagement.ShortcutAttribute"/>
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.TrackAction.Execute(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+             Execute the action.
+            </summary>
+            <param name="tracks">Tracks that will be used for the action. </param>
+            <returns>true if the action has been executed. false otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.TrackAction.Validate(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+             Defines the validity of an Action for a given set of tracks.
+            </summary>
+             <param name="tracks">tracks that the action would act on.</param>
+            <returns>The validity of the set of tracks.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ActionValidity">
+            <summary>
+            Indicates the validity of an action for a given data set.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionValidity.Valid">
+            <summary>
+            Action is valid in the provided context.
+            If the action is linked to a menu item, the menu item will be visible.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionValidity.NotApplicable">
+            <summary>
+            Action is not applicable in the current context.
+            If the action is linked to a menu item, the menu item will not be shown.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionValidity.Invalid">
+            <summary>
+            Action is not valid in the current context.
+            If the action is linked to a menu item, the menu item will be shown but grayed out.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.IAction">
+            interface indicating an Action class
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ActionExtensions">
+            extension methods for IActions
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuEntryAttribute">
+            <summary>
+            Use this attribute to add a menu item to a context menu.
+            Used to indicate path and priority that are auto added to the menu
+            (examples can be found on <see href="https://docs.unity3d.com/ScriptReference/MenuItem.html"/>).
+            </summary>
+            <example>
+            <code source="../../DocCodeExamples/TimelineAttributesExamples.cs" region="declare-menuEntryAttribute" title="menuEntryAttr"/>
+            </example>
+            <remarks>
+            Unlike Menu item, MenuEntryAttribute doesn't handle shortcuts in the menu name. See <see cref="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute"/>.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.MenuEntryAttribute.#ctor(System.String,System.Int32)">
+            <summary>
+            Constructor for Menu Entry Attribute to define information about the menu item for an action.
+            </summary>
+            <param name="path">Path to the menu. If there is a "/" in the path, it will create one (or multiple) submenu items.</param>
+            <param name="priority">Priority to decide where the menu will be positioned in the menu.
+            The lower the priority, the higher the menu item will be in the context menu.
+            </param>
+            <seealso cref="T:UnityEditor.Timeline.Actions.MenuPriority"/>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.Invoker">
+            <summary>
+            Class containing methods to invoke actions.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.Invoke``1(UnityEditor.Timeline.Actions.ActionContext)">
+            <summary>
+            Execute a given action with a context parameter.
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <param name="context">Context for the action.</param>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.Invoke``1(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+            Execute a given action with tracks
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+             <param name="tracks">Tracks that the action will act on.</param>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.Invoke``1(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TimelineClip})">
+            <summary>
+            Execute a given action with clips
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+             <param name="clips">Clips that the action will act on.</param>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.Invoke``1(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.IMarker})">
+            <summary>
+            Execute a given action with markers
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <param name="markers">Markers that the action will act on.</param>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.InvokeWithSelected``1">
+            <summary>
+            Execute a given timeline action with the selected clips, tracks and markers.
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.InvokeWithSelectedClips``1">
+            <summary>
+            Execute a given clip action with the selected clips.
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.InvokeWithSelectedTracks``1">
+            <summary>
+            Execute a given track action with the selected tracks.
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.Invoker.InvokeWithSelectedMarkers``1">
+            <summary>
+            Execute a given marker action with the selected markers.
+            </summary>
+            <typeparam name="T">Action type to execute.</typeparam>
+            <returns>True if the action has been executed, false otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ActiveInModeAttribute">
+            <summary>
+            Define the activeness of an action depending on its timeline mode.
+            </summary>
+            <seealso cref="T:UnityEditor.Timeline.TimelineModes"/>
+        </member>
+        <member name="P:UnityEditor.Timeline.Actions.ActiveInModeAttribute.modes">
+            <summary>
+            Modes that will be used for activeness of an action.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.ActiveInModeAttribute.#ctor(UnityEditor.Timeline.TimelineModes)">
+            <summary>
+            Defines in which mode the action will be active.
+            </summary>
+            <param name="timelineModes">Modes that will define activeness of the action.</param>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ActionContext">
+            <summary>
+            Action context to be used by actions.
+            </summary>
+            <seealso cref="T:UnityEditor.Timeline.Actions.Invoker"/>
+            <seealso cref="T:UnityEditor.Timeline.Actions.TimelineAction"/>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionContext.timeline">
+            <summary>
+             The Timeline asset that is currently opened in the Timeline window.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionContext.director">
+            <summary>
+             The PlayableDirector that is used to play the current Timeline asset.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ActionContext.invocationTime">
+            <summary>
+             Time based on the position of the cursor on the timeline (in seconds).
+             null if the time is not available (in case of a shortcut for example).
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.Actions.ActionContext.tracks">
+            <summary>
+             Tracks that will be used by the actions.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.Actions.ActionContext.clips">
+            <summary>
+             Clips that will be used by the actions.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.Actions.ActionContext.markers">
+            <summary>
+             Markers that will be used by the actions.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute">
+            <summary>
+            Use this attribute to make an action work with the shortcut system.
+            </summary>
+            <example>
+            TimelineShortcutAttribute needs to be added to a static method.
+            <code source="../../DocCodeExamples/TimelineAttributesExamples.cs" region="declare-timelineShortcutAttr" title="TimelineShortcutAttr"/>
+            </example>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.TimelineShortcutAttribute.#ctor(System.String,UnityEngine.KeyCode,UnityEditor.ShortcutManagement.ShortcutModifiers)">
+            <summary>
+            TimelineShortcutAttribute Constructor
+            </summary>
+            <param name="id">Id to register the shortcut. It will automatically be prefix by 'Timeline/' in order to be in the 'Timeline' section of the shortcut manager.</param>
+            <param name="defaultKeyCode">Optional key code for default binding.</param>
+            <param name="defaultShortcutModifiers">Optional shortcut modifiers for default binding.</param>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ClipAction">
+            <summary>
+            Base class for a clip action.
+            Inherit from this class to make an action that would react on selected clips after a menu click and/or a key shortcut.
+            </summary>
+            <example>
+            Simple Clip Action example (with context menu and shortcut support).
+            <code source="../../DocCodeExamples/ActionExamples.cs" region="declare-sampleClipAction" title="SampleClipAction"/>
+            </example>
+            <remarks>
+            To add an action as a menu item in the Timeline context menu, add <see cref="T:UnityEditor.Timeline.Actions.MenuEntryAttribute"/> on the action class.
+            To make an action to react to a shortcut, use the Shortcut Manager API with <see cref="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute"/>.
+            <seealso cref="T:UnityEditor.ShortcutManagement.ShortcutAttribute"/>
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.ClipAction.Execute(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TimelineClip})">
+            <summary>
+            Execute the action based on clips.
+            </summary>
+            <param name="clips">clips that the action will act on.</param>
+            <returns>Returns true if the action has been correctly executed, false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.ClipAction.Validate(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TimelineClip})">
+            <summary>
+             Defines the validity of an Action for a given set of clips.
+            </summary>
+             <param name="clips">The clips that the action will act on.</param>
+            <returns>The validity of the set of clips.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MarkerAction">
+            <summary>
+            Base class for a marker action.
+            Inherit from this class to make an action that would react on selected markers after a menu click and/or a key shortcut.
+            </summary>
+            <example>
+            Simple track Action example (with context menu and shortcut support).
+            <code source="../../DocCodeExamples/ActionExamples.cs" region="declare-sampleMarkerAction" title="SampleMarkerAction"/>
+            </example>
+            <remarks>
+            To add an action as a menu item in the Timeline context menu, add <see cref="T:UnityEditor.Timeline.Actions.MenuEntryAttribute"/> on the action class.
+            To make an action to react to a shortcut, use the Shortcut Manager API with <see cref="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute"/>.
+            <seealso cref="T:UnityEditor.ShortcutManagement.ShortcutAttribute"/>
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.MarkerAction.Execute(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.IMarker})">
+            <summary>
+             Execute the action.
+            </summary>
+            <param name="markers">Markers that will be used for the action. </param>
+            <returns>true if the action has been executed. false otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.MarkerAction.Validate(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.IMarker})">
+            <summary>
+             Defines the validity of an Action for a given set of markers.
+            </summary>
+            <param name="markers">Markers that will be used for the action. </param>
+            <returns>The validity of the set of markers.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority">
+            <summary>
+            Priorities for menu item ordering. See <see cref="T:UnityEditor.Timeline.Actions.MenuEntryAttribute"/>.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.defaultPriority">
+            <summary>
+             Default priority for a menu. It will add at the end of the context menu before the 'add' menus.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.separatorAt">
+            <summary>
+             This value is the separator difference that will be needed to create a separator between menu item.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection">
+            <summary>
+             Priorities for Timeline Action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.start">
+            <summary>
+             First Timeline action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.copy">
+            <summary>
+            Copy menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.paste">
+            <summary>
+            Paste menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.duplicate">
+            <summary>
+            Duplicate menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.delete">
+            <summary>
+            Delete menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.keyAllAnimated">
+            <summary>
+            Keyframe All animated item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TimelineActionSection.matchContent">
+            <summary>
+            Match Content menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection">
+            <summary>
+             Priorities for Track action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.start">
+            <summary>
+             First Track action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.lockTrack">
+            <summary>
+            Lock track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.lockSelected">
+            <summary>
+            Lock selected track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.mute">
+            <summary>
+            Mute track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.muteSelected">
+            <summary>
+            Mute selected track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.showHideMarkers">
+            <summary>
+            Show hide marker menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.removeInvalidMarkers">
+            <summary>
+            Remove Invalid Markers menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.TrackActionSection.editInAnimationWindow">
+            <summary>
+            Edit Track In Animation Window menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.AddTrackMenu">
+            <summary>
+             Priorities for Add Tracks menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddTrackMenu.start">
+            <summary>
+             First Add Track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddTrackMenu.addLayerTrack">
+            <summary>
+             Add Layer Track menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.ClipEditActionSection">
+            <summary>
+             Priorities for Clip edition menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipEditActionSection.start">
+            <summary>
+            First Edit Clip menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipEditActionSection.editInAnimationWindow">
+            <summary>
+            Edit Clip In Animation Window menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipEditActionSection.editSubTimeline">
+            <summary>
+            Edit Clip Sub Timeline menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection">
+            <summary>
+             Priorities for Clip action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.start">
+            <summary>
+             First Clip action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.trimStart">
+            <summary>
+            Trim start menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.trimEnd">
+            <summary>
+            Trim end menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.split">
+            <summary>
+            Split menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.completeLastLoop">
+            <summary>
+            Complete Last Loop menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.trimLastLoop">
+            <summary>
+            Trim Last Loop menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.matchDuration">
+            <summary>
+            Match duration menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.doubleSpeed">
+            <summary>
+            Double Speed menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.halfSpeed">
+            <summary>
+            Half Speed menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.resetDuration">
+            <summary>
+            Reset Duration menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.resetSpeed">
+            <summary>
+            Reset Speed menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.resetAll">
+            <summary>
+            Reset All menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.tile">
+            <summary>
+            Tile menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.ClipActionSection.findSourceAsset">
+            <summary>
+            Find source asset menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.MarkerActionSection">
+            <summary>
+             Priorities for Marker action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.MarkerActionSection.start">
+            <summary>
+             First Marker action menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.CustomTimelineActionSection">
+            <summary>
+             Priorities for custom Timeline action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTimelineActionSection.start">
+            <summary>
+             First custom Timeline action menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection">
+            <summary>
+             Priorities for Custom Track action menu items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.start">
+            <summary>
+             First custom track action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.convertToClipMode">
+            <summary>
+            Convert Animation to clip menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.convertFromClipMode">
+            <summary>
+            Convert Clip to animation menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.applyTrackOffset">
+            <summary>
+            Apply Track offset menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.applySceneOffset">
+            <summary>
+            Apply Scene offset menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.applyAutoOffset">
+            <summary>
+            Apply Auto offset menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.addOverrideTrack">
+            <summary>
+            Add override track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomTrackActionSection.customTrackAction">
+            <summary>
+             User custom track action menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection">
+            <summary>
+            Custom clip action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection.start">
+            <summary>
+             First custom clip action menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection.matchPrevious">
+            <summary>
+            Match previous menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection.matchNext">
+            <summary>
+            Match next menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection.resetOffset">
+            <summary>
+            Reset offset menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.CustomClipActionSection.customClipAction">
+            <summary>
+             User custom clip action menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.MenuPriority.AddItem">
+            <summary>
+            Priorities for menu entries to create Timeline items.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addGroup">
+            <summary>
+            Add group menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addTrack">
+            <summary>
+            Add track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addCustomTrack">
+            <summary>
+            Add custom track menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addClip">
+            <summary>
+            Add clip menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addCustomClip">
+            <summary>
+            Add custom clip menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addMarker">
+            <summary>
+            Add marker menu item priority.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.MenuPriority.AddItem.addCustomMarker">
+            <summary>
+            Add custom marker menu item priority.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.TimelineAction">
+            <summary>
+            Base class for a timeline action.
+            Inherit from this class to make an action on a timeline after a menu click and/or a key shortcut.
+            </summary>
+            <remarks>
+            To add an action as a menu item in the Timeline context menu, add <see cref="T:UnityEditor.Timeline.Actions.MenuEntryAttribute"/> on the action class.
+            To make an action to react to a shortcut, use the Shortcut Manager API with <see cref="T:UnityEditor.Timeline.Actions.TimelineShortcutAttribute"/>.
+            <seealso cref="T:UnityEditor.ShortcutManagement.ShortcutAttribute"/>
+            <seealso cref="T:UnityEditor.Timeline.Actions.ActiveInModeAttribute"/>
+            </remarks>
+            <example>
+            Simple Timeline Action example (with context menu and shortcut support).
+            <code source="../../DocCodeExamples/ActionExamples.cs" region="declare-sampleTimelineAction" title="SampleTimelineAction"/>
+            </example>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.TimelineAction.Execute(UnityEditor.Timeline.Actions.ActionContext)">
+            <summary>
+             Execute the action.
+            </summary>
+            <param name="context">Context for the action.</param>
+            <returns>true if the action has been executed. false otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.TimelineAction.Validate(UnityEditor.Timeline.Actions.ActionContext)">
+            <summary>
+            Defines the validity of an Action based on the context.
+            </summary>
+            <param name="context">Context for the action.</param>
+            <returns>Visual state of the menu for the action.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.Actions.ApplyDefaultUndoAttribute">
+             <summary>
+             Use this attribute on action classes (<see cref="T:UnityEditor.Timeline.Actions.TimelineAction"/>,
+             <see cref="T:UnityEditor.Timeline.Actions.ClipAction"/>,
+             <see cref="T:UnityEditor.Timeline.Actions.MarkerAction"/> and
+             <see cref="T:UnityEditor.Timeline.Actions.TrackAction"/>)
+             to have the default undo behaviour applied.
+            
+             By default, applying this attribute will record all objects passed to the Execute method with the Undo system,
+             using the name of Action it is applied to.
+            
+             <example>
+             Simple track Action example (with context menu and shortcut support).
+             <code source="../../DocCodeExamples/TimelineAttributesExamples.cs" region="declare-applyDefaultUndoAttr" title="ApplyDefaultUndoAttr"/>
+             </example>
+             </summary>
+             <seealso cref="T:UnityEditor.Timeline.Actions.TimelineAction"/>
+             <seealso cref="T:UnityEditor.Timeline.Actions.TrackAction"/>
+             <seealso cref="T:UnityEditor.Timeline.Actions.ClipAction"/>
+             <seealso cref="T:UnityEditor.Timeline.Actions.MarkerAction"/>
+        </member>
+        <member name="F:UnityEditor.Timeline.Actions.ApplyDefaultUndoAttribute.UndoTitle">
+            <summary>
+            The title of the action to appear in the undo history. If not specified, the name is taken from the DisplayName attribute,
+            or derived from the name of the class this attribute is applied to.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.Actions.ApplyDefaultUndoAttribute.#ctor(System.String)">
+            <summary>Use this attribute on action classes to have the default undo behaviour applied.
+            </summary>
+            <param name="undoTitle">The title of the action to appear in the undo history.</param>
+        </member>
+        <member name="T:UnityEditor.Timeline.TrackExtensions">
+            <summary>
+            Extension Methods for Tracks that require the Unity Editor, and may require the Timeline containing the Track to be currently loaded in the Timeline Editor Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackExtensions.IsCollapsed(UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Queries whether the children of the Track are currently visible in the Timeline Editor.
+            </summary>
+            <param name="track">The track asset to query.</param>
+            <returns>True if the track is collapsed and false otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackExtensions.SetCollapsed(UnityEngine.Timeline.TrackAsset,System.Boolean)">
+            <summary>
+            Sets whether the children of the Track are currently visible in the Timeline Editor.
+            </summary>
+            <param name="track">The track asset to collapsed state to modify.</param>
+            <param name="collapsed">`true` to collapse children, false otherwise.</param>
+            <remarks> The track collapsed state is not serialized inside the asset and is lost from one checkout of the project to another. </remarks>>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackExtensions.IsVisibleInHierarchy(UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Queries whether any parent of the track is collapsed, rendering the track not visible to the user.
+            </summary>
+            <param name="track">The track asset to query.</param>
+            <returns>True if all parents are not collapsed, false otherwise.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.IInspectorChangeHandler">
+            <summary>
+            Implement this interface in your PlayableAsset inspector to change what happens when a UI component in the inspector is modified
+            </summary>
+            <remarks>The default PlayableAsset inspector will cause any UI change to force a PlayableGraph rebuild</remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.IInspectorChangeHandler.OnPlayableAssetChangedInInspector">
+            <summary>
+            This method will be called when a Playable Asset inspector is modified.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimatedPropertyUtility.RemapMaterialName(UnityEngine.GameObject,System.String)">
+            <summary>
+            Given a propertyName (from an EditorCurveBinding), and the gameObject it refers to,
+            remaps the path to include the exposed name of the shader parameter
+            </summary>
+            <param name="gameObject">The gameObject being referenced.</param>
+            <param name="propertyName">The propertyName to remap.</param>
+            <returns>The remapped propertyName, or the original propertyName if it cannot be remapped</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.KeyboardNavigation.TryCollapse(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+            Tries to collapse any track from a list of tracks
+            </summary>
+            <param name="tracks"></param>
+            <returns>true if any were collapsed, false otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.KeyboardNavigation.TryExpand(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+            Tries to expand from a list of tracks
+            </summary>
+            <param name="tracks"></param>
+            <returns>true if any expanded, false otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.KeyboardNavigation.TrySelectFirstChild(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset})">
+            <summary>
+            Tries to select the first clip from a list of tracks
+            </summary>
+            <param name="tracks"></param>
+            <returns>true if any expanded, false otherwise</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelineNavigator">
+            <summary>
+            Interface to navigate through Timelines and SubTimelines for the Timeline window.
+            </summary>
+            <remarks>
+            TimelineNavigator gives you access to the Timeline window breadcrumbs functionality. Use it to programmatically
+            dig into SubTimelines, navigate to parent Timelines or navigate Timeline Window breadcrumbs.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.GetCurrentContext">
+            <summary>
+            Gets the SequenceContext associated with the Timeline currently shown in the Timeline window.
+            </summary>
+            <returns>The SequenceContext associated with the Timeline currently shown in the Timeline window.</returns>
+            <remarks>Equivalent to <c>TimelineNavigator.GetBreadCrumbs().Last()</c></remarks>
+            <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.GetParentContext">
+            <summary>
+            Gets the parent SequenceContext for the Timeline currently shown in the Timeline window.
+            </summary>
+            <returns>The parent SequenceContext for the Timeline currently shown in the Timeline window if there is one; an invalid SequenceContext otherwise. <seealso cref="F:UnityEditor.Timeline.SequenceContext.Invalid"/></returns>
+            <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.GetRootContext">
+            <summary>
+            Gets the first SequenceContext in the breadcrumbs.
+            </summary>
+            <returns>The first SequenceContext in the breadcrumbs.</returns>
+            <remarks>Equivalent to <c>TimelineNavigator.GetBreadCrumbs().First()</c></remarks>
+            <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.GetChildContexts">
+            <summary>
+            Gets the collection of child contexts that can be navigated to from the current context.
+            </summary>
+            <returns>The collection of child contexts that can be navigated to from the current context.</returns>
+            <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.GetBreadcrumbs">
+            <summary>
+            Gets the collection of SequenceContexts associated with the breadcrumbs shown in the TimelineEditorWindow.
+            </summary>
+            <remarks>This operation can be expensive. Consider caching the results instead of calling the method multiple times.</remarks>
+            <returns>The collection of SequenceContexts associated with the breadcrumbs shown in the TimelineEditorWindow, from the root context to the current context.</returns>
+            <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineNavigator.NavigateTo(UnityEditor.Timeline.SequenceContext)">
+             <summary>
+             Navigates to a new SequenceContext.
+             </summary>
+             <param name="context">The context to navigate to.</param>
+             <remarks>
+             The SequenceContext provided must be a valid navigation destination.
+            
+             Valid navigation destinations:
+             * The parent context returned by <see cref="M:UnityEditor.Timeline.TimelineNavigator.GetParentContext"/>.
+             * The root context returned by <see cref="M:UnityEditor.Timeline.TimelineNavigator.GetRootContext"/>.
+             * Any SequenceContext returned by <see cref="M:UnityEditor.Timeline.TimelineNavigator.GetChildContexts"/>.
+             * Any SequenceContext returned by <see cref="M:UnityEditor.Timeline.TimelineNavigator.GetBreadcrumbs"/>.
+            
+             Note: This method cannot be used to change the root SequenceContext. To change the root SequenceContext, use <see cref="M:UnityEditor.Timeline.TimelineEditorWindow.SetTimeline(UnityEngine.Timeline.TimelineAsset)"/>.
+            
+             </remarks>
+             <exception cref="T:System.InvalidOperationException"> The Window associated to this instance has been destroyed.</exception>
+             <exception cref="T:System.ArgumentException"> The context is not valid.</exception>
+             <exception cref="T:System.InvalidOperationException"> The context is not a valid navigation destination.</exception>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimeFormat">
+            <summary>
+            The available display modes for time in the Timeline Editor.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimeFormat.Frames">
+            <summary>Displays time values as frames.</summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimeFormat.Timecode">
+            <summary>Displays time values as timecode (SS:FF) format.</summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimeFormat.Seconds">
+            <summary>Displays time values as seconds.</summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineHelpers.CreateClipOnTrackFromPlayableAsset(UnityEngine.Playables.IPlayableAsset,UnityEngine.Timeline.TrackAsset,System.Double)">
+            <summary>
+            Create a clip on track from an existing PlayableAsset
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineHelpers.AddClipOnTrack(UnityEngine.Timeline.TimelineClip,UnityEngine.Timeline.TrackAsset,System.Double,UnityEngine.Object,UnityEditor.Timeline.WindowState)">
+            <summary>
+            Shared code for adding a clip to a track
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.UndoExtensions">
+            <summary>
+            Provides methods that record the state of a timeline, and its components, prior to modification.
+            </summary>
+            <remarks>
+            The methods in this class are not required when adding or deleting tracks, clips, or markers.
+            Use methods in the UnityEngine.Timeline namespace, such as <see cref="M:UnityEngine.Timeline.TimelineAsset.CreateTrack(System.Type,UnityEngine.Timeline.TrackAsset,System.String)"/>
+            or <see cref="M:UnityEngine.Timeline.TrackAsset.CreateDefaultClip"/>, to apply the appropriate
+            Undo calls when using the Editor.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterContext(UnityEditor.Timeline.Actions.ActionContext,System.String)">
+            <summary>
+            Records changes to all items contained in an action context.
+            </summary>
+            <param name="context">The action context to record into the Undo system.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterTimeline(UnityEngine.Timeline.TimelineAsset,System.String)">
+            <summary>
+            Records changes to timeline asset properties.
+            This method does not record changes to tracks or clips.
+            </summary>
+            <param name="asset">The timeline asset being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterCompleteTimeline(UnityEngine.Timeline.TimelineAsset,System.String)">
+            <summary>
+            Records all timeline changes including changes to tracks, clips, and markers.
+            </summary>
+            <param name="asset">The timeline asset being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterTrack(UnityEngine.Timeline.TrackAsset,System.String)">
+            <summary>
+            Records changes to tracks and clips but not to markers nor PlayableAssets attached to clips.
+            </summary>
+            <param name="asset">The timeline track being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterTracks(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TrackAsset},System.String)">
+            <summary>
+            Records changes to tracks. This includes changes
+            to clips on these tracks, but not changes to markers nor PlayableAssets attached to clips.
+            </summary>
+            <param name="tracks">The timeline track being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterClip(UnityEngine.Timeline.TimelineClip,System.String,System.Boolean)">
+            <summary>
+            Records changes to a clip.
+            </summary>
+            <param name="clip">The timeline clip being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+            <param name="includePlayableAsset">Set this value to true to record changes to the attached playable asset.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterPlayableAsset(UnityEngine.Playables.PlayableAsset,System.String)">
+            <summary>
+            Records changes to a PlayableAsset.
+            </summary>
+            <param name="asset">The PlayableAsset being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterClips(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.TimelineClip},System.String,System.Boolean)">
+            <summary>
+            Records changes to clips.
+            </summary>
+            <param name="clips">The timeline clips being modified.</param>
+            <param name="name">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+            <param name="includePlayableAssets">Set this value to true to also record changes to attached playable assets.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterMarker(UnityEngine.Timeline.IMarker,System.String)">
+            <summary>
+            Records changes to a timeline marker.
+            </summary>
+            <param name="marker">The timeline marker being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.RegisterMarkers(System.Collections.Generic.IEnumerable{UnityEngine.Timeline.IMarker},System.String)">
+            <summary>
+            Records changes to timeline markers.
+            </summary>
+            <param name="markers">The timeline markers being modified.</param>
+            <param name="undoTitle">The title of the action that appears in the undo history. For example, this title is shown in the Undo menu.</param>
+        </member>
+        <!-- Badly formed XML comment ignored for member "T:UnityEditor.Timeline.UndoExtensions.DisableTimelineUndoScope" -->
+        <member name="M:UnityEditor.Timeline.UndoExtensions.DisableTimelineUndoScope.#ctor">
+            <summary>
+            Creates a new DisableTimelineUndoScope object which prevents undos from being created by Timeline operations.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.UndoExtensions.DisableTimelineUndoScope.Dispose">
+            <summary>
+            Disposes the DisableTimelineUndoScope object.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationPlayableAssetEditor.GetClipOptions(UnityEngine.Timeline.TimelineClip)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationPlayableAssetEditor.OnCreate(UnityEngine.Timeline.TimelineClip,UnityEngine.Timeline.TrackAsset,UnityEngine.Timeline.TimelineClip)">
+            <inheritdoc />
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelineEditorWindow">
+            <summary>
+            Base class of the TimelineWindow.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditorWindow.navigator">
+            <summary>
+            Use this interface to navigate between Timelines and Sub-Timelines. (RO)
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditorWindow.playbackControls">
+            <summary>
+            Use this interface to control the playback behaviour of the Timeline window. (RO)
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditorWindow.locked">
+            <summary>
+            Retrieves and sets the Timeline Window lock state. When disabled (false), the window focus follows the Unity selection.
+            </summary>
+            <remarks>When the lock state transitions from true to false, the focused timeline is synchronized with the Unity selection.</remarks>>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditorWindow.SetTimeline(UnityEngine.Timeline.TimelineAsset)">
+            <summary>
+            Sets which TimelineAsset is shown in the TimelineWindow.
+            </summary>
+            <param name="sequence">The TimelineAsset to show. Specify a null to clear the TimelineWindow.</param>
+            <remarks>When you call this method, the TimelineWindow is placed in asset edit mode. This mode does not support all features. For example, bindings are not available and the timeline cannot be evaluated.
+            You can use this method when the TimelineWindow is locked.</remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditorWindow.SetTimeline(UnityEngine.Playables.PlayableDirector)">
+            <summary>
+            Sets which TimelineAsset is shown in the TimelineWindow based on the PlayableDirector.
+            </summary>
+            <param name="director">The PlayableDirector associated with the TimelineAsset to show in the TimelineWindow. Specify a null to clear the TimelineWindow.</param>
+            <remarks>You can use this method when the TimelineWindow is locked.</remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditorWindow.ClearTimeline">
+            <summary>
+            Clears the TimelineAsset that is shown in the TimelineWindow.
+            </summary>
+            <remarks>You can use this method when the TimelineWindow is locked.</remarks>>
+        </member>
+        <member name="T:UnityEditor.Timeline.NullSequenceState">
+            This class is used to hold default values for an implementation of ISequenceState.
+            It could be removed in a phase 2, but it is currently used to limit the scope of
+            this refactoring: it allows client code to access sequence info without having to
+            worry about `currentSequence` being null.
+            In the future this should be removed and we should pass around the correct data
+            structure (i.e. SequenceState OR WindowState) based on the situation.
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.AllClipTypes">
+            <summary>
+            List of all PlayableAssets
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.GetTrackBindingAttribute(System.Type)">
+            <summary>
+            Returns the binding attribute attrached to the track
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.TrackHasClipForObject(System.Type,UnityEngine.Object)">
+            <summary>
+            True if the given track has a clip type that handles the given object
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.MarkerTypesWithFieldForObject(UnityEngine.Object)">
+            <summary>
+             Get the list of markers that have fields for the object
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.GetTrackTypesForObject(UnityEngine.Object)">
+            <summary>
+            Get the list of tracks that can handle this object as clips
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.IsTrackCreatableFromObject(UnityEngine.Object,System.Type)">
+            <summary>
+            Given a trackType and an object, does the binding type match
+               Takes into account whether creating a missing component is permitted
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.GetTracksCreatableFromObject(UnityEngine.Object)">
+            <summary>
+            Given an object, get the list of track that are creatable from it. Takes
+             binding flags into account
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.GetAssetTypesForObject(System.Type,UnityEngine.Object)">
+            <summary>
+            Get the list of playable assets that can handle an object for a particular track
+            </summary>
+            <param name="trackType">The type of the track</param>
+            <param name="obj">The object to handle</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.HasOverrideMethod(System.Type,System.String)">
+            <summary>
+            Checks whether a type has an overridden method with a specific name. This method also checks overridden members in parent classes.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TypeUtility.IsBuiltIn(System.Type)">
+            <summary>
+            Returns whether the given type resides in the timeline assembly
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelineModes">
+            <summary>
+            Different mode for Timeline
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.Active">
+            <summary>
+            A playable director with a valid timeline is selected in editor.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.ReadOnly">
+            <summary>
+            The timeline is not editable. (the TimelineAsset file is either readonly on disk or locked by source control).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.Inactive">
+            <summary>
+            The timeline cannot be played or previewed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.Disabled">
+            <summary>
+            Disabled Timeline.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.AssetEdition">
+            <summary>
+            Timeline in AssetEditing mode.
+            This mode is enabled when a timeline asset is selected in the project window.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelineModes.Default">
+            <summary>
+            The timeline can be edited (either through playable director or selected timeline asset in project window).
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.CustomTimelineEditorAttribute">
+            <summary>
+            Attribute that specifies a class as an editor for an extended Timeline type.
+            </summary>
+            <remarks>
+            Use this attribute on a class that extends ClipEditor, TrackEditor, or MarkerEditor to specify either the PlayableAsset, Marker, or TrackAsset derived classes for associated customization.
+            </remarks>
+            <example>
+            <code source="../../DocCodeExamples/TimelineAttributesExamples.cs" region="declare-customTimelineEditorAttr" title="customTimelineEditorAttr"/>
+            </example>
+        </member>
+        <member name="P:UnityEditor.Timeline.CustomTimelineEditorAttribute.classToEdit">
+            <summary>
+            The type that that this editor applies to.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.CustomTimelineEditorAttribute.#ctor(System.Type)">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="type"> The type that that this editor applies to.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if type is null</exception>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelinePlaybackControls">
+            <summary>
+            Use the TimelinePlaybackControls to manage the Timeline window's playback state, playhead location, and play range.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelinePlaybackControls.Context">
+            <summary>
+            Use Context to specify whether the time is based on local time or global time.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Local">
+            <summary>
+            Time is relative to the current Timeline
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Global">
+            <summary>
+            Time is relative to the main Timeline
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.Play">
+            <summary>
+            Starts playback.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.Pause">
+            <summary>
+            Pauses playback.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.PreviousFrame">
+            <summary>
+            Moves the playhead to the previous frame.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.NextFrame">
+            <summary>
+            Moves the playhead to the next frame.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.GoToFirstFrame">
+            <summary>
+            Moves the playhead to the first frame.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.GoToLastFrame">
+            <summary>
+            Moves the playhead to the last frame.
+            </summary>
+            <exception cref="T:System.InvalidOperationException"> The Window associated with this instance has been destroyed.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.SetCurrentTime(System.Double,UnityEditor.Timeline.TimelinePlaybackControls.Context)">
+            <summary>
+            Moves the playhead to a specific time.
+            </summary>
+            <param name="time">The time in seconds.</param>
+            <param name="context">
+            Use Context with a Sub-Timeline to specify whether the specified time is relative to the Sub-Timeline or the main Timeline.
+            If the Timeline is not a Sub-Timeline, the context uses local time regardless of the specified context.
+            </param>
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Local"/>, the default, to move the playhead relative to the Sub-Timeline or Timeline.
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Global"/> to move the playhead relative to the main Timeline.
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+            <exception cref="T:System.ArgumentException">The context is invalid.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.SetCurrentFrame(System.Int32,UnityEditor.Timeline.TimelinePlaybackControls.Context)">
+            <summary>
+            Moves the playhead to a specific frame.
+            </summary>
+            <param name="frame">The frame to move to.</param>
+            <param name="context">
+            Use Context with a Sub-Timeline to specify whether the specified frame is relative to the Sub-Timeline or the main Timeline.
+            If the Timeline is not a Sub-Timeline, the context uses local time regardless of the specified context.
+            </param>
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Local"/>, the default, to move the playhead relative to the Sub-Timeine.
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Global"/> to move the playhead relative to the main Timeline.
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+            <exception cref="T:System.ArgumentException">The context is invalid.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.GetCurrentTime(UnityEditor.Timeline.TimelinePlaybackControls.Context)">
+            <summary>
+            Retrieves the location of the timeline playhead in seconds.
+            </summary>
+            <param name="context">
+            Use Context with a Sub-Timeline to specify whether the returned value is relative to the Sub-Timeline or the main Timeline.
+            If the Timeline is not a Sub-Timeline, the context uses local time regardless of the specified context.
+            </param>
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Local"/>, the default, to retrieve the playhead location relative to the Sub-Timeline.
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Global"/> to retrive the location relative to the main Timeline.
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+            <exception cref="T:System.ArgumentException">The context is invalid.</exception>
+            <returns>The playhead location in seconds.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelinePlaybackControls.GetCurrentFrame(UnityEditor.Timeline.TimelinePlaybackControls.Context)">
+            <summary>
+            Retrieves the location of the timeline playhead in frames.
+            </summary>
+            <param name="context">
+            Use Context with a Sub-Timeline to specify whether the returned value is relative to the Sub-Timeline or the main Timeline.
+            If the Timeline is not a Sub-Timeline, the context uses local time regardless of the specified context.
+            </param>
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Local"/>, the default, to retrieve the playhead location relative to the Sub-Timeline.
+            Use <see cref="F:UnityEditor.Timeline.TimelinePlaybackControls.Context.Global"/> to retrive the playhead location relative to the main Timeline.
+            <exception cref="T:System.InvalidOperationException">The Window associated with this instance has been destroyed.</exception>
+            <exception cref="T:System.ArgumentException">The context is invalid.</exception>
+            <returns>The playhead location in frames.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.IWindowState">
+            <summary>
+            Interface for faking purposes
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ObjectReferenceField.IsAssignable(UnityEngine.Object)">
+            <summary>
+            Check if an Object satisfies this field, including components
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ObjectReferenceField.Assign(UnityEngine.ScriptableObject,UnityEngine.Object,UnityEngine.IExposedPropertyTable)">
+            <summary>
+            Assigns a value to the field
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.SequenceContext">
+            <summary>
+            A context for the Timeline window (RO)
+            </summary>
+            <remarks>
+            The SequenceContext represents a state of the Timeline window, and is used to interact with <see cref="T:UnityEditor.Timeline.TimelineNavigator"/>.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.SequenceContext.director">
+            <summary>
+            The director associated with the Timeline window in the context. (RO)
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.SequenceContext.clip">
+            <summary>
+            The <see cref="T:UnityEngine.Timeline.TimelineClip"/> associated with the Timeline window in the context. (RO)
+            </summary>
+            <remarks>In a SubTimeline context, the clip is the <see cref="T:UnityEngine.Timeline.TimelineClip"/> that hosts the SubTimeline in the parent Timeline.
+            In the root context, the clip is <see langword="null"/>.</remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.#ctor(UnityEngine.Playables.PlayableDirector,UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            Initializes and returns an instance of SequenceContext.
+            </summary>
+            <param name="director">The PlayableDirector associated with the context. Must be a valid PlayableDirector reference. </param>
+            <param name="clip">The TimelineClip reference that controls the sequence. Specify <see langword="null"/> to specify that the sequence is the root. If non-null, the clip must be part of a valid <see cref="T:UnityEngine.Timeline.TimelineAsset"/>.</param>
+            <exception cref="T:System.ArgumentNullException"> <paramref name="director"/> is null.</exception>
+            <exception cref="T:System.ArgumentException"> The <paramref name="clip"/> is not part of a <see cref="T:UnityEngine.Timeline.TrackAsset"/>.</exception>
+            <exception cref="T:System.ArgumentException"> The <paramref name="clip"/> is part of a track but not part of a <see cref="T:UnityEngine.Timeline.TimelineAsset"/>.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.IsValid">
+            <summary>
+            Assesses the validity of a SequenceContext.
+            </summary>
+            <remarks>To be valid, a SequenceContext must contain a valid PlayableDirector reference.</remarks>
+            <returns><see langword="true" />  if the SequenceContext is valid,<see langword="false" /> otherwise</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.op_Equality(UnityEditor.Timeline.SequenceContext,UnityEditor.Timeline.SequenceContext)">
+            <summary>
+            Equality operator overload.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns><see langword="true" /> if operands are equal, <see langword="false" /> otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.op_Inequality(UnityEditor.Timeline.SequenceContext,UnityEditor.Timeline.SequenceContext)">
+            <summary>
+            Inequality operator overload.
+            </summary>
+            <param name="left"></param>
+            <param name="right"></param>
+            <returns><see langword="true" /> if operands are not equal, <see langword="false" /> otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.Equals(UnityEditor.Timeline.SequenceContext)">
+            <summary>Indicates whether the current object is equal to another object of the same type.</summary>
+            <param name="other">An object to compare with this object.</param>
+            <returns>
+            <see langword="true" /> if the current object is equal to the <paramref name="other" /> parameter; otherwise, <see langword="false" />.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.Equals(System.Object)">
+            <summary>Indicates whether the current object is equal to another object of indeterminate type.</summary>
+            <param name="obj">An object to compare with this object.</param>
+            <returns>
+            <see langword="true" /> if the current object is equal to the <paramref name="obj" /> parameter; otherwise, <see langword="false" />.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SequenceContext.GetHashCode">
+            <summary>Hash function for SequenceContext.</summary>
+            <returns>
+            Hash code for the SequenceContext.
+            </returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.TrackDrawOptions">
+            <summary>
+            The user-defined options for drawing a track."
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TrackDrawOptions.errorText">
+            <summary>
+            Text that indicates if the track should display an error.
+            </summary>
+            <remarks>
+            If the error text is not empty or null, then the track displays a warning. The error text is used as the tooltip.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.TrackDrawOptions.trackColor">
+            <summary>
+            The highlight color of the track.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TrackDrawOptions.minimumHeight">
+            <summary>
+            The minimum height of the track.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TrackDrawOptions.icon">
+            <summary>
+            The icon displayed on the track header.
+            </summary>
+            <remarks>
+            If this value is null, then the default icon for the track is used.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackDrawOptions.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">The object to compare with the current instance.</param>
+            <returns>Returns <c>true</c> if <paramref name="obj"/> and this instance are the same type and represent the same value.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackDrawOptions.Equals(UnityEditor.Timeline.TrackDrawOptions)">
+            <summary>
+            Compares this object with another <c>TrackDrawOptions</c>.
+            </summary>
+            <param name="other">The object to compare with.</param>
+            <returns>Returns true if <c>this</c> and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackDrawOptions.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackDrawOptions.op_Equality(UnityEditor.Timeline.TrackDrawOptions,UnityEditor.Timeline.TrackDrawOptions)">
+            <summary>
+            Compares two <c>TrackDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackDrawOptions.op_Inequality(UnityEditor.Timeline.TrackDrawOptions,UnityEditor.Timeline.TrackDrawOptions)">
+            <summary>
+            Compares two <c>TrackDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are not equal.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.TrackBindingErrors">
+            <summary>
+            The errors displayed for the track binding.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.None">
+            <summary>
+            Select no errors.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.BoundGameObjectDisabled">
+            <summary>
+            The bound GameObject is disabled.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.NoValidComponent">
+            <summary>
+            The bound GameObject does not have a valid component.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.BehaviourIsDisabled">
+            <summary>
+            The bound Object is a disabled Behaviour.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.InvalidBinding">
+            <summary>
+            The bound Object is not of the correct type.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.PrefabBound">
+            <summary>
+            The bound Object is part of a prefab, and not an instance.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackBindingErrors.All">
+            <summary>
+            Select all errors.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.TrackEditor">
+            <summary>
+            Use this class to customize track types in the TimelineEditor.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackEditor.DefaultTrackHeight">
+            <summary>
+            The default height of a track.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackEditor.MinimumTrackHeight">
+            <summary>
+            The minimum unscaled height of a track.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.TrackEditor.MaximumTrackHeight">
+            <summary>
+            The maximum height of a track.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.GetTrackOptions(UnityEngine.Timeline.TrackAsset,UnityEngine.Object)">
+            <summary>
+            Implement this method to override the default options for drawing a track.
+            </summary>
+            <param name="track">The track from which track options are retrieved.</param>
+            <param name="binding">The binding for the track.</param>
+            <returns>The options for drawing the track.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.GetErrorText(UnityEngine.Timeline.TrackAsset,UnityEngine.Object,UnityEditor.Timeline.TrackBindingErrors)">
+            <summary>
+            Gets the error text for the specified track.
+            </summary>
+            <param name="track">The track to retrieve options for.</param>
+            <param name="boundObject">The binding for the track.</param>
+            <param name="detectErrors">The errors to check for.</param>
+            <returns>An error to be displayed on the track, or string.Empty if there is no error.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.GetTrackColor(UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Gets the color information of a track.
+            </summary>
+            <param name="track"></param>
+            <returns>Returns the color for the specified track.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.GetBindingType(UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Gets the binding type for a track.
+            </summary>
+            <param name="track">The track to retrieve the binding type from.</param>
+            <returns>Returns the binding type for the specified track. Returns null if the track does not have binding.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.OnCreate(UnityEngine.Timeline.TrackAsset,UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Callback for when a track is created.
+            </summary>
+            <param name="track">The track that is created.</param>
+            <param name="copiedFrom">The source that the track is copied from. This can be set to null if the track is not a copy.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.OnTrackChanged(UnityEngine.Timeline.TrackAsset)">
+            <summary>
+            Callback for when a track is changed.
+            </summary>
+            <param name="track">The track that is changed.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.IsBindingAssignableFrom(UnityEngine.Object,UnityEngine.Timeline.TrackAsset)">
+             <summary>
+             Override this method to validate if a binding for <paramref name="track"/>
+             can be determined from <paramref name="candidate"/>.
+            
+             The default implementation of this method will return true if
+             - <paramref name="candidate"/> is not null or,
+             - <paramref name="candidate"/> is not part of a Prefab Asset or,
+             - <paramref name="candidate"/> is a Component that can be bound to <paramref name="track"/>
+             </summary>
+             <param name="candidate"></param>
+             <param name="track">TBD</param>
+             <returns>True if a binding can be determined from <paramref name="candidate"/>.</returns>
+             <seealso cref="T:UnityEngine.Timeline.TrackBindingTypeAttribute"/>
+             <seealso cref="T:UnityEngine.Timeline.TrackAsset"/>
+        </member>
+        <member name="M:UnityEditor.Timeline.TrackEditor.GetBindingFrom(UnityEngine.Object,UnityEngine.Timeline.TrackAsset)">
+             <summary>
+             Override this method to determine which object to bind to <paramref name="track"/>.
+             A binding object should be determined from <paramref name="candidate"/>.
+            
+             By default, the `TrackBindingType` attribute from <paramref name="track"/> will be used to determine the binding.
+             </summary>
+             <param name="candidate">The source object from which a track binding should be determined.</param>
+             <param name="track">The track to bind an object to.</param>
+             <returns>The object to bind to <paramref name="track"/>.</returns>
+             <seealso cref="T:UnityEngine.Timeline.TrackBindingTypeAttribute"/>
+             <seealso cref="T:UnityEngine.Timeline.TrackAsset"/>
+        </member>
+        <member name="T:UnityEditor.Timeline.AnimationTrackExtensions">
+            <summary>
+            Extension Methods for AnimationTracks that require the Unity Editor, and may require the Timeline containing the Animation Track to be currently loaded in the Timeline Editor Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationTrackExtensions.CanStartRecording(UnityEngine.Timeline.AnimationTrack)">
+            <summary>
+            Determines whether the Timeline window can enable recording mode on an AnimationTrack.
+            For a track to support recording, it needs to have a valid scene binding,
+            its offset mode should not be Auto and needs to be currently visible in the Timeline Window.
+            </summary>
+            <param name="track">The track to query.</param>
+            <returns>True if recording can start, False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationTrackExtensions.IsRecording(UnityEngine.Timeline.AnimationTrack)">
+            <summary>
+            Method that allows querying if a track is current enabled for animation recording.
+            </summary>
+            <param name="track">The track to query.</param>
+            <returns>True if currently recording and False otherwise.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationTrackExtensions.StartRecording(UnityEngine.Timeline.AnimationTrack)">
+            <summary>
+            Method that enables animation recording for an AnimationTrack.
+            </summary>
+            <param name="track">The AnimationTrack which will be put in recording mode.</param>
+            <returns>True if track was put successfully in recording mode, False otherwise. </returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.AnimationTrackExtensions.StopRecording(UnityEngine.Timeline.AnimationTrack)">
+            <summary>
+            Disables recording mode of an AnimationTrack.
+            </summary>
+            <param name="track">The AnimationTrack which will be taken out of recording mode.</param>
+        </member>
+        <member name="T:UnityEditor.Timeline.ClipBackgroundRegion">
+            <summary>
+            Description of the on-screen area where a clip is drawn
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipBackgroundRegion.position">
+            <summary>
+            The rectangle where the background of the clip is drawn.
+            </summary>
+            <remarks>
+            The rectangle is clipped to the screen. The rectangle does not include clip borders.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipBackgroundRegion.startTime">
+            <summary>
+            The start time of the region, relative to the clip.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipBackgroundRegion.endTime">
+            <summary>
+            The end time of the region, relative to the clip.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.#ctor(UnityEngine.Rect,System.Double,System.Double)">
+            <summary>
+            Constructor
+            </summary>
+            <param name="_position"></param>
+            <param name="_startTime"></param>
+            <param name="_endTime"></param>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">The object to compare with the current instance.</param>
+            <returns>Returns <c>true</c> if <paramref name="obj"/> and this instance are the same type and represent the same value.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.Equals(UnityEditor.Timeline.ClipBackgroundRegion)">
+            <summary>
+            Compares this object with another <c>ClipBackgroundRegion</c>.
+            </summary>
+            <param name="other">The object to compare with.</param>
+            <returns>Returns true if <c>this</c> and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.op_Equality(UnityEditor.Timeline.ClipBackgroundRegion,UnityEditor.Timeline.ClipBackgroundRegion)">
+            <summary>
+            Compares two <c>ClipBackgroundRegion</c> objects.
+            </summary>
+            <param name="region1">The first object.</param>
+            <param name="region2">The second object.</param>
+            <returns>Returns true if they are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipBackgroundRegion.op_Inequality(UnityEditor.Timeline.ClipBackgroundRegion,UnityEditor.Timeline.ClipBackgroundRegion)">
+            <summary>
+            Compares two <c>ClipBackgroundRegion</c> objects.
+            </summary>
+            <param name="region1">The first object.</param>
+            <param name="region2">The second object.</param>
+            <returns>Returns true if they are not equal.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.ClipDrawOptions">
+            <summary>
+            The user-defined options for drawing a clip.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.errorText">
+            <summary>
+            Text that indicates if the clip should display an error.
+            </summary>
+            <remarks>
+            If the error text is not empty or null, then the clip displays a warning. The error text is used as the tooltip.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.displayClipName">
+            <summary>
+            Controls the display of the clip name.
+            </summary>
+            <remarks>
+            Set to true to display the clip name. Set to false to avoid drawing the clip name.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.hideScaleIndicator">
+            <summary>
+            Controls the display of the clip scale indicator.
+            </summary>
+            <remarks>
+            Set to true to hide the clip scale indicator.
+            This is useful if the scale indicator is interfering with your custom clip rendering, or if the scale indicator
+            is not useful for your clip.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.tooltip">
+            <summary>
+            The tooltip to show for the clip.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.highlightColor">
+            <summary>
+            The color drawn under the clip. By default, the color is the same as the track color.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.ClipDrawOptions.icons">
+            <summary>
+            Icons to display on the clip.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipDrawOptions.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">The object to compare with the current instance.</param>
+            <returns>Returns <c>true</c> if <paramref name="obj"/> and this instance are the same type and represent the same value.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipDrawOptions.Equals(UnityEditor.Timeline.ClipDrawOptions)">
+            <summary>
+            Compares this object with another <c>ClipDrawOptions</c>.
+            </summary>
+            <param name="other">The object to compare with.</param>
+            <returns>Returns true if <c>this</c> and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipDrawOptions.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipDrawOptions.op_Equality(UnityEditor.Timeline.ClipDrawOptions,UnityEditor.Timeline.ClipDrawOptions)">
+            <summary>
+            Compares two <c>ClipDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipDrawOptions.op_Inequality(UnityEditor.Timeline.ClipDrawOptions,UnityEditor.Timeline.ClipDrawOptions)">
+            <summary>
+            Compares two <c>ClipDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are not equal.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.ClipEditor">
+            <summary>
+            Use this class to customize clip types in the TimelineEditor.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.GetClipOptions(UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            Implement this method to override the default options for drawing a clip.
+            </summary>
+            <param name="clip">The clip being drawn.</param>
+            <returns>The options for drawing a clip.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.DrawBackground(UnityEngine.Timeline.TimelineClip,UnityEditor.Timeline.ClipBackgroundRegion)">
+            <summary>
+            Override this method to draw a background for a clip .
+            </summary>
+            <param name="clip">The clip being drawn.</param>
+            <param name="region">The on-screen area where the clip is drawn.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.OnCreate(UnityEngine.Timeline.TimelineClip,UnityEngine.Timeline.TrackAsset,UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            Called when a clip is created.
+            </summary>
+            <param name="clip">The newly created clip.</param>
+            <param name="track">The track that the clip is assigned to.</param>
+            <param name="clonedFrom">The source that the clip was copied from. This can be set to null if the clip is not a copy.</param>
+            <remarks>
+            The callback occurs before the clip is assigned to the track.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.GetErrorText(UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            Gets the error text for the specified clip.
+            </summary>
+            <param name="clip">The clip being drawn.</param>
+            <returns>Returns the error text to be displayed as the tool tip for the clip. If there is no error to be displayed, this method returns string.Empty.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.GetDefaultHighlightColor(UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            The color drawn under the clip. By default, the color is the same as the track color.
+            </summary>
+            <param name="clip">The clip being drawn.</param>
+            <returns>Returns the highlight color of the clip being drawn.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.OnClipChanged(UnityEngine.Timeline.TimelineClip)">
+            <summary>
+            Called when a clip is changed by the Editor.
+            </summary>
+            <param name="clip">The clip that changed.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.ClipEditor.GetSubTimelines(UnityEngine.Timeline.TimelineClip,UnityEngine.Playables.PlayableDirector,System.Collections.Generic.List{UnityEngine.Playables.PlayableDirector})">
+            <summary>
+            Gets the sub-timelines for a specific clip. Implement this method if your clip supports playing nested timelines.
+            </summary>
+            <param name="clip">The clip with the ControlPlayableAsset.</param>
+            <param name="director">The playable director driving the Timeline Clip. This may not be the same as TimelineEditor.inspectedDirector.</param>
+            <param name="subTimelines">Specify the sub-timelines to control.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.CurveDataSource.GetClipVersion">
+            <summary>The clip version is a value that will change when a curve gets updated.
+            it's used to detect when an animation clip has been changed externally </summary>
+            <returns>A versioning value indicating the state of the curve. If the curve is updated externally this value will change. </returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.CurveDataSource.UpdateExternalChanges(System.UInt64@)">
+            <summary>Call this method to check if the underlying clip has changed</summary>
+            <param name="curveVersion">A versioning value. This will be updated to the latest version</param>
+            <returns>A value indicating how the clip has changed</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.MarkerUIStates">
+            <summary>
+            The flags that indicate the view status of a marker.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.MarkerUIStates.None">
+            <summary>
+            No extra state specified.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.MarkerUIStates.Selected">
+            <summary>
+            The marker is selected.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.MarkerUIStates.Collapsed">
+            <summary>
+            The marker is in a collapsed state.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.MarkerDrawOptions">
+            <summary>
+            The user-defined options for drawing a marker.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerDrawOptions.tooltip">
+            <summary>
+            The tooltip for the marker.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerDrawOptions.errorText">
+            <summary>
+            Text that indicates if the marker should display an error.
+            </summary>
+            <remarks>
+            If the error text is not empty or null, then the marker displays a warning. The error text is used as the tooltip.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerDrawOptions.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">The object to compare with the current instance.</param>
+            <returns>Returns <c>true</c> if <paramref name="obj"/> and this instance are the same type and represent the same value.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerDrawOptions.Equals(UnityEditor.Timeline.MarkerDrawOptions)">
+            <summary>
+            Compares this object with another <c>MarkerDrawOptions</c>.
+            </summary>
+            <param name="other">The object to compare with.</param>
+            <returns>Returns true if <c>this</c> and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerDrawOptions.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerDrawOptions.op_Equality(UnityEditor.Timeline.MarkerDrawOptions,UnityEditor.Timeline.MarkerDrawOptions)">
+            <summary>
+            Compares two <c>MarkerDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerDrawOptions.op_Inequality(UnityEditor.Timeline.MarkerDrawOptions,UnityEditor.Timeline.MarkerDrawOptions)">
+            <summary>
+            Compares two <c>MarkerDrawOptions</c> objects.
+            </summary>
+            <param name="options1">The first object.</param>
+            <param name="options2">The second object.</param>
+            <returns>Returns true if they are not equal.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.MarkerOverlayRegion">
+            <summary>
+            The description of the on-screen area where the marker is drawn.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerOverlayRegion.markerRegion">
+            <summary>
+            The area where the marker is being drawn.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerOverlayRegion.timelineRegion">
+             <summary>
+             The area where the overlay is being drawn.
+            
+             This region extends from the top of the time ruler to the bottom of the window, excluding any scrollbars.
+             </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerOverlayRegion.trackRegion">
+             <summary>
+             The sub-area of the timelineRegion where the tracks are drawn.
+            
+             The region extends from the bottom of the time ruler, or the timeline marker region if not hidden.
+             Use this region to clip overlays that should not be drawn over the timeline marker region or time ruler.
+             </summary>
+             <example>
+             <code source="../../DocCodeExamples/MarkerEditorExamples.cs" region="declare-trackRegion" title="trackRegion"/>
+             </example>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerOverlayRegion.startTime">
+            <summary>
+            The start time of the visible region of the window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.MarkerOverlayRegion.endTime">
+            <summary>
+            The end time of the visible region of the window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.#ctor(UnityEngine.Rect,UnityEngine.Rect,System.Double,System.Double)">
+            <summary>Constructor</summary>
+            <param name="_markerRegion">The area where the marker is being drawn.</param>
+            <param name="_timelineRegion">The area where the overlay is being drawn.</param>
+            <param name="_startTime">The start time of the visible region of the window.</param>
+            <param name="_endTime">The end time of the visible region of the window.</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.#ctor(UnityEngine.Rect,UnityEngine.Rect,System.Double,System.Double,System.Single)">
+            <summary>Constructor</summary>
+            <param name="_markerRegion">The area where the marker is being drawn.</param>
+            <param name="_timelineRegion">The area where the overlay is being drawn.</param>
+            <param name="_startTime">The start time of the visible region of the window.</param>
+            <param name="_endTime">The end time of the visible region of the window.</param>
+            <param name="_trackOffset">The offset from the timelineRegion to the trackRegion</param>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.Equals(System.Object)">
+            <summary>
+            Indicates whether this instance and a specified object are equal.
+            </summary>
+            <param name="obj">The object to compare with the current instance.</param>
+            <returns>Returns <c>true</c> if <paramref name="obj"/> and this instance are the same type and represent the same value.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.Equals(UnityEditor.Timeline.MarkerOverlayRegion)">
+            <summary>
+            Compares this object with another <c>MarkerOverlayRegion</c>.
+            </summary>
+            <param name="other">The object to compare with.</param>
+            <returns>Returns true if <c>this</c> and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.GetHashCode">
+            <summary>
+            Returns the hash code for this instance.
+            </summary>
+            <returns>A 32-bit signed integer that is the hash code for this instance.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.op_Equality(UnityEditor.Timeline.MarkerOverlayRegion,UnityEditor.Timeline.MarkerOverlayRegion)">
+            <summary>
+            Compares two <c>MarkerOverlayRegion</c> objects.
+            </summary>
+            <param name="region1">The first object.</param>
+            <param name="region2">The second object.</param>
+            <returns>Returns true if they are equal.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerOverlayRegion.op_Inequality(UnityEditor.Timeline.MarkerOverlayRegion,UnityEditor.Timeline.MarkerOverlayRegion)">
+            <summary>
+            Compares two <c>MarkerOverlayRegion</c> objects.
+            </summary>
+            <param name="region1">The first object.</param>
+            <param name="region2">The second object.</param>
+            <returns>Returns true if they are not equal.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.MarkerEditor">
+            <summary>
+            Use this class to customize marker types in the TimelineEditor.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerEditor.#ctor">
+            <summary>
+            Default constructor
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerEditor.GetMarkerOptions(UnityEngine.Timeline.IMarker)">
+            <summary>
+            Implement this method to override the default options for drawing a marker.
+            </summary>
+            <param name="marker">The marker to draw.</param>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerEditor.OnCreate(UnityEngine.Timeline.IMarker,UnityEngine.Timeline.IMarker)">
+            <summary>
+            Called when a marker is created.
+            </summary>
+            <param name="marker">The marker that is created.</param>
+            <param name="clonedFrom">TThe source that the marker was copied from. This can be set to null if the marker is not a copy.</param>
+            <remarks>
+            The callback occurs before the marker is assigned to the track.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.MarkerEditor.DrawOverlay(UnityEngine.Timeline.IMarker,UnityEditor.Timeline.MarkerUIStates,UnityEditor.Timeline.MarkerOverlayRegion)">
+            <summary>
+            Draws additional overlays for a marker.
+            </summary>
+            <param name="marker">The marker to draw.</param>
+            <param name="uiState">The visual state of the marker.</param>
+            <param name="region">The on-screen area where the marker is being drawn.</param>
+            <remarks>
+            Notes:
+            * It is only called during TimelineWindow's Repaint step.
+            * If there are multiple markers on top of each other, only the topmost marker receives the DrawOverlay call.
+            </remarks>
+        </member>
+        <member name="M:UnityEditor.Timeline.SpacePartitioner.GetItemsAtPosition``1(UnityEngine.Vector2)">
+            <summary>
+            Get items of type T at a given position
+            </summary>
+            <param name="position"></param>
+            <param name="inClipSpace"></param>
+            <typeparam name="T"></typeparam>
+            <remarks>
+            Uses a (1,1) sized box
+            Use .ToList() or .ToArray() when not enumerating the result immediately
+            </remarks>
+            <returns></returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.SpacePartitioner.GetItemsInArea``1(UnityEngine.Rect)">
+             <summary>
+            
+             </summary>
+             <param name="area"></param>
+             <param name="inClipSpace"></param>
+             <typeparam name="T"></typeparam>
+             <returns></returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.DirectorNamedColorInspector">
+            <summary>
+            Internally used Inspector
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.PlaybackScrollMode">
+            <summary>
+            Scrolling mode during playback for the timeline window.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.PlaybackScrollMode.None">
+            <summary>
+            Timeline window doesn't change while the playhead is leaving the window.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.PlaybackScrollMode.Pan">
+            <summary>
+            Timeline window pans its content when the playhead arrive at the right of the window (like a paging scrolling).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.PlaybackScrollMode.Smooth">
+            <summary>
+            Timeline window move the content as the playhead moves.
+            When the playhead reach the middle of the window, it stays there and the content scroll behind it.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.UndoScope">
+            <summary>
+            Disposable scope object used to collect multiple items for Undo.
+                Automatically filters out duplicates
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Timeline.TimelineEditor">
+            <summary>
+            Information currently being edited in the Timeline Editor Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditor.GetWindow">
+            <summary>
+            Returns a reference to the Timeline Window.
+            </summary>
+            <returns>A reference to the TimelineWindow and null if the window is not opened.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditor.GetOrCreateWindow">
+            <summary>
+            Returns a reference to the Timeline Window. If the window is not opened, it will be opened.
+            </summary>
+            <returns>A reference to the TimelineWindow.</returns>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.inspectedDirector">
+            <summary>
+            The PlayableDirector associated with the timeline currently being shown in the Timeline window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.masterDirector">
+            <summary>
+            The PlayableDirector responsible for the playback of the timeline currently being shown in the Timeline window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.inspectedAsset">
+            <summary>
+            The TimelineAsset currently being shown in the Timeline window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.masterAsset">
+            <summary>
+            The TimelineAsset at the root of the hierarchy currently being shown in the Timeline window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.playableDirector">
+            <summary>
+            The PlayableDirector currently being shown in the Timeline Editor Window.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.timelineAsset">
+            <summary>
+            The TimelineAsset currently being shown in the Timeline Editor Window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditor.Refresh(UnityEditor.Timeline.RefreshReason)">
+            <summary>
+            <para>
+            Refreshes the different components affected by the currently inspected
+            <see cref="T:UnityEngine.Timeline.TimelineAsset"/>, based on the <see cref="T:UnityEditor.Timeline.RefreshReason"/> provided.
+            </para>
+            <para>
+            For better performance, it is recommended that you invoke this method once, after you modify the
+            <see cref="T:UnityEngine.Timeline.TimelineAsset"/>. You should also combine reasons using the <c>|</c> operator.
+            </para>
+            </summary>
+            <remarks>
+            Note: This operation is not synchronous. It is performed during the next GUI loop.
+            </remarks>
+            <param name="reason">The reason why a refresh should be performed.</param>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.selectedClips">
+            <summary>
+            The list of clips selected in the TimelineEditor.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.selectedClip">
+            <summary>
+            The clip selected in the TimelineEditor.
+            </summary>
+            <remarks>
+            If there are multiple clips selected, this property returns the first clip.
+            </remarks>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.inspectedSequenceTime">
+            <summary>
+            Local time (in seconds) of the inspected sequence.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown if timeline window is not available.</exception>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.masterSequenceTime">
+            <summary>
+            Global time (in seconds) of the master timeline.
+            Same as local time if not inspected a subtimeline.
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown if timeline window is not available.</exception>
+        </member>
+        <member name="P:UnityEditor.Timeline.TimelineEditor.visibleTimeRange">
+            <summary>
+            Visible time range (in seconds) in Editor.
+            x : min time
+            y : max time
+            </summary>
+            <exception cref="T:System.InvalidOperationException">Thrown if timeline window is not available.</exception>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditor.GetInspectedTimeFromMasterTime(System.Double)">
+            <summary>
+            Converts time from the master timeline to the current inspected timeline.
+            </summary>
+            <param name="masterTime">Time in the referential of the main timeline</param>
+            <returns>Time in the referential of the sub-timeline that is currently show.
+            Returns <paramref name="masterTime"/> if there is no sub-timeline or if no timeline is shown.</returns>
+        </member>
+        <member name="M:UnityEditor.Timeline.TimelineEditor.GetMasterTimeFromInspectedTime(System.Double)">
+            <summary>
+            Converts time from the current inspected timeline to the master timeline.
+            </summary>
+            <param name="inspectedTime">Time in the referential of the sub-timeline</param>
+            <returns>Time in the referential of the main timeline.
+            Returns <paramref name="inspectedTime"/> if there if no timeline is shown.</returns>
+        </member>
+        <member name="T:UnityEditor.Timeline.RefreshReason">
+            <summary>
+            <see cref="M:UnityEditor.Timeline.TimelineEditor.Refresh(UnityEditor.Timeline.RefreshReason)"/> uses these flags to determine what needs to be refreshed or updated.
+            </summary>
+            <remarks>
+            Use the <c>|</c> operator to combine flags.
+            <example>
+            <code source="../DocCodeExamples/TimelineEditorExamples.cs" region="declare-refreshReason" title="refreshReason"/>
+            </example>
+            </remarks>
+        </member>
+        <member name="F:UnityEditor.Timeline.RefreshReason.WindowNeedsRedraw">
+            <summary>
+            Use this flag when a change to the Timeline requires that the Timeline window be redrawn.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.RefreshReason.SceneNeedsUpdate">
+            <summary>
+            Use this flag when a change to the Timeline requires that the Scene be updated.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.RefreshReason.ContentsModified">
+            <summary>
+            Use this flag when a Timeline element was modified.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Timeline.RefreshReason.ContentsAddedOrRemoved">
+            <summary>
+            Use this flag when an element was added to or removed from the Timeline.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TimelineDragging.HandleClipPaneMonoScriptDragAndDrop(System.Collections.Generic.IEnumerable{UnityEditor.MonoScript},UnityEngine.Timeline.TrackAsset,System.Boolean,UnityEngine.Timeline.TimelineAsset,UnityEngine.Timeline.TrackAsset,UnityEngine.Playables.PlayableDirector,System.Double)">
+            Handles drag and drop of a mono script.
+        </member>
+        <member name="T:TimelineProjectSettings">
+            <summary>
+            Store the settings for Timeline that will be stored with the Unity Project.
+            </summary>
+        </member>
+        <member name="F:TimelineProjectSettings.assetDefaultFramerate">
+            <summary>
+            Define the default framerate when a Timeline asset is created.
+            </summary>
+        </member>
+        <member name="P:TimelineProjectSettings.defaultFrameRate">
+            <summary>
+            Defines the default frame rate when a Timeline asset is created from the project window.
+            </summary>
+        </member>
+        <member name="M:TimelineProjectSettings.Save">
+            <summary>
+            Save the timeline project settings file in the project directory.
+            </summary>
+        </member>
+        <member name="T:TimelinePreferences">
+            <summary>
+            Store the editor preferences for Timeline.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.timeFormat">
+            <summary>
+            The time unit used by the Timeline Editor when displaying time values.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.timeUnitInFrame">
+            <summary>
+            Define the time unit for the timeline window.
+            true : frame unit.
+            false : timecode unit.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.showAudioWaveform">
+            <summary>
+            Draw the waveforms for all audio clips.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.m_AudioScrubbing">
+            <summary>
+            Allow the users to hear audio while scrubbing on audio clip.
+            </summary>
+        </member>
+        <member name="P:TimelinePreferences.audioScrubbing">
+            <summary>
+            Enables audio scrubbing when moving the playhead.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.snapToFrame">
+            <summary>
+            Enable Snap to Frame to manipulate clips and align them on frames.
+            </summary>
+        </member>
+        <member name="P:TimelinePreferences.playbackLockedToFrame">
+            <summary>
+            Enable Timelines to be evaluated on frame during editor preview.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.edgeSnap">
+            <summary>
+            Enable the ability to snap clips on the edge of another clip.
+            </summary>
+        </member>
+        <member name="F:TimelinePreferences.playbackScrollMode">
+            <summary>
+            Behavior of the timeline window during playback.
+            </summary>
+        </member>
+        <member name="M:TimelinePreferences.Save">
+            <summary>
+            Save the timeline preferences settings file.
+            </summary>
+        </member>
+    </members>
+</doc>

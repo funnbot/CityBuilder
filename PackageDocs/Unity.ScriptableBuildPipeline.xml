@@ -1,0 +1,128 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.ScriptableBuildPipeline</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest">
+            <summary>
+            Accesses information about all the asset bundles stored in a manifest file.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.SetResults(System.Collections.Generic.Dictionary{System.String,UnityEngine.Build.Pipeline.BundleDetails})">
+            <summary>
+            Stores the bundle information.
+            </summary>
+            <param name="results">The bundle information.</param>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetAllAssetBundles">
+            <summary>
+            Retrieves the names of all the asset bundles.
+            </summary>
+            <returns>Returns the names of all the asset bundles.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetAllAssetBundlesWithVariant">
+            <summary>
+            Oboslete method.
+            </summary>
+            <returns>Returns an empty array.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetAssetBundleHash(System.String)">
+            <summary>
+            Retrieves the hash of the asset bundle.
+            </summary>
+            <param name="assetBundleName">The name of the bundle.</param>
+            <returns>Returns the hash.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetAssetBundleCrc(System.String)">
+            <summary>
+            Retrieves the cyclic redundancy check information for specified asset bundle.
+            </summary>
+            <param name="assetBundleName">The bundle name.</param>
+            <returns>Returns the cyclic redundancy check information for specified asset bundle.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetDirectDependencies(System.String)">
+            <summary>
+            Retrieves all bundle dependencies based on the specified bundle name.
+            </summary>
+            <param name="assetBundleName">The bundle name to lookup.</param>
+            <returns>Returns all the dependencies of the bundle.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.GetAllDependencies(System.String)">
+            <summary>
+            Retrieves all bundle dependencies based on the specified bundle name.
+            </summary>
+            <param name="assetBundleName">The bundle name to lookup.</param>
+            <returns>Returns all the dependencies of the bundle.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.ToString">
+            <summary>
+            Returns a formatted string with the contents of the manifest file.
+            </summary>
+            <returns>Returns a string suitable for saving into a manifest file.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.OnBeforeSerialize">
+            <summary>
+            Converts our data to a serialized structure before a domain reload.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.CompatibilityAssetBundleManifest.OnAfterDeserialize">
+            <summary>
+            Puts back the converted data into its original data structure after a domain reload.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.Build.Pipeline.BundleDetails">
+            <summary>
+            Struct containing detailed information about a built asset bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.Build.Pipeline.BundleDetails.FileName">
+            <summary>
+            Specific file name on disk of the asset bundle.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.Build.Pipeline.BundleDetails.Crc">
+            <summary>
+            Cyclic redundancy check of the content contained inside of the asset bundle.
+            This value will not change between identical asset bundles with different compression options.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.Build.Pipeline.BundleDetails.Hash">
+            <summary>
+            The hash version of the content contained inside of the asset bundle.
+            This value will not change between identical asset bundles with different compression options.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.Build.Pipeline.BundleDetails.Dependencies">
+            <summary>
+            The array of all dependent asset bundles for this asset bundle.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.BundleDetails.Equals(System.Object)">
+            <summary>
+            Determines if the current bundle details instance is equivalent the specified bundle details.
+            </summary>
+            <param name="obj">The bundle details to compare to.</param>
+            <returns>Returns true if the bundle details are equivalent. Returns false otherwise.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.BundleDetails.GetHashCode">
+            <summary>
+            Creates the hash code of the bundle information.
+            </summary>
+            <returns>Returns the created hash code.</returns>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.BundleDetails.op_Equality(UnityEngine.Build.Pipeline.BundleDetails,UnityEngine.Build.Pipeline.BundleDetails)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.BundleDetails.op_Inequality(UnityEngine.Build.Pipeline.BundleDetails,UnityEngine.Build.Pipeline.BundleDetails)">
+            <inheritdoc/>
+        </member>
+        <member name="M:UnityEngine.Build.Pipeline.BundleDetails.Equals(UnityEngine.Build.Pipeline.BundleDetails)">
+            <summary>
+            Determines if the current instance is equivalent to the specified bundle details object.
+            </summary>
+            <param name="other">The object to compare to.</param>
+            <returns>Returns true if the bundle details objects are equivalent. Returns false otherwise.</returns>
+        </member>
+    </members>
+</doc>

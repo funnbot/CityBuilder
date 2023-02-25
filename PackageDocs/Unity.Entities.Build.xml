@@ -1,0 +1,255 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.Build</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Entities.Build.EntitiesClientSettings">
+            <summary>
+            The baking settings for the default entities setup.
+            </summary>
+            <remarks>The com.unity.netcode package will add more settings for different build targets.</remarks>
+        </member>
+        <member name="T:Unity.Entities.Build.BakingSystemFilterSettings">
+            <summary>
+            Holds the set of assemblies which are to be excluded during the baking process.
+            </summary>
+            <remarks>
+            The <see cref="!:Unity.Entities.Baker&lt;TAuthoringType&gt;"/> types defined in excluded assemblies are ignored during the baking process.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Build.BakingSystemFilterSettings.ExcludedBakingSystemAssemblies">
+            <summary>
+            The list of assemblies containing bakers which are going to be excluded during the baking process.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Build.BakingSystemFilterSettings.#ctor">
+            <summary>
+            Default constructor.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Build.BakingSystemFilterSettings.#ctor(System.String[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="excludedAssemblyDefinitionNames">
+            The names of assemblies containing bakers which are going to be excluded during the baking process.
+            </param>
+        </member>
+        <member name="M:Unity.Entities.Build.BakingSystemFilterSettings.#ctor(UnityEditorInternal.AssemblyDefinitionAsset[])">
+            <summary>
+            Constructor.
+            </summary>
+            <param name="excludedAssemblyDefinitionAssets">
+            The list of assemblies containing bakers which are going to be excluded during the baking process.
+            </param>
+        </member>
+        <member name="M:Unity.Entities.Build.BakingSystemFilterSettings.IsAssemblyExcluded(System.Reflection.Assembly)">
+            <summary>
+            Checks if an assembly is excluded during the baking process.
+            </summary>
+            <param name="assembly">The assembly to check.</param>
+            <returns>Returns true if the assembly is excluded, otherwise returns false.</returns>
+        </member>
+        <member name="T:Unity.Entities.Build.IEntitiesPlayerSettings">
+            <summary>
+            Interface for build player settings assets.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Build.IEntitiesPlayerSettings.GetFilterSettings">
+            <summary>
+            Gets the list of assemblies to be excluded during baking.
+            </summary>
+            <returns>Returns the serialized <see cref="T:Unity.Entities.Build.BakingSystemFilterSettings"/>.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.IEntitiesPlayerSettings.GetAdditionalScriptingDefines">
+            <summary>
+            Gets the set of scripting defines applied while building the player.
+            </summary>
+            <returns>Returns the array of scripting defines.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.IEntitiesPlayerSettings.AsScriptableObject">
+            <summary>
+            Returns the backing ScriptableObject.
+            </summary>
+            <returns>Returns a ScriptableObject.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.IEntitiesPlayerSettings.RegisterCustomDependency">
+            <summary>
+            Register the hash of the object as a custom dependency in the AssetDatabase.
+            </summary>
+            <remarks>This allows the AssetDatabase to reimport the subscenes that depend on these settings.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.IEntitiesPlayerSettings.GetHash">
+            <summary>
+            Gets the hash of the settings asset.
+            </summary>
+            <returns>Returns the hash as a <see cref="T:Unity.Entities.Hash128"/> value.</returns>
+        </member>
+        <member name="P:Unity.Entities.Build.IEntitiesPlayerSettings.CustomDependency">
+            <summary>
+            The custom dependency key.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.Build.IEntitiesPlayerSettings.GUID">
+            <summary>
+            The unique ID of the settings asset.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Build.TestPlayerSettings.AdditionalBakingSystemsTemp">
+            <summary>
+            TEMP: This was only added to allow NetCode to inject baking systems into the scene asset importer.
+            See NetCode's `TestWithSceneAsset.cs` script Setup and Teardown.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Build.DotsPlayerSettingsProvider">
+            <summary>
+            Base class for creating an Entities player asset in the Assets folder.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.Build.DotsPlayerSettingsProvider.Importance">
+            <summary>
+            Importance of the asset compared with other potential assets of the same player type.
+            </summary>
+            <remarks>The provider with the higher importance value only will be taken into account in the project settings.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.GetExtraScriptingDefines">
+            <summary>
+            Provides extra scripting defines to add into the player build.
+            </summary>
+            <returns>Returns the array of scripting defines.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.GetExtraBuildOptions">
+            <summary>
+            Provides additional BuildOptions to the player build.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.OnActivate(Unity.Entities.Build.DotsGlobalSettings.PlayerType,UnityEngine.UIElements.VisualElement)">
+            <summary>
+            Create the UI of the asset in the project settings window.
+            </summary>
+            <param name="type">The player type.</param>
+            <param name="rootElement">The root element for the UI.</param>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.DoGetSettingAsset">
+            <summary>
+            Returns the settings object for this provider.
+            </summary>
+            <returns>Returns the serialized instance of <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/>.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.GetSettingAsset">
+            <summary>
+            Returns the settings object for this provider.
+            </summary>
+            <returns>Returns the serialized instance of <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/>.</returns>
+            <remarks>The settings object can be overridden.
+            If an override is active, this method will return it instead of the default settings object.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.SetSettingAsset(Unity.Entities.Build.IEntitiesPlayerSettings)">
+            <summary>
+            Override the settings object defined by this provider.
+            </summary>
+            <param name="newSettings">The <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/> asset.</param>
+            <remarks>
+            Use this method to customize the build settings from a script.<br/>
+            Note: The override reference is not preserved during domain reloads and does not affect the default
+            settings which can be edited through the project settings.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.DoGetPlayerSettingGUID">
+            <summary>
+            Returns the GUID of the asset.
+            </summary>
+            <returns>Returns the GUID of the player settings asset.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.GetPlayerSettingGUID">
+            <summary>
+            Returns the GUID of the asset.
+            </summary>
+            <returns>Returns the GUID of the player settings asset.</returns>
+            <remarks>If there is a settings override, the GUID will correspond to the override rather than the default settings asset.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsPlayerSettingsProvider.GetPlayerType">
+            <summary>
+            Return the PlayerType of the asset (Client or Server).
+            </summary>
+            <returns>Returns the <see cref="T:Unity.Entities.Build.DotsGlobalSettings.PlayerType"/> of the asset.</returns>
+        </member>
+        <member name="T:Unity.Entities.Build.DotsGlobalSettings">
+            <summary>
+            Base class for accessing Dots project settings.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Build.DotsGlobalSettings.PlayerType">
+            <summary>
+            The type of player that will be built.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Build.DotsGlobalSettings.PlayerType.Client">
+            <summary>
+            The player instance is a client.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Build.DotsGlobalSettings.PlayerType.Server">
+            <summary>
+            The player instance is a server.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.Build.DotsGlobalSettings.ClientProvider">
+            <summary>
+            The client player settings provider.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.Build.DotsGlobalSettings.ServerProvider">
+            <summary>
+            The server player settings provider.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetPlayerType">
+            <summary>
+            Returns the <see cref="T:Unity.Entities.Build.DotsGlobalSettings.PlayerType"/> Client or Server based on if a dedicated server platform is selected in the build settings or not.
+            </summary>
+            <returns>Returns the <see cref="T:Unity.Entities.Build.DotsGlobalSettings.PlayerType"/> for the build.</returns>
+        </member>
+        <member name="P:Unity.Entities.Build.DotsGlobalSettings.Instance">
+            <summary>
+            The <see cref="T:Unity.Entities.Build.DotsGlobalSettings"/> instance.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetSettingsAsset(Unity.Entities.Hash128)">
+            <summary>
+            Gets the <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/> settings asset corresponding to the guid.
+            </summary>
+            <param name="guid">The unique ID of the build settings asset.</param>
+            <returns>Returns the settings asset corresponding to the guid, or null if not found.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetClientSettingAsset">
+            <summary>
+            Gets the Client Setting asset.
+            </summary>
+            <returns>Returns the <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/> asset for the client.
+            If there is no provider for the client target, returns null.</returns>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetClientGUID">
+            <summary>
+            Gets the GUID of the Client asset.
+            </summary>
+            <returns>Returns the GUID of the Client asset.</returns>
+            <remarks>If there is no provider for the client target, returns an invalid <see cref="T:Unity.Entities.Hash128"/> value.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetServerSettingAsset">
+            <summary>
+            Gets the Server Setting asset.
+            </summary>
+            <returns>Returns the <see cref="T:Unity.Entities.Build.IEntitiesPlayerSettings"/> asset for the server.</returns>
+            <remarks>If there is no provider for the server target, returns null.</remarks>
+        </member>
+        <member name="M:Unity.Entities.Build.DotsGlobalSettings.GetServerGUID">
+            <summary>
+            Gets the GUID of the Server asset.
+            </summary>
+            <returns>Returns the GUID of the Server asset.</returns>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,446 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Splines.Editor</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.Splines.SplineInfo">
+            <summary>
+            Provides information about a spline. Used in editor utility functions.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.Target">
+            <summary>
+            The <see cref="T:UnityEngine.Object"/> that contains the spline.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.Container">
+            <summary>
+            The <see cref="T:UnityEngine.Splines.ISplineContainer"/> that contains the spline.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.Transform">
+            <summary>
+            The associated <see cref="T:UnityEngine.Transform"/> of the target.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.Spline">
+            <summary>
+            A reference to the <see cref="T:UnityEngine.Splines.Spline"/>.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.Index">
+            <summary>
+            The index of the spline in the enumerable returned by the <see cref="T:UnityEngine.Splines.ISplineContainer"/>.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineInfo.LocalToWorld">
+            <summary>
+            Matrix that transforms the <see cref="P:UnityEditor.Splines.SplineInfo.Target"/> from local space into world space.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Splines.SplineToolContext">
+            <summary>
+            Defines a tool context for editing splines. When authoring tools for splines, pass the SplineToolContext type
+            to the EditorToolAttribute.editorToolContext parameter to register as a spline tool.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineToolContext.GetEditorToolType(UnityEditor.Tool)">
+            <summary>
+            Returns the matching EditorTool type for the specified Tool given the context.
+            </summary>
+            <param name="tool">The Tool to resolve to an EditorTool type.</param>
+            <returns> An EditorTool type for the requested Tool.</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineToolContext.OnToolGUI(UnityEditor.EditorWindow)">
+            <summary>
+            Invoked for each window where this context is active. The spline context uses this method to implement
+            common functionality for working with splines, ex gizmo drawing and selection.
+            </summary>
+            <param name="window"></param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineToolContext.OnActivated">
+            <summary>
+            Invoked after this EditorToolContext becomes the active tool context.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineToolContext.OnWillBeDeactivated">
+            <summary>
+            Invoked before this EditorToolContext stops being the active tool context.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Splines.KnotPlacementTool.DrawingOperation.DrawingDirection">
+            <summary>
+            Indicates whether the knot placed is at the start or end of a curve segment
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.KnotPlacementTool.DrawingOperation.GetLastKnotIndex">
+            <summary>
+            Gets the last index of the knot on the spline
+            </summary>
+            <returns>The index of the last knot on the spline - this will be the same as the starting knot
+            in a closed spline</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.KnotPlacementTool.DrawingOperation.Dispose">
+            <summary>
+            Remove drawing action that created no curves and were canceled after being created
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Splines.Pref`1">
+            <summary>
+            The wrapper to define user preferences through Settings Manager.
+            </summary>
+            <typeparam name="T"></typeparam>
+        </member>
+        <member name="T:UnityEditor.Splines.SplineDataHandles">
+            <summary>
+            Provides default handles to SplineData.
+            Call <see cref="M:UnityEditor.Splines.SplineDataHandles.DataPointHandles``2(``0,UnityEngine.Splines.SplineData{``1},System.Boolean)"/> in your Editor Tool to add default handles
+            for you to add, move, and remove SplineData's DataPoints along a spline.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineDataHandles.DataPointHandles``2(``0,UnityEngine.Splines.SplineData{``1},System.Boolean)">
+            <summary>
+            Creates manipulation handles in the SceneView to add, move, and remove SplineData's DataPoints along a spline.
+            DataPoints of the targeted SplineData along a Spline. Left click on an empty location
+            on the spline adds a new DataPoint in the SplineData. Left click on an existing DataPoint
+            allows to move this point along the Spline while a right click on it allows to delete that DataPoint.
+            </summary>
+            <description>
+            Left-click an empty location on the spline to add a new DataPoint to the SplineData.
+            Left-click on a DataPoint to move the point along the Spline. Right-click a DataPoint to delete it.
+            </description>
+            <param name="spline">The Spline to use to interprete the SplineData.</param>
+            <param name="splineData">The SplineData for which the handles are drawn.</param>
+            <param name="useDefaultValueOnAdd">Either to use default value or closer DataPoint value when adding new DataPoint.</param>
+            <typeparam name="TSpline">The Spline type.</typeparam>
+            <typeparam name="TData">The type of data this data point stores.</typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineMeshHandle`1.Do(`0,System.Single,UnityEngine.Color,System.Int32)">
+            <summary>
+            Draws a 3D mesh from a spline.
+            </summary>
+            <param name="spline">The target spline.</param>
+            <param name="size">The width to use for the spline mesh.</param>
+            <param name="color">The color to use for the spline mesh in normal mode.</param>
+            <param name="resolution">The resolution to use for the mesh, defines the number of segments per unit
+            with default value of <see cref="F:UnityEngine.Splines.SplineUtility.DrawResolutionDefault"/>.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineMeshHandle`1.Do(System.Int32,`0,System.Single,UnityEngine.Color,System.Int32)">
+            <summary>
+            Draws a 3D mesh handle from a spline.
+            </summary>
+            <param name="controlID">The spline mesh controlID.</param>
+            <param name="spline">The target spline.</param>
+            <param name="size">The width to use for the spline mesh.</param>
+            <param name="color">The color to use for the spline mesh in normal mode.</param>
+            <param name="resolution">The resolution to use for the mesh, defines the number of segments per unit
+            with default value of <see cref="F:UnityEngine.Splines.SplineUtility.DrawResolutionDefault"/>.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineMeshHandle`1.Do(`0,System.Single,System.Int32)">
+            <summary>
+            Draws a 3D mesh from a spline.
+            </summary>
+            <param name="spline">The target spline.</param>
+            <param name="size">The width to use for the spline mesh.</param>
+            <param name="resolution">The resolution to use for the mesh, defines the number of segments per unit
+            with default value of <see cref="F:UnityEngine.Splines.SplineUtility.DrawResolutionDefault"/>.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineMeshHandle`1.Do(System.Int32,`0,System.Single,System.Int32)">
+            <summary>
+            Draws a 3D mesh handle from a spline.
+            </summary>
+            <param name="controlID">The spline mesh controlID.</param>
+            <param name="spline">The target spline.</param>
+            <param name="size">The width to use for the spline mesh.</param>
+            <param name="resolution">The resolution to use for the mesh, defines the number of segments per unit
+            with default value of <see cref="F:UnityEngine.Splines.SplineUtility.DrawResolutionDefault"/>.</param>
+        </member>
+        <member name="T:UnityEditor.Splines.HandleOrientation">
+            <summary>
+            Describes how the handles are oriented.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Splines.HandleOrientation.Local">
+            <summary>
+            Tool handles are in the active object's rotation.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Splines.HandleOrientation.Global">
+            <summary>
+            Tool handles are in global rotation.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Splines.HandleOrientation.Parent">
+            <summary>
+            Tool handles are in active element's parent's rotation.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.Splines.HandleOrientation.Element">
+            <summary>
+            Tool handles are in active element's rotation.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.Splines.SplineTool">
+            <summary>
+            Base class from which all Spline tools inherit.
+            Inherit SplineTool to author tools that behave like native spline tools. This class implements some common
+            functionality and shortcuts specific to spline authoring.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineTool.OnActivated">
+            <summary>
+            Invoked after this EditorTool becomes the active tool.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineTool.OnWillBeDeactivated">
+            <summary>
+            Invoked before this EditorTool stops being the active tool.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineHandles.DoSpline``1(``0)">
+            <summary>
+            Draws a handle for a spline.
+            </summary>
+            <param name="spline">The target spline.</param>
+            <typeparam name="T">A type implementing ISpline.</typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineHandles.DoSpline``1(System.Int32,``0)">
+            <summary>
+            Draws a handle for a spline.
+            </summary>
+            <param name="controlID">The spline mesh controlID.</param>
+            <param name="spline">The target spline.</param>
+            <typeparam name="T">A type implementing ISpline.</typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineHandles.DoCurve(UnityEngine.Splines.BezierCurve)">
+            <summary>
+            Draws a handle for a <see cref="T:UnityEngine.Splines.BezierCurve"/>.
+            </summary>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create handles for.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineHandles.DoCurve(System.Int32,UnityEngine.Splines.BezierCurve)">
+            <summary>
+            Draws a handle for a <see cref="T:UnityEngine.Splines.BezierCurve"/>.
+            </summary>
+            <param name="controlID">The spline mesh controlID.</param>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create handles for.</param>
+        </member>
+        <member name="T:UnityEditor.Splines.SplineGizmoUtility">
+            <summary>
+            SplineGizmoUtility provides methods for drawing in-scene representations of Splines.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineGizmoUtility.DrawGizmos(UnityEngine.Splines.ISplineContainer)">
+            <summary>
+            Draw a line gizmo for a <see cref="T:UnityEngine.Splines.ISplineContainer"/>.
+            </summary>
+            <param name="container">An object implementing the ISplineContainer interface. Usually this will be a MonoBehaviour.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineGizmoUtility.DrawGizmos(UnityEngine.Splines.ISplineProvider)">
+            <summary>
+            Draw a line gizmo for a <see cref="T:UnityEngine.Splines.ISplineProvider"/>.
+            </summary>
+            <param name="provider">An object implementing the ISplineProvider interface. Usually this will be a MonoBehaviour.</param>
+        </member>
+        <member name="T:UnityEditor.Splines.EditorSplineUtility">
+            <summary>
+            Editor utility functions for working with <see cref="T:UnityEngine.Splines.Spline"/> and <see cref="T:UnityEngine.Splines.SplineData`1"/>.
+            </summary>
+        </member>
+        <member name="E:UnityEditor.Splines.EditorSplineUtility.afterSplineWasModified">
+            <summary>
+            Invoked once per-frame if a spline property has been modified.
+            </summary>
+        </member>
+        <member name="E:UnityEditor.Splines.EditorSplineUtility.AfterSplineWasModified">
+            <summary>
+            Invoked once per-frame if a spline property has been modified.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.Splines.EditorSplineUtility.DefaultTangentMode">
+            <summary>
+            Represents the default TangentMode used to place or insert knots. If the user does not define tangent
+            handles, then the tangent takes the default TangentMode.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.RegisterSplineDataChanged``1(System.Action{UnityEngine.Splines.SplineData{``0}})">
+            <summary>
+            Use this function to register a callback that gets invoked
+            once per-frame if any <see cref="T:UnityEngine.Splines.SplineData`1"/> changes occur.
+            </summary>
+            <param name="action">The callback to register.</param>
+            <typeparam name="T">
+            The type parameter of <see cref="T:UnityEngine.Splines.SplineData`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.UnregisterSplineDataChanged``1(System.Action{UnityEngine.Splines.SplineData{``0}})">
+            <summary>
+            Use this function to unregister <see cref="T:UnityEngine.Splines.SplineData`1"/> change callback.
+            </summary>
+            <param name="action">The callback to unregister.</param>
+            <typeparam name="T">
+            The type parameter of <see cref="T:UnityEngine.Splines.SplineData`1"/>.
+            </typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.GetSplinesFromTargets(System.Collections.Generic.IEnumerable{UnityEngine.Object})">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the splines in a list of targets.
+            </summary>
+            <param name="targets">A list of Objects inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <returns>An array to store the <see cref="T:UnityEditor.Splines.SplineInfo"/> of splines found in the targets.</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.GetSplinesFromTargets(System.Collections.Generic.IEnumerable{UnityEngine.Object},System.Collections.Generic.List{UnityEditor.Splines.SplineInfo})">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the splines in a list of targets.
+            </summary>
+            <param name="targets">A list of Objects inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <param name="results">A list to store the <see cref="T:UnityEditor.Splines.SplineInfo"/> of splines found in the targets.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.GetSplinesFromTarget(UnityEngine.Object,System.Collections.Generic.List{UnityEditor.Splines.SplineInfo})">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the splines in a target.
+            </summary>
+            <param name="target">An Object inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <param name="results">A list to store the <see cref="T:UnityEditor.Splines.SplineInfo"/> of splines found in the targets.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.TryGetSplinesFromTarget(UnityEngine.Object,System.Collections.Generic.List{UnityEditor.Splines.SplineInfo})">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the splines in a target.
+            </summary>
+            <param name="target">An Object inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <param name="results">A list to store the <see cref="T:UnityEditor.Splines.SplineInfo"/> of splines found in the targets.</param>
+            <returns>True if a at least a spline was found in the target.</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.GetSplinesFromTarget(UnityEngine.Object)">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the splines in a target.
+            </summary>
+            <param name="target">An Object inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <returns>An array to store the <see cref="T:UnityEditor.Splines.SplineInfo"/> of splines found in the target.</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.TryGetSplineFromTarget(UnityEngine.Object,UnityEditor.Splines.SplineInfo@)">
+            <summary>
+            Get a <see cref="T:UnityEditor.Splines.SplineInfo"/> representation of the first spline found in the target.
+            </summary>
+            <param name="target">An Object inheriting from <see cref="T:UnityEngine.Splines.ISplineContainer"/>.</param>
+            <param name="splineInfo">The <see cref="T:UnityEditor.Splines.SplineInfo"/> of the first spline found in the target.</param>
+            <returns>True if a spline was found in the target.</returns>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.SetKnotPlacementTool">
+            <summary>
+            Sets the current active context to the <see cref="T:UnityEditor.Splines.SplineToolContext"/> and the current active tool to the
+            Draw Splines Tool (<see cref="T:UnityEditor.Splines.KnotPlacementTool"/>)
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.EditorSplineUtility.ApplyPositionToTangent(UnityEditor.Splines.SelectableTangent,Unity.Mathematics.float3)">
+            <summary>
+            Sets the position of a tangent. This could actually result in the knot being rotated depending on the tangent mode
+            </summary>
+            <param name="tangent">The tangent to place</param>
+            <param name="position">The position that should be used to place the tangent</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.Draw(System.Int32,UnityEngine.Splines.BezierCurve)">
+            <summary>
+            Creates handles for a BezierCurve.
+            </summary>
+            <param name="controlID">The controlID of the curve to create highlights for.</param>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create handles for.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.Draw(UnityEngine.Splines.BezierCurve,System.Boolean)">
+            <summary>
+            Creates handles for a BezierCurve.
+            </summary>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create handles for.</param>
+            <param name="activeSpline">Whether the curve is part of the active spline.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.DrawWithHighlight(System.Int32,UnityEngine.Splines.BezierCurve,UnityEngine.Splines.ISpline,System.Int32,UnityEditor.Splines.SelectableKnot,UnityEditor.Splines.SelectableKnot,System.Boolean)">
+            <summary>
+            Creates highlights for a BezierCurve to make it easier to select.
+            </summary>
+            <param name="controlID">The controlID of the curve to create highlights for.</param>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create highlights for.</param>
+            <param name="spline">The <see cref="T:UnityEngine.Splines.ISpline"/> (if any) that the curve belongs to.</param>
+            <param name="curveIndex">The curve's index if it belongs to a spline - otherwise -1.</param>
+            <param name="knotA">The knot at the start of the curve.</param>
+            <param name="knotB">The knot at the end of the curve.</param>
+            <param name="activeSpline">Whether the curve is part of the active spline.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.DrawWithoutHighlight(System.Int32,UnityEngine.Splines.BezierCurve,UnityEngine.Splines.ISpline,System.Int32,UnityEditor.Splines.SelectableKnot,UnityEditor.Splines.SelectableKnot,System.Boolean)">
+            <summary>
+            Draws curve and flow for a BezierCurve without the highlight.
+            </summary>
+            <param name="controlID">The controlID of the curve to create highlights for.</param>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create highlights for.</param>
+            <param name="spline">The <see cref="T:UnityEngine.Splines.ISpline"/> (if any) that the curve belongs to.</param>
+            <param name="curveIndex">The curve's index if it belongs to a spline - otherwise -1.</param>
+            <param name="knotA">The knot at the start of the curve.</param>
+            <param name="knotB">The knot at the end of the curve.</param>
+            <param name="activeSpline">Whether the curve is part of the active spline.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.DrawFlow(UnityEngine.Splines.BezierCurve,UnityEngine.Splines.ISpline,System.Int32,UnityEngine.Vector3,UnityEngine.Vector3)">
+            <summary>
+            Draws flow on a BezierCurve to indicate the direction.
+            </summary>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create highlights for.</param>
+            <param name="spline">The <see cref="T:UnityEngine.Splines.ISpline"/> (if any) that the curve belongs to.</param>
+            <param name="curveIndex">The curve's index if it belongs to a spline - otherwise -1.</param>
+            <param name="upAtStart">The up vector at the start of the curve.</param>
+            <param name="upAtEnd">The up vector at the end of the curve.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.GetCurveMiddleInterpolation``1(UnityEngine.Splines.BezierCurve,``0,System.Int32)">
+            <summary>
+            Returns the interpolation value that corresponds to the middle (distance wise) of the curve.
+            If spline and curveIndex are provided, the function leverages the spline's LUTs, otherwise the LUT is built on the fly.
+            </summary>
+            <param name="curve">The curve to evaluate.</param>
+            <param name="spline">The ISpline that curve belongs to. Not used if curve is not part of any spline.</param>
+            <param name="curveIndex">The index of the curve if it's part of the spine.</param>
+            <typeparam name="T">A type implementing ISpline.</typeparam>
+        </member>
+        <member name="M:UnityEditor.Splines.CurveHandles.DrawControlNet(UnityEngine.Splines.BezierCurve)">
+            <summary>
+            Creates the set of control points that make up a curve.
+            </summary>
+            <param name="curve">The <see cref="T:UnityEngine.Splines.BezierCurve"/> to create control points for.</param>
+        </member>
+        <member name="T:UnityEditor.Splines.SplineDataHandle`1">
+            <summary>
+            SplineDataHandle is a base class to override in order to enable custom handles for spline data.
+            The Drawer needs to inherit from this class and override the method corresponding to the correct splineData type.
+            Either one of the method or both can be overriden regarding the user needs.
+            </summary>
+            <typeparam name="T">
+            The type parameter of the <see cref="T:UnityEngine.Splines.SplineData`1"/> that this drawer targets.
+            </typeparam>
+        </member>
+        <member name="P:UnityEditor.Splines.SplineDataHandle`1.controlIDs">
+            <summary>
+            Array of reserved control IDs used for <see cref="T:UnityEngine.Splines.SplineData`1"/> handles.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineDataHandle`1.DrawSplineData(UnityEngine.Splines.SplineData{`0},UnityEngine.Splines.Spline,UnityEngine.Matrix4x4,UnityEngine.Color)">
+            <summary>
+            Override this method to create custom handles for <see cref="T:UnityEngine.Splines.SplineData`1"/>,
+            this method is called before DrawKeyframe in the render loop.
+            </summary>
+            <param name="splineData">The <see cref="T:UnityEngine.Splines.SplineData`1"/> for which the method is drawing handles.</param>
+            <param name="spline">The target Spline associated to the SplineData for the drawing.</param>
+            <param name="localToWorld">The spline localToWorld Matrix.</param>
+            <param name="color">The color defined in the SplineData scene interface.</param>
+        </member>
+        <member name="M:UnityEditor.Splines.SplineDataHandle`1.DrawDataPoint(System.Int32,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Vector3,UnityEngine.Splines.SplineData{`0},System.Int32)">
+            <summary>
+            Override this method to create custom handles for a <see cref="T:UnityEngine.Splines.DataPoint`1"/>in <see cref="T:UnityEngine.Splines.SplineData`1"/>,
+            'position' and 'direction' are given in the Spline-space basis.
+            This method is called after DrawSplineData in the render loop.
+            </summary>
+            <param name="controlID">A control ID from <see cref="P:UnityEditor.Splines.SplineDataHandle`1.controlIDs"/> that represents this handle.</param>
+            <param name="position">The position of the keyframe data in spline space.</param>
+            <param name="direction">The direction of the spline at the current keyframe.</param>
+            <param name="upDirection">The up vector orthogonal to the spline direction at the current keyframe regarding knot rotation.</param>
+            <param name="splineData">The <see cref="T:UnityEngine.Splines.SplineData`1"/> for which the method is drawing handles.</param>
+            <param name="dataPointIndex">The index of the current keyframe to handle.</param>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,868 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnityEditor.TestRunner</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer">
+            <summary>
+            Summary description for ResultSummarizer.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.ResultCount">
+            <summary>
+            Returns the number of test cases for which results
+            have been summarized. Any tests excluded by use of
+            Category or Explicit attributes are not counted.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.TestsRun">
+            <summary>
+            Returns the number of test cases actually run, which
+            is the same as ResultCount, less any Skipped, Ignored
+            or NonRunnable tests.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.Passed">
+            <summary>
+            Returns the number of tests that passed
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.errors">
+            <summary>
+            Returns the number of test cases that had an error.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.failures">
+            <summary>
+            Returns the number of test cases that failed.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.inconclusive">
+            <summary>
+            Returns the number of test cases that failed.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.notRunnable">
+            <summary>
+            Returns the number of test cases that were not runnable
+            due to errors in the signature of the class or method.
+            Such tests are also counted as Errors.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.GUI.ResultSummarizer.Skipped">
+            <summary>
+            Returns the number of test cases that were skipped.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.ITestRunSettings">
+            <summary>
+            ITestRunSettings lets you set any of the global settings right before building a Player for a test run and then reverts the settings afterward. ITestRunSettings implements 
+            [IDisposable](https://docs.microsoft.com/en-us/dotnet/api/system.idisposable?view=netframework-4.8), and runs after building the Player with tests.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ITestRunSettings.Apply">
+            <summary>
+            A method called before building the Player.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor">
+            <summary>
+            ```ITestAdaptor``` is a representation of a node in the test tree implemented as a wrapper around the [NUnit](http://www.nunit.org/) [ITest](https://github.com/nunit/nunit/blob/master/src/NUnitFramework/framework/Interfaces/ITest.cs)  interface.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Id">
+            <summary>
+            The ID of the test tree node. The ID can change if you add new tests to the suite. Use UniqueName, if you want to have a more permanent point of reference.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Name">
+            <summary>
+            The name of the test. E.g.,```MyTest```.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.FullName">
+            <summary>
+            The full name of the test. E.g., ```MyNamespace.MyTestClass.MyTest```.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.TestCaseCount">
+            <summary>
+            The total number of test cases in the node and all sub-nodes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.HasChildren">
+            <summary>
+            Whether the node has any children.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.IsSuite">
+            <summary>
+            True if the node is a test suite/fixture, false otherwise.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Children">
+            <summary>
+            The child nodes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Parent">
+            <summary>
+            The parent node, if any.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.TestCaseTimeout">
+            <summary>
+            The test case timeout in milliseconds. Note that this value is only available on TestFinished.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.TypeInfo">
+            <summary>
+            The type of test class as an ```NUnit``` <see cref="T:NUnit.Framework.Interfaces.ITypeInfo"/>. If the node is not a test class, then the value is null.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Method">
+            <summary>
+            The Nunit <see cref="T:NUnit.Framework.Interfaces.IMethodInfo"/> of the test method. If the node is not a test method, then the value is null.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Arguments">
+            <summary>
+            The array of arguments that the test method/fixture will be invoked with.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Categories">
+            <summary>
+            An array of the categories applied to the test or fixture.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.IsTestAssembly">
+            <summary>
+            Returns true if the node represents a test assembly, false otherwise.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.RunState">
+            <summary>
+            The run state of the test node. Either ```NotRunnable```, ```Runnable```, ```Explicit```, ```Skipped```, or ```Ignored```.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.Description">
+            <summary>
+            The description of the test.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.SkipReason">
+            <summary>
+            The skip reason. E.g., if ignoring the test.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.ParentId">
+            <summary>
+            The ID of the parent node.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.ParentFullName">
+            <summary>
+            The full name of the parent node.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.UniqueName">
+            <summary>
+            A unique generated name for the test node. E.g., ```Tests.dll/MyNamespace/MyTestClass/[Tests][MyNamespace.MyTestClass.MyTest]```.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.ParentUniqueName">
+            <summary>
+            A unique name of the parent node. E.g., ```Tests.dll/MyNamespace/[Tests][MyNamespace.MyTestClass][suite]```.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.ChildIndex">
+            <summary>
+            The child index of the node in its parent.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestAdaptor.TestMode">
+            <summary>
+            The mode of the test. Either **Edit Mode** or **Play Mode**.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.Filter">
+            <summary>
+            The filter class provides the <see cref="T:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi"/> with a specification of what tests to run when [running tests programmatically](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/extension-run-tests.html).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.testMode">
+             <summary>
+             An enum flag that specifies if Edit Mode or Play Mode tests should run.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.testNames">
+            <summary>
+            The full name of the tests to match the filter. This is usually in the format FixtureName.TestName. If the test has test arguments, then include them in parenthesis. E.g. MyTestClass2.MyTestWithMultipleValues(1).
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.groupNames">
+            <summary>
+            The same as testNames, except that it allows for Regex. This is useful for running specific fixtures or namespaces. E.g. "^MyNamespace\\." Runs any tests where the top namespace is MyNamespace.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.categoryNames">
+            <summary>
+            The name of a [Category](https://nunit.org/docs/2.2.7/category.html) to include in the run. Any test or fixtures runs that have a Category matching the string.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.assemblyNames">
+            <summary>
+            The name of assemblies included in the run. That is the assembly name, without the .dll file extension. E.g., MyTestAssembly
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.Filter.targetPlatform">
+            <summary>
+            The <see cref="T:UnityEditor.BuildTarget"/> platform to run the test on. If set to null, then the Editor is the target for the tests.
+            Obsolete. Use the targetPlatform property on the <see cref="T:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.Filter.ToString">
+            <summary>
+            Implementation of ToString() that builds a string composed of the filter values.
+            </summary>
+            <returns>The current filter values as a string.</returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings">
+            <summary>
+            A set of execution settings defining how to run tests, using the <see cref="T:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi"/>.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.#ctor(UnityEditor.TestTools.TestRunner.Api.Filter[])">
+            <summary>
+            Creates an instance with a given set of filters, if any.
+            </summary>
+            <param name="filtersToExecute">Set of filters</param>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.overloadTestRunSettings">
+            <summary>
+            An instance of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ITestRunSettings"/> to set up before running tests on a Player.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.filters">
+            <summary>
+            A collection of <see cref="T:UnityEditor.TestTools.TestRunner.Api.Filter"/> to execute tests on.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.runSynchronously">
+            <summary>
+             Note that this is only supported for EditMode tests, and that tests which take multiple frames (i.e. [UnityTest] tests, or tests with [UnitySetUp] or [UnityTearDown] scaffolding) will be filtered out.
+            </summary>
+            <returns>If true, the call to Execute() will run tests synchronously, guaranteeing that all tests have finished running by the time the call returns.</returns>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.playerHeartbeatTimeout">
+            <summary>
+            The time, in seconds, the editor should wait for heartbeats after starting a test run on a player. This defaults to 10 minutes.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.targetPlatform">
+            <returns>
+            The <see cref="T:UnityEditor.BuildTarget"/> platform to run the test on. If set to null, then the Editor is the target for the tests.
+            </returns>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings.ToString">
+            <summary>
+            Implementation of ToString() that builds a string composed of the execution settings.
+            </summary>
+            <returns>The current execution settings as a string.</returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.RunState">
+            <summary>
+            The RunState enum indicates whether a test can be executed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.RunState.NotRunnable">
+            <summary>
+            The test is not runnable.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.RunState.Runnable">
+            <summary>
+            The test is runnable.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.RunState.Explicit">
+            <summary>
+            The test can only be run explicitly
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.RunState.Skipped">
+            <summary>
+            The test has been skipped. This value may appear on a Test when certain attributes are used to skip the test.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.RunState.Ignored">
+            <summary>
+            The test has been ignored. May appear on a Test, when the IgnoreAttribute is used.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.TestStatus">
+            <summary>
+            The TestStatus enum indicates the test result status.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestStatus.Inconclusive">
+            <summary>
+            The test ran with an inconclusive result.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestStatus.Skipped">
+            <summary>
+            The test was skipped.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestStatus.Passed">
+            <summary>
+            The test ran and passed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestStatus.Failed">
+            <summary>
+            The test ran and failed.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.TestMode">
+            <summary>
+            A flag indicating whether to run Edit Mode or Play Mode tests.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestMode.EditMode">
+            <summary>
+            Run EditMode tests.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.Api.TestMode.PlayMode">
+            <summary>
+            Run PlayMode tests.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor">
+            <summary>
+            The `ITestResultAdaptor` is the representation of the test results for a node in the test tree implemented as a wrapper around the [NUnit](http://www.nunit.org/) [ITest](https://github.com/nunit/nunit/blob/master/src/NUnitFramework/framework/Interfaces/ITestResults.cs) interface.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Test">
+            <summary>
+            The test details of the test result tree node as a <see cref="T:UnityEditor.TestTools.TestRunner.Api.TestAdaptor"/>
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Name">
+            <summary>
+            The name of the test node.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.FullName">
+             <summary>
+             Gets the full name of the test result
+             </summary>
+            <returns>
+            The name of the test result.
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.ResultState">
+            <summary>
+            Gets the state of the result as a string.
+            </summary>
+            <returns>
+            It returns one of these values: `Inconclusive`, `Skipped`, `Skipped:Ignored`, `Skipped:Explicit`, `Passed`, `Failed`, `Failed:Error`, `Failed:Cancelled`, `Failed:Invalid`
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.TestStatus">
+            <summary>
+            Gets the status of the test as an enum.
+            </summary>
+            <returns>
+            It returns one of these values:`Inconclusive`, `Skipped`, `Passed`, or `Failed`
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Duration">
+            <summary>
+            Gets the elapsed time for running the test in seconds
+            </summary>
+            <returns>
+            Time in seconds.
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.StartTime">
+             <summary>
+             Gets or sets the time the test started running.
+             </summary>
+            <returns>
+            A DataTime object.
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.EndTime">
+            <summary>
+            Gets or sets the time the test finished running.
+            </summary>
+            <returns>
+            A DataTime object.
+            </returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Message">
+            <summary>
+            The message associated with a test failure or with not running the test
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.StackTrace">
+            <summary>
+            Any stacktrace associated with an error or failure. Not available in the Compact Framework 1.0.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.AssertCount">
+            <summary>
+            The number of asserts executed when running the test and all its children.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.FailCount">
+            <summary>
+            The number of test cases that failed when running the test and all its children.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.PassCount">
+            <summary>
+            The number of test cases that passed when running the test and all its children.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.SkipCount">
+            <summary>
+            The number of test cases that were skipped when running the test and all its children.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.InconclusiveCount">
+             <summary>
+            The number of test cases that were inconclusive when running the test and all its children.
+             </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.HasChildren">
+            <summary>
+            Accessing HasChildren should not force creation of the Children collection in classes implementing this interface.
+            </summary>
+            <returns>True if this result has any child results.</returns>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Children">
+            <summary>
+            Gets the the collection of child results.
+            </summary>
+        </member>
+        <member name="P:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.Output">
+            <summary>
+            Gets any text output written to this result.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor.ToXml">
+            <summary>
+            Use this to save the results to an XML file
+            </summary>
+            <returns>
+            The test results as an `NUnit` XML node.
+            </returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks">
+            <summary>
+            Callbacks in the <see cref="T:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi"/> for the test stages when running tests.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ICallbacks.RunStarted(UnityEditor.TestTools.TestRunner.Api.ITestAdaptor)">
+            <summary>
+            A callback invoked when a test run is started.
+            </summary>
+            <param name="testsToRun">The full loaded test tree.</param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ICallbacks.RunFinished(UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor)">
+            <summary>
+            A callback invoked when a test run is finished.
+            </summary>
+            <param name="result">The result of the test run.</param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ICallbacks.TestStarted(UnityEditor.TestTools.TestRunner.Api.ITestAdaptor)">
+            <summary>
+            A callback invoked when each individual node of the test tree has started executing.
+            </summary>
+            <param name="test">The test node currently executed.</param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.ICallbacks.TestFinished(UnityEditor.TestTools.TestRunner.Api.ITestResultAdaptor)">
+            <summary>
+            A callback invoked when each individual node of the test tree has finished executing.
+            </summary>
+            <param name="result">The result of the test tree node after it had been executed.</param>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi">
+            <summary>
+            The TestRunnerApi retrieves and runs tests programmatically from code inside the project, or inside other packages. TestRunnerApi is a [ScriptableObject](https://docs.unity3d.com/ScriptReference/ScriptableObject.html).
+            You can initialize the API like this:
+            <code>
+            var testRunnerApi = ScriptableObject.CreateInstance&lt;TestRunnerApi&gt;();
+            </code>
+            Note: You can subscribe and receive test results in one instance of the API, even if the run starts from another instance.
+            The TestRunnerApi supports the following workflows:
+            - [How to run tests programmatically](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/extension-run-tests.html)
+            - [How to get test results](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/extension-get-test-results.html)
+            - [How to retrieve the list of tests](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/extension-retrieve-test-list.html)
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.Execute(UnityEditor.TestTools.TestRunner.Api.ExecutionSettings)">
+            <summary>
+            Starts a test run with a given set of executionSettings.
+            </summary>
+            <param name="executionSettings">Set of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ExecutionSettings"/></param>
+            <returns>A GUID that identifies the TestJobData.</returns>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.RegisterCallbacks``1(``0,System.Int32)">
+            <summary>
+            Sets up a given instance of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks"/> to be invoked on test runs.
+            </summary>
+            <typeparam name="T">
+            Generic representing a type of callback.
+            </typeparam>
+            <param name="testCallbacks">
+            The test callbacks to be invoked.
+            </param>
+            <param name="priority">
+            Sets the order in which the callbacks are invoked, starting with the highest value first.
+            </param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.RegisterTestCallback``1(``0,System.Int32)">
+            <summary>
+            Sets up a given instance of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks"/> to be invoked on test runs.
+            </summary>
+            <typeparam name="T">
+            Generic representing a type of callback.
+            </typeparam>
+            <param name="testCallbacks">The test callbacks to be invoked</param>
+            <param name="priority">
+            Sets the order in which the callbacks are invoked, starting with the highest value first.
+            </param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.UnregisterCallbacks``1(``0)">
+            <summary>
+            Unregister an instance of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks"/> to no longer receive callbacks from test runs.
+            </summary>
+            <typeparam name="T">
+            Generic representing a type of callback.
+            </typeparam>
+            <param name="testCallbacks">The test callbacks to unregister.</param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.UnregisterTestCallback``1(``0)">
+            <summary>
+            Unregister an instance of <see cref="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks"/> to no longer receive callbacks from test runs.
+            </summary>
+            <typeparam name="T">
+            Generic representing a type of callback.
+            </typeparam>
+            <param name="testCallbacks">The test callbacks to unregister.</param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.RetrieveTestList(UnityEditor.TestTools.TestRunner.Api.TestMode,System.Action{UnityEditor.TestTools.TestRunner.Api.ITestAdaptor})">
+            <summary>
+            Retrieve the full test tree as ITestAdaptor for a given test mode. This is obsolete. Use TestRunnerApi.RetrieveTestTree instead.
+            </summary>
+            <param name="testMode"></param>
+            <param name="callback"></param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.TestRunnerApi.CancelTestRun(System.String)">
+            <summary>
+            Cancel the test run with a given guid. The guid can be retrieved when executing the test run. Currently only supports EditMode tests.
+            </summary>
+            <param name="guid">Test run GUID.</param>
+            <returns></returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.Api.IErrorCallbacks">
+            <summary>
+            An extended version of the <see cref="T:UnityEditor.TestTools.TestRunner.Api.ICallbacks"/>, which get invoked if the test run fails due to a build error or if any <see cref="T:UnityEngine.TestTools.IPrebuildSetup"/> has a failure.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.Api.IErrorCallbacks.OnError(System.String)">
+            <summary>
+            Method invoked on failure.
+            </summary>
+            <param name="message">
+            The error message detailing the reason for the run to fail.
+            </param>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.CommandLineTest.TestRunState.NoCallbacksReceived">
+            <summary>
+            When the test run has started, but no callbacks from the test runner api have yet been received.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.CommandLineTest.TestRunState.OneOrMoreTestsExecutedWithNoFailures">
+            <summary>
+            When at least one test started event have been fired for a test node.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.CommandLineTest.TestRunState.OneOrMoreTestsExecutedWithOneOrMoreFailed">
+            <summary>
+            When at least one test finished event have been fired for a test node and the status is failed.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.CommandLineTest.TestRunState.CompletedJobWithoutAnyTestsExecuted">
+            <summary>
+            When the test job in the test runner api have completed, but no test started events for test nodes has happened. E.g. if there are no valid tests in the project.
+            </summary>
+        </member>
+        <member name="F:UnityEditor.TestTools.TestRunner.CommandLineTest.TestRunState.RunError">
+            <summary>
+            When the test runner api has raised an error during the run.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.TestSettingsDeserializer">
+            <summary>
+            Handles deserialization of TestSettings from a provided json file path.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestRunner.TestRunnerWindow">
+            <summary>
+            The TestRunnerWindow class is repsonsible for drawing the Test Runner window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.TestRunnerWindow.ShowWindow">
+            <summary>
+            Launches the Test Runner window.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.TestRunnerWindow.AddItemsToMenu(UnityEditor.GenericMenu)">
+            <summary>
+            Adds additional menu items to the Test Runner window.
+            </summary>
+            <param name="menu">The <see cref="T:UnityEditor.GenericMenu"/></param>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestRunner.EnumeratorStepHelper.GetEnumeratorPC(System.Collections.IEnumerator)">
+            <summary>
+            Gets the current enumerator PC
+            </summary>
+            <returns>
+            The PC
+            0 if no current Enumeration
+            </returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.RequirePlatformSupportAttribute">
+            <summary>
+            The `RequirePlatformSupportAttribute` attribute can be applied to test assemblies (will affect every test in the assembly), fixtures (will
+            affect every test in the fixture), or to individual test methods.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.RequirePlatformSupportAttribute.#ctor(UnityEditor.BuildTarget[])">
+            <summary>
+            Initializes and returns an instance of RequirePlatformSupportAttribute.
+            </summary>
+            <param name="platforms">The <see cref="T:UnityEditor.BuildTarget"/> platform to run the test on.</param>
+        </member>
+        <member name="P:UnityEditor.TestTools.RequirePlatformSupportAttribute.platforms">
+            <summary>
+            The build target platform, see [BuildTarget](https://docs.unity3d.com/ScriptReference/BuildTarget.html).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.RequirePlatformSupportAttribute.NUnit#Framework#Interfaces#IApplyToTest#ApplyToTest(NUnit.Framework.Internal.Test)">
+            <summary>
+            Modifies a test as defined for the specific attribute.
+            </summary>
+            <param name="test">The test to modify</param>
+        </member>
+        <member name="T:UnityEditor.TestTools.TestPlayerBuildModifierAttribute">
+            <summary>
+            The `TestPlayerBuildModifierAttribute` attribute can be applied to test assemblies (will affect every test in the assembly).
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.TestPlayerBuildModifierAttribute.#ctor(System.Type)">
+            <summary>
+            Initializes and returns an instance of TestPlayerBuildModifierAttribute or throws an <see cref="T:System.ArgumentException"/>.
+            </summary>
+            <param name="type"></param>
+            <exception cref="T:System.ArgumentException">Throws a <see cref="T:System.ArgumentException"/> if the type provided does not implemented the `ITestPlayerBuildModifier` interface. </exception>
+        </member>
+        <member name="T:UnityEditor.TestTools.ITestPlayerBuildModifier">
+            <summary>
+            An interface for a callback modifying the <see cref="T:UnityEditor.BuildPlayerOptions"/> when building a player for running tests in the runtime.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.TestTools.ITestPlayerBuildModifier.ModifyOptions(UnityEditor.BuildPlayerOptions)">
+            <summary>
+            A callback to modify the <see cref="T:UnityEditor.BuildPlayerOptions"/> when building a player for test run. Return the modified version of the provided build options.
+            </summary>
+            <param name="playerOptions">The unmodified BuildPlayerOptions.</param>
+            <returns>The modified BuildPlayerOptions.</returns>
+        </member>
+        <member name="T:UnityEditor.TestTools.AssetPipelineIgnore">
+            <summary>
+            Ignore attributes dedicated to Asset Import Pipeline backend version handling.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.AssetPipelineIgnore.IgnoreInV1">
+            <summary>
+            Ignore the test when running with the legacy Asset Import Pipeline V1 backend.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.TestTools.AssetPipelineIgnore.IgnoreInV2">
+            <summary>
+            Ignore the test when running with the latest Asset Import Pipeline V2 backend.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.TestTools.WaitForDomainReload">
+            <summary>
+            WaitForDomainReload is an <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/> that you can yield in Edit Mode tests. It delays the execution of scripts until after an incoming domain reload. If the domain reload results in a script compilation failure, then it throws an exception.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.WaitForDomainReload.#ctor">
+            <summary>
+            Create a new instance of the `WaitForDomainReload` yield instruction.
+            <example>
+            <code>
+            [UnitySetUp]
+            public IEnumerator SetUp()
+            {
+                File.Copy("Resources/MyDll.dll", @"Assets/MyDll.dll", true); // Trigger a domain reload.
+                AssetDatabase.Refresh();
+                yield return new WaitForDomainReload();
+            }
+            </code>
+            </example>
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.WaitForDomainReload.ExpectDomainReload">
+            <summary>
+            Returns true if the instruction expects a domain reload to occur.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.WaitForDomainReload.ExpectedPlaymodeState">
+            <summary>
+            Returns true if the instruction expects the Unity Editor to be in **Play Mode**.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.WaitForDomainReload.Perform">
+            <summary>
+            Perform the multi step action of waiting for a domain reload.
+            </summary>
+            <returns>An IEnumerator with steps.</returns>
+            <exception cref="T:System.Exception">Throws an exception if script compilation failed or if the expected domain reload did not occur.</exception>
+        </member>
+        <member name="T:UnityEngine.TestTools.ExitPlayMode">
+            <summary>
+            Implements <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/>. A new instance of the class is a yield instruction to exit Play Mode.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.ExitPlayMode.ExpectDomainReload">
+            <summary>
+            Gets the value of ExpectDomainReload
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.ExitPlayMode.ExpectedPlaymodeState">
+            <summary>
+            Gets the value of ExpectedPlaymodeState
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.ExitPlayMode.#ctor">
+            <summary>
+            Sets ExpectDomainReload and ExpectedPlaymodeState to false.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.ExitPlayMode.Perform">
+            <summary>
+            Performs the multi-step instruction of exiting PlayMode.
+            </summary>
+            <returns>An IEnumerator with the async steps.</returns>
+            <exception cref="T:System.Exception">An exception is thrown if the editor is not in PlayMode.</exception>
+        </member>
+        <member name="T:UnityEngine.TestTools.RecompileScripts">
+            <summary>
+            `RecompileScripts` is an <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/> that you can yield in Edit Mode tests. It lets you trigger a recompilation of scripts in the Unity Editor.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.RecompileScripts.#ctor">
+            <summary>
+            Creates a new instance of the `RecompileScripts` yield instruction.
+            <example>
+            <code>
+            [UnitySetUp]
+            public IEnumerator SetUp()
+            {
+                using (var file = File.CreateText("Assets/temp/myScript.cs"))
+                {
+                    file.Write("public class ATempClass {  }");
+                }
+                AssetDatabase.Refresh();
+                yield return new RecompileScripts();
+            }
+            </code>
+            </example>
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.RecompileScripts.#ctor(System.Boolean)">
+            <summary>
+            Creates a new instance of the `RecompileScripts` yield instruction.
+            </summary>
+            <param name="expectScriptCompilation">This parameter indicates if you expect a script compilation to start (defaults to true). If a script compilation does not start and `expectScriptCompilation` is true, then it throws an exception.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.RecompileScripts.#ctor(System.Boolean,System.Boolean)">
+            <summary>
+            Creates a new instance of the `RecompileScripts` yield instruction.
+            </summary>
+            <param name="expectScriptCompilation">This parameter indicates if you expect a script compilation to start (defaults to true).  If a script compilation does not start and `expectScriptCompilation` is `true`, then it throws an exception.</param>
+            <param name="expectScriptCompilationSuccess">This parameter indicates if you expect a script compilation to succeed. If not succeeded then an exception will be thrown.</param>
+        </member>
+        <member name="P:UnityEngine.TestTools.RecompileScripts.ExpectDomainReload">
+            <summary>
+            Returns true if the instruction expects a domain reload to occur.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.RecompileScripts.ExpectedPlaymodeState">
+            <summary>
+            Returns true if the instruction expects the Unity Editor to be in **Play Mode**.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.RecompileScripts.ExpectScriptCompilation">
+            <summary>
+            Indicates whether a script compilation is expected.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.RecompileScripts.ExpectScriptCompilationSuccess">
+            <summary>
+            Indicates whether the expected script compilation is expected to succeed.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.RecompileScripts.Current">
+            <summary>
+            The current active instance of the RecompileScripts yield instruction.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.RecompileScripts.Perform">
+            <summary>
+            Perform the multi step instruction of triggering a recompilation of scripts and waiting for its completion.
+            </summary>
+            <returns>An IEnumerator with the async steps.</returns>
+            <exception cref="T:System.Exception">Throws an exception if the editor does not need to recompile scripts or if the script compilation failed when expected to succeed.</exception>
+        </member>
+        <member name="T:UnityEngine.TestTools.EnterPlayMode">
+            <summary>
+            Implements <see cref="T:UnityEngine.TestTools.IEditModeTestYieldInstruction"/>. Creates a yield instruction to enter Play Mode.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.EnterPlayMode.ExpectDomainReload">
+            <summary>
+            Returns true if the instruction expects a domain reload to occur.
+            </summary>
+        </member>
+        <member name="P:UnityEngine.TestTools.EnterPlayMode.ExpectedPlaymodeState">
+            <summary>
+            Returns true if the instruction expects the Unity Editor to be in **Play Mode**.
+            </summary>
+        </member>
+        <member name="M:UnityEngine.TestTools.EnterPlayMode.#ctor(System.Boolean)">
+            <summary>
+            When creating an Editor test that uses the UnityTest attribute, use this to trigger the Editor to enter Play Mode.
+            Throws an exception if the Editor is already in Play Mode or if there is a script compilation error.
+            </summary>
+            <param name="expectDomainReload">A flag indication whether to expect a domain reload.</param>
+        </member>
+        <member name="M:UnityEngine.TestTools.EnterPlayMode.Perform">
+            <summary>
+            Performs the multi-step instructions of entering PlayMode.
+            </summary>
+            <returns>An IEnumerator with the async steps.</returns>
+            <exception cref="T:System.Exception">An exception is thrown if the editor is already in PlayMode or if script compilation failed.</exception>
+        </member>
+    </members>
+</doc>

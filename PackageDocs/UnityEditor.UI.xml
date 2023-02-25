@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>UnityEditor.UI</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEditor.UI.GraphicEditor">
+            <summary>
+            Editor class used to edit UI Graphics.
+            Extend this class to write your own graphic editor.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.GraphicEditor.SetShowNativeSize(System.Boolean,System.Boolean)">
+            <summary>
+            Set if the 'Set Native Size' button should be visible for this editor.
+            </summary>
+            <param name="show">Are we showing or hiding the AnimBool for the size.</param>
+            <param name="instant">Should the size AnimBool change instantly.</param>
+        </member>
+        <member name="M:UnityEditor.UI.GraphicEditor.NativeSizeButtonGUI">
+            <summary>
+            GUI for showing a button that sets the size of the RectTransform to the native size for this Graphic.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.GraphicEditor.AppearanceControlsGUI">
+            <summary>
+            GUI related to the appearance of the Graphic. Color and Material properties appear here.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.GraphicEditor.RaycastControlsGUI">
+            <summary>
+            GUI related to the Raycasting settings for the graphic.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.UI.SpriteDrawUtility">
+            <summary>
+            PropertyDrawer for [[SpriteState]].
+            This is a PropertyDrawer for SpriteState it is implemented using the standard unity PropertyDrawer framework.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.UI.MenuOptions">
+            <summary>
+            This script adds the UI menu options to the Unity Editor.
+            </summary>
+        </member>
+        <member name="T:UnityEditor.UI.SelfControllerEditor">
+            <summary>
+            Base class for custom editors that are for components that implement the SelfControllerEditor interface.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.RawImageEditor.HasPreviewGUI">
+            <summary>
+            Allow the texture to be previewed.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.RawImageEditor.OnPreviewGUI(UnityEngine.Rect,UnityEngine.GUIStyle)">
+            <summary>
+            Draw the Image preview.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.RawImageEditor.GetInfoString">
+            <summary>
+            Info String drawn at the bottom of the Preview
+            </summary>
+        </member>
+        <member name="T:UnityEditor.UI.ImageEditor">
+            <summary>
+            Editor class used to edit UI Sprites.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.ImageEditor.SpriteGUI">
+            <summary>
+            Draw the atlas and Image selection fields.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.ImageEditor.TypeGUI">
+            <summary>
+            Sprites's custom properties based on the type.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.ImageEditor.HasPreviewGUI">
+            <summary>
+            All graphics have a preview.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.ImageEditor.OnPreviewGUI(UnityEngine.Rect,UnityEngine.GUIStyle)">
+            <summary>
+            Draw the Image preview.
+            </summary>
+        </member>
+        <member name="M:UnityEditor.UI.ImageEditor.GetInfoString">
+            <summary>
+            A string containing the Image details to be used as a overlay on the component Preview.
+            </summary>
+            <returns>
+            The Image details.
+            </returns>
+        </member>
+    </members>
+</doc>

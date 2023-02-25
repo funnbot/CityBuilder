@@ -1,0 +1,2717 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.Hybrid</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Entities.PreBakingSystemGroup">
+             <summary>
+             The group of systems that runs before the bakers execute.
+             </summary>
+             <remarks>
+             A typical use of this group is to perform clean up
+             before the bakers and the baking systems execute.
+             </remarks>
+            
+        </member>
+        <member name="T:Unity.Entities.BakerEntityUsage">
+            <summary>
+            Tracks the Entity / Transform Usage on a per baker instance basis.
+            Similar to dependencies in that we know previous and new state, if it changed we revert the old one and apply the new one.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.UnityEngineExtensions.ComputeInstanceHash(UnityEngine.Object)">
+            <summary>
+            Obsolete. Returns a hash that can be used as a guid within a (non-persistent) session to refer to this UnityEngine.Object.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.UnityEngineExtensions.ComputeEntityGuid(UnityEngine.Object,System.UInt32,System.Int32)">
+            <summary>
+            Returns an EntityGuid that can be used as a guid within a (non-persistent) session to refer to an entity generated
+            from a UnityEngine.Object. The primary entity will be index 0, and additional entities will have increasing
+            indices.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Conversion.SceneHierarchyWithTransforms">
+             <summary>
+             Represents the hierarchy of game objects in a scene and their transforms in a way that can be accessed from a
+             job.
+            
+             ATTENTION: Future public API.
+             </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.SceneHierarchyWithTransforms.TransformAccessArray">
+            <summary>
+            The transforms that are used in the scene. Use the <see cref="F:Unity.Entities.Conversion.SceneHierarchyWithTransforms.Hierarchy"/> to map instance ids of
+            game objects to indices in this array.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.SceneHierarchyWithTransforms.Hierarchy">
+            <summary>
+            A representation of the hierarchy of the scene.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Conversion.SceneHierarchy">
+            <summary>
+            Represents the hierarchy of game objects in a scene via their instance ids. Each instance id is encoded into an
+            index, and that index can then be used to query the hierarchy structure.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchy.GetInstanceIdForIndex(System.Int32)">
+            <summary>
+            Returns the instance id at the given index.
+            </summary>
+            <param name="index">The index to get the instance id of.</param>
+            <returns>The instance id associated with the given index</returns>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchy.GetParentForIndex(System.Int32)">
+            <summary>
+            Returns the index of the parent of the object at the given index.
+            </summary>
+            <param name="index">The index to get the parent index of.</param>
+            <returns>-1 if there is no parent, the index of the parent otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchy.GetChildIndicesForIndex(System.Int32)">
+            <summary>
+            Returns an enumerator for the indices of the children of an element at the given index.
+            </summary>
+            <param name="index">The index to get the child indices of.</param>
+            <returns>An enumerator for the indices of the children.</returns>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchy.TryGetIndexForInstanceId(System.Int32,System.Int32@)">
+            <summary>
+            Tries to get the index for the given instance id of a game object.
+            If the instanceID couldn't be found returns false and sets index to 0.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchy.GetIndexForInstanceId(System.Int32)">
+            <summary>
+            Returns the index for the given instanceID. Returns -1 index if the instanceID couldn't be found.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchyExtensions.CollectHierarchyInstanceIds(Unity.Entities.Conversion.SceneHierarchy,Unity.Collections.NativeArray{System.Int32},Unity.Collections.NativeParallelHashSet{System.Int32})">
+            <summary>
+            Collects the instance ids of all objects in the hierarchy below a set of root objects.
+            </summary>
+            <param name="hierarchy">The hierarchy to operate on.</param>
+            <param name="rootInstanceIds">The instance ids of the root objects.</param>
+            <param name="visitedInstanceIds">A hashset that is used to output the collected instance ids.</param>
+        </member>
+        <member name="T:Unity.Entities.Conversion.SceneHierarchyExtensions.CollectHierarchyInstanceIdsJob">
+            <summary>
+            Collects the instance ids of all objects in the hierarchy below a set of root objects.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchyExtensions.CollectHierarchyInstanceIdsAsync(Unity.Entities.Conversion.SceneHierarchy,Unity.Collections.NativeArray{System.Int32},Unity.Collections.NativeParallelHashSet{System.Int32},Unity.Jobs.JobHandle)">
+            <summary>
+            Collects the instance ids of all objects in the hierarchy below a set of root objects (including the roots).
+            </summary>
+            <param name="hierarchy">The hierarchy to operate on.</param>
+            <param name="rootInstanceIds">The instance ids of the root objects.</param>
+            <param name="visitedInstanceIds">A hashset that is used to output the collected instance ids.</param>
+            <param name="dependency">The dependency for the job.</param>
+            <returns>A job handle representing the job.</returns>
+        </member>
+        <member name="M:Unity.Entities.Conversion.SceneHierarchyExtensions.CollectHierarchyInstanceIdsAndIndicesAsync(Unity.Entities.Conversion.SceneHierarchy,Unity.Collections.NativeList{System.Int32},Unity.Collections.NativeParallelHashMap{System.Int32,System.Boolean},Unity.Jobs.JobHandle)">
+            <summary>
+            Collects the instance ids and indices of all objects in the hierarchy below a set of root objects (including
+            the roots).
+            </summary>
+            <param name="hierarchy">The hierarchy to operate on.</param>
+            <param name="instanceIds">The instance ids of the root objects, but will also be filled with the instance
+            ids of all objects that were visited.</param>
+            <param name="visitedIndices">A hashmap that is used to output the visited indices. A value maps to true if
+            it was a root, false otherwise.</param>
+            <param name="dependency">The dependency for the job.</param>
+            <returns>A job handle representing the job.</returns>
+        </member>
+        <member name="T:Unity.Entities.Conversion.IncrementalHierarchy">
+             <summary>
+             Represents a hierarchy of GameObjects by a Burst-compatible data structure.
+            
+             The hierarchy is encoded by three parallel arrays storing the instance ID of a GameObject, its Transform, and
+             the index of the GameObject's parent. Two supporting data structures maintain a mapping from instance ID to
+             index and from index to indices of the parents of a GameObject.
+             </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.InstanceId">
+            <summary>
+            Contains the instance ID for every element in the hierarchy. This array is parallel to the parent index
+            array and the transform array.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.ParentIndex">
+            <summary>
+            Contains the index of the parent in the hierarchy for every element in the hierarchy. An invalid parent is
+            denoted by index -1. This array is parallel to the instance ID array and the transform array.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.TransformArray">
+            <summary>
+            Contains a handle for the transform data of all GameObjects in this hierarchy. This array is parallel to
+            the instance ID array and the parent index array.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.ChildIndicesByIndex">
+            <summary>
+            Maps the index of each element to the indices of its children.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.IndexByInstanceId">
+            <summary>
+            Maps instance IDs to indices in the hierarchy.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.Active">
+            <summary>
+            Contains the active state for every element in the hierarchy. This array is parallel to the parent index
+            array and the transform array.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Conversion.IncrementalHierarchy.Static">
+            <summary>
+            Contains the static state for every element in the hierarchy. This array is parallel to the parent index
+            array and the transform array.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.EntityQueryExtensionsForTransformAccessArray">
+            <summary>
+            Allows access to GameObject transform data through an EntityQuery.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.EntityQueryExtensionsForTransformAccessArray.GetTransformAccessArray(Unity.Entities.EntityQuery)">
+            <summary>
+            Allows access to GameObject transform data through an EntityQuery.
+            </summary>
+            <param name="query">The query matching entities whose transform data should be gathered</param>
+            <returns>An object that allows access to entity transform data</returns>
+        </member>
+        <member name="T:Unity.Entities.StaticOptimizeEntity">
+            <summary>
+            Authoring component that indicates that the hierarchy from this point should be considered static and can be optimized.
+            </summary>
+            <remarks>The `Static` component is added to all the entities in the hierarchy.</remarks>
+        </member>
+        <member name="T:Unity.Entities.TransformUsageFlags">
+             <summary>
+             Controls how Transform components on GameObjects are converted to entity data. 
+             </summary>
+             <remarks>
+             Use these flags to optimize hierarchies by removing GameObjects from them at bake time.
+            
+             These flags are used whenever an entity is requested during conversion, for example, via
+             <see cref="M:Unity.Entities.IBaker.GetEntity(Unity.Entities.TransformUsageFlags)"/>.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.None">
+            <summary>
+            Use this flag to specify that no transform components are required. Unless someone else is requesting other
+            flags, the entity will not have any transform related components and will not be part of a hierarchy.
+            This does not affect its membership in any <see cref="T:Unity.Entities.LinkedEntityGroup"/> components that might be created
+            based on the source GameObject hierarchy.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.Default">
+            <summary>
+            Use this flag to specify that you are going to read and write the local and global transform of the entity.
+            This flag mirrors the behavior of GameObject's most closely and should be used if in doubt.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.WriteGlobalTransform">
+            <summary>
+            Use this flag to specify that you are going to continuously override the global transform data of this
+            entity. If an entity has this flag, it will not have a parent.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.ReadGlobalTransform">
+            <summary>
+            Use this flag to specify that you are reading from the entity's global transform. If you only read from an
+            entity and all of its parent, their hierarchy may be flattened.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.ReadResidualTransform">
+            <summary>
+            Use this flag to specify that you are reading from the entity's residual transform. By default, the
+            transform system only supports uniform scaling. Non-uniform scaling will be baked into a residual transform
+            matrix that describes the difference between the local-to-world matrix from the GameObject and the
+            local-to-world matrix computed using uniform scaling. The residual transform is not going to be updated
+            after conversion and will only be present when this flag is set.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.ReadLocalToWorld">
+            <summary>
+            /Use this flag to specify that you are reading from an entity's local-to-world matrix. If this is not set,
+            no local-to-world matrix will be computed for the entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.ManualOverride">
+            <summary>
+            Use this flag to specify that you want to take full manual control over the transform conversion of an
+            entity. This flag is an override: When it is set, all other flags will be ignored. The transform system will
+            not add any transform related components to the entity. The entity will not have a parent, and it will not
+            have any children attached to it.
+            This is different from None, because None will result in removing any previously added transform components during incremental baking.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformUsageFlags.WriteFlags">
+            <summary>
+            This combined flag can be used as a mask to check whether anyone is writing to the transform of an entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.TransformUsageFlagCounters">
+            <summary>
+            Stores a set of TransformUsageFlags as counters for each bit. This way TransformUsageFlags can be added and removed reliably.
+            for example 3 entities might reference ReadLocalToWorld, then after some changes, 2 entities stop referencing the entity.
+            The counter knows that we still have a ReadLocalToWorld usage exactly once.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.TransformUsageFlagCounters.IsUnused">
+            <summary>
+            TransformUsage.None is different from Unused
+            TransformUsage.None simply means that no transforms are required (For example, a manager singleton)
+            IsUnused means that there is no valid reference to this entity, hence the entity shouldn't exist in the game world.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.BindingRegistry">
+            <summary>
+            Builds a static registry of bindings between a runtime field with an authoring field. Multiple different runtime
+            fields can be associated with a same authoring field.
+            Only primitive types of int, bool, and float, in addition to Unity.Mathematics variants of these primitives
+            (e.g. int2, float4) will be added to the BindingRegistry. Other types will be silently ignored.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.BindingRegistry.RuntimeFieldProperties">
+            <summary>
+            Properties of a runtime field.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.BindingRegistry.ReverseBinding">
+            <summary>
+            Binds a runtime field property to an authoring field name
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.BindingRegistry.s_RuntimeToAuthoringFieldMap">
+            <summary>
+            Maps a runtime (ComponentData) field type and name to an authoring (MonoBehaviour) field type and name.
+            </summary>
+            <remarks>
+            An authoring field can map to several runtime fields. But a runtime field only reads from one authoring field.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.BindingRegistry.s_RuntimeFieldNames">
+            <summary>
+            Keeps a set of the names of all the fields that are bound for a runtime type.
+            </summary>
+            <remarks>
+            A runtime type can be partially bound.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.BindingRegistry.s_RuntimeFieldProperties">
+            <summary>
+            Field offset and size associated with the type and name of a runtime ComponentData.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.BindingRegistry.s_AuthoringToRuntimeBinding">
+            <summary>
+            Maps an association of runtime property fields with their authoring field name to an Authoring Type to be able to support live properties in the Editor
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.Register(System.Type,System.String,System.Type,System.String)">
+            <summary>
+            Register binding of a runtime field with an authoring field
+            </summary>
+            <param name="runtimeComponent">Type of the runtime component. Must implement IComponentData.</param>
+            <param name="runtimeField">Name of the runtime field.</param>
+            <param name="authoringComponent">Type of the authoring component. Must derive from UnityEngine.Component.</param>
+            <param name="authoringField">Name of the authoring field.</param>
+            <exception cref="T:System.InvalidOperationException">Thrown if registering the same runtime field more than once.</exception>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.HasBindings(System.Type)">
+            <summary>
+            Checks if a runtime type has any authoring bindings.
+            </summary>
+            <param name="componentType">Type of the runtime component. Must implement IComponentData.</param>
+            <returns>Returns true if component type is registered. False otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.GetBinding(System.Type,System.String)">
+            <summary>
+            Return authoring binding for a given runtime type and field name.
+            </summary>
+            <param name="componentType">Type of the runtime component. Must implement IComponentData.</param>
+            <param name="fieldName">Field name.</param>
+            <returns>Returns a runtime type and a field name.</returns>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.GetReverseBindings(System.Type)">
+            <summary>
+            Returns all associated runtime bindings for a given authoring type.
+            </summary>
+            <param name="authoringType">Type of the authoring component. Must derive from UnityEngine.Component.</param>
+            <returns>Returns a list of ReverseBinding.</returns>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.GetFields(System.Type)">
+            <summary>
+            Gets all registered fields of a runtime type.
+            </summary>
+            <param name="type">Type of the runtime component. Must implement IComponentData.</param>
+            <returns>Returns a HashSet of field names.</returns>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.GetFieldSize(System.Type,System.String)">
+            <summary>
+            Gets the runtime field size in bytes.
+            </summary>
+            <param name="type">Type of the runtime component. Must implement IComponentData.</param>
+            <param name="fieldName">Runtime field.</param>
+            <returns>Returns the number of bytes of the runtime field.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if the runtime field was not registered.</exception>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistry.GetFieldOffset(System.Type,System.String)">
+            <summary>
+            Gets the runtime field offset in bytes
+            </summary>
+            <param name="type">Type of the runtime component. Must implement IComponentData.</param>
+            <param name="fieldName">Runtime field.</param>
+            <returns>Returns the offset in bytes of the runtime field.</returns>
+            <exception cref="T:System.InvalidOperationException">Thrown if the runtime field was not registered.</exception>
+        </member>
+        <member name="T:Unity.Entities.BindingRegistryUtility">
+            <summary>
+            Utility class for BindingRegistry.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BindingRegistryUtility.TryGetBindingPaths(System.Type,System.String,System.String[]@)">
+            <summary>
+            Retrieves individual property paths from a given component type.
+            For vector type fields like float4 or int4, this will retrieve all sub components.
+            </summary>
+            <param name="type">Type of authoring or runtime component.</param>
+            <param name="fieldName">Field name.</param>
+            <param name="resultingPaths">Array of supported fields for <paramref name="fieldName"/>.</param>
+            <returns>Returns true if specified field property is supported by the BindingRegistry. False otherwise.</returns>
+        </member>
+        <member name="T:Unity.Entities.BakedEntity">
+            <summary>
+            This type is used to identify identities that had any baking done on them before the BakingSystems ran
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.IBaker">
+            <summary>
+            This class contains all the methods to bake a authoring component to an Entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.IBaker.BakerExecutionState">
+            <summary>
+            Represents the execution state of the Baker
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetSceneGUID">
+            <summary>
+            Get the GUID of the current scene
+            </summary>
+            <returns>The scene GUID</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponent``1">
+            <summary>
+            Retrieves the component of Type T in the GameObject
+            </summary>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponent``1(UnityEngine.Component)">
+            <summary>
+            Retrieves the component of Type T in the GameObject
+            </summary>
+            <param name="component">The Object to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponent``1(UnityEngine.GameObject)">
+            <summary>
+            Retrieves the component of Type T in the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInternal``1(UnityEngine.GameObject)">
+            <summary>
+            Retrieves the component of Type T in the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1(UnityEngine.Component,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <param name="component">The Object to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1(UnityEngine.GameObject,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1(UnityEngine.Component)">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <param name="component">The Object to get the components from</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponents``1(UnityEngine.GameObject)">
+            <summary>
+            Returns all components of Type T in the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInParent``1">
+            <summary>
+            Retrieves the component of Type T in the GameObject or any of its parents
+            </summary>
+            <typeparam name="T">The type of Component to retrieve</typeparam>
+            <returns>Returns a component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInParent``1(UnityEngine.Component)">
+            <summary>
+            Retrieves the component of Type T in the GameObject or any of its parents
+            </summary>
+            <param name="component">The Object to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInParent``1(UnityEngine.GameObject)">
+            <summary>
+            Retrieves the component of Type T in the GameObject or any of its parents
+            </summary>
+            <param name="gameObject">The GameObject to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1(UnityEngine.Component,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <param name="component">The Object to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1(UnityEngine.GameObject,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1(UnityEngine.Component)">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <param name="component">The Object to get the components from</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInParent``1(UnityEngine.GameObject)">
+            <summary>
+            Returns all components of Type T in the GameObject or any of its parents. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <typeparam name="T">The type of components to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInChildren``1">
+            <summary>
+            Returns the component of Type T in the GameObject or any of its children using depth first search
+            </summary>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInChildren``1(UnityEngine.Component)">
+            <summary>
+            Returns the component of Type T in the GameObject or any of its children using depth first search
+            </summary>
+            <param name="component">The Object to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentInChildren``1(UnityEngine.GameObject)">
+            <summary>
+            Returns the component of Type T in the GameObject or any of its children using depth first search
+            </summary>
+            <param name="gameObject">The GameObject to get the component from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The component if a component matching the type is found, null otherwise</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1(System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1(UnityEngine.Component,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <param name="refComponent">The Object to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1(UnityEngine.GameObject,System.Collections.Generic.List{``0})">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <param name="components">The components of Type T</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1(UnityEngine.Component)">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <param name="component">The Object to get the components from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetComponentsInChildren``1(UnityEngine.GameObject)">
+            <summary>
+            Returns all components of Type type in the GameObject or any of its children using depth first search. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to get the components from</param>
+            <typeparam name="T">The type of component to retrieve</typeparam>
+            <returns>The components of Type T</returns>
+            <remarks>This will take a dependency on the components</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParent">
+            <summary>
+            Returns the parent of the GameObject
+            </summary>
+            <returns>The parent if one is found or null otherwise</returns>
+            <remarks>This will take a dependency on the parent</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParent(UnityEngine.Component)">
+            <summary>
+            Returns the parent of the GameObject
+            </summary>
+            <param name="component">The Object to get the parent from</param>
+            <returns>The parent if one is found or null otherwise</returns>
+            <remarks>This will take a dependency on the parent</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParent(UnityEngine.GameObject)">
+            <summary>
+            Returns the parent of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the parent from</param>
+            <returns>The parent if one is found or null otherwise</returns>
+            <remarks>This will take a dependency on the parent</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <returns>The parents of the GameObject</returns>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents(UnityEngine.Component)">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <param name="component">The Object to get the parents from</param>
+            <returns>The parents of the GameObject</returns>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents(UnityEngine.GameObject)">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the parents from</param>
+            <returns>The parents of the GameObject</returns>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents(System.Collections.Generic.List{UnityEngine.GameObject})">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <param name="parents">The parents of the GameObject</param>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents(UnityEngine.Component,System.Collections.Generic.List{UnityEngine.GameObject})">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <param name="component">The Object to get the parents from</param>
+            <param name="parents">The parents of the GameObject</param>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetParents(UnityEngine.GameObject,System.Collections.Generic.List{UnityEngine.GameObject})">
+            <summary>
+            Returns the parents of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the parents from</param>
+            <param name="parents">The parents of the GameObject</param>
+            <remarks>This will take a dependency on the parents</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChild(System.Int32)">
+            <summary>
+            Returns the child of the GameObject
+            </summary>
+            <param name="childIndex">The index of the child to return</param>
+            <returns>The child with matching index if found, null otherwise</returns>
+            <remarks>This will take a dependency on the child</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChild(UnityEngine.Component,System.Int32)">
+            <summary>
+            Returns the child of the GameObject
+            </summary>
+            <param name="component">The Object to get the child from</param>
+            <param name="childIndex">The index of the child to return</param>
+            <returns>The child with matching index if found, null otherwise</returns>
+            <remarks>This will take a dependency on the child</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChild(UnityEngine.GameObject,System.Int32)">
+            <summary>
+            Returns the child of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the child from</param>
+            <param name="childIndex">The index of the child to return</param>
+            <returns>The child with matching index if found, null otherwise</returns>
+            <remarks>This will take a dependency on the child</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <returns>The children of the GameObject</returns>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(UnityEngine.Component,System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="component">The Object to get the children from</param>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <returns>The children of the GameObject</returns>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(UnityEngine.GameObject,System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the children from</param>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <returns>The children of the GameObject</returns>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(System.Collections.Generic.List{UnityEngine.GameObject},System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="gameObjects">The children of the GameObject</param>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(UnityEngine.Component,System.Collections.Generic.List{UnityEngine.GameObject},System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="refComponent">The Object to get the children from</param>
+            <param name="gameObjects">The children of the GameObject</param>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildren(UnityEngine.GameObject,System.Collections.Generic.List{UnityEngine.GameObject},System.Boolean)">
+            <summary>
+            Returns the children of the GameObject
+            </summary>
+            <param name="gameObject">The GameObject to get the children from</param>
+            <param name="gameObjects">The children of the GameObject</param>
+            <param name="includeChildrenRecursively">Whether all children in the hierarchy should be added recursively</param>
+            <remarks>This will take a dependency on the children</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildCount">
+            <summary>
+            Gets the number of children.
+            </summary>
+            <returns>Returns the number of children.</returns>
+            <remarks>This takes a dependency on the child count.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildCount(UnityEngine.Component)">
+            <summary>
+            Gets the number of children for a given component.
+            </summary>
+            <param name="component">The Object to get the child count from.</param>
+            <returns>Returns the number of children.</returns>
+            <remarks>This takes a dependency on the child count.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetChildCount(UnityEngine.GameObject)">
+            <summary>
+            Gets the number of children for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to get the child count from.</param>
+            <returns>Returns the number of children.</returns>
+            <remarks>This takes a dependency on the child count.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetName">
+            <summary>
+            Gets the name of the GameObject.
+            </summary>
+            <returns>Returns the name of the GameObject.</returns>
+            <remarks>This takes a dependency on the name.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetName(UnityEngine.Component)">
+            <summary>
+            Gets the name of the GameObject for a given component.
+            </summary>
+            <param name="component">The Object to get the tag from.</param>
+            <returns>Returns the name of the GameObject.</returns>
+            <remarks>This takes a dependency on the name.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetName(UnityEngine.GameObject)">
+            <summary>
+            Gets the name of the GameObject for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to get the name from.</param>
+            <returns>Returns the name of the GameObject.</returns>
+            <remarks>This takes a dependency on the name.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetLayer">
+            <summary>
+            Gets the layer of the GameObject.
+            </summary>
+            <returns>Returns the layer of the GameObject.</returns>
+            <remarks>This takes a dependency on the layer.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetLayer(UnityEngine.Component)">
+            <summary>
+            Gets the layer of the GameObject for a given component.
+            </summary>
+            <param name="component">The Object to get the tag from</param>
+            <returns>Returns the layer of the GameObject.</returns>
+            <remarks>This takes a dependency on the layer.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetLayer(UnityEngine.GameObject)">
+            <summary>
+            Gets the layer of the GameObject for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to get the layer from</param>
+            <returns>Returns the layer of the GameObject.</returns>
+            <remarks>This takes a dependency on the layer.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetTag">
+            <summary>
+            Gets the tag of the GameObject.
+            </summary>
+            <returns>Returns the tag of the GameObject.</returns>
+            <remarks>This takes a dependency on the tag.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetTag(UnityEngine.Component)">
+            <summary>
+            Gets the tag of the GameObject for a given component.
+            </summary>
+            <param name="component">The Object to get the tag from.</param>
+            <returns>Returns the tag of the GameObject.</returns>
+            <remarks>This takes a dependency on the tag</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetTag(UnityEngine.GameObject)">
+            <summary>
+            Gets the tag of the GameObject for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to get the tag from.</param>
+            <returns>Returns the tag of the GameObject.</returns>
+            <remarks>This takes a dependency on the tag</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetEntity(Unity.Entities.TransformUsageFlags)">
+            <summary>
+            Returns the primary Entity
+            </summary>
+            <param name="flags">The flags to add to this Entity</param>
+            <returns>The requested Entity</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetEntity(UnityEngine.GameObject,Unity.Entities.TransformUsageFlags)">
+            <summary>
+            Returns the Entity associated with a GameObject
+            </summary>
+            <param name="authoring">The GameObject whose Entity is requested</param>
+            <param name="flags">The flags to add to this Entity</param>
+            <returns>The requested Entity if found, null otherwise</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetEntity(UnityEngine.Component,Unity.Entities.TransformUsageFlags)">
+            <summary>
+            Returns the Entity associated with an Object
+            </summary>
+            <param name="authoring">The Object whose Entity is requested</param>
+            <param name="flags">The flags to add to this Entity</param>
+            <returns>The requested Entity if found, null otherwise</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetEntityWithoutDependency">
+            <summary>
+            Returns the Entity for the baked game object without establishing a dependency.
+            If no other bakes uses GetEntity to dependency this Entity, it will be stripped before baking pushes it into the live world.
+            This is useful for attaching meta data that is safe to not deploy in the final game if the entity serves no other purpose.
+            </summary>
+            <returns>The Entity associated with the authoring component</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsActive">
+            <summary>
+            Checks if the GameObject is active
+            </summary>
+            <returns>Returns true if the GameObject is active.</returns>
+            <remarks>This takes a dependency on the active state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsActive(UnityEngine.Component)">
+            <summary>
+            Checks if the GameObject is active for a given component.
+            </summary>
+            <param name="component">The Object to check.</param>
+            <returns>Returns true if the GameObject is active.</returns>
+            <remarks>This takes a dependency on the active state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsActive(UnityEngine.GameObject)">
+            <summary>
+            Checks if the GameObject is active for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to check.</param>
+            <returns>Returns true if the GameObject is active.</returns>
+            <remarks>This takes a dependency on the active state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsActiveAndEnabled">
+            <summary>
+            Checks if the GameObject is active and enabled.
+            </summary>
+            <returns>Returns true if the GameObject is active and enabled.</returns>
+            <remarks>This takes a dependency on the active and enable state</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsActiveAndEnabled(UnityEngine.Component)">
+            <summary>
+            Checks if the GameObject is active and enabled for a given component.
+            </summary>
+            <param name="component">The Object to check.</param>
+            <returns>Returns true if the GameObject is active and enabled.</returns>
+            <remarks>This takes a dependency on the active and enable state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsStatic">
+            <summary>
+            Checks if the GameObject is static.
+            </summary>
+            <returns>Returns true if the GameObject is static.</returns>
+            <remarks>This takes a dependency on the static state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsStatic(UnityEngine.Component)">
+            <summary>
+            Checks if the GameObject is static for a given component.
+            </summary>
+            <param name="component">The Object to check.</param>
+            <returns>Returns true if the GameObject is static.</returns>
+            <remarks>This takes a dependency on the static state.</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsStatic(UnityEngine.GameObject)">
+            <summary>
+            Checks if the GameObject is static for a given GameObject.
+            </summary>
+            <param name="gameObject">The GameObject to check</param>
+            <returns>Returns true if the object or one of its ancestors is static, otherwise returns false.</returns>
+            <remarks>This takes a dependency on the static state</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.InternalIsStaticRecursive(UnityEngine.GameObject)">
+            <summary>
+            Returns if the GameObject or one of its parents is static
+            </summary>
+            <param name="gameObject">The GameObject to check.</param>
+            <returns>Returns true if the object or one of its ancestors is static, otherwise returns false.</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsClient">
+            <summary>
+            Checks if the the authoring component is baked in the Client World
+            </summary>
+            <returns>True if the NetCode package present and the authoring component is baked in the Client World</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsServer">
+            <summary>
+            Checks if the the authoring component is baked in the Server World
+            </summary>
+            <returns>True if the NetCode package present and the authoring component is baked in the Server World</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOn``1(``0)">
+            <summary>
+            This will take a dependency on Object of type T.
+            </summary>
+            <param name="dependency">The Object to take a dependency on.</param>
+            <typeparam name="T">The type of the object. Must be derived from UnityEngine.Object.</typeparam>
+            <returns>The Object of type T if a dependency was taken, null otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInParent``1">
+            <summary>
+            This will take a dependency on the first component of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInParent``1(UnityEngine.Component)">
+            <summary>
+            This will take a dependency on the first component of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <param name="component">The Object to take the component dependency on</param>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInParent``1(UnityEngine.GameObject)">
+            <summary>
+            This will take a dependency on the first component of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to take the component dependency on</param>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInParent``1">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInParent``1(UnityEngine.Component)">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <param name="component">The Object to take the components' dependency on</param>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInParent``1(UnityEngine.GameObject)">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its parent. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to take the components' dependency on</param>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInChildren``1">
+            <summary>
+            This will take a dependency on the component of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInChildren``1(UnityEngine.Component)">
+            <summary>
+            This will take a dependency on the component of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <param name="component">The Object to take the component dependency on</param>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentInChildren``1(UnityEngine.GameObject)">
+            <summary>
+            This will take a dependency on the component of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to take the component dependency on</param>
+            <typeparam name="T">The type of the component to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInChildren``1">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInChildren``1(UnityEngine.GameObject)">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <param name="gameObject">The GameObject to take the components' dependency on</param>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnComponentsInChildren``1(UnityEngine.Component)">
+            <summary>
+            This will take a dependency on the components of type T in the GameObject or any of its children. Works recursively.
+            </summary>
+            <param name="component">The Object to take the components' dependency on</param>
+            <typeparam name="T">The type of the components to take a dependency on</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.DependsOnLightBaking">
+            <summary>
+            This will take a dependency on the light baking, causing the component to bake every time light mapping is baked.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddDebugTrackingForComponent(Unity.Entities.Entity,Unity.Entities.TypeIndex)">
+            <summary>
+            Adds debug tracking for the Entity and Component pair, throws an Exception otherwise
+            </summary>
+            <param name="entity">The Entity to track</param>
+            <param name="typeIndex">The index of the Component type to track</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Unity.Entities.IBaker.CheckComponentHasBeenAddedByThisBaker(Unity.Entities.Entity,Unity.Entities.TypeIndex)">
+            <summary>
+            Checks if the component on the Entity has been added by this Baker, throws an Exception otherwise
+            </summary>
+            <param name="entity">The Entity to track</param>
+            <param name="typeIndex">The index of the Component type to track</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddDebugTrackingForComponent(Unity.Entities.Entity,Unity.Entities.ComponentType)">
+            <summary>
+            Adds debug tracking for the Entity and Component pair
+            </summary>
+            <param name="entity">The Entity to track</param>
+            <param name="type">The type of the Component to track</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddDebugTrackingForComponent``1(Unity.Entities.Entity)">
+            <summary>
+            Adds debug tracking for the Entity and Component pair
+            </summary>
+            <param name="entity">The Entity to track</param>
+            <typeparam name="T">The type of the Component to track</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddDebugTrackingForComponent(Unity.Entities.Entity,Unity.Entities.ComponentTypeSet@)">
+            <summary>
+            Adds debug tracking for multiple Entity and Component pairs
+            </summary>
+            <param name="entity">The Entity to track</param>
+            <param name="typeSet">The types of the Component to track</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddTrackingForComponent(Unity.Entities.ComponentType)">
+            <summary>
+            Adds debug tracking for a Component added to the primary Entity
+            </summary>
+            <param name="componentType">The type of the Component to track</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddTrackingForComponent``1">
+            <summary>
+            Adds debug tracking for a Component added to the primary Entity
+            </summary>
+            <typeparam name="T">The type of the Component to track</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddTrackingForComponent(Unity.Entities.ComponentTypeSet@)">
+            <summary>
+            Adds debug tracking for a Component added to the primary Entity
+            </summary>
+            <param name="typeSet">The types of the Component to track</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.CheckValidAdditionalEntity(Unity.Entities.Entity)">
+            <summary>
+            Checks that the Entity is valid and owned by the current authoring component,throws an exception otherwise
+            </summary>
+            <param name="entity">The Entity to check</param>
+            <exception cref="T:System.InvalidOperationException"></exception>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddBlobAsset``1(Unity.Entities.BlobAssetReference{``0}@,Unity.Entities.Hash128@)">
+            <summary>
+            Adds a BlobAsset to the primary Entity
+            </summary>
+            <param name="blobAssetReference">The BlobAssetReference of the BlobAsset to add</param>
+            <param name="objectHash">The hash of the added BlobAsset</param>
+            <typeparam name="T">The type of BlobAsset to add</typeparam>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddBlobAssetWithCustomHash``1(Unity.Entities.BlobAssetReference{``0}@,Unity.Entities.Hash128)">
+            <summary>
+            Adds a BlobAsset to the primary Entity with a custom hash
+            </summary>
+            <param name="blobAssetReference">The BlobAssetReference of the added BlobAsset to add</param>
+            <param name="customHash">The hash that is used to add the BlobAsset to the Entity</param>
+            <typeparam name="T">The type of BlobAsset to add</typeparam>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.TryGetBlobAssetReference``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@)">
+            <summary>
+            Gets the BlobAssetReference based on a hash
+            </summary>
+            <param name="hash">The hash of the BlobAssetReference to get</param>
+            <param name="blobAssetReference">The BlobAssetReference associated with the hash if found, default otherwise</param>
+            <typeparam name="T">The type of BlobAsset to get</typeparam>
+            <returns>True if the BlobAssetReference is found, otherwise False</returns>
+            <remarks>This will take a dependency on the component</remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent``1">
+            <summary>
+            Adds a component of type T to the primary Entity
+            </summary>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent``1(``0@)">
+            <summary>
+            Adds a component of type T to the primary Entity
+            </summary>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent``1(Unity.Entities.Entity)">
+            <summary>
+            Adds a component of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent``1(Unity.Entities.Entity,``0@)">
+            <summary>
+            Adds a component of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent(Unity.Entities.ComponentType)">
+            <summary>
+            Adds a component of type ComponentType to the primary Entity
+            </summary>
+            <param name="componentType">The type of component to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent(Unity.Entities.Entity,Unity.Entities.ComponentType)">
+            <summary>
+            Adds a component of type ComponentType to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="componentType">The type of component to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.UnsafeAddComponent(Unity.Entities.Entity,Unity.Entities.TypeIndex,System.Int32,System.Void*)">
+            <summary>
+            Adds a component to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="typeIndex">The index of the type of component to add</param>
+            <param name="typeSize">The size of the type of component to add</param>
+            <param name="componentDataPtr">The pointer to the component data</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent(Unity.Entities.ComponentTypeSet@)">
+            <summary>
+            Adds multiple components of types ComponentType to the primary Entity
+            </summary>
+            <param name="componentTypeSet">The types of components to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponent(Unity.Entities.Entity,Unity.Entities.ComponentTypeSet@)">
+            <summary>
+            Add multiple components of types ComponentType to the Entity
+            </summary>
+            <param name="entity">The Entity to add the components to</param>
+            <param name="componentTypeSet">The types of components to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponentObject``1(``0)">
+            <summary>
+            Adds a managed component of type T to the primary Entity
+            </summary>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddComponentObject``1(Unity.Entities.Entity,``0)">
+            <summary>
+            Adds a managed component of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddSharedComponentManaged``1(``0)">
+            <summary>
+            Adds a managed shared component of type T to the primary Entity
+            </summary>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddSharedComponentManaged``1(Unity.Entities.Entity,``0)">
+            <summary>
+            Adds a managed shared component of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddSharedComponent``1(``0)">
+            <summary>
+            Adds a shared component of type T to the primary Entity
+            </summary>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddSharedComponent``1(Unity.Entities.Entity,``0)">
+            <summary>
+            Adds a shared component of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the component to</param>
+            <param name="component">The component to add</param>
+            <typeparam name="T">The type of component to add</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddBuffer``1">
+            <summary>
+            Adds a DynamicBuffer of type T to the primary Entity
+            </summary>
+            <typeparam name="T">The type of buffer to add</typeparam>
+            <returns>The created DynamicBuffer</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddBuffer``1(Unity.Entities.Entity)">
+            <summary>
+            Adds a DynamicBuffer of type T to the Entity
+            </summary>
+            <param name="entity">The Entity to add the buffer to</param>
+            <typeparam name="T">The type of buffer to add</typeparam>
+            <returns>The created DynamicBuffer</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetComponent``1(Unity.Entities.Entity,``0@)">
+            <summary>
+            Replaces the value of the component on the Entity.
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific component.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant components and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added components to something specific in your particular baker.
+            </remarks>
+            <param name="entity">The Entity to set the component to</param>
+            <param name="component">The component to set</param>
+            <typeparam name="T">The type of component to set</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetComponentEnabled``1(Unity.Entities.Entity,System.Boolean)">
+            <summary>
+            Sets the enabled value of the component on the Entity.
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific component.
+            </remarks>
+            <param name="entity">The Entity to set the component to</param>
+            <param name="enabled">True if the specified component should be enabled, or false if it should be disabled</param>
+            <typeparam name="T">The type of component to set</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetComponentEnabled``1(System.Boolean)">
+            <summary>
+            Sets the enabled value of the component on the primary Entity.
+            </summary>
+            <param name="enabled">True if the specified component should be enabled, or false if it should be disabled</param>
+            <typeparam name="T">The type of component to set</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.UnsafeSetComponent(Unity.Entities.Entity,Unity.Entities.TypeIndex,System.Int32,System.Void*)">
+            <summary>
+            Replaces the value of the component on the Entity.
+            </summary>
+            <param name="entity">The Entity to set the component to</param>
+            <param name="typeIndex">The index of the type of component to set</param>
+            <param name="typeSize">The size of the type of component to set</param>
+            <param name="componentDataPtr">The pointer to the component data</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetSharedComponentManaged``1(Unity.Entities.Entity,``0@)">
+            <summary>
+            Replaces the value of the managed shared component on the Entity.
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific component.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant components and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added components to something specific in your particular baker.
+            </remarks>
+            <param name="entity">The Entity to set the component to</param>
+            <param name="component">The component to set</param>
+            <typeparam name="T">The type of component to set</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetSharedComponent``1(Unity.Entities.Entity,``0@)">
+            <summary>
+            Replaces the value of the shared component on the Entity.
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific component.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant components and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added components to something specific in your particular baker.
+            </remarks>
+            <param name="entity">The Entity to set the component to</param>
+            <param name="component">The component to set</param>
+            <typeparam name="T">The type of component to set</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetBuffer``1">
+            <summary>
+            Replaces a DynamicBuffer of type T on the primary Entity
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific buffer.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant buffer and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added buffers to something specific in your particular baker.
+            </remarks>
+            <typeparam name="T">The type of buffer to set</typeparam>
+            <returns>The new DynamicBuffer</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetBuffer``1(Unity.Entities.Entity)">
+            <summary>
+            Replaces a DynamicBuffer of type T on the Entity
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific buffer.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant buffer and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added buffers to something specific in your particular baker.
+            </remarks>
+            <param name="entity">The Entity to set the buffer on</param>
+            <typeparam name="T">The type of buffer to set</typeparam>
+            <returns>The new DynamicBuffer</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.SetBufferInternal``1(Unity.Entities.Entity)">
+            <summary>
+            Replaces a DynamicBuffer of type T on the Entity
+            </summary>
+            <remarks>
+            This method can only be invoked if the same baker instance previously added this specific buffer.
+            This is not a very common operation in bakers, but sometimes you have utility methods that add the relevant buffer and initialize them to a reasonable default state for that utility method,
+            but then your baker needs to override the value of one of those added buffers to something specific in your particular baker.
+            </remarks>
+            <param name="entity">The Entity to set the buffer on</param>
+            <typeparam name="T">The type of buffer to set</typeparam>
+            <returns>The new DynamicBuffer</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AppendToBuffer``1(``0)">
+            <summary>
+            Append to a DynamicBuffer of type T on the primary Entity
+            </summary>
+            <param name="element">The element of type T to append to the buffer</param>
+            <typeparam name="T">The type of buffer to append to</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AppendToBuffer``1(Unity.Entities.Entity,``0)">
+            <summary>
+            Append to a DynamicBuffer of type T on the Entity
+            </summary>
+            <param name="entity">The Entity to set the buffer on</param>
+            <param name="element">The element of type T to append to the buffer</param>
+            <typeparam name="T">The type of buffer to append to</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AppendToBufferInternal``1(Unity.Entities.Entity,``0)">
+            <summary>
+            Append to a DynamicBuffer of type T on the Entity
+            </summary>
+            <param name="entity">The Entity to set the buffer on</param>
+            <param name="element">The element of type T to append to the buffer</param>
+            <typeparam name="T">The type of buffer to append to</typeparam>
+        </member>
+        <member name="M:Unity.Entities.IBaker.CreateAdditionalEntity(Unity.Entities.TransformUsageFlags,System.Boolean,System.String)">
+             <summary>
+             Creates an additional Entity tied to the primary entity.
+             </summary>
+             <param name="transformUsageFlags">The <see cref="T:Unity.Entities.TransformUsageFlags"/> of the additional Entity.</param>
+             <param name="bakingOnlyEntity">Whether to mark the additional Entity as BakingOnly.</param>
+             <param name="entityName">The name of the additional Entity.</param>
+             <returns>Returns the newly created entity.</returns>
+             <remarks>
+             Additional entities are automatically reverted by the baking system if the source primary entity is removed in a new baking pass.
+             Additional entities are created with the same active or static state as the Primary Entity. For example, if the authoring object is disabled,
+             the new additional entity will also have the <see cref="T:Unity.Entities.Disabled"/> tag component.
+            
+             Baking only additional entities are not exported in the runtime data.
+             </remarks>
+        </member>
+        <member name="M:Unity.Entities.IBaker.RegisterPrefabForBaking(UnityEngine.GameObject)">
+            <summary>
+            Ensures that the Prefab will be baked into a Prefab and present at Runtime
+            </summary>
+            <param name="authoring">The Prefab to bake</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddTransformUsageFlags(Unity.Entities.TransformUsageFlags)">
+            <summary>
+            Adds the TransformUsageFlags to the Flags of the Entity
+            </summary>
+            <param name="flags">The Flags to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.AddTransformUsageFlags(Unity.Entities.Entity,Unity.Entities.TransformUsageFlags)">
+            <summary>
+            Adds the TransformUsageFlags to the Flags of the Entity
+            </summary>
+            <param name="entity">The Entity to add the Flags to</param>
+            <param name="flags">The Flags to add</param>
+        </member>
+        <member name="M:Unity.Entities.IBaker.IsBakingForEditor">
+            <summary>
+            Check if the Baking is done for the Editor (not for a Build)
+            </summary>
+            <returns>Returns true if the baking is complete for the Editor, and false otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.IBaker.GetDotsSettings">
+            <summary>
+            Gets the Settings of the DOTS player
+            </summary>
+            <returns>The Settings of the DOTS player</returns>
+        </member>
+        <member name="T:Unity.Entities.Baker`1">
+             <summary>
+             Inherit this class to bake an authoring component.
+             </summary>
+             <remarks>
+             Use the methods in <see cref="T:Unity.Entities.Baker`1"/> to access any data outside
+             of the authoring component. This ensures that the baking pipeline can keep track of any dependencies. This applies to <see cref="T:UnityEngine.GameObject">GameObjects</see>,
+             <see cref="T:UnityEngine.Component">Components</see>, prefabs, and assets.
+            
+             For example you should use <see cref="T:Unity.Entities.Baker`1">Baker&lt;TAuthoringType&gt;.GetComponent&lt;T&gt;()</see> to query the authoring components
+             instead of <see cref="M:UnityEngine.GameObject.GetComponent``1">GameObject.GetComponent&lt;T&gt;()</see>.
+             </remarks>
+             <example><code>
+             public class MyAuthoring : MonoBehaviour
+             {
+                 public int Value;
+             }
+            
+             public struct MyComponent : IComponentData
+             {
+                 public int Value;
+                 public float3 Position;
+             }
+            
+             public class MyBaker : Baker&lt;MyAuthoring&gt;
+             {
+                 public override void Bake(MyAuthoring authoring)
+                 {
+                     // Accessing the transform using Baker function, not the GameObject one
+                     // so the this baker can keep track of the dependency
+                     var transform = GetComponent&lt;Transform&gt;();
+                     AddComponent(new MyComponent
+                     {
+                         Value = authoring.Value,
+                         Position = transform.position
+                     } );
+                 }
+             }
+             </code></example>
+             <typeparam name="TAuthoringType">The type of the authoring component.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.Baker`1.Bake(`0)">
+            <summary>
+            Called in the baking process to bake the authoring component
+            </summary>
+            <remarks>
+            This method will be called for every instance of TAuthoringType in order to bake that instance.
+            </remarks>
+            <param name="authoring">The authoring component to bake</param>
+        </member>
+        <member name="T:Unity.Entities.GameObjectBaker">
+            <summary>
+            Inherit this class to bake an authoring GameObject.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.GameObjectBaker.Bake(UnityEngine.GameObject)">
+            <summary>
+            Called in the baking process to bake the authoring GameObject.
+            </summary>
+            <param name="authoring">The authoring GameObject to bake.</param>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingContext.IncrementalBakeInstructions.BakeGameObjects">
+            <summary>
+            The GameObjects to bake when some GameObject property has changed (static, active).
+            </summary>
+            <remarks>Contains both the created and the changed GameObjects.</remarks>
+        </member>
+        <member name="T:Unity.Entities.Baking.UnsafeDependencyStream`1">
+            <summary>
+            An unmanaged, resizable list per thread.
+            </summary>
+            <typeparam name="T">The type of the elements.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.Baking.UnsafeDependencyStream`1.#ctor(Unity.Collections.AllocatorManager.AllocatorHandle)">
+            <summary>
+            Initializes and returns an instance of UnsafeDependencyStream.
+            </summary>
+            <param name="allocator">The allocator to use.</param>
+        </member>
+        <member name="M:Unity.Entities.Baking.UnsafeDependencyStream`1.Add(`0,System.Int32)">
+            <summary>
+            Adds an item to the list associated with the threadIndex
+            </summary>
+            <param name="element">Element to add to the list.</param>
+            <param name="threadIndex">Thread index provided by NativeSetThreadIndex</param>
+        </member>
+        <member name="M:Unity.Entities.Baking.UnsafeDependencyStream`1.Dispose">
+            <summary>
+            Releases all resources (memory).
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Baking.GameObjectComponents">
+            <summary>
+            Stores meta data about all game objects in the scene.
+            This means we have a copy of the last converted state, where we can see which game objects existed and what components were attached to it.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Baking.GameObjectComponents.UpdateGameObject(UnityEngine.GameObject,System.Collections.Generic.List{UnityEngine.Component},System.Collections.Generic.List{UnityEngine.Component},System.Collections.Generic.List{UnityEngine.Component},Unity.Collections.LowLevel.Unsafe.UnsafeParallelHashSet{System.Int32}@)">
+            <summary>
+            Replaces state of the component meta data with the current state
+            </summary>
+            <param name="gameObject"></param>
+            <param name="components"></param>
+            <returns>Returns true if the game object was created</returns>
+        </member>
+        <member name="M:Unity.Entities.Baking.GameObjectComponents.DestroyGameObject(System.Int32)">
+             <summary>
+            
+             </summary>
+             <param name="gameObjectInstanceID"></param>
+             <returns>Returns true if the game object was still alive.</returns>
+        </member>
+        <member name="T:Unity.Entities.Baking.IncrementalBakingChanges">
+            <summary>
+            Contains a summary of all changes that happened since the last conversion.
+            ATTENTION: This is future public API.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ChangedGameObjects">
+            <summary>
+            Contains all GameObjects that were changed in some way since the last conversion. This includes changes
+            to the name, enabled/disabled state, addition or removal of components, and newly created GameObjects.
+            This does not include GameObjects for which only the data on a component was changed or whose place in the
+            hierarchy has changed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ChangedGameObjectsInstanceIds">
+            <summary>
+            Contains the instance ID of all GameObjects in <see cref="F:Unity.Entities.Baking.IncrementalBakingChanges.ChangedGameObjects"/>.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ChangedComponents">
+            <summary>
+            Contains all Components that were changed in some way since the last conversion. This does not include new
+            components by default, only components that were actually changed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ParentChanges">
+            <summary>
+            Contains the instance IDs of all GameObjects whose parents have changed.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Baking.IncrementalBakingChanges.ParentChange">
+            <summary>
+            Describes how a game object's parenting has changed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ParentChange.InstanceId">
+            <summary>
+            The instance id of the game object whose parenting has changed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ParentChange.PreviousParentInstanceId">
+            <summary>
+            The instance if of the game object that was the previous parent.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.ParentChange.NewParentInstanceId">
+            <summary>
+            The instance if of the game object that is the new parent.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Baking.IncrementalBakingChanges.RemovedGameObjectInstanceIds">
+            <summary>
+            Contains the instance IDs of all GameObjects that were removed since the last conversion.
+            An object might be removed because it was deleted or moved to another scene.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Baking.BakeDependencies">
+             <summary>
+             Bake dependencies are done in three parts
+             * Fastpath for no structural changes. Properties of a component / asset has changed.
+             * Structural changes  (GameObject create / destroy, component remove / add, prefab instantiate, reparent etc)
+             * Assets on disk have changed. (Eg. a material or prefab was modified outside of Unity on disk. For example by pulling latest from version control)
+            
+             The fastpath is what needs to run at less than 5ms overhead even on big scenes. Eg. when using a slider or moving a transform around in the scene view.
+             We need that to have practically no overhead, otherwise it affects the tweaking / live editor experience.
+             When falling off the fastpath (Add component / asset changed etc...) it is ok if those changes take ~50ms for small changes. Eg. Adding a component / destroying an object,
+             it's practically impossible to feel if you get a 50ms spike there or not since you click a button, let go of the mouse and only then does the action apply.
+            
+            
+             1. The fastpath assumes that all GetComponent / GetAncestor component will return the exact same component every time.
+             Thus all we need is a dependency from the baker -> all the component instanceIDs it is reading from
+             These are stored in _PropertyChangeReverseDependency and _PropertyChangeDependency. They have reverse dependencies and thus are very fast to evaluate.
+            
+             2. If there are any structural changes whatsover, we re-evaluate all structural dependencies.
+             Eg. GetComponentInParent has to result in the same component, so any added / removed component in the hierarchy can invalidate the baker
+             This is quite difficult to express with reverse dependencies (Adding the components lets us directly know what baker to invalidate)
+            
+             Thus we take the easy road... If we detect that there were any structural changes.
+             We bruteforce check all dependencies by simply recalculating if the GetComponentInAncestor will now with the current state of the world result in the same instanceID.
+             The idea here is to just make it bruteforce fast instead of smart, meaning we use a bunch of hashtables to make GetComponentInParent etc fast.
+            
+             3. Asset dependencies. AssetDatabase.GlobalArtifactDependencyVersion is a simple way to detect that no asset on disk has changed.
+             If anything at all changed, we have to re-check all asset guids that were referenced by the scene.
+             </summary>
+        </member>
+        <member name="M:Unity.Entities.AttachToEntityClonerInjection.InstantiateCompanionComponentDelegate(System.Int32*,System.Int32,Unity.Entities.Entity*,System.Int32*,System.Int32*,System.Int32,Unity.Entities.ManagedComponentStore)">
+            <summary>
+            This method will handle the cloning of Hybrid Components (if any) during the batched instantiation of an Entity
+            </summary>
+            <param name="srcArray">Array of source managed component indices. One per <paramref name="componentCount"/></param>
+            <param name="componentCount">Number of component being instantiated</param>
+            <param name="dstEntities">Array of destination entities. One per <paramref name="instanceCount"/></param>
+            <param name="dstCompanionLinkIndices">Array of destination CompanionLink indices, can be null if the hybrid components are not owned</param>
+            <param name="dstArray">Array of destination managed component indices. One per <paramref name="componentCount"/>*<paramref name="instanceCount"/>. All indices for the first component stored first etc.</param>
+            <param name="instanceCount">Number of instances being created</param>
+            <param name="managedComponentStore">Managed Store that owns the instances we create</param>
+        </member>
+        <member name="T:Unity.Entities.IncrementalConversionBatch">
+            <summary>
+            Represents a fine-grained description of changes that happened since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.DeletedInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that were deleted.
+            Note that this can overlap with any of the other collections.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.ChangedInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that were changed.
+            /// Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.ReconvertHierarchyInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that should have the entire hierarchy below them reconverted.
+            Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.ParentChangeInstanceIds">
+            <summary>
+            Maps instance IDs of GameObjects to the instance ID of their last recorded parent if the parenting changed.
+            Note that this might included instance IDs of destroyed GameObjects on either side.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.ChangedAssets">
+            <summary>
+            Contains the instance IDs of all assets that were changed since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.DeletedAssets">
+            <summary>
+            Contains the GUIDs of all assets that were deleted since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalConversionBatch.ChangedComponents">
+            <summary>
+            Contains a list of all components that were changed since the last conversion. Note that the components
+            might have been destroyed in the mean time.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.TransformAuthoring">
+             <summary>
+             TransformAuthoring is automatically created for every single entity created during baking.
+             It gives access to the complete data the authoring Transform carries, the components exist only during baking.
+             The TransformAuthoring component is stripped out automatically at runtime.
+            
+             This can be used by systems that want to access the original authoring transform data in baking systems, without relying on the runtime transforms existing.
+             In many cases we want to bake our authoring state into more optimal runtime representations.
+             For example Unity.Physics bakes all colliders that may be children in the game object hierarchy into the entity containing the rigidbody.
+             Hence the game objects with those colliders might not be required to be entities at runtime at all,
+             but in baking systems we need to be able to access the TransformAuthoring data to correctly bake the colliders based on their positions relative to the parent rigidbody.
+             </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.LocalPosition">
+            <summary>
+            Local position as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.LocalRotation">
+            <summary>
+            Local rotation as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.LocalScale">
+            <summary>
+            Local scale as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.Position">
+            <summary>
+            World space position as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.Rotation">
+            <summary>
+            World space rotation as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.LocalToWorld">
+            <summary>
+            Local to world matrix as found in the Transform Component.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.AuthoringParent">
+            <summary>
+            Authoring parent entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.RuntimeParent">
+            <summary>
+            Runtime parent entity.
+            </summary>
+            <remarks>The RuntimeParent entity doesn't always match with the AuthoringParent entity, because it depends on the value of RuntimeTransformUsage.</remarks>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.RuntimeTransformUsage">
+            <summary>
+            <see cref="T:Unity.Entities.TransformUsageFlags"/> value applied to this entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.TransformAuthoring.ChangeVersion">
+            <summary>
+            Version number to detect changes to this component.
+            </summary>
+            <remarks>The version number is increased any time there is a change to this component.</remarks>
+        </member>
+        <member name="M:Unity.Entities.TransformAuthoring.Equals(Unity.Entities.TransformAuthoring)">
+            <summary>
+            Compares two TransformAuthoring instances to determine if they are equal.
+            </summary>
+            <param name="other">A TransformAuthoring.</param>
+            <returns>True if all the fields from the current instance and <paramref name="other"/> are equal.</returns>
+        </member>
+        <member name="T:Unity.Entities.AdditionalEntityParent">
+            <summary>
+            Contains information to identify the parent of an additional entity.
+            </summary>
+            <remarks>This component has a <see cref="T:Unity.Entities.BakingTypeAttribute"/>.</remarks>
+        </member>
+        <member name="F:Unity.Entities.AdditionalEntityParent.Parent">
+            <summary>
+            Represents a primary entity that matches the GameObject that created the additional entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.AdditionalEntityParent.ParentInstanceID">
+            <summary>
+            Represents a unique Instance ID of the GameObject that created the additional entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Hybrid.Baking.AdditionalEntitiesBakingData">
+            <summary>
+            AdditionalEntitiesBakingData buffer is added by default to each primary entity and contains the list of additional entities associated
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Hybrid.Baking.AdditionalEntitiesBakingData.AuthoringComponentID">
+            <summary>
+            Represents the instance ID of the authoring component that created the Additional Entity in its Baker.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.Hybrid.Baking.AdditionalEntitiesBakingData.Value">
+            <summary>
+            The Additional Entity associated with this Primary Entity
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Hybrid.Baking.BakingOnlyEntityAuthoring">
+            <summary>
+            Add a BakingOnlyEntity authoring component to your game object to mark it as Bake Only. It and all children will be
+            stripped out before they appear in the live game world. Its additional entities and its children additional entities
+            are exempt from this and will appear in the live game world.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Hybrid.Baking.LinkedEntityGroupAuthoring">
+            <summary>
+            Add a LinkedEntityGroup authoring component to your game object to add a LinkedEntityGroup buffer element containing its primary and additional entities
+            and all its children primary and additional entities.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.BakerDataUtility">
+            <summary>
+             A mapping of UnityEngine.Component (represented by TypeManager.GetTypeIndex) => array of bakers that need to execute to bake the authoring data.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.BakerDataUtility.BakerData.CompatibleComponentCount">
+            <summary>
+            The number of authoring components compatible with this baker.
+            </summary>
+            <remarks>
+            Bakers usually handle one authoring component type. If the bakers are decorated with the
+            <see cref="T:Unity.Entities.BakeDerivedTypesAttribute"/> attribute, they are also applied on the authoring components
+            derived from the base type. In this case, the base baker should be evaluated before any bakers defined
+            for derived types.
+            Unity guarantees this order by sorting the bakers based on the number of components handled by each baker,
+            with bakers handling more components (hence handling base types) being evaluated first.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.BakerDataUtility.OverrideBakers">
+            <summary>
+            Overrides the global list of bakers either adding new ones or replacing old ones.
+            This is used for tests. Always make sure to dispose to revert the global state back to what it was.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UpdateWorldTimeSystem">
+            <summary>
+            A system that updates the <see cref="T:Unity.Entities.WorldTime"/> value, based on the elapsed time since the previous frame.
+            </summary>
+            <remarks>By default, the deltaTime is read from <see cref="P:UnityEngine.Time.deltaTime"/>.</remarks>
+        </member>
+        <member name="M:Unity.Entities.UpdateWorldTimeSystem.OnStartRunning">
+            <summary>Runs just before the system's first update after it is enabled.</summary>
+            <remarks>
+            Ensure that the final elapsedTime of the very first OnUpdate call is the
+            original Time.ElapsedTime value (usually zero) without a deltaTime applied.
+            Effectively, this code preemptively counteracts the first OnUpdate call.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.UpdateWorldTimeSystem.OnUpdate">
+            <summary>
+            Updates the world time
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.DependencyTracker">
+             <summary>
+             Allows you to query dependents for specific component types.
+            
+             ATTENTION: This is future public API.
+             </summary>
+        </member>
+        <member name="M:Unity.Entities.DependencyTracker.HasDependents(System.Int32)">
+            <summary>
+            Returns whether a given instance has any dependents registered to it.
+            </summary>
+            <param name="instanceId">The instance to query for dependents.</param>
+            <returns>True if there are any dependents, false otherwise.</returns>
+        </member>
+        <member name="M:Unity.Entities.DependencyTracker.CalculateDirectDependents(Unity.Collections.NativeArray{System.Int32},Unity.Collections.NativeParallelHashSet{System.Int32})">
+            <summary>
+            Calculate all direct dependents for a given set of instances. Transitive dependents are not returned.
+            </summary>
+            <param name="instanceIds">The instance ids whose dependents should be collected</param>
+            <param name="outDependents">The hash set to add the dependents to.</param>
+        </member>
+        <member name="M:Unity.Entities.DependencyTracker.CalculateDirectDependents(Unity.Collections.NativeArray{System.Int32},Unity.Collections.NativeList{System.Int32})">
+            <summary>
+            Calculate all direct dependents for a given set of instances. Transitive dependents are not returned.
+            </summary>
+            <param name="instanceIds">The instance ids whose dependents should be collected</param>
+            <param name="outDependents">The list to add the dependents to.</param>
+        </member>
+        <member name="M:Unity.Entities.DependencyTracker.CalculateDirectDependentsAsync(Unity.Collections.NativeArray{System.Int32},Unity.Collections.NativeList{System.Int32},Unity.Jobs.JobHandle)">
+            <summary>
+            Calculate all direct dependents for a given set of instances. Transitive dependents are not returned.
+            This method is asynchronous and returns a job handle that you can use to chain further jobs.
+            </summary>
+            <param name="instanceIds">The instance ids whose dependents should be collected.</param>
+            <param name="outDependents">The list to add the dependents to.</param>
+            <param name="dependency">A JobHandle that will be treated as a dependency for all jobs scheduled by this function.</param>
+            <returns>A JobHandle for the jobs scheduled by ths function.</returns>
+        </member>
+        <member name="T:Unity.Entities.BakingSystemGroup">
+            <summary>
+            The group of systems where baking systems run by default.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetUtility.CreateBlobAsset``1(``0)">
+            <summary>
+            Creates a BlobAsset and return its BlobAssetReference
+            </summary>
+            <param name="blobData">The data to put in the BlobAsset</param>
+            <typeparam name="T">The type of BlobAsset to create</typeparam>
+            <returns>The create BlobAssetReference</returns>
+        </member>
+        <member name="T:Unity.Entities.BakerDebugState">
+            <summary>
+            Tracks the components that were added to each entity,
+            this lets us give the user nice error messages if two bakers add the same component to an entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.DefaultGameObjectBaker">
+            <summary>
+            Default baker for GameObject instances.
+            </summary>
+            <remarks>
+            The baker ensures that the authoring GameObject's static and active state is applied on the baked primary entity.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.BakerState">
+            <summary>
+            Stores the state of the baker (Added components, Created entities and all recorded dependencies)
+            The purpose of it is to be able to revert the changes when the baker needs to run again because a dependency changed
+            or if the component / game object was destroyed.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.BakerState.Entities">
+            <summary>
+            Unordered set of valid entities created by a baker. Includes the primary entity.
+            </summary>
+            <remarks>
+            This set is always in sync with the ordered list of entities.
+            Its main purpose is to speed up the checks of entity validity.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.BlobAssetComputationContext`2">
+            <summary>
+            The BlobAssetComputationContext must be used during Authoring to ECS conversion process to detect which BlobAsset should be computed and to declare their association with a UnityObject
+            </summary>
+            <typeparam name="TS">The type of the setting struct to be used to generate the BlobAsset</typeparam>
+            <typeparam name="TB">The type of the BlobAsset to generate</typeparam>
+            <remarks>
+            The context must typically be used in a three stages conversion process, for given type of BlobAsset to process.
+            Multiple context can be used if multiple BlobAsset types are generated.
+            Stages:
+             1) Each Authoring component to convert are evaluated>
+                The user calls <see cref="M:Unity.Entities.BlobAssetComputationContext`2.AssociateBlobAssetWithUnityObject(Unity.Entities.Hash128,UnityEngine.Object)"/> to declare the association between the UnityObject owning the Authoring component and the BlobAsset being processed.
+                Then <see cref="M:Unity.Entities.BlobAssetComputationContext`2.NeedToComputeBlobAsset(Unity.Entities.Hash128)"/> is called to determine if the BlobAsset needs to be computed or if it's already in the store (or registered for computation).
+                The user creates the setting object that contains the necessary information to create the BlobAsset later on and calls <see cref="M:Unity.Entities.BlobAssetComputationContext`2.AddBlobAssetToCompute(Unity.Entities.Hash128,`0)"/>.
+             2) The user creates a job to compute all BlobAsset and calls <see cref="M:Unity.Entities.BlobAssetComputationContext`2.GetSettings(Unity.Collections.Allocator)"/> to feed the job with the settings of each BlobAsset to compute.
+                During the job execution, the BlobAsset will be created and typically stored in a result array.
+                After the job is done, the user must call <see cref="M:Unity.Entities.BlobAssetComputationContext`2.AddComputedBlobAsset(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{`1})"/> to add the newly created BlobAsset to the context (and the Store)
+             3) The user create ECS Components and attaches the BlobAsset by calling<see cref="M:Unity.Entities.BlobAssetComputationContext`2.GetBlobAsset(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{`1}@)"/>.
+            When the context will be disposed (typically after the conversion process is done), the store will be updated with the new associations between the BlobAsset and the UnityObject(s) that use them.
+            If a BlobAsset is no longer used by any UnityObject, it will be disposed.
+            Thread-safety: main thread only.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.#ctor(Unity.Entities.BlobAssetStore,System.Int32,Unity.Collections.Allocator)">
+            <summary>
+            Initializes and returns an instance of BlobAssetComputationContext.
+            </summary>
+            <param name="blobAssetStore">The BlobAssetStore used by the BlobAssetComputationContext.</param>
+            <param name="initialCapacity">The initial capacity of the internal native containers.</param>
+            <param name="allocator">The allocator used to initialize the internal native containers.</param>
+            <exception cref="T:System.ArgumentNullException">Thrown if an invalid BlobAssetStore is passed.</exception>
+        </member>
+        <member name="P:Unity.Entities.BlobAssetComputationContext`2.IsCreated">
+            <summary>
+            Checks if the BlobAssetComputationContext exists and its native containers are allocated.
+            </summary>
+            <returns>Returns true if BlobAssetComputationContext has been created, and its native containers are allocated. Otherwise returns false.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.GetSettings(Unity.Collections.Allocator)">
+            <summary>
+            Gets all the BlobAssetSettings with a specified allocator.
+            </summary>
+            <param name="allocator">The allocator to get the BlobAssetSettings with.</param>
+            <returns>Returns BlobAssetSettings as a native array.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.Dispose">
+            <summary>
+            Dispose the Computation context, update the BlobAssetStore with the new BlobAsset/UnityObject associations
+            </summary>
+            <remarks>
+            This method will calls <see cref="M:Unity.Entities.BlobAssetComputationContext`2.UpdateBlobStore"/> to ensure the store is up to date.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.AssociateBlobAssetWithUnityObject(Unity.Entities.Hash128,UnityEngine.Object)">
+            <summary>
+            Declare the BlobAsset being associated with the given UnityObject
+            </summary>
+            <param name="hash">The hash associated to the BlobAsset</param>
+            <param name="unityObject">The UnityObject associated with the BlobAsset</param>
+            <remarks>
+            One of the role of the <see cref="T:Unity.Entities.BlobAssetComputationContext`2"/> is to track the new association between Authoring UnityObject and BlobAsset and report them to the <see cref="T:Unity.Entities.BlobAssetStore"/> to automatically track the life-time of the <see cref="T:Unity.Entities.BlobAssetReference`1"/> and release the instances that are no longer used.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.AssociateBlobAssetWithUnityObject(Unity.Entities.Hash128,System.Int32)">
+            <summary>
+            Declare the BlobAsset being associated with the given UnityObject
+            </summary>
+            <param name="hash">The hash associated to the BlobAsset</param>
+            <param name="unityObjectInstanceID">The instance ID of the UnityObject associated with the BlobAsset</param>
+            <remarks>
+            One of the role of the <see cref="T:Unity.Entities.BlobAssetComputationContext`2"/> is to track the new association between Authoring UnityObject and BlobAsset and report them to the <see cref="T:Unity.Entities.BlobAssetStore"/> to automatically track the life-time of the <see cref="T:Unity.Entities.BlobAssetReference`1"/> and release the instances that are no longer used.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.NeedToComputeBlobAsset(Unity.Entities.Hash128)">
+            <summary>
+            During the conversion process, the user must call this method for each BlobAsset being processed, to determine if it requires to be computed
+            </summary>
+            <param name="hash">The hash associated to the BlobAsset</param>
+            <returns>true if the BlobAsset must be computed, false if it's already in the store or the computing queue</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.AddBlobAssetToCompute(Unity.Entities.Hash128,`0)">
+            <summary>
+            Call this method to record a setting object that will be used to compute a BlobAsset
+            </summary>
+            <param name="hash">The hash associated with the BlobAsset</param>
+            <param name="settings">The setting object to store</param>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.AddComputedBlobAsset(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{`1})">
+            <summary>
+            Add a newly created BlobAsset in the context and its Store.
+            </summary>
+            <param name="hash">The hash associated to the BlobAsset</param>
+            <param name="blob">The BlobAsset to add</param>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.GetBlobAsset(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{`1}@)">
+            <summary>
+            Get the blob asset for the corresponding hash
+            </summary>
+            <param name="hash">The hash associated with the BlobAsset</param>
+            <param name="blob">The BlobAsset corresponding to the given Hash</param>
+            <returns>true if the blob asset was found, false otherwise</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetComputationContext`2.UpdateBlobStore">
+            <summary>
+            Update the store with the recorded BlobAsset/UnityObject associations.
+            </summary>
+            <remarks>
+            User don't have to call this method because <see cref="M:Unity.Entities.BlobAssetComputationContext`2.Dispose"/> will do it.
+            This method can be called multiple times, on the first one will matter.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.BakingSystem">
+            <summary>
+            Provides methods to control the baking process, and provides access to the <see cref="P:Unity.Entities.BakingSystem.BlobAssetStore"/> used
+            during baking.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BakingSystem.OnCreate">
+            <summary>
+            Called when this system is created.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BakingSystem.OnDestroy">
+            <summary>
+            Called when this system is destroyed.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BakingSystem.OnUpdate">
+            <summary>
+            Called when this system is updated.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.BakingSystem.BlobAssetStore">
+            <summary>
+            Access to the <see cref="P:Unity.Entities.BakingSystem.BlobAssetStore"/> used during baking.
+            </summary>
+            <remarks>
+            The blob assets created by baking systems need to
+            be registered in the <see cref="P:Unity.Entities.BakingSystem.BlobAssetStore"/>.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.TransformBakingSystemGroup">
+             <summary>
+             The group of systems that runs just after the bakers but before <see cref="T:Unity.Entities.BakingSystemGroup"/>.
+             </summary>
+             <remarks>
+             The transform components are added during the execution of this group.
+             </remarks>
+            
+        </member>
+        <member name="T:Unity.Entities.BakingOnlyEntity">
+            <summary>
+            The entity will be stripped out before it appears in the live game world.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.RemoveUnusedEntityInBake">
+            <summary>
+            The entity will be stripped out before it appears in the live game world.
+            For example, entities that are not referenced at all.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.RegisterBindingAttribute">
+            <summary>
+            Creates a table association between the Type specified and the runtime field of an IComponentData,
+            accessible via the BindingRegistry
+            </summary>
+            <remarks>
+            Only primitive types of int, bool, and float, in addition to Unity.Mathematics variants of these primitives
+            (e.g. int2, float4) will be added to the BindingRegistry. Other non-compatible types will be silently ignored
+            if this attribute is applied to it.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.RegisterBindingAttribute.#ctor(System.Type,System.String)">
+            <summary>
+            Establish a binding between the tagged authoring type and a runtime component field.
+            </summary>
+            <param name="runtimeComponent">The target component type</param>
+            <param name="runtimeField">The target component field</param>
+        </member>
+        <member name="M:Unity.Entities.RegisterBindingAttribute.#ctor(System.Type,System.String,System.Boolean)">
+            <summary>
+            Establish a binding between the tagged authoring type and a runtime component field.
+            </summary>
+            <param name="runtimeComponent">The target component type</param>
+            <param name="runtimeField">The target component field</param>
+            <param name="generated">If true, the type is auto-generated</param>
+        </member>
+        <member name="M:Unity.Entities.RegisterBindingAttribute.#ctor(System.String,System.Type,System.String)">
+            <summary>
+            Establish a binding between the tagged authoring type and a runtime component field.
+            </summary>
+            <param name="authoringField">The nested authoring field. Uses tagged field if null or empty.</param>
+            <param name="runtimeComponent">The target component type</param>
+            <param name="runtimeField">The target component field</param>
+        </member>
+        <member name="P:Unity.Entities.RegisterBindingAttribute.ComponentType">
+            <summary>
+            The target component type
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.RegisterBindingAttribute.ComponentField">
+            <summary>
+            The name of the target component field
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.RegisterBindingAttribute.AuthoringField">
+            <summary>
+            Name of the nested authoring field. The base field if null or empty.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.PostBakingSystemGroup">
+             <summary>
+             The group of systems that runs after <see cref="T:Unity.Entities.BakingSystemGroup"/>.
+             </summary>
+             <remarks>
+             This group runs after the companion components and after <see cref="T:Unity.Entities.LinkedEntityGroup"/> have been resolved.
+             You would normally place a system in this group if you want access to companion components or <see cref="T:Unity.Entities.LinkedEntityGroup"/> and
+             want to do some post-proccessing on those.
+             </remarks>
+            
+        </member>
+        <member name="T:Unity.Entities.EntityQueryExtensionsForComponentArray">
+            <summary>
+            Variants of EntityQuery methods that support managed components
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.EntityQueryExtensionsForComponentArray.ToComponentArray``1(Unity.Entities.EntityQuery)">
+            <summary>
+            Gather values of a component from all entities that match a query into a managed array.
+            </summary>
+            <param name="query">The query whose entities should have their <typeparamref name="T"/> values gathered.</param>
+            <typeparam name="T">The managed component type to gather</typeparam>
+            <returns>A managed array of <typeparamref name="T"/> values for all entities that match the query.</returns>
+        </member>
+        <member name="T:Unity.Entities.LayerFieldAttribute">
+            <summary>
+            Attribute used to make an int field display as a layer selector drop-down.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.BakedEntityData">
+            <summary>
+            Stores the <see cref="T:Unity.Entities.BakerState"/> and the mapping of GameObject to Entity.
+            </summary>
+            <remarks>
+            Responsible for playing back IncrementalBakingContext.IncrementalBakeInstructions by invoking the users
+            <see cref="T:Unity.Entities.Baker`1"/> code.
+            This creates the entities and components and records dependencies as part of it.
+            This stores what components were added by which baker so they can be reverted when a component / gameobject is removed
+            or a dependency triggers during incremental baking.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.BakedEntityData._AuthoringIDToBakerState">
+            <summary>
+            The InstanceID of the authoring component or GameObject mapped to the BakerState.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BakedEntityData.AdditionalEntitiesApplyActiveStaticState">
+            <summary>
+            Applies the <see cref="T:Unity.Transforms.Static"/> and <see cref="T:Unity.Entities.Disabled"/> tags on the additional entities tied to the recently baked primary entities.
+            </summary>
+            <remarks>
+            The additional entities always match the static and active state of the primary entity they are tied to.
+            The state is enforced in a baking system rather that in the baker that created the additional entities to avoid having to rerun the baker that created
+            the additional entities in case the authoring GameObject state changed.
+            </remarks>
+        </member>
+        <member name="T:Unity.Entities.BlobAssetStore">
+            <summary>
+            Purpose of this class is to provide a consistent cache of BlobAsset object in order to avoid rebuilding them when it is not necessary
+            </summary>
+            <remarks>
+            Right now the lifetime scope of this cache is bound to the LiveConversionDiffGenerator's one and it is scoped by SubScene.
+            In other words the cache is created when we enter edit mode for a given SubScene and it is released when we close edit mode.
+            And instance of this cache is exposed in `Unity.Entities.GameObjectConversionSettings` to allow users to query and avoid rebuilding assets.
+            During conversion process the user must rely on the <see cref="T:Unity.Entities.BlobAssetComputationContext`2"/> to associate the BlobAsset with their corresponding Authoring UnityObject and to determine which ones are to compute.
+            Thread-safety: nothing is thread-safe, we assume this class is consumed through the main-thread only.
+            Calling Dispose on an instance will reset the content and dispose all BlobAssetReference object stored.
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.#ctor(System.Int32)">
+            <summary>
+            Initializes and returns an instance of BlobAssetStore.
+            </summary>
+            <param name="capacity">The initial capacity of the internal native containers.</param>
+        </member>
+        <member name="P:Unity.Entities.BlobAssetStore.IsCreated">
+            <summary>
+            Checks if the BlobAssetStoreInternal has been created
+            </summary>
+            <returns>True if the BlobAssetStoreInternal has been created</returns>
+        </member>
+        <member name="P:Unity.Entities.BlobAssetStore.BlobAssetCount">
+            <summary>
+            Returns the number of BlobAssetReferences added to the store.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.ResetCache(System.Boolean)">
+            <summary>
+            Call this method to clear the whole content of the Cache
+            </summary>
+            <param name="disposeAllBlobAssetReference">If true all BlobAssetReference present in the cache will be dispose. If false they will remain present in memory</param>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGet``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGetWithFullHash``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="fullHash">The full key (object hash + type hash) associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGet``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGet``1(Unity.Entities.Hash128,System.UInt32,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <param name="typeHash">Hash calculated with ComputeTypeHash for the type of BlobAsset</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGetTest``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryGetWithFullHash``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Try to access to a BlobAssetReference from its key
+            </summary>
+            <param name="fullHash">The full key (object hash + type hash) associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="blobAssetReference">The corresponding BlobAssetReference or default if none was found</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAsset was found and returned, false if it wasn't</returns>
+        </member>
+        <member name="P:Unity.Entities.BlobAssetStore.CacheHit">
+            <summary>
+            Number of times the cache was successfully accessed
+            </summary>
+            <remarks>
+            Each TryGet returning a valid content will increment this counter
+            </remarks>
+        </member>
+        <member name="P:Unity.Entities.BlobAssetStore.CacheMiss">
+            <summary>
+            Number of times the cache failed to return a BlobAssetReference for the given key
+            </summary>
+            <remarks>
+            Each TryGet returning false will increment this counter
+            </remarks>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.Contains``1(Unity.Entities.Hash128)">
+            <summary>
+            Check if the Store contains a BlobAsset of a given type and hash
+            </summary>
+            <param name="key">The hash associated with the BlobAsset</param>
+            <typeparam name="T">The type of the BlobAsset</typeparam>
+            <returns>True if the Store contains the BlobAsset or false if it doesn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.Contains(Unity.Entities.Hash128,System.UInt32)">
+            <summary>
+            Check if the Store contains a BlobAsset of a given type and hash
+            </summary>
+            <param name="key">The hash associated with the BlobAsset</param>
+            <param name="typeHash">Hash calculated with ComputeTypeHash for the type of BlobAsset</param>
+            <returns>True if the Store contains the BlobAsset or false if it doesn't</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@)">
+            <summary>
+            Add a BlobAssetReference with a custom hash key
+            </summary>
+            <param name="blobAsset">The BlobAssetReference if found or default</param>
+            <param name="customHash">The key to be associated with the BlobAssetReference</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>True if the BlobAssetReference was found, false if not found</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.BlobAssetReference{``0}@,Unity.Entities.Hash128@)">
+            <summary>
+            Add a BlobAssetReference with the default hash key based on the BlobAsset contents itself. If the contents of the generated blob asset is the same as a previously inserted blob asset,
+            then the passed blobAsset will be disposed and the reference to the blob asset will be replaced with the previously added blob asset
+            </summary>
+            <param name="blobAsset">The blob asset that will be inserted or replaced</param>
+            <param name="objectHash">The hash that is based on the content of the BlobAsset</param>
+            <typeparam name="T">The type of BlobAsset.</typeparam>
+            <returns>Returns true if the blob asset was added, returns false if the blob asset was disposed and replaced with the previous blob.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.BlobAssetReference{``0}@)">
+            <summary>
+            Add a BlobAssetReference with the default hash key based on the BlobAsset contents itself. If the contents of the generated blob asset is the same as a previously inserted blob asset,
+            then the passed blobAsset will be disposed and the reference to the blob asset will be replaced with the previously added blob asset
+            </summary>
+            <param name="blobAsset">The blob asset that will be inserted or replaced</param>
+            <typeparam name="T">The type of BlobAsset.</typeparam>
+            <returns>Returns true if the blob asset was added, returns false if the blob asset was disposed and replaced with the previous blob.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.Hash128,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Add a BlobAssetReference with a custom hash key
+            </summary>
+            <param name="blobAsset">The BlobAssetReference if found or default</param>
+            <param name="customHash">The key to be associated with the BlobAssetReference</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>true if the BlobAssetReference was found, false if not found</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.Hash128,System.UInt32,Unity.Entities.BlobAssetReference{``0}@,System.Boolean)">
+            <summary>
+            Add a BlobAssetReference with a custom hash key
+            </summary>
+            <param name="blobAsset">The BlobAssetReference if found or default</param>
+            <param name="customHash">The key to be associated with the BlobAssetReference</param>
+            <param name="typeHash">Hash calculated with ComputeTypeHash for the type of BlobAsset</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset</typeparam>
+            <returns>true if the BlobAssetReference was found, false if not found</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.BlobAssetReference{``0}@,Unity.Entities.Hash128@,System.Boolean)">
+            <summary>
+            Add a BlobAssetReference with the default hash key based on the BlobAsset contents itself. If the contents of the generated blob asset is the same as a previously inserted blob asset,
+            then the passed blobAsset will be disposed and the reference to the blob asset will be replaced with the previously added blob asset
+            </summary>
+            <param name="blobAsset">The blob asset that will be inserted or replaced</param>
+            <param name="objectHash">The hash that is based on the content of the BlobAsset</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset.</typeparam>
+            <returns>Returns true if the blob asset was added, returns false if the blob asset was disposed and replaced with the previous blob.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAdd``1(Unity.Entities.BlobAssetReference{``0}@,System.UInt32,System.Boolean)">
+            <summary>
+            Add a BlobAssetReference with the default hash key based on the BlobAsset contents itself. If the contents of the generated blob asset is the same as a previously inserted blob asset,
+            then the passed blobAsset will be disposed and the reference to the blob asset will be replaced with the previously added blob asset
+            </summary>
+            <param name="blobAsset">The blob asset that will be inserted or replaced</param>
+            <param name="typeHash">Hash calculated with ComputeTypeHash for the type of BlobAsset</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset.</typeparam>
+            <returns>Returns true if the blob asset was added, returns false if the blob asset was disposed and replaced with the previous blob.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryAddWithFullHash``1(Unity.Entities.BlobAssetReference{``0}@,Unity.Entities.Hash128,System.Boolean)">
+            <summary>
+            Add a BlobAssetReference with the default hash key based on the BlobAsset contents itself. If the contents of the generated blob asset is the same as a previously inserted blob asset,
+            then the passed blobAsset will be disposed and the reference to the blob asset will be replaced with the previously added blob asset
+            </summary>
+            <param name="blobAssetReference">The BlobAssetReference if found or default</param>
+            <param name="fullHash">The full key (object hash + type hash) associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="updateRefCount">If the refCounter of this BlobAsset needs to be increased based on the result (temporary until refactor)</param>
+            <typeparam name="T">The type of BlobAsset.</typeparam>
+            <returns>Returns true if the blob asset was added, returns false if the blob asset was disposed and replaced with the previous blob.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.ValidateBlob(Unity.Entities.BlobAssetReferenceData)">
+            <summary>
+            Validate that the BlobAsset has not been disposed
+            </summary>
+            <param name="referenceData">The BlobAssetReferenceData to validate</param>
+            <exception cref="T:System.ArgumentException"></exception>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryRemove``1(Unity.Entities.Hash128,System.Boolean)">
+            <summary>
+            Remove a BlobAssetReference from the store if the BlobAssetReference is known
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference</param>
+            <param name="releaseBlobAsset">If true the BlobAsset data will be released</param>
+            <typeparam name="T">The type of the BlobAsset</typeparam>
+            <returns>True if the BLobAsset was removed from the store, false if it wasn't found</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the BlobAssetReference's refCount is zero</exception>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.Remove``1(Unity.Entities.Hash128,System.Boolean)">
+            <summary>Obsolete. Use <see cref="M:Unity.Entities.BlobAssetStore.TryRemove``1(Unity.Entities.Hash128,System.Boolean)"/> instead.</summary>
+            <param name="hash">The key associated with the BlobAssetReference</param>
+            <param name="releaseBlobAsset">If true the BlobAsset data will be released</param>
+            <typeparam name="T">The type of the BlobAsset</typeparam>
+            <returns>True if the BlobAsset was removed from the store, false if it wasn't found</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryRemove(Unity.Entities.Hash128,System.UInt32,System.Boolean)">
+            <summary>
+            Remove a BlobAssetReference from the store if the BlobAssetReference is known
+            </summary>
+            <param name="hash">The key associated with the BlobAssetReference</param>
+            <param name="typeHash">Hash calculated with ComputeTypeHash for the type of BlobAsset</param>
+            <param name="releaseBlobAsset">If true the BlobAsset data will be released</param>
+            <returns>True if the BlobAsset was removed from the store, false if it wasn't found</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the BlobAssetReference's refCount is zero</exception>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.TryRemoveWithFullHash(Unity.Entities.Hash128,System.Boolean)">
+            <summary>
+            Remove a BlobAssetReference from the store if the BlobAssetReference is known
+            </summary>
+            <param name="fullHash">The full key (object hash + type hash) associated with the BlobAssetReference when it was added to the cache</param>
+            <param name="releaseBlobAsset">If true the BlobAsset data will be released</param>
+            <returns>True if the BLobAsset was removed from the store, false if it wasn't found</returns>
+            <exception cref="T:System.ArgumentException">Thrown if the BlobAssetReference's refCount is zero</exception>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.GetBlobAssetRefCounter``1(Unity.Entities.Hash128)">
+            <summary>
+            Get the Reference Counter value of a given BlogAsset
+            </summary>
+            <param name="hash">The hash associated with the BLobAsset</param>
+            <returns>The value of the reference counter, 0 if there is no BlobAsset for the given hash</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.Dispose">
+            <summary>
+            Calling dispose will reset the cache content and release all the BlobAssetReference that were stored
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.ComputeTypeHash(System.Type)">
+            <summary>
+            Function to calculate a hash value associated with a Type
+            </summary>
+            <param name="type">The BlobAsset type from where the hash is calculated.</param>
+            <returns>Calculated hash value</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.ComputeKeyAndTypeHash(Unity.Entities.Hash128,System.Type)">
+            <summary>
+            Function to calculate a full hash value based on a BlobAsset hash and the BlobAsset type.
+            </summary>
+            <param name="key">The hash associated with the BlobAsset.</param>
+            <param name="type">The BlobAsset type from where the hash is calculated.</param>
+            <returns>Calculated hash value</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.ComputeKeyAndTypeHash(Unity.Entities.Hash128,System.UInt32)">
+            <summary>
+            Calculates a full hash value based on a hash key and a hash associated with a Type.
+            </summary>
+            <param name="key">The hash associated with the BlobAsset.</param>
+            <param name="typeHash">The hash associated with the BlobAsset type.</param>
+            <returns>Returns the calculated hash value as a 128-bit hash value.</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.UpdateBlobAssetForUnityObject``1(System.Int32,Unity.Collections.NativeArray{Unity.Entities.Hash128})">
+            <summary>
+            Update the refcounting and the HashByOwner for the BlobAssets based on the <see cref="T:UnityEngine.Object"/>
+            </summary>
+            <param name="ownerId">The Unity ID of the <see cref="T:UnityEngine.Object"/> to update the BlobAssets for</param>
+            <param name="newBlobHashes">The hashes of the current BlobAssets</param>
+            <typeparam name="TB">The type of BlobAsset.</typeparam>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.GetBlobAssetsOfGameObject(UnityEngine.GameObject,Unity.Collections.Allocator,Unity.Collections.NativeArray{Unity.Entities.Hash128}@)">
+            <summary>
+            Gets the BlobAssets associated with a <see cref="T:UnityEngine.Object"/>.
+            </summary>
+            <param name="gameObject">The <see cref="T:UnityEngine.Object"/> to get the BlobAssets for</param>
+            <param name="allocator">The allocator used for the NativeArray result</param>
+            <param name="result">The BlobAsset hashes associated with this <see cref="T:UnityEngine.Object"/></param>
+            <returns>True if the BlobAssets were found and returned, false if the <see cref="T:UnityEngine.Object"/> was not found</returns>
+        </member>
+        <member name="M:Unity.Entities.BlobAssetStore.GetBlobAssetsOfUnityObject(UnityEngine.Object,Unity.Collections.Allocator,Unity.Collections.NativeArray{Unity.Entities.Hash128}@)">
+            <summary>
+            Gets the BlobAssets associated with a <see cref="T:UnityEngine.Object"/>.
+            </summary>
+            <param name="unityObject">The Unity ID of the <see cref="T:UnityEngine.Object"/> to get the BlobAssets for</param>
+            <param name="allocator">The allocator used for the NativeArray result</param>
+            <param name="result">The BlobAsset hashes associated with this <see cref="T:UnityEngine.Object"/></param>
+            <returns>True if the BlobAssets were found and returned, false if the <see cref="T:UnityEngine.Object"/> was not found</returns>
+        </member>
+        <member name="T:Unity.Entities.BakeDerivedTypesAttribute">
+             <summary>
+             Attribute that informs the baking system that bakers of types derived from the current authoring component must be executed.
+             </summary>
+             <remarks>
+             Use this attribute on bakers which handle authoring components that can be specialized.
+             In the example below, both the BaseBaker and the DerivedBaker are invoked when baking the DerivedAuthoring component.
+             </remarks>
+             <example><code>
+             class BaseAuthoring : MonoBehaviour { public int BaseValue; }
+             class DerivedAuthoring : BaseAuthoring { public float DerivedValue; }
+            
+             [BakeDerivedTypes]
+             class BaseBaker : Baker&lt;BaseAuthoring> { public override void Bake(BaseAuthoring authoring) { }
+            
+             class DerivedBaker : Baker&lt;DerivedAuthoring> { public override void Bake(DerivedAuthoring authoring) { }
+             </code></example>
+             <seealso cref="T:Unity.Entities.Baker`1"/>
+        </member>
+        <member name="T:Unity.Entities.SceneSectionComponent">
+            <summary>
+            Component to indicate that a GameObject and its children belong to the specified scene section.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.SceneSectionComponent.SectionIndex">
+            <summary>
+            Index of the scene section where the GameObject and its children belong to.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.IncrementalBakingBatch">
+            <summary>
+            Represents a fine-grained description of changes that happened since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.DeletedInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that were deleted.
+            Note that this can overlap with any of the other collections.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ChangedInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that were changed.
+            /// Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.BakeHierarchyInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that should have the entire hierarchy below them reconverted.
+            Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ForceBakeHierarchyInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that should have the entire hierarchy below them reconverted.
+            Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.RecreateInstanceIds">
+            <summary>
+            Instance IDs of all GameObjects that have lost their Primary Entity
+            Note that this might include IDs of destroyed GameObjects.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ParentChangeInstanceIds">
+            <summary>
+            Maps instance IDs of GameObjects to the instance ID of their last recorded parent if the parenting changed.
+            Note that this might included instance IDs of destroyed GameObjects on either side.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ChangedAssets">
+            <summary>
+            Contains the instance IDs of all assets that were changed since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.DeletedAssets">
+            <summary>
+            Contains the GUIDs of all assets that were deleted since the last conversion.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ChangedComponents">
+            <summary>
+            Contains a list of all components that were changed since the last conversion. Note that the components
+            might have been destroyed in the mean time.
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.ParentWithChildrenOrderChangedInstanceIds">
+            <summary>
+            Contains all the instance ids of the parents with children being reordered
+            </summary>
+        </member>
+        <member name="F:Unity.Entities.IncrementalBakingBatch.LightBakingChanged">
+            <summary>
+            True if the lights have been baked, meaning that the components that depend on light mapping should be updated
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.UnityObjectRef`1">
+            <summary>
+            A utility structure that stores a reference of an <see cref="T:UnityEngine.Object"/> for the BakingSystem to process in an unmanaged component.
+            </summary>
+            <typeparam name="T">Type of the Object that is going to be referenced by UnityObjectRef.</typeparam>
+            <remarks>Stores the Object's instance ID. This means that the reference is only valid during the baking process.</remarks>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.op_Implicit(`0)~Unity.Entities.UnityObjectRef{`0}">
+            <summary>
+            Implicitly converts an <see cref="T:UnityEngine.Object"/> to an <see cref="T:Unity.Entities.UnityObjectRef`1"/>.
+            </summary>
+            <param name="instance">Instance of the Object to store as a reference.</param>
+            <returns>A UnityObjectRef referencing instance</returns>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.op_Implicit(Unity.Entities.UnityObjectRef{`0})~`0">
+            <summary>
+            Implicitly converts an <see cref="T:Unity.Entities.UnityObjectRef`1"/> to an <see cref="T:UnityEngine.Object"/>.
+            </summary>
+            <param name="unityObjectRef">Reference used to access the Object.</param>
+            <returns>The instance of type T referenced by unityObjectRef.</returns>
+        </member>
+        <member name="P:Unity.Entities.UnityObjectRef`1.Value">
+            <summary>
+            Object being referenced by this <see cref="T:Unity.Entities.UnityObjectRef`1"/>.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.Equals(Unity.Entities.UnityObjectRef{`0})">
+            <summary>
+            Checks if this reference and another reference are equal.
+            </summary>
+            <param name="other">The UnityObjectRef to compare for equality.</param>
+            <returns>True if the two lists are equal.</returns>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.Equals(System.Object)">
+            <summary>
+            Checks if this object references the same UnityEngine.Object as another object.
+            </summary>
+            <param name="obj">The object to compare.</param>
+            <returns>True, if the <paramref name="obj"/> parameter is a UnityEngine.Object instance that points to the same
+            instance as this.</returns>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.GetHashCode">
+            <summary>
+            Computes a hash code for this object.
+            </summary>
+            <returns>The hash code.</returns>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.op_Equality(Unity.Entities.UnityObjectRef{`0},Unity.Entities.UnityObjectRef{`0})">
+            <summary>
+            Returns true if two <see cref="T:Unity.Entities.UnityObjectRef`1"/> are equal.
+            </summary>
+            <param name="left">The first reference to compare for equality.</param>
+            <param name="right">The second reference to compare for equality.</param>
+            <returns>True if the two references are equal.</returns>
+        </member>
+        <member name="M:Unity.Entities.UnityObjectRef`1.op_Inequality(Unity.Entities.UnityObjectRef{`0},Unity.Entities.UnityObjectRef{`0})">
+            <summary>
+            Returns true if two <see cref="T:Unity.Entities.UnityObjectRef`1"/> are not equal.
+            </summary>
+            <param name="left">The first reference to compare for equality.</param>
+            <param name="right">The second reference to compare for equality.</param>
+            <returns>True if the two references are not equal.</returns>
+        </member>
+    </members>
+</doc>

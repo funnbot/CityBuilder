@@ -1,0 +1,328 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.RenderPipeline.Universal.ShaderLibrary</name>
+    </assembly>
+    <members>
+        <member name="T:UnityEngine.Rendering.Universal.DebugMaterialMode">
+            <summary>
+            Debug material modes.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.None">
+            <summary>No material debug.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Albedo">
+            <summary>Display material albedo.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Specular">
+            <summary>Display material specular.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Alpha">
+            <summary>Display material alpha.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Smoothness">
+            <summary>Display material smoothness.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.AmbientOcclusion">
+            <summary>Display material ambient occlusion.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Emission">
+            <summary>Display material emission.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.NormalWorldSpace">
+            <summary>Display material normal (world space).</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.NormalTangentSpace">
+            <summary>Display material normal (tangent space).</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.LightingComplexity">
+            <summary>Display evaluated lighting complexity.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.Metallic">
+            <summary>Display material metallic.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialMode.SpriteMask">
+            <summary>Display material sprite mask.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugVertexAttributeMode">
+            <summary>
+            Debug mode for displaying vertex attributes interpolated from vertex to pixel shader.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.None">
+            <summary>No vertex attribute debug.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Texcoord0">
+            <summary>Display texture coordinate 0.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Texcoord1">
+            <summary>Display texture coordinate 1.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Texcoord2">
+            <summary>Display texture coordinate 2.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Texcoord3">
+            <summary>Display texture coordinate 3.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Color">
+            <summary>Display vertex color.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Tangent">
+            <summary>Display tangent.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugVertexAttributeMode.Normal">
+            <summary>Display normal.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugMaterialValidationMode">
+            <summary>
+            Debug mode for validating out-of-range values of different material channels.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialValidationMode.None">
+            <summary>No material debug validation override.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialValidationMode.Albedo">
+            <summary>Validate albedo values according to validation settings.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMaterialValidationMode.Metallic">
+            <summary>Validate metallic values according to validation settings.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugFullScreenMode">
+            <summary>
+            Debug mode for displaying intermediate render targets.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugFullScreenMode.None">
+            <summary>No intermediate render target displayed.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugFullScreenMode.Depth">
+            <summary>Display depth buffer contents.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugFullScreenMode.AdditionalLightsShadowMap">
+            <summary>Display the shadow map from additional lights.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugFullScreenMode.MainLightShadowMap">
+            <summary>Display the main shadow map.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugFullScreenMode.ReflectionProbeAtlas">
+            <summary>
+            Display the reflection probe atlas used for the Forward+ rendering path.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugSceneOverrideMode">
+            <summary>
+            Debug mode that overrides how the renderer behaves.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugSceneOverrideMode.None">
+            <summary>No debug override.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugSceneOverrideMode.Overdraw">
+            <summary>Visualize overdraw by drawing geometry using a semitransparent material. Areas that look opaque contain more overdraw.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugSceneOverrideMode.Wireframe">
+            <summary>Render using wireframe only.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugSceneOverrideMode.SolidWireframe">
+            <summary>Render using a constant fill color and wireframe.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugSceneOverrideMode.ShadedWireframe">
+            <summary>Render shaded geometry in addition to wireframe.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugOverdrawMode">
+            <summary>
+            Debug mode of the overdraw
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugOverdrawMode.None">
+            <summary>No overdraw debug mode.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugOverdrawMode.Opaque">
+            <summary>Debug overdraw of opaque only.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugOverdrawMode.Transparent">
+            <summary>Debug overdraw of transparent only.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugOverdrawMode.All">
+            <summary>Debug overdraw of everything only.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugMipInfoMode">
+            <summary>
+            Debug modes for texture mipmaps.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMipInfoMode.None">
+            <summary>No mipmap debug.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMipInfoMode.Level">
+            <summary>Display the mipmap level sampled.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMipInfoMode.Count">
+            <summary>Display the amount of mip levels available.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugMipInfoMode.Ratio">
+            <summary>Display the mip ratio.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugPostProcessingMode">
+            <summary>
+            Mode that controls if post-processing is allowed.
+            </summary>
+            <remarks>
+            When "Auto" is used, post-processing can be either on or off, depending on other active debug modes.
+            </remarks>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugPostProcessingMode.Disabled">
+            <summary>Post-processing disabled.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugPostProcessingMode.Auto">
+            <summary>Post-processing is either on or off, depending on other debug modes.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugPostProcessingMode.Enabled">
+            <summary>Post-processing enabled.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugValidationMode">
+            <summary>
+            Debug modes for validating illegal output values.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugValidationMode.None">
+            <summary>No validation.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugValidationMode.HighlightNanInfNegative">
+            <summary>Highlight all pixels containing NaN (not a number), infinite or negative values.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugValidationMode.HighlightOutsideOfRange">
+            <summary>Highlight all pixels with values outside the specified range.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.PixelValidationChannels">
+            <summary>
+            The channels used by DebugValidationMode.HighlightOutsideOfRange.
+            </summary>
+            <remarks>
+            When "RGB" is used, the pixel's RGB value is first converted to a luminance value.
+            Individual channels (R, G, B, and A) are tested individually against the range.
+            </remarks>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.PixelValidationChannels.RGB">
+            <summary>Use luminance calculated from RGB channels as the value to validate.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.PixelValidationChannels.R">
+            <summary>Validate the red channel value.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.PixelValidationChannels.G">
+            <summary>Validate the green channel value.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.PixelValidationChannels.B">
+            <summary>Validate the blue channel value.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.PixelValidationChannels.A">
+            <summary>Validate the alpha channel value.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugLightingMode">
+            <summary>
+            Debug modes for lighting.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.None">
+            <summary>No lighting debug mode.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.ShadowCascades">
+            <summary>Display shadow cascades using different colors.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.LightingWithoutNormalMaps">
+            <summary>Display lighting result without applying normal maps.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.LightingWithNormalMaps">
+            <summary>Display lighting result (including normal maps).</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.Reflections">
+            <summary>Display only reflections.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingMode.ReflectionsWithSmoothness">
+            <summary>Display only reflections with smoothness.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags">
+            <summary>
+            Debug mode that allows selective disabling of individual lighting components.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.None">
+            <summary>The debug mode is not active.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.GlobalIllumination">
+            <summary>Display contribution from global illumination.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.MainLight">
+            <summary>Display contribution from the main light.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.AdditionalLights">
+            <summary>Display contribution from additional lights.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.VertexLighting">
+            <summary>Display contribution from vertex lighting.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.Emission">
+            <summary>Display contribution from emissive objects.</summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.DebugLightingFeatureFlags.AmbientOcclusion">
+            <summary>Display contribution from ambient occlusion.</summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.ShaderInput">
+            <summary>
+            Contains structs used for shader input.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.ShaderInput.ShadowData">
+            <summary>
+            This has been deprecated.
+            Shadow slice matrices and per-light shadow parameters are now passed to the GPU using entries in buffers m_AdditionalLightsWorldToShadow_SSBO and m_AdditionalShadowParams_SSBO.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.ShadowData.worldToShadowMatrix">
+            <summary>
+            The world to shadow matrix.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.ShadowData.shadowParams">
+            <summary>
+            The shadow parameters.
+            </summary>
+        </member>
+        <member name="T:UnityEngine.Rendering.Universal.ShaderInput.LightData">
+            <summary>
+            Container struct for various data used for lights in URP.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.position">
+            <summary>
+            The position of the light.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.color">
+            <summary>
+            The color of the light.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.attenuation">
+            <summary>
+            The attenuation of the light.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.spotDirection">
+            <summary>
+            The direction of the light (Spot light).
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.occlusionProbeChannels">
+            <summary>
+            The channel for probe occlusion.
+            </summary>
+        </member>
+        <member name="F:UnityEngine.Rendering.Universal.ShaderInput.LightData.layerMask">
+            <summary>
+            The layer mask used.
+            </summary>
+        </member>
+    </members>
+</doc>

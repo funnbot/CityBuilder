@@ -1,0 +1,665 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Scenes</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Scenes.SceneBoundingVolume">
+            <summary>
+            Component that represents a Scene or a Scene Section bounding volume
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneBoundingVolume.Value">
+            <summary>
+            Bounding volume
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystemGroup">
+            <summary>
+            The group of systems responsible for loading and unloading scenes.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.ResourceMetaData">
+            <summary>
+            Information for resources to be loaded at runtime.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.ResourceMetaData.Type">
+            <summary>
+            Currently Scene types are supported, assetbundles will need to be supported when dependencies are implemented.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceMetaData.Type.Unknown">
+            <summary>
+            The resource type is not supported.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceMetaData.Type.Scene">
+            <summary>
+            The resource is a Scene.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceMetaData.ResourceId">
+            <summary>
+            The guid of the asset.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceMetaData.ResourceType">
+            <summary>
+            The type of resource.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.ResourceCatalogData">
+            <summary>
+            Container for resource data.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceCatalogData.CurrentFileFormatVersion">
+            <summary>
+            File format needs to change anytime the data layout for this class changes.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceCatalogData.resources">
+            <summary>
+            The resource data.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResourceCatalogData.paths">
+            <summary>
+            Path information for resources.  This is separate to keep the resources data streamlined as using paths is slow.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.ResourceCatalogData.GetGUIDFromPath(System.String)">
+            <summary>
+            Slow path to lookup guid from a path.  This first checks the passed in path then just the filename, then the lowercase version of the filename.
+            </summary>
+            <param name="path">The resource path.</param>
+            <returns>The guid for the resource.</returns>
+        </member>
+        <member name="M:Unity.Scenes.ResourceCatalogData.GetPathFromGUID(Unity.Entities.Hash128)">
+            <summary>
+            Gets the path of a resource from a GUID.
+            </summary>
+            <param name="guid">The GUID of the resource.</param>
+            <returns>Returns the path of the resource.</returns>
+        </member>
+        <member name="T:Unity.Scenes.SerializeUtilityHybrid">
+            <summary>
+            Utility class for serializing and deserializing <see cref="T:Unity.Entities.World"/> objects and the associated UnityEngine.Object references.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SerializeUtilityHybrid.Serialize(Unity.Entities.EntityManager,Unity.Entities.Serialization.BinaryWriter,Unity.Scenes.ReferencedUnityObjects@)">
+            <summary>
+            Serializes a <see cref="T:Unity.Entities.World"/> using a <see cref="T:Unity.Entities.Serialization.BinaryWriter"/>.
+            </summary>
+            <param name="manager">The <see cref="T:Unity.Entities.EntityManager"/> of the serialized world.</param>
+            <param name="writer">The serialization object.</param>
+            <param name="objRefs">Contains the UnityEngine.Object references extracted during serialization.</param>
+        </member>
+        <member name="M:Unity.Scenes.SerializeUtilityHybrid.Serialize(Unity.Entities.EntityManager,Unity.Entities.Serialization.BinaryWriter,Unity.Scenes.ReferencedUnityObjects@,Unity.Collections.NativeArray{Unity.Entities.EntityRemapUtility.EntityRemapInfo})">
+            <summary>
+            Serializes a <see cref="T:Unity.Entities.World"/> using a <see cref="T:Unity.Entities.Serialization.BinaryWriter"/>.
+            </summary>
+            <param name="manager">The <see cref="T:Unity.Entities.EntityManager"/> of the serialized world.</param>
+            <param name="writer">The serialization object.</param>
+            <param name="objRefs">Contains the UnityEngine.Object references extracted during serialization.</param>
+            <param name="entityRemapInfos">Entity remapping which is applied during serialization.</param>
+        </member>
+        <member name="M:Unity.Scenes.SerializeUtilityHybrid.Deserialize(Unity.Entities.EntityManager,Unity.Entities.Serialization.BinaryReader,Unity.Scenes.ReferencedUnityObjects)">
+            <summary>
+            Deserializes a <see cref="T:Unity.Entities.World"/> object.
+            </summary>
+            <param name="manager">The <see cref="T:Unity.Entities.EntityManager"/> of the deserialized world.</param>
+            <param name="reader">The deserialization object.</param>
+            <param name="objRefs">The UnityEngine.Object references that are patched in during deserialization.</param>
+        </member>
+        <member name="M:Unity.Scenes.SerializeUtilityHybrid.SerializeObjectReferences(UnityEngine.Object[],Unity.Scenes.ReferencedUnityObjects@)">
+            <summary>
+            Serializes an array of UnityEngine.Object references as a ScriptableObject.
+            </summary>
+            <param name="referencedObjects">The array of UnityEngine.Object references.</param>
+            <param name="objRefs">The ScriptableObject containing the serialized result.</param>
+        </member>
+        <member name="M:Unity.Scenes.SerializeUtilityHybrid.DeserializeObjectReferences(Unity.Scenes.ReferencedUnityObjects,UnityEngine.Object[]@)">
+            <summary>
+            Deserializes a <see cref="T:Unity.Scenes.ReferencedUnityObjects"/> object, returning the array of UnityEngine.Object references.
+            </summary>
+            <param name="objRefs">The serialized UnityEngine.Object references.</param>
+            <param name="objectReferences">The array of UnityEngine.Object references to be applied on the deserialized <see cref="T:Unity.Entities.World"/> object.</param>
+        </member>
+        <member name="T:Unity.Scenes.PrefabLoadResult">
+            <summary>
+            Component to reference the root entity of a converted prefab.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.PrefabLoadResult.PrefabRoot">
+            <summary>
+            The root entity of the converted prefab.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.RequestEntityPrefabLoaded">
+            <summary>
+            Component to signal the request to convert the referenced prefab.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.RequestEntityPrefabLoaded.Prefab">
+            <summary>
+            The reference of the prefab to be converted.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.WeakAssetReferenceLoadingSystem">
+            <summary>
+            System for loading assets into a runtime world.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.WeakAssetReferenceLoadingSystem.OnCreate(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system is created.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.WeakAssetReferenceLoadingSystem.OnDestroy(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system is destroyed.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.WeakAssetReferenceLoadingSystem.OnUpdate(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system is updated.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.WeakAssetReferenceLoadingSystem.CompleteLoad(Unity.Entities.SystemState@,Unity.Entities.Entity,Unity.Entities.Entity,Unity.Entities.Serialization.EntityPrefabReference)">
+            <summary>
+            Marks a prefab as loaded and cleans up the in progress state.
+            </summary>
+            <param name="state">The entity system state.</param>
+            <param name="sceneEntity">The entity representing the loading state of the scene.</param>
+            <param name="prefabRoot">The root entity of a converted prefab.</param>
+            <param name="weakReferenceId">The prefab reference used to initiate the load.</param>
+        </member>
+        <member name="T:Unity.Scenes.ProcessAfterLoadGroup">
+            <summary>
+            The group of systems that runs after a scene is loaded
+            This allows for custom post processing of loaded SubScenes
+            ie scene offsetting
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.IsSectionLoaded">
+            <summary>
+            The tag component is added to scene entities when they are loaded.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneSectionStreamingSystem">
+            <summary>
+            System that controls streaming scene sections.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SceneSectionStreamingSystem.ConcurrentSectionStreamCount">
+            <summary>
+            The maximum amount of sections that will be streamed in concurrently.
+            This defaults to 4.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SceneSectionStreamingSystem.MaximumWorldsMovedPerUpdate">
+            <summary>
+            The maximum amount of streaming worlds that will be moved into the main world per update.
+            This defaults to 1.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SceneSectionStreamingSystem.MaximumSectionsUnloadedPerUpdate">
+            <summary>
+            The maximum number of scene sections that will be unloaded per update tick. A value equal to or below zero
+            indicates that the number of sections to unload per update is unlimited.
+            This defaults to a negative value.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSectionStreamingSystem.OnCreate">
+            <summary>
+            Called when this system is created.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSectionStreamingSystem.OnDestroy">
+            <summary>
+            Called when this system is destroyed.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSectionStreamingSystem.OnUpdate">
+            <summary>
+            Called when this system is updated.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.DisableLiveConversion">
+            <summary>
+            Tag component for disabling live conversion of scene entities.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.LiveConversionMode">
+            <summary>
+            Options for how the conversion system runs and makes the results available in the Editor.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.LiveConversionMode.Disabled">
+            <summary>
+            Disable live conversion. The conversion system doesn't run when the authoring data is changed.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.LiveConversionMode.LiveConvertStandalonePlayer">
+            <summary>
+            Run the conversion when building the player.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.LiveConversionMode.SceneViewShowsAuthoring">
+            <summary>
+            Enable live conversion is enabled and display the authoring data in the scene view.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.LiveConversionMode.SceneViewShowsRuntime">
+            <summary>
+            Enable the live conversion and display the result of the conversion in the scene view.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.AssetDependencyTracker`1.Completed.ArtifactID">
+            <summary>
+            ArtifactID might be default
+            This means that the Asset doesn't currently exist.
+            Thus can't be generated.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.AssetDependencyTracker`1.AddCompleted(Unity.Collections.NativeList{Unity.Scenes.AssetDependencyTracker{`0}.Completed})">
+            <summary>
+            adds any completed imports to the completed list.
+            </summary>
+            <param name="completed"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Unity.Scenes.SubScene">
+            <summary>
+            A component representing a subscene reference.
+            </summary>
+            <remarks>Subscenes are SceneAssets which are loaded on demand by the SubScene component.</remarks>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.AllSubScenes">
+            <summary>
+            The list of loaded sub scenes.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SubScene.AutoLoadScene">
+            <summary>Set when the scene should load.</summary>
+            <remarks>
+            Set to true to load the scene automatically when entering Play mode.
+            Set to false to explicitly load the scene.
+            </remarks>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.SceneAsset">
+            <summary>
+            Represents the scene asset.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.SceneName">
+            <summary>
+            Represents the scene name.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.HierarchyColor">
+            <summary>
+            Represents the color of the Hierarchy panel.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.EditableScenePath">
+            <summary>
+            Represents the path of the SceneAsset.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.EditingScene">
+            <summary>
+            Represents the editing scene.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.IsLoaded">
+            <summary>
+            Returns whether the subscene is open for editing.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SubScene.SceneGUID">
+            <summary>
+            Represents the GUID of the SceneAsset.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystemData">
+            <summary>
+            Component for public data interface with <see cref="T:Unity.Scenes.SceneSystem"/>.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystemData.BuildConfigurationGUID">
+            <summary>
+            The GUID of the <see cref="!:Unity.Build.BuildConfiguration"/> applied on the <see cref="T:Unity.Entities.World"/>.
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystem">
+            <summary>
+            High level API for loading and unloading scenes
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystem.LoadParameters">
+            <summary>
+            Parameters for loading scenes.
+            </summary>
+        </member>
+        <member name="P:Unity.Scenes.SceneSystem.LoadParameters.AutoLoad">
+            <summary>
+            True if the <see cref="F:Unity.Entities.SceneLoadFlags.DisableAutoLoad"/> flag is set, otherwise false.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.LoadParameters.Flags">
+            <summary>
+            The flags applied when loading the scene.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.LoadParameters.Priority">
+            <summary>
+            The priority of the load operation.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.OnStartRunning(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system starts running.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.OnStopRunning(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system stops running.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.OnCreate(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system is created.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.GetSceneGUID(Unity.Entities.SystemState@,System.String)">
+            <summary>
+            Get the guid for a scene path or name.  This is a slow method - it is best to use the guid directly.
+            </summary>
+            <param name="state">The entity system state.</param>
+            <param name="scenePath">The scene path or name.</param>
+            <returns>True if the scene guid exists.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.IsSceneLoaded(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity)">
+            <summary>
+            Check if a scene or subscene is loaded.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+            <param name="entity">The entity with the loading component data.  This is the entity returned by LoadSceneAsync.</param>
+            <returns>True if the scene is loaded.</returns>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystem.SceneStreamingState">
+            <summary>
+            Contains the streaming state of a loading scene.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.Unloaded">
+            <summary>
+            The scene is not loading and is not expected to load. It could be that it has just been fully
+            unloaded.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.LoadedSectionEntities">
+            <summary>
+            The scene and section entities are loaded, but the content for the sections is not loaded or expected to load.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.Loading">
+            <summary>
+            The scene still loading.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.LoadedSuccessfully">
+            <summary>
+            The scene and all the requested sections loaded successfully.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.Unloading">
+            <summary>
+            The scene is currently unloading.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.FailedLoadingSceneHeader">
+            <summary>
+            The scene failed to load the scene header.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SceneStreamingState.LoadedWithSectionErrors">
+            <summary>
+            The scene finished loading, but at least one the sections failed to load successfully.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.GetSceneStreamingState(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity)">
+            <summary>
+            Check the streaming state of a scene that is being loaded.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+            <param name="entity">The entity with the loading component data.  This is the entity returned by LoadSceneAsync.</param>
+            <returns>The streaming state of the loading scene.</returns>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystem.SectionStreamingState">
+            <summary>
+            Contains the streaming state of a loading section.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.Unloaded">
+            <summary>
+            The section is not loading and it's not expected to load. It could be that it has just been fully
+            unloaded.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.LoadRequested">
+            <summary>
+            The section is expected to load, but the loading hasn't started yet. It could be waiting for section 0
+            to load.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.Loaded">
+            <summary>
+            The section has been loaded.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.Loading">
+            <summary>
+            The section currently is loading.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.UnloadRequested">
+            <summary>
+            The section has been marked for unloading but it hasn't been processed yet.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.SectionStreamingState.FailedToLoad">
+            <summary>
+            The section failed to load.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.GetSectionStreamingState(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity)">
+            <summary>
+            Check the streaming state of a section that is being loaded.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the section is loaded.</param>
+            <param name="sectionEntity">The section entity representing the scene section. The section entities can be found in the ResolvedSectionEntity buffer on the scene entity.</param>
+            <returns>The streaming state of the loading section.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.IsSectionLoaded(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity)">
+            <summary>
+            Check if a section of a subscene is loaded.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the section is loaded.</param>
+            <param name="sectionEntity">The section entity representing the scene section. The section entities can be found in the ResolvedSectionEntity buffer on the scene entity.</param>
+            <returns>True if the scene section is loaded.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.LoadSceneAsync(Unity.Entities.WorldUnmanaged,Unity.Entities.Serialization.EntitySceneReference,Unity.Scenes.SceneSystem.LoadParameters)">
+            <summary>
+            Load a scene by its weak reference id.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+            <param name="sceneReferenceId">The weak asset reference to the scene.</param>
+            <param name="parameters">The load parameters for the scene.</param>
+            <returns>An entity representing the loading state of the scene.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.LoadPrefabAsync(Unity.Entities.WorldUnmanaged,Unity.Entities.Serialization.EntityPrefabReference,Unity.Scenes.SceneSystem.LoadParameters)">
+            <summary>
+            Load a prefab by its weak reference id.
+            A PrefabRoot component is added to the returned entity when the load completes.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the prefab is loaded.</param>
+            <param name="prefabReferenceId">The weak asset reference to the prefab.</param>
+            <param name="parameters">The load parameters for the prefab.</param>
+            <returns>An entity representing the loading state of the prefab.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.LoadSceneAsync(Unity.Entities.WorldUnmanaged,Unity.Entities.Hash128,Unity.Scenes.SceneSystem.LoadParameters)">
+            <summary>
+            Load a scene or prefab by its asset GUID.
+            When loading a prefab a PrefabRoot component is added to the scene entity when the load completes.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the prefab is loaded.</param>
+            <param name="sceneGUID">The guid of the scene or prefab.</param>
+            <param name="parameters">The load parameters for the scene or prefab.</param>
+            <returns>An entity representing the loading state of the scene or prefab.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.LoadSceneAsync(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity,Unity.Scenes.SceneSystem.LoadParameters)">
+            <summary>
+            Loads a scene.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+            <param name="sceneEntity">The entity representing the loading state of the scene.</param>
+            <param name="parameters">The load parameters for the scene or prefab.</param>
+        </member>
+        <member name="T:Unity.Scenes.SceneSystem.UnloadParameters">
+            <summary>
+            Flags controlling the unload process for SubScenes.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.UnloadParameters.Default">
+            <summary>
+            Options for the default unloading behavior. Destroys the request scene loaded entity, but preserves the section and scene entities when the unload completes.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneSystem.UnloadParameters.DestroyMetaEntities">
+            <summary>
+            In addition, it destroys the scene and sections meta entities when unloading the scene.
+            </summary>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.UnloadScene(Unity.Entities.WorldUnmanaged,Unity.Entities.Entity,Unity.Scenes.SceneSystem.UnloadParameters)">
+            <summary>
+            Unload the scene.
+            </summary>
+            <param name="world">The world from which to unload the scene.</param>
+            <param name="sceneEntity">The entity for the scene.</param>
+            <param name="unloadParams">Parameters controlling the unload process.</param>
+            <remarks>
+            By default this function will keep the scene and section meta entities alive and just unload the content for the sections. Keeping these meta entities alive will speed up any potential reloading of the scene.
+            Call the function with unloadParams set to UnloadParameters.DestroyMetaEntities to destroy those meta entities and fully unload the scene.
+            </remarks>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.UnloadScene(Unity.Entities.WorldUnmanaged,Unity.Entities.Serialization.EntityPrefabReference,Unity.Scenes.SceneSystem.UnloadParameters)">
+             <summary>
+             Unload a SubScene by its weak reference id. This will only unload the first matching scene.
+             </summary>
+             <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+             <param name="sceneReferenceId">The weak asset reference to the scene.</param>
+             <param name="unloadParams">Parameters controlling the unload process.</param>
+             <remarks>
+             By default this function will keep the scene and section meta entities alive and just unload the content for the sections. Keeping these meta entities alive will speed up any potential reloading of the scene.
+             Call the function with unloadParams set to UnloadParameters.DestroyMetaEntities to destroy those meta entities and fully unload the scene.
+            
+             The version of this function receiving an entity scene instead of an EntityPrefabReference is faster because no lookup is needed.
+             </remarks>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.UnloadScene(Unity.Entities.WorldUnmanaged,Unity.Entities.Hash128,Unity.Scenes.SceneSystem.UnloadParameters)">
+             <summary>
+             Unload a SubScene by GUID.  This will only unload the first matching scene.
+             </summary>
+             <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+             <param name="sceneGUID">The guid of the scene.</param>
+             <param name="unloadParams">Parameters controlling the unload process.</param>
+             <remarks>
+             By default this function will keep the scene and section meta entities alive and just unload the content for the sections.  Keeping these meta entities alive will speed up any potential reloading of the scene.
+             Call the function with unloadParams set to UnloadParameters.DestroyMetaEntities to destroy those meta entities and fully unload the scene.
+            
+             The version of this function receiving an entity scene instead of sceneGUID is faster because no lookup is needed.
+             </remarks>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.GetSceneEntity(Unity.Entities.WorldUnmanaged,Unity.Entities.Hash128)">
+            <summary>
+            Find the scene given a guid.  This will only return the first matching scene.
+            </summary>
+            <param name="world">The <see cref="T:Unity.Entities.World"/> in which the scene is loaded.</param>
+            <param name="sceneGUID">The guid of the scene.</param>
+            <returns>The entity for the scene.</returns>su
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.GetLiveConvertedSceneEntity(Unity.Entities.SystemState@,Unity.Entities.Hash128)">
+            <summary>
+            Find the scene given a guid and no DisableLiveConversion component.  This will only return the first matching scene.
+            </summary>
+            <param name="state">The entity system state.</param>
+            <param name="sceneGUID">The guid of the scene.</param>
+            <returns>The entity for the scene.</returns>
+        </member>
+        <member name="M:Unity.Scenes.SceneSystem.OnUpdate(Unity.Entities.SystemState@)">
+            <summary>
+            Callback invoked when the system is updated.
+            </summary>
+            <param name="state">The entity system state.</param>
+        </member>
+        <member name="T:Unity.Scenes.ReferencedUnityObjects">
+            <summary>
+            Holds the references to UnityEngine.Objects which are referenced in a serialized <see cref="T:Unity.Entities.World"/> object.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ReferencedUnityObjects.Array">
+            <summary>
+            The array of UnityEngine.Object references extracted from a <see cref="T:Unity.Entities.World"/> during serialization.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ReferencedUnityObjects.CompanionObjectIndices">
+            <summary>
+            Represents the index of the entity referencing the object.
+            </summary>
+            <remarks>You can use this to differentiate Prefab references and Companion Objects at runtime deserialization.</remarks>
+        </member>
+        <member name="T:Unity.Scenes.ResolvedSectionEntity">
+            <summary>
+            The ResolvedSectionEntity buffer registers all the scene section entities in an scene entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.ResolvedSectionEntity.SectionEntity">
+            <summary>
+            Section Entity
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.SceneEntityReference">
+            <summary>
+            This component references the scene entity that contains this scene section entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Scenes.SceneEntityReference.SceneEntity">
+            <summary>
+            Scene Entity
+            </summary>
+        </member>
+        <member name="T:Unity.Scenes.DisableSceneResolveAndLoad">
+            <summary>
+            Component to indicate that the scene or section loading should be temporarily disabled.
+            </summary>
+            <remarks>This component is applied during the live conversion patching.</remarks>
+        </member>
+        <member name="T:Unity.Scenes.ResolveSceneReferenceSystem">
+            <summary>
+            Scenes are made out of sections, but to find out how many sections there are and extract their data like bounding volume or file size.
+            The meta data for the scene has to be loaded first.
+            ResolveSceneReferenceSystem creates section entities for each scene by loading the scenesection's metadata from disk.
+            </summary>
+        </member>
+    </members>
+</doc>

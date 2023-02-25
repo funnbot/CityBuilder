@@ -1,0 +1,1890 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Unity.Entities.Graphics</name>
+    </assembly>
+    <members>
+        <member name="T:Unity.Rendering.EntitiesGraphicsChunkInfo">
+            <summary>
+            A chunk component that contains rendering information about a chunk.
+            </summary>
+            <remarks>
+            Entities Graphics adds this chunk component to each chunk that it considers valid for rendering.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkInfo.BatchIndex">
+            <summary>
+            The index of the batch.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkInfo.ChunkTypesBegin">
+            <summary>
+            Begin index for component type metadata in external arrays.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkInfo.ChunkTypesEnd">
+            <summary>
+            End index for component type metadata in external arrays.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkInfo.CullingData">
+            <summary>
+            Culling data of the chunk.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkInfo.Valid">
+            <summary>
+            Chunk is valid for processing.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.EntitiesGraphicsChunkCullingData">
+            <summary>
+            Culling data of the chunk.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.kFlagHasLodData">
+            <summary>
+            This flag is set if the chunk has LOD data.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.kFlagInstanceCulling">
+            <summary>
+            This flag is set if the chunk shall be culled.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.kFlagPerObjectMotion">
+            <summary>
+            This flag is set is the chunk has per object motion.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.ChunkOffsetInBatch">
+            <summary>
+            Chunk offset in the batch.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.MovementGraceFixed16">
+            <summary>
+            Movement grace distance.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsChunkCullingData.Flags">
+            <summary>
+            Per chunk flags.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.EntitiesGraphicsBatchPartition">
+            <summary>
+            An unmanaged component that separates entities into different batches.
+            </summary>
+            <remarks>
+            Entities with different PartitionValues are never in the same Entities Graphics batch.
+            This allows you to force entities into separate batches which can be useful for things like draw call sorting.
+            Entities Graphics treats entities that have no PartitionValue as if they have a PartitionValue of 0.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsBatchPartition.PartitionValue">
+            <summary>
+            The partition ID that Entities Graphics uses to sort entities into batches.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.WorldToLocal_Tag">
+            <summary>
+            A tag component that enables the unity_WorldToObject material property.
+            </summary>
+            <remarks>
+            unity_WorldToObject contains the world to local conversion matrix.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.DepthSorted_Tag">
+            <summary>
+            A tag component that enables depth sorting for the entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.LightMaps">
+            <summary>
+            Represents a container for light maps.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LightMaps.colors">
+            <summary>
+            An array of color maps.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LightMaps.directions">
+            <summary>
+            An array of directional maps.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LightMaps.shadowMasks">
+            <summary>
+            An array of Shadow masks.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.LightMaps.hasDirections">
+            <summary>
+            Indicates whether the container stores any directional maps. 
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.LightMaps.hasShadowMask">
+            <summary>
+            Indicates whether the container stores any shadow masks.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.LightMaps.isValid">
+            <summary>
+            Indicates whether the container stores any color maps.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.LightMaps.Equals(Unity.Rendering.LightMaps)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LightMaps.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LightMaps.CopyToTextureArray(System.Collections.Generic.List{UnityEngine.Texture2D})">
+            <summary>
+            Converts a provided list of Texture2Ds into a Texture2DArray.
+            </summary>
+            <param name="source">A list of Texture2Ds.</param>
+            <returns>Returns a Texture2DArray that contains the list of Texture2Ds.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LightMaps.ConstructLightMaps(System.Collections.Generic.List{UnityEngine.Texture2D},System.Collections.Generic.List{UnityEngine.Texture2D},System.Collections.Generic.List{UnityEngine.Texture2D})">
+            <summary>
+            Constructs a LightMaps instance from a list of textures for colors, direction lights, and shadow masks.
+            </summary>
+            <param name="inColors">The list of Texture2D for colors.</param>
+            <param name="inDirections">The list of Texture2D for direction lights.</param>
+            <param name="inShadowMasks">The list of Texture2D for shadow masks.</param>
+            <returns>Returns a new LightMaps object.</returns>
+        </member>
+        <member name="T:Unity.Rendering.FrozenRenderSceneTag">
+            <summary>
+            Frozen scene tag.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrozenRenderSceneTag.SceneGUID">
+            <summary>
+            Scene ID.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrozenRenderSceneTag.SectionIndex">
+            <summary>
+            Section ID.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrozenRenderSceneTag.HasStreamedLOD">
+            <summary>
+            Streaming LOD flags.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.FrozenRenderSceneTag.Equals(Unity.Rendering.FrozenRenderSceneTag)">
+            <summary>
+            Determines whether two object instances are equal.
+            </summary>
+            <param name="other">Other instance</param>
+            <returns>True if the objects belong to the same scene and section</returns>
+        </member>
+        <member name="M:Unity.Rendering.FrozenRenderSceneTag.GetHashCode">
+            <summary>
+            Serves as the default hash function.
+            </summary>
+            <returns>A hash code for the current object.</returns>
+        </member>
+        <member name="M:Unity.Rendering.FrozenRenderSceneTag.ToString">
+            <summary>
+            Returns a string that represents the current object.
+            </summary>
+            <returns>A string that represents the current object.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshBakingContext.#ctor(Unity.Rendering.LightMapBakingContext)">
+            <summary>
+            Constructs a baking context that operates within a baking system.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.RegisterMaterialsAndMeshesSystem">
+            <summary>
+            A system that registers Materials and meshes with the BatchRendererGroup.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RegisterMaterialsAndMeshesSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RegisterMaterialsAndMeshesSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RegisterMaterialsAndMeshesSystem.OnDestroy">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.EntitiesGraphicsSystem">
+            <summary>
+            Renders all entities that contain both RenderMesh and LocalToWorld components.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.EntitiesGraphicsSystem.EntitiesGraphicsEnabled">
+            <summary>
+            Toggles the activation of EntitiesGraphicsSystem.
+            </summary>
+            <remarks>
+            To disable this system, use the HYBRID_RENDERER_DISABLED define.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="P:Unity.Rendering.EntitiesGraphicsSystem.MaxBytesPerBatch">
+            <summary>
+            The maximum GPU buffer size (in bytes) that a batch can access.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterialPropertyType(System.Type,System.String,System.Int16)">
+            <summary>
+            Registers a material property type with the given name.
+            </summary>
+            <param name="type">The type of material property to register.</param>
+            <param name="propertyName">The name of the property.</param>
+            <param name="overrideTypeSizeGPU">An optional size of the type on the GPU.</param>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterialPropertyType``1(System.String,System.Int16)">
+            <summary>
+            A templated version of the material type registration method.
+            </summary>
+            <typeparam name="T">The type of material property to register.</typeparam>
+            <param name="propertyName">The name of the property.</param>
+            <param name="overrideTypeSizeGPU">An optional size of the type on the GPU.</param>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.OnDestroy">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterial(UnityEngine.Material)">
+            <summary>
+            Registers a material with the Entities Graphics System.
+            </summary>
+            <param name="material">The material instance to register</param>
+            <returns>Returns the batch material ID</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMesh(UnityEngine.Mesh)">
+            <summary>
+            Registers a mesh with the Entities Graphics System.
+            </summary>
+            <param name="mesh">Mesh instance to register</param>
+            <returns>Returns the batch mesh ID</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.UnregisterMaterial(UnityEngine.Rendering.BatchMaterialID)">
+            <summary>
+            Unregisters a material from the Entities Graphics System.
+            </summary>
+            <param name="material">Material ID received from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterial(UnityEngine.Material)"/></param>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.UnregisterMesh(UnityEngine.Rendering.BatchMeshID)">
+            <summary>
+            Unregisters a mesh from the Entities Graphics System.
+            </summary>
+            <param name="mesh">A mesh ID received from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMesh(UnityEngine.Mesh)"/>.</param>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.GetMesh(UnityEngine.Rendering.BatchMeshID)">
+            <summary>
+            Returns the <see cref="T:UnityEngine.Mesh"/> that corresponds to the given registered mesh ID, or <c>null</c> if no such mesh exists.
+            </summary>
+            <param name="mesh">A mesh ID received from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMesh(UnityEngine.Mesh)"/>.</param>
+            <returns>The <see cref="T:UnityEngine.Mesh"/> object corresponding to the given mesh ID if the ID is valid, or <c>null</c> if it's not valid.</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.GetMaterial(UnityEngine.Rendering.BatchMaterialID)">
+            <summary>
+            Returns the <see cref="T:UnityEngine.Material"/> that corresponds to the given registered material ID, or <c>null</c> if no such material exists.
+            </summary>
+            <param name="material">A material ID received from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterial(UnityEngine.Material)"/>.</param>
+            <returns>The <see cref="T:UnityEngine.Material"/> object corresponding to the given material ID if the ID is valid, or <c>null</c> if it's not valid.</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.TypeIndexToName(System.Int32)">
+            <summary>
+            Converts a type index into a type name.
+            </summary>
+            <param name="typeIndex">The type index to convert.</param>
+            <returns>The name of the type for given type index.</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.NameIDToName(System.Int32)">
+            <summary>
+            Converts a name ID to a name.
+            </summary>
+            <param name="nameID"></param>
+            <returns>The name for the given name ID.</returns>
+        </member>
+        <member name="M:Unity.Rendering.EntitiesGraphicsSystem.NameIDFormatted(System.Int32)">
+            <summary>
+            Converts a name ID to a formatted name.
+            </summary>
+            <param name="nameID"></param>
+            <returns>The formatted name for the given name ID.</returns>
+        </member>
+        <member name="M:Unity.Rendering.ManageSHPropertiesSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.ManageSHPropertiesSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.MaterialMeshInfo">
+            <summary>
+            Represents which materials and meshes to use to render an entity.
+            </summary>
+            <remarks>
+            This struct supports both a serializable static encoding in which case Material and Mesh are
+            array indices to some array (typically a RenderMeshArray), and direct use of
+            runtime BatchRendererGroup BatchMaterialID / BatchMeshID values.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.MaterialMeshInfo.Material">
+            <summary>
+            The material ID.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MaterialMeshInfo.Mesh">
+            <summary>
+            The mesh ID.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MaterialMeshInfo.Submesh">
+            <summary>
+            The sub-mesh ID.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.MaterialMeshInfo.ArrayIndexToStaticIndex(System.Int32)">
+            <summary>
+            Converts the given array index (typically the index inside RenderMeshArray) into
+            a negative number that denotes that array position.
+            </summary>
+            <param name="index">The index to convert.</param>
+            <returns>Returns the converted index.</returns>
+        </member>
+        <member name="M:Unity.Rendering.MaterialMeshInfo.StaticIndexToArrayIndex(System.Int32)">
+            <summary>
+            Converts the given static index (a negative value) to a valid array index.
+            </summary>
+            <param name="staticIndex">The index to convert.</param>
+            <returns>Returns the converted index.</returns>
+        </member>
+        <member name="M:Unity.Rendering.MaterialMeshInfo.FromRenderMeshArrayIndices(System.Int32,System.Int32,System.SByte)">
+            <summary>
+            Creates an instance of MaterialMeshInfo from material and mesh/sub-mesh indices in the corresponding RenderMeshArray.
+            </summary>
+            <param name="materialIndexInRenderMeshArray">The material index in <see cref="P:Unity.Rendering.RenderMeshArray.Materials"/>.</param>
+            <param name="meshIndexInRenderMeshArray">The mesh index in <see cref="P:Unity.Rendering.RenderMeshArray.Meshes"/>.</param>
+            <param name="submeshIndex">An optional submesh ID.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Unity.Rendering.MaterialMeshInfo.#ctor(UnityEngine.Rendering.BatchMaterialID,UnityEngine.Rendering.BatchMeshID,System.SByte)">
+            <summary>
+            Creates an instance of MaterialMeshInfo from material and mesh/sub-mesh IDs registered with <see cref="T:Unity.Rendering.EntitiesGraphicsSystem"/>
+            </summary>
+            <param name="materialID">The material ID from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMaterial(UnityEngine.Material)"/>.</param>
+            <param name="meshID">The mesh ID from <see cref="M:Unity.Rendering.EntitiesGraphicsSystem.RegisterMesh(UnityEngine.Mesh)"/>.</param>
+            <param name="submeshIndex">An optional submesh ID.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Unity.Rendering.MaterialMeshInfo.MeshID">
+            <summary>
+            The mesh ID property.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.MaterialMeshInfo.MaterialID">
+            <summary>
+            The material ID property.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.RenderMeshArray">
+            <summary>
+            A shared component that contains meshes and materials.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.#ctor(UnityEngine.Material[],UnityEngine.Mesh[])">
+            <summary>
+            Constructs an instance of RenderMeshArray from an array of materials and an array of meshes.
+            </summary>
+            <param name="materials">The array of materials to use in the RenderMeshArray.</param>
+            <param name="meshes">The array of meshes to use in the RenderMeshArray.</param>
+        </member>
+        <member name="P:Unity.Rendering.RenderMeshArray.Meshes">
+            <summary>
+            Accessor property for the meshes array.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.RenderMeshArray.Materials">
+            <summary>
+            Accessor property for the materials array.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.GetHash128">
+            <summary>
+            Returns a 128-bit hash that (almost) uniquely identifies the contents of the component.
+            </summary>
+            <remarks>
+            This is useful to help make comparisons between RenderMeshArray instances less resource intensive.
+            </remarks>
+            <returns>Returns the 128-bit hash value.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.ResetHash128">
+            <summary>
+            Recalculates the 128-bit hash value of the component.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.ComputeHash128">
+            <summary>
+            Calculates and returns the 128-bit hash value of the component contents.
+            </summary>
+            <remarks>
+            This is equivalent to calling <see cref="M:Unity.Rendering.RenderMeshArray.ResetHash128"/> and then <see cref="M:Unity.Rendering.RenderMeshArray.GetHash128"/>.
+            </remarks>
+            <returns>Returns the calculated 128-bit hash value.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.CombineRenderMeshes(System.Collections.Generic.List{Unity.Rendering.RenderMesh})">
+            <summary>
+            Combines a list of RenderMeshes into one RenderMeshArray.
+            </summary>
+            <param name="renderMeshes">The list of RenderMesh instances to combine.</param>
+            <returns>Returns a RenderMeshArray instance that contains containing all of the meshes and materials.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.CombineRenderMeshArrays(System.Collections.Generic.List{Unity.Rendering.RenderMeshArray})">
+            <summary>
+            Combines a list of RenderMeshArrays into one RenderMeshArray.
+            </summary>
+            <param name="renderMeshArrays">The list of RenderMeshArray instances to combine.</param>
+            <returns>Returns a RenderMeshArray instance that contains all of the meshes and materials.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.CreateWithDeduplication(System.Collections.Generic.List{UnityEngine.Material},System.Collections.Generic.List{UnityEngine.Mesh})">
+            <summary>
+            Creates the new instance of the RenderMeshArray from given mesh and material lists, removing duplicate entries.
+            </summary>
+            <param name="materialsWithDuplicates">The list of the materials.</param>
+            <param name="meshesWithDuplicates">The list of the meshes.</param>
+            <returns>Returns a RenderMeshArray instance that contains all off the meshes and materials, and with no duplicates.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.GetMaterial(Unity.Rendering.MaterialMeshInfo)">
+            <summary>
+            Gets the material for given MaterialMeshInfo.
+            </summary>
+            <param name="materialMeshInfo">The MaterialMeshInfo to use.</param>
+            <returns>Returns the associated material instance, or null if the material is runtime.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.GetMesh(Unity.Rendering.MaterialMeshInfo)">
+            <summary>
+            Gets the mesh for given MaterialMeshInfo.
+            </summary>
+            <param name="materialMeshInfo">The MaterialMeshInfo to use.</param>
+            <returns>Returns the associated Mesh instance or null if the mesh is runtime.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.Equals(Unity.Rendering.RenderMeshArray)">
+            <summary>
+            Determines whether two object instances are equal based on their hashes.
+            </summary>
+            <param name="other">The object to compare with the current object.</param>
+            <returns>Returns true if the specified object is equal to the current object. Otherwise, returns false.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.op_Equality(Unity.Rendering.RenderMeshArray,Unity.Rendering.RenderMeshArray)">
+            <summary>
+            The equality operator == returns true if its operands are equal, false otherwise.
+            </summary>
+            <param name="left">The left instance to compare.</param>
+            <param name="right">The right instance to compare.</param>
+            <returns>True if left and right instances are equal and false otherwise.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshArray.op_Inequality(Unity.Rendering.RenderMeshArray,Unity.Rendering.RenderMeshArray)">
+            <summary>
+            The not equality operator != returns false if its operands are equal, true otherwise.
+            </summary>
+            <param name="left">The left instance to compare.</param>
+            <param name="right">The right instance to compare.</param>
+            <returns>False if left and right instances are equal and true otherwise.</returns>
+        </member>
+        <member name="T:Unity.Rendering.HeapBlock">
+            <summary>
+            Represents a block of memory that you can use in a HeapAllocator to manage memory.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapBlock.begin">
+            <summary>
+            The beginning of the allocated heap block.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapBlock.end">
+            <summary>
+            The end of the allocated heap block.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.HeapBlock.OfSize(System.UInt64,System.UInt64)">
+            <summary>
+            Creates new HeapBlock that starts at the given index and is of given size.
+            </summary>
+            <param name="begin">The start index for the block.</param>
+            <param name="size">The size of the block.</param>
+            <returns>Returns a new instance of HeapBlock.</returns>
+        </member>
+        <member name="P:Unity.Rendering.HeapBlock.Length">
+            <summary>
+            The length of the HeapBlock.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapBlock.Empty">
+            <summary>
+            Indicates whether the HeapBlock is empty. This is true if the HeapBlock is empty and false otherwise.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.HeapBlock.CompareTo(Unity.Rendering.HeapBlock)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.HeapBlock.Equals(Unity.Rendering.HeapBlock)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.HeapAllocator">
+            <summary>
+            Represents a generic best-fit heap allocation algorithm that operates on abstract integer indices.
+            </summary>
+            <remarks>
+            You can use this to suballocate memory, GPU buffer contents, and DX12 descriptors.
+            This supports alignments, resizing, and coalescing of freed blocks.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.#ctor(System.UInt64,System.UInt32)">
+            <summary>
+            Creates a new HeapAllocator with the given initial size and alignment.
+            </summary>
+            <param name="size">The initial size of the allocator.</param>
+            <param name="minimumAlignment">The initial alignment of the allocator.</param>
+            <remarks>
+            You can resize the allocator later.
+            </remarks>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.MinimumAlignment">
+            <summary>
+            Minimal HeapBlock alignment of this allocator.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.FreeSpace">
+            <summary>
+            The amount of available free space in the allocator.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.UsedSpace">
+            <summary>
+            The amount of used space in the allocator.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.Size">
+            <summary>
+            The size of the heap that the allocator manages.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.Empty">
+            <summary>
+            Indicates whether the allocator is empty. This is true if the allocator is empty and false otherwise.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.Full">
+            <summary>
+            Indicates whether the allocator is full. This is true if the allocator is full and false otherwise.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.HeapAllocator.IsCreated">
+            <summary>
+            Indicates whether the allocator has been created and not yet allocated.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.Clear">
+            <summary>
+            Clears the allocator.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.Dispose">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.Resize(System.UInt64)">
+            <summary>
+            Attempts to grow or shrink the allocator. Growing always succeeds,
+            but shrinking might fail if the end of the heap is allocated.
+            </summary>
+            <param name="newSize">The new size of the allocator.</param>
+            <returns>Returns true if the operation is a success. Returns false otherwise.</returns>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.Allocate(System.UInt64,System.UInt32)">
+            <summary>
+            Attempt to allocate a block from the heap with at least the given
+            size and alignment.
+            </summary>
+            <param name="size">The size of the block to allocate.</param>
+            <param name="alignment">Alignment of the allocated block.</param>
+            <remarks>
+            The allocated block might be bigger than the
+            requested size, but will never be smaller.
+            If the allocation fails, this method returns an empty block.
+            </remarks>
+            <returns>Returns a new allocated HeapBlock on success. Returns an empty block on failure.</returns>
+        </member>
+        <member name="M:Unity.Rendering.HeapAllocator.Release(Unity.Rendering.HeapBlock)">
+            <summary>
+            Releases a given block of memory and marks it as free.
+            </summary>
+            <param name="block">The HeapBlock to release to the allocator.</param>
+            <remarks>
+            You must have wholly allocated the given block before you pass it into this method.
+            However, it's legal to release big allocations in smaller non-overlapping sub-blocks.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.PushBlendWeightSystem.ConstructHashMapJob.InternalCompiler">
+            <summary> Internal structure used by the compiler </summary>
+        </member>
+        <member name="T:Unity.Rendering.PushBlendWeightSystem.CopyBlendShapeWeightsToGPUJob.InternalCompiler">
+            <summary> Internal structure used by the compiler </summary>
+        </member>
+        <member name="T:Unity.Rendering.RenderBounds">
+            <summary>
+            An unmanaged component that represent the render bounds.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.RenderBounds.Value">
+            <summary>
+            The axis-aligned render bounds.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.WorldRenderBounds">
+            <summary>
+            An unmanaged component that represents the world render bounds.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.WorldRenderBounds.Value">
+            <summary>
+            The axis-aligned render bounds.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.ChunkWorldRenderBounds">
+            <summary>
+            An unmanaged component that represents the render bounds of a chunk.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.ChunkWorldRenderBounds.Value">
+            <summary>
+            The axis-aligned render bounds.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.MatrixPreviousSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.MatrixPreviousSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.FreezeStaticLODObjects.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.DeformationsInPresentation">
+            <summary>
+            Represents a system group that contains all systems that handle and execute mesh deformations such as skinning and blend shapes.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.DeformationsInPresentation.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.PushMeshDataSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.PushSkinMatrixSystem.ConstructHashMapJob.InternalCompiler">
+            <summary> Internal structure used by the compiler </summary>
+        </member>
+        <member name="T:Unity.Rendering.PushSkinMatrixSystem.CopySkinMatricesToGPUJob.InternalCompiler">
+            <summary> Internal structure used by the compiler </summary>
+        </member>
+        <member name="T:Unity.Rendering.FrustumPlanes">
+            <summary>
+            Represents frustum planes.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.FrustumPlanes.IntersectResult">
+            <summary>
+            Options for an intersection result.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.IntersectResult.Out">
+            <summary>
+            The object is completely outside of the planes.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.IntersectResult.In">
+            <summary>
+            The object is completely inside of the planes.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.IntersectResult.Partial">
+            <summary>
+            The object is partially intersecting the planes.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.FrustumPlanes.FromCamera(UnityEngine.Camera,Unity.Collections.NativeArray{Unity.Mathematics.float4})">
+            <summary>
+            Populates the frustum plane array from the given camera frustum.
+            </summary>
+            <param name="camera">The camera to use for calculation.</param>
+            <param name="planes">The result of the operation.</param>
+            <exception cref="T:System.ArgumentNullException">Is thrown if the planes are empty.</exception>
+            <exception cref="T:System.ArgumentException">Is thrown if the planes size is not equal to 6.</exception>
+        </member>
+        <member name="M:Unity.Rendering.FrustumPlanes.Intersect(Unity.Collections.NativeArray{Unity.Mathematics.float4},Unity.Mathematics.AABB)">
+            <summary>
+            Performs an intersection test between an AABB and 6 culling planes.
+            </summary>
+            <param name="cullingPlanes">Planes to make the intersection.</param>
+            <param name="a">Instance of the AABB to intersect.</param>
+            <returns>Intersection result</returns>
+        </member>
+        <member name="T:Unity.Rendering.FrustumPlanes.PlanePacket4">
+            <summary>
+            Represents four three-dimensional culling planes where all coordinate components and distances are combined together.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.PlanePacket4.Xs">
+            <summary>
+            The X coordinate component for the four culling planes.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.PlanePacket4.Ys">
+            <summary>
+            The Y coordinate component for the four culling planes.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.PlanePacket4.Zs">
+            <summary>
+            The Z coordinate component for the four culling planes.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.FrustumPlanes.PlanePacket4.Distances">
+            <summary>
+            The distance component for the four culling planes.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.FrustumPlanes.Intersect2(Unity.Collections.NativeArray{Unity.Rendering.FrustumPlanes.PlanePacket4},Unity.Mathematics.AABB)">
+            <summary>
+            Performs an intersection test between an AABB and 6 culling planes.
+            </summary>
+            <param name="cullingPlanePackets">The planes to test.</param>
+            <param name="a">An AABB to test.</param>
+            <returns>Returns the intersection result.</returns>
+        </member>
+        <member name="M:Unity.Rendering.FrustumPlanes.Intersect2NoPartial(Unity.Collections.NativeArray{Unity.Rendering.FrustumPlanes.PlanePacket4},Unity.Mathematics.AABB)">
+            <summary>
+            Performs an intersection test between an AABB and 6 culling planes.
+            </summary>
+            <param name="cullingPlanePackets">The planes to test.</param>
+            <param name="a">The AABB to test.</param>
+            <remarks>
+            This method treats a partial intersection as being inside of the planes.
+            </remarks>
+            <returns>Intersection result</returns>
+        </member>
+        <member name="M:Unity.Rendering.FrustumPlanes.Intersect(Unity.Collections.NativeArray{Unity.Mathematics.float4},Unity.Mathematics.float3,System.Single)">
+            <summary>
+            Performs an intersection test between an AABB and 6 culling planes.
+            </summary>
+            <param name="planes">Planes to make the intersection.</param>
+            <param name="center">Center of the bounding sphere to intersect.</param>
+            <param name="radius">Radius of the bounding sphere to intersect.</param>
+            <returns>Intersection result</returns>
+        </member>
+        <member name="T:Unity.Rendering.StructuralChangePresentationSystemGroup">
+            <summary>
+            Represents a system group that contains systems that perform structural changes.
+            </summary>
+            <remarks>
+            Any system that makes structural changes must be in this system group. Structural changes performed after can result in undefined behavior
+            or even crashing the application.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.UpdateSceneBoundingVolumeFromRendererBounds">
+            <summary>
+            A system that generates a scene bounding volume for each section at conversion time.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.UpdateSceneBoundingVolumeFromRendererBounds.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.AddWorldAndChunkRenderBounds.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.AddWorldAndChunkRenderBounds.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.RenderBoundsUpdateSystem">
+            <summary>
+            A system that updates the WorldRenderBounds for entities that have both a LocalToWorld and RenderBounds component.
+            </summary>
+            <remarks>
+            This system also ensures that a WorldRenderBounds exists on entities that have a LocalToWorld and RenderBounds component.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.RenderBoundsUpdateSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RenderBoundsUpdateSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.DisableRendering">
+            <summary>
+            A tag component that disables the rendering of an entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.LODGroupExtensions">
+            <summary>
+            Provides methods that help you to work with LOD groups.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.LODGroupExtensions.LODParams">
+            <summary>
+            Represents LOD parameters.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LODGroupExtensions.LODParams.distanceScale">
+            <summary>
+            The LOD distance scale.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LODGroupExtensions.LODParams.cameraPos">
+            <summary>
+            The camera position.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LODGroupExtensions.LODParams.isOrtho">
+            <summary>
+            Indicates whether the camera is in orthographic mode.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LODGroupExtensions.LODParams.orthosize">
+            <summary>
+            The orthographic size of the camera.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.LODParams.Equals(Unity.Rendering.LODGroupExtensions.LODParams,Unity.Rendering.LODGroupExtensions.LODParams)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.LODParams.Equals(Unity.Rendering.LODGroupExtensions.LODParams)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.LODParams.GetHashCode(Unity.Rendering.LODGroupExtensions.LODParams)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.CalculateLODParams(UnityEngine.Rendering.LODParameters,System.Single)">
+            <summary>
+            Calculates LOD parameters from an LODParameters object.
+            </summary>
+            <param name="parameters">The LOD parameters to use.</param>
+            <param name="overrideLODBias">An optional LOD bias to apply.</param>
+            <returns>Returns the calculated LOD parameters.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.CalculateLODParams(UnityEngine.Camera,System.Single)">
+            <summary>
+            Calculates LOD parameters from a camera.
+            </summary>
+            <param name="camera">The camera to calculate LOD parameters from.</param>
+            <param name="overrideLODBias">An optional LOD bias to apply.</param>
+            <returns>Returns the calculated LOD parameters.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.GetWorldSpaceSize(UnityEngine.LODGroup)">
+            <summary>
+            Calculates the world size of an LOD group.
+            </summary>
+            <param name="lodGroup">The LOD group.</param>
+            <returns>Returns the calculated world size of the LOD group.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.CalculateCurrentLODIndex(Unity.Mathematics.float4,System.Single,Unity.Mathematics.float3,Unity.Rendering.LODGroupExtensions.LODParams@)">
+            <summary>
+            Calculates the current LOD index.
+            </summary>
+            <param name="lodDistances">The distances at which to switch between each LOD.</param>
+            <param name="scale">The current LOD scale.</param> 
+            <param name="worldReferencePoint">A world-space reference point to base the LOD index calculation on.</param>
+            <param name="lodParams">The LOD parameters to use.</param>
+            <returns>Returns the calculated LOD index.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.CalculateCurrentLODMask(Unity.Mathematics.float4,System.Single,Unity.Mathematics.float3,Unity.Rendering.LODGroupExtensions.LODParams@)">
+            <summary>
+            Calculates the current LOD mask.
+            </summary>
+            <param name="lodDistances">The distances at which to switch between each LOD.</param>
+            <param name="scale">Current scale.</param> 
+            <param name="worldReferencePoint">A world-space reference point to base the LOD index calculation on.</param>
+            <param name="lodParams">The LOD parameters to use.</param>
+            <returns>Returns the calculated LOD mask.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.GetWorldPosition(UnityEngine.LODGroup)">
+            <summary>
+            Calculates the world position of an LOD group.
+            </summary>
+            <param name="group">The LOD group.</param>
+            <returns>Returns the world position of the LOD group.</returns>
+        </member>
+        <member name="M:Unity.Rendering.LODGroupExtensions.CalculateLODSwitchDistance(System.Single,UnityEngine.LODGroup,System.Int32)">
+            <summary>
+            Calculates the LOD switch distance for an LOD group.
+            </summary>
+            <param name="fieldOfView">The field of view angle.</param>
+            <param name="group">The LOD group.</param>
+            <param name="lodIndex">The LOD index to use.</param>
+            <returns>Returns the LOD switch distance.</returns>
+        </member>
+        <member name="T:Unity.Rendering.EntitiesGraphicsPerThreadStats">
+            <summary>
+            Represents per-thread statistics that Entities Graphics collects during runtime.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.ChunkTotal">
+            <summary>
+            The total number of chunks executed.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.ChunkCountAnyLod">
+            <summary>
+            The chunk count across all LOD levels.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.ChunkCountInstancesProcessed">
+            <summary>
+            The number of chunks partially culled by the frustum.
+            </summary>
+            <remarks>
+            Entities Graphics considers a chunk to be partially culled if the chunk contains some entities that are within the frustum and some entities that are outside the frustum.
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.ChunkCountFullyIn">
+            <summary>
+            The number of chunks that contain entities which are all in the frustum.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.InstanceTests">
+            <summary>
+            The total number of culling tests performed on partially culled chunks.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.LodTotal">
+            <summary>
+            Total count of the LOD executed.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.LodNoRequirements">
+            <summary>
+            Number of the culling chunks without LOD data.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.LodChanged">
+            <summary>
+            Number of enabled or disabled LODs in this frame.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.LodChunksTested">
+            <summary>
+            Number of tested LOD chunks.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.RenderedEntityCount">
+            <summary>
+            The total number of entities that Entities Graphics renderer.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.DrawCommandCount">
+            <summary>
+            The number of the draw commands.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsPerThreadStats.DrawRangeCount">
+            <summary>
+            The number of the ranges.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.EntitiesGraphicsStats">
+            <summary>
+            Represents statistics that Entities Graphics collects during runtime.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.ChunkTotal">
+            <summary>
+            Total number of chunks
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.ChunkCountAnyLod">
+            <summary>
+            Total number of chunks if any of the LOD are enabled in ChunkInstanceLodEnabled entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.ChunkCountInstancesProcessed">
+            <summary>
+            Total number of chunks processed which are partially intersected with the view frustum.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.ChunkCountFullyIn">
+            <summary>
+            Total number of chunks processed which are fully inside of the view frustum.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.InstanceTests">
+            <summary>
+            Total number of instance checks across all LODs.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.LodTotal">
+            <summary>
+            Total number of LODs across all archetype entities chunks.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.LodNoRequirements">
+            <summary>
+            Number of the culling chunks without LOD data.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.LodChanged">
+            <summary>
+            Number of enabled or disabled LODs in this frame.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.LodChunksTested">
+            <summary>
+            Number of tested LOD chunks.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.CameraMoveDistance">
+            <summary>
+            Camera move distance since the last frame.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.BatchCount">
+            <summary>
+            Total number of batches.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.RenderedInstanceCount">
+            <summary>
+            Accumulated number of rendered entities across all threads.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.DrawCommandCount">
+            <summary>
+            Accumulated number of the draw commands.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.DrawRangeCount">
+            <summary>
+            Accumulated number of the draw ranges.
+            </summary>
+            <remarks>        
+            This stat is only available in the Editor.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.BytesGPUMemoryUsed">
+            <summary>
+            The total number of bytes of the GPU memory used including upload and fence memory.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.BytesGPUMemoryUploadedCurr">
+            <summary>
+            The number of bytes of the GPU memory used by uploaded in the current frame.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.EntitiesGraphicsStats.BytesGPUMemoryUploadedMax">
+            <summary>
+            Maximum number of bytes of the GPU memory used for uploading.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.MeshRendererBaking.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.MeshRendererBaking.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshPostProcessSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshPostProcessSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.MaterialColor">
+            <summary>
+            An unmanaged component that acts as an example material override for setting the RGBA color of an entity.
+            </summary>
+            <remarks>
+            You should implement your own material property override components inside your project.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.MaterialColor.Value">
+            <summary>
+            The RGBA color value.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.Authoring.MaterialColor">
+            <summary>
+            Represents the authoring component for the material color override.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.Authoring.MaterialColor.color">
+            <summary>
+            The material color to use.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.Authoring.MaterialColorBaker">
+            <summary>
+            Represents a baker that adds a MaterialColor component to entities this baker affects.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.Authoring.MaterialColorBaker.Bake(Unity.Rendering.Authoring.MaterialColor)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.LightBakingOutputData">
+            <summary>
+            An unmanaged component that stores light baking data.
+            </summary>
+            <remarks>
+            Entities Graphics uses this component to store light baking data at conversion time to restore
+            at run time. This is because this doesn't happen automatically with hybrid entities.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.LightBakingOutputData.Value">
+            <summary>
+            The output of light baking on the entity.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.HybridLightBakingDataSystem">
+            <summary>
+            Represents a light baking system that assigns a LightBakingOutput to the bakingOutput of the Light component.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.HybridLightBakingDataSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.DeformedEntity">
+            <summary>
+            Used by render entities to retrieve the deformed entity which
+            holds the animated data that controls the mesh deformation,
+            such as skin matrices or blend shape weights.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.PerInstanceCullingTag">
+            <summary>
+            A tag component that allows for granular per-instance culling control.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.AddLODRequirementComponents.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.AddLODRequirementComponents.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LODRequirementsUpdateSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LODRequirementsUpdateSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.CustomProbeTag">
+            <summary>
+            A tag component that marks an entity as a custom light probe.
+            </summary>
+            <remarks>
+            The ManageSHPropertiesSystem uses this to manage shadow harmonics.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.UpdateHybridChunksStructure">
+            <summary>
+            A system that renders all entities that contain both RenderMesh and LocalToWorld components.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.UpdateHybridChunksStructure.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.UpdateHybridChunksStructure.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.ChunkInstanceLodEnabled">
+            <summary>
+            Tag to enable instance LOD
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.VertexData">
+            <summary>
+            Represent vertex data for a SharedMesh buffer
+            </summary>
+            <remarks>
+            This must map between compute shaders and CPU data.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.BlendProbeTag">
+            <summary>
+            A tag component that marks an entity as a blend probe.
+            </summary>
+            <remarks>
+            The LightProbeUpdateSystem uses this to manage light probes.
+            </remarks>
+        </member>
+        <member name="T:Unity.Rendering.UpdatePresentationSystemGroup">
+            <summary>
+            Represents a system group that is used to establish the order of execution of the other systems.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.MaterialPropertyAttribute">
+            <summary>
+            Marks an IComponentData as an input to a material property on a particular shader.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.MaterialPropertyAttribute.#ctor(System.String,System.Int16)">
+            <summary>
+            Constructs a material property attribute.
+            </summary>
+            <param name="materialPropertyName">The name of the material property.</param>
+            <param name="overrideSizeGPU">An optional size of the property on the GPU.</param>
+        </member>
+        <member name="P:Unity.Rendering.MaterialPropertyAttribute.Name">
+            <summary>
+            The name of the material property.
+            </summary>
+        </member>
+        <member name="P:Unity.Rendering.MaterialPropertyAttribute.OverrideSizeGPU">
+            <summary>
+            The size of the property on the GPU.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.RenderMesh">
+             <summary>
+             Defines the mesh and rendering properties of an entity.
+             </summary>
+             <remarks>
+             Add a RenderMesh component to an entity to define its graphical attributes. For Entities Graphics to render the entity,
+             the entity must also have a LocalToWorld component from the Unity.Transforms namespace.
+            
+             The standard ECS conversion systems add RenderMesh components to entities created from GameObjects that contain
+             [UnityEngine.MeshRenderer](https://docs.unity3d.com/ScriptReference/MeshRenderer.html) and
+             [UnityEngine.MeshFilter](https://docs.unity3d.com/ScriptReference/MeshFilter.html) components.
+            
+             RenderMesh is a shared component, which means all entities of the same Archetype and same RenderMesh settings
+             are stored together in the same chunks of memory. The rendering system batches the entities together to reduce
+             the number of draw calls.
+             </remarks>
+        </member>
+        <member name="F:Unity.Rendering.RenderMesh.mesh">
+            <summary>
+            A reference to a [UnityEngine.Mesh](https://docs.unity3d.com/ScriptReference/Mesh.html) object.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.RenderMesh.material">
+            <summary>
+            A reference to a [UnityEngine.Material](https://docs.unity3d.com/ScriptReference/Material.html) object.
+            </summary>
+            <remarks>For efficient rendering, the material should enable GPU instancing.
+            For entities converted from GameObjects, this value is derived from the Materials array of the source
+            Mesh Renderer Component.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.RenderMesh.subMesh">
+            <summary>
+            The submesh index.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RenderMesh.#ctor(UnityEngine.Renderer,UnityEngine.Mesh,System.Collections.Generic.List{UnityEngine.Material},System.Int32)">
+            <summary>
+            Constructs a RenderMesh using the given Renderer, Mesh, optional list of shared Materials, and option sub-mesh index.
+            </summary>
+            <param name="renderer">The Renderer to use.</param>
+            <param name="mesh">The Mesh to use.</param>
+            <param name="sharedMaterials">An optional list of Materials to use.</param>
+            <param name="subMeshIndex">An options sub-mesh index that represents a sub-mesh in the mesh parameter.</param>
+        </member>
+        <member name="M:Unity.Rendering.RenderMesh.Equals(Unity.Rendering.RenderMesh)">
+            <summary>
+            Two RenderMesh objects are equal if their respective property values are equal.
+            </summary>
+            <param name="other">Another RenderMesh.</param>
+            <returns>True, if the properties of both RenderMeshes are equal.</returns>
+        </member>
+        <member name="M:Unity.Rendering.RenderMesh.GetHashCode">
+            <summary>
+            A representative hash code.
+            </summary>
+            <returns>A number that is guaranteed to be the same when generated from two objects that are the same.</returns>
+        </member>
+        <member name="T:Unity.Rendering.ThreadedSparseUploader">
+            <summary>
+            An unmanaged and Burst-compatible interface for SparseUploader.
+            </summary>
+            <remarks>
+            This should be created each frame by a call to SparseUploader.Begin and is later returned by a call to SparseUploader.EndAndCommit.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddUpload(System.Void*,System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Adds a new pending upload operation to execute when you call SparseUploader.EndAndCommit.
+            </summary>
+            <remarks>
+            When this operation executes, the SparseUploader copies data from the source pointer.
+            </remarks>
+            <param name="src">The source pointer of data to upload.</param>
+            <param name="size">The amount of data, in bytes, to read from the source pointer.</param>
+            <param name="offsetInBytes">The destination offset of the data in the GPU buffer.</param>
+            <param name="repeatCount">The number of times to repeat the source data in the destination buffer when uploading.</param>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddUpload``1(``0,System.Int32,System.Int32)">
+            <summary>
+            Adds a new pending upload operation to execute when you call SparseUploader.EndAndCommit.
+            </summary>
+            <remarks>
+            When this operation executes, the SparseUploader copies data from the source value.
+            </remarks>
+            <param name="val">The source data to upload.</param>
+            <param name="offsetInBytes">The destination offset of the data in the GPU buffer.</param>
+            <param name="repeatCount">The number of times to repeat the source data in the destination buffer when uploading.</param>
+            <typeparam name="T">Any unmanaged simple type.</typeparam>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddUpload``1(Unity.Collections.NativeArray{``0},System.Int32,System.Int32)">
+            <summary>
+            Adds a new pending upload operation to execute when you call SparseUploader.EndAndCommit.
+            </summary>
+            <remarks>
+            When this operation executes, the SparseUploader copies data from the source array.
+            </remarks>
+            <param name="array">The source array of data to upload.</param>
+            <param name="offsetInBytes">The destination offset of the data in the GPU buffer.</param>
+            <param name="repeatCount">The number of times to repeat the source data in the destination buffer when uploading.</param>
+            <typeparam name="T">Any unmanaged simple type.</typeparam>
+        </member>
+        <member name="T:Unity.Rendering.ThreadedSparseUploader.MatrixType">
+            <summary>
+            Options for the type of matrix to use in matrix uploads.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.ThreadedSparseUploader.MatrixType.MatrixType4x4">
+            <summary>
+            A float4x4 matrix.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.ThreadedSparseUploader.MatrixType.MatrixType3x4">
+            <summary>
+            A float3x4 matrix.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddMatrixUpload(System.Void*,System.Int32,System.Int32,Unity.Rendering.ThreadedSparseUploader.MatrixType,Unity.Rendering.ThreadedSparseUploader.MatrixType)">
+            <summary>
+            Adds a new pending matrix upload operation to execute when you call SparseUploader.EndAndCommit.
+            </summary>
+            <remarks>
+            When this operation executes, the SparseUploader copies data from the source pointer.
+            </remarks>
+            <param name="src">A pointer to a memory area that contains matrices of the type specified by srcType.</param>
+            <param name="numMatrices">The number of matrices to upload.</param>
+            <param name="offset">The destination offset of the copy part of the upload operation.</param>
+            <param name="srcType">The source matrix format.</param>
+            <param name="dstType">The destination matrix format.</param>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddMatrixUploadAndInverse(System.Void*,System.Int32,System.Int32,System.Int32,Unity.Rendering.ThreadedSparseUploader.MatrixType,Unity.Rendering.ThreadedSparseUploader.MatrixType)">
+             <summary>
+             Adds a new pending matrix upload operation to execute when you call SparseUploader.EndAndCommit.
+             </summary>
+             <remarks>
+             When this operation executes, the SparseUploader copies data from the source pointer.
+            
+             The upload operation automatically inverts matrices during the upload operation and it then stores the inverted matrices in a
+             separate offset in the GPU buffer.
+             </remarks>
+             <param name="src">A pointer to a memory area that contains matrices of the type specified by srcType.</param>
+             <param name="numMatrices">The number of matrices to upload.</param>
+             <param name="offset">The destination offset of the copy part of the upload operation.</param>
+             <param name="offsetInverse">The destination offset of the inverse part of the upload operation.</param>
+             <param name="srcType">The source matrix format.</param>
+             <param name="dstType">The destination matrix format.</param>
+        </member>
+        <member name="M:Unity.Rendering.ThreadedSparseUploader.AddStridedUpload(System.Void*,System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.Int32)">
+             <summary>
+             Adds a new pending upload operation to execute when you call SparseUploader.EndAndCommit.
+             </summary>
+             <remarks>
+             When this operation executes, the SparseUploader copies data from the source pointer.
+            
+             The upload operations reads data with the specified source stride from the source pointer and then stores the data with the specified destination stride.
+             </remarks>
+             <param name="src">The source data pointer.</param>
+             <param name="elemSize">The size of each data element to upload.</param>
+             <param name="srcStride">The stride of each data element as stored in the source pointer.</param>
+             <param name="count">The number of data elements to upload.</param>
+             <param name="dstOffset">The destination offset</param>
+             <param name="dstStride">The destination stride</param>
+        </member>
+        <member name="T:Unity.Rendering.SparseUploaderStats">
+            <summary>
+            Represents SparseUploader statistics.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.SparseUploaderStats.BytesGPUMemoryUsed">
+            <summary>
+            The amount of GPU memory the SparseUploader uses internally.
+            </summary>
+            <remarks>
+            This value doesn't include memory in the managed GPU buffer that you pass into the SparseUploader on construction,
+            or when you use SparseUploader.ReplaceBuffer.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.SparseUploaderStats.BytesGPUMemoryUploadedCurr">
+            <summary>
+            The amount of memory the SparseUploader used to upload during the current frame.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.SparseUploaderStats.BytesGPUMemoryUploadedMax">
+            <summary>
+            The highest amount of memory the SparseUploader used for upload during a previous frame.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.SparseUploader">
+            <summary>
+            Provides utility methods that you can use to upload data into GPU memory.
+            </summary>
+            <remarks>
+            To add uploads from jobs, use a ThreadedSparseUploader which you can create using SparseUploader.Begin.
+            If you add uploads from jobs, the ThreadedSparseUploader submits them to the GPU in a series of compute shader dispatches when you call SparseUploader.EndAndCommit.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.#ctor(UnityEngine.GraphicsBuffer,System.Int32)">
+            <summary>
+            Constructs a new sparse uploader with the specified buffer as the target.
+            </summary>
+            <param name="destinationBuffer">The target buffer to write uploads into.</param>
+            <param name="bufferChunkSize">The upload buffer chunk size.</param>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.Dispose">
+            <summary>
+            Disposes of the SparseUploader.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.ReplaceBuffer(UnityEngine.GraphicsBuffer,System.Boolean)">
+             <summary>
+             Replaces the destination GPU buffer with a new one.
+             </summary>
+             <remarks>
+             If the new buffer is non-null and copyFromPrevious is true, this method
+             dispatches a copy operation that copies data from the previous buffer to the new one.
+            
+             This is useful when the persistent storage buffer needs to grow.
+             </remarks>
+             <param name="buffer">The new buffer to replace the old one with.</param>
+             <param name="copyFromPrevious">Indicates whether to copy the contents of the old buffer to the new buffer.</param>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.Begin(System.Int32,System.Int32,System.Int32)">
+            <summary>
+            Begins a new upload frame and returns a new ThreadedSparseUploader that is valid until the next call to
+            SparseUploader.EndAndCommit.
+            </summary>
+            <remarks>
+            You must follow this method with a call to SparseUploader.EndAndCommit later in the frame. You must also pass
+            the returned value from a Begin method to the next SparseUploader.EndAndCommit.
+            </remarks>
+            <param name="maxDataSizeInBytes">An upper bound of total data size that you want to upload this frame.</param>
+            <param name="biggestDataUpload">The size of the largest upload operation that will occur.</param>
+            <param name="maxOperationCount">An upper bound of the total number of upload operations that will occur this frame.</param>
+            <returns>Returns a new ThreadedSparseUploader that must be passed to SparseUploader.EndAndCommit later.</returns>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.EndAndCommit(Unity.Rendering.ThreadedSparseUploader)">
+            <summary>
+            Ends an upload frame and dispatches any upload operations added to the passed in ThreadedSparseUploader.
+            </summary>
+            <param name="tsu">The ThreadedSparseUploader to consume and process upload dispatches for. You must have created this with a call to SparseUploader.Begin.</param>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.FrameCleanup">
+            <summary>
+            Cleans up internal data and recovers buffers into the free buffer pool.
+            </summary>
+            <remarks>
+            You should call this once per frame.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.SparseUploader.ComputeStats">
+            <summary>
+            Calculates statistics about the current and previous frame uploads.
+            </summary>
+            <returns>Returns a new statistics struct that contains information about the frame uploads.</returns>
+        </member>
+        <member name="M:Unity.Rendering.FrozenStaticRendererSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.MeshLODGroupComponent">
+            <summary>
+            Represents an LOD group.
+            </summary>
+            <remarks>
+            Each MeshLODGroupComponent contains multiple MeshLODComponents and can also have multiple child groups.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODGroupComponent.ParentGroup">
+            <summary>
+            The LOD parent group.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODGroupComponent.ParentMask">
+            <summary>
+            The LOD mask.
+            </summary>
+            <remarks>
+            Each bit matches with one of the 8 possible LOD levels.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODGroupComponent.LODDistances0">
+            <summary>
+            The low part of the LOD distance container.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODGroupComponent.LODDistances1">
+            <summary>
+            LOD distance container, high part.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODGroupComponent.LocalReferencePoint">
+            <summary>
+            Local reference point.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.LODGroupWorldReferencePoint">
+            <summary>
+            An unmanaged component that represents a world reference point to use for LOD group.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.LODGroupWorldReferencePoint.Value">
+            <summary>
+            The world-space x, y, and z position of the reference point.
+            </summary>
+        </member>
+        <member name="T:Unity.Rendering.MeshLODComponent">
+            <summary>
+            An unamanged component that represents a mesh LOD entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODComponent.Group">
+            <summary>
+            The parent LOD group entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODComponent.ParentGroup">
+            <summary>
+            The mesh LOD parent group.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.MeshLODComponent.LODMask">
+            <summary>
+            The LOD mask.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.LightProbeUpdateSystem.OnCreate">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Rendering.LightProbeUpdateSystem.OnUpdate">
+            <inheritdoc/>
+        </member>
+        <member name="T:Unity.Rendering.RenderMeshDescription">
+            <summary>
+            Represents how to setup and configure Entities Graphics entities.
+            </summary>
+            <remarks>
+            This is useful to convert GameObjects into entities, or to set component values on entities directly.
+            </remarks>
+        </member>
+        <member name="F:Unity.Rendering.RenderMeshDescription.FilterSettings">
+            <summary>
+            Filtering settings that determine when to draw the entity.
+            </summary>
+        </member>
+        <member name="F:Unity.Rendering.RenderMeshDescription.LightProbeUsage">
+            <summary>
+            Determines what kinds of light probes the entity uses, if any.
+            </summary>
+            <remarks>
+            This value corresponds to <see cref="F:Unity.Rendering.RenderMeshDescription.LightProbeUsage"/>.
+            </remarks>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshDescription.#ctor(UnityEngine.Renderer)">
+            <summary>
+            Construct a <see cref="T:Unity.Rendering.RenderMeshDescription"/> using defaults from the given <see cref="T:UnityEngine.Renderer"/> object.
+            </summary>
+            <param name="renderer">The renderer object (e.g. a <see cref="T:UnityEngine.MeshRenderer"/>) to get default settings from.</param>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshDescription.#ctor(UnityEngine.Rendering.ShadowCastingMode,System.Boolean,UnityEngine.MotionVectorGenerationMode,System.Int32,System.UInt32,UnityEngine.Rendering.LightProbeUsage,System.Boolean)">
+            <summary>
+            Construct a <see cref="T:Unity.Rendering.RenderMeshDescription"/> using the given values.
+            </summary>
+            <param name="shadowCastingMode">Mode for shadow casting</param>
+            <param name="receiveShadows">Mode for shadow receival</param>
+            <param name="motionVectorGenerationMode">Mode for motion vectors generation</param>
+            <param name="layer">Rendering layer</param>
+            <param name="renderingLayerMask">Rendering layer mask</param>
+            <param name="lightProbeUsage">Light probe usage mode</param>
+            <param name="staticShadowCaster">Static shadow caster flag</param>
+        </member>
+        <member name="T:Unity.Rendering.RenderMeshUtility">
+            <summary>
+            Helper class that contains static methods for populating entities
+            so that they are compatible with the Entities Graphics package.
+            </summary>
+        </member>
+        <member name="M:Unity.Rendering.RenderMeshUtility.AddComponents(Unity.Entities.Entity,Unity.Entities.EntityManager,Unity.Rendering.RenderMeshDescription@,Unity.Rendering.RenderMeshArray,Unity.Rendering.MaterialMeshInfo)">
+            <summary>
+            Set the Entities Graphics component values to render the given entity using the given description.
+            Any missing components will be added, which results in structural changes.
+            </summary>
+            <param name="entity">The entity to set the component values for.</param>
+            <param name="entityManager">The <see cref="T:Unity.Entities.EntityManager"/> used to set the component values.</param>
+            <param name="renderMeshDescription">The description that determines how the entity is to be rendered.</param>
+            <param name="renderMeshArray">The instance of the RenderMeshArray which contains mesh and material.</param>
+            <param name="materialMeshInfo">The MaterialMeshInfo used to index into renderMeshArray.</param>
+        </member>
+        <member name="F:Unity.Rendering.RenderMeshUtility.kSurfaceTypeHDRP">
+            <summary>
+            Return true if the given <see cref="T:UnityEngine.Material"/> is known to be transparent. Works
+            for materials that use HDRP or URP conventions for transparent materials.
+            </summary>
+        </member>
+        <member name="T:Unity.Entities.Graphics.RenderFilterSettings">
+            <summary>
+            Represents settings that control when to render a given entity.
+            </summary>
+            <remarks>
+            For example, you can set the layermask of the entity and also set whether to render an entity in shadow maps or motion passes.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.Layer">
+            <summary>
+            The [LayerMask](https://docs.unity3d.com/ScriptReference/LayerMask.html) index.
+            </summary>
+            <remarks>
+            For entities that Unity converts from GameObjects, this value is the same as the Layer setting of the source
+            GameObject.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.RenderingLayerMask">
+            <summary>
+            The rendering layer the entity is part of.
+            </summary>
+            <remarks>
+            This value corresponds to <see cref="P:UnityEngine.Renderer.renderingLayerMask"/>.
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.MotionMode">
+             <summary>
+             Specifies what kinds of motion vectors to generate for the entity, if any.
+             </summary>
+             <remarks>
+             This value corresponds to <see cref="P:UnityEngine.Renderer.motionVectorGenerationMode"/>.
+            
+             This value only affects render pipelines that use motion vectors.
+             </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.ShadowCastingMode">
+            <summary>
+            Specifies how the entity should cast shadows.
+            </summary>
+            <remarks>
+            For entities that Unity converts from GameObjects, this value is the same as the Cast Shadows property of the source
+            Mesh Renderer component.
+            For more information, refer to [ShadowCastingMode](https://docs.unity3d.com/ScriptReference/Rendering.ShadowCastingMode.html).
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.ReceiveShadows">
+            <summary>
+            Indicates whether to cast shadows onto the entity.
+            </summary>
+            <remarks>
+            For entities that Unity converts from GameObjects, this value is the same as the Receive Shadows property of the source
+            Mesh Renderer component.
+            This value only affects [Progressive Lightmappers](https://docs.unity3d.com/Manual/ProgressiveLightmapper.html).
+            </remarks>
+        </member>
+        <member name="F:Unity.Entities.Graphics.RenderFilterSettings.StaticShadowCaster">
+            <summary>
+            Indicates whether the entity is a static shadow caster.
+            </summary>
+            <remarks>
+            This value is important to the BatchRenderGroup.
+            </remarks>
+        </member>
+        <member name="P:Unity.Entities.Graphics.RenderFilterSettings.Default">
+            <summary>
+            Returns a new default instance of RenderFilterSettings.
+            </summary>
+        </member>
+        <member name="P:Unity.Entities.Graphics.RenderFilterSettings.IsInMotionPass">
+            <summary>
+            Indicates whether the motion mode for the current pass is not camera.
+            </summary>
+        </member>
+        <member name="M:Unity.Entities.Graphics.RenderFilterSettings.Equals(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.Graphics.RenderFilterSettings.Equals(Unity.Entities.Graphics.RenderFilterSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.Graphics.RenderFilterSettings.GetHashCode">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.Graphics.RenderFilterSettings.op_Equality(Unity.Entities.Graphics.RenderFilterSettings,Unity.Entities.Graphics.RenderFilterSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Unity.Entities.Graphics.RenderFilterSettings.op_Inequality(Unity.Entities.Graphics.RenderFilterSettings,Unity.Entities.Graphics.RenderFilterSettings)">
+            <inheritdoc/>
+        </member>
+        <member name="T:MaterialOverride">
+            <summary>
+            Represents a material override authoring component.
+            </summary>
+        </member>
+        <member name="F:MaterialOverride.overrideAsset">
+            <summary>
+            The material asset to override.
+            </summary>
+        </member>
+        <member name="F:MaterialOverride.overrideList">
+            <summary>
+            The list of overridden material properties.
+            </summary>
+        </member>
+        <member name="M:MaterialOverride.ApplyMaterialProperties">
+            <summary>
+            Applies the material properties to the renderer.
+            </summary>
+        </member>
+        <member name="M:MaterialOverride.OnValidate">
+            <inheritdoc/>
+        </member>
+        <member name="M:MaterialOverride.ClearOverrides">
+            <summary>
+            Resets the renderer.
+            </summary>
+        </member>
+        <member name="M:MaterialOverride.OnDisable">
+            <summary>
+            Calls ClearOverrides when the behaviour becomes disabled.
+            </summary>
+        </member>
+        <member name="T:MaterialOverrideAsset">
+            <summary>
+            Represents a material property override asset.
+            </summary>
+        </member>
+        <member name="T:MaterialOverrideAsset.OverrideData">
+            <summary>
+            Represents a data container of material override properties.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.name">
+            <summary>
+            The in-shader name of the material property.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.displayName">
+            <summary>
+            The display name of the material property.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.shaderName">
+            <summary>
+            The name of the sahder.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.materialName">
+            <summary>
+            The name of the material.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.type">
+            <summary>
+            The type of the shader property.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.value">
+            <summary>
+            The override value of the material property.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.OverrideData.instanceOverride">
+            <summary>
+            Instance override.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.overrideList">
+            <summary>
+            A list of material property overrides.
+            </summary>
+        </member>
+        <member name="F:MaterialOverrideAsset.material">
+            <summary>
+            The material to apply the overrides to.
+            </summary>
+        </member>
+        <member name="M:MaterialOverrideAsset.GetTypeFromAttrs(MaterialOverrideAsset.OverrideData)">
+            <summary>
+            Gets the material property type from an OverrideData object.
+            </summary>
+            <param name="overrideData">The OverrideDat to use.</param>
+            <returns>Returns the type of the material property.</returns>
+        </member>
+        <member name="M:MaterialOverrideAsset.OnValidate">
+            <inheritdoc/>
+        </member>
+    </members>
+</doc>
